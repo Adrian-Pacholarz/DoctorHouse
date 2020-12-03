@@ -3,7 +3,7 @@
     public class Specialist
     {
         public int Id { get; set; }
-        public string Type { get; set; }
+        public string SpecialistType { get; set; }
         public int? Area { get; set; }
     }
 }
