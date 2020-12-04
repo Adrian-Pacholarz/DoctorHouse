@@ -8,5 +8,6 @@ namespace DoctorHouse.Models
 
         [Column(TypeName = "nvarchar(MAX)")]
         public string Address { get; set; }
+
     }
 }

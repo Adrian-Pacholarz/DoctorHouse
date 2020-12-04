@@ -18,5 +18,8 @@ namespace DoctorHouse.Models
         public Int64 PhoneNumber { get; set; }
         public DateTime DateOfRegistration { get; set; }
 
+        public User User  { get; set; }
+        public int UserId { get; set; }
+
     }
 }

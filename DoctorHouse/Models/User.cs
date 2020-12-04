@@ -12,6 +12,7 @@ namespace DoctorHouse.Models
         [Column(TypeName = "varchar(20)")]
         public string Password { get; set; }
         public string UserRole { get; set; }
-        public int UserDetailsId { get; set; }
+        public UserDetails UserDetails { get; set; }
+
     }
 }
