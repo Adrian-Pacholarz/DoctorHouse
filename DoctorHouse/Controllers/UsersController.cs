@@ -1,4 +1,6 @@
-﻿using DoctorHouse.Models;
+﻿using AutoMapper;
+using DoctorHouse.Controllers.Resources;
+using DoctorHouse.Models;
 using DoctorHouse.Persistance;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,16 +14,21 @@ namespace DoctorHouse.Controllers
     public class UsersController : Controller
     {
         private readonly DoctorHouseDbContext context;
+        private readonly IMapper mapper;
 
-        public UsersController(DoctorHouseDbContext context)
+        public UsersController(DoctorHouseDbContext context, IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
+            
         }
 
         [HttpGet("/api/users")]
-        public async Task<IEnumerable<User>> GetUsers()
+        public async Task<IEnumerable<UserResource>> GetUsers()
         {
-            return await context.Users.ToListAsync();
+            var users = await context.Users.ToListAsync();
+
+            return mapper.Map<List<User>, List<UserResource>>(users);
         }
     }
 }
