@@ -23,19 +23,14 @@ namespace DoctorHouse.Persistance
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //one-to-one
+            //one-to-one - REQUIRED
             modelBuilder.Entity<User>()
             .HasOne(u => u.UserDetails)
             .WithOne(ud => ud.User)
             .HasForeignKey<UserDetails>(ud => ud.UserId);
+
+            //one-to-one - optional relationship
         }
     }
 }
 
-//protected override void OnModelCreating(ModelBuilder modelBuilder)
-//{
-//    //one-to-one
-//    modelBuilder.Entity<Knight>()
-//    .HasOne(k => k.Steed)
-//    .WithOne(h => h.Owner)
-//    .HasForeignKey<Horse>(h => h.KnightId);

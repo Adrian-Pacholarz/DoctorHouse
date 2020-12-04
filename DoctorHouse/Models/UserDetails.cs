@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DoctorHouse.Models
@@ -7,15 +8,22 @@ namespace DoctorHouse.Models
     {
         public int Id { get; set; }
 
+        [Required]
         [Column(TypeName = "nvarchar(20)")]
         public string FirstName { get; set; }
 
+        [Required]
         [Column(TypeName = "nvarchar(30)")]
         public string SecondName { get; set; }
 
+        [Required]
         [Column(TypeName = "nvarchar(50)")]
         public string EMail { get; set; }
+
+        [Required]
         public Int64 PhoneNumber { get; set; }
+
+        [Required]
         public DateTime DateOfRegistration { get; set; }
 
         public User User  { get; set; }
