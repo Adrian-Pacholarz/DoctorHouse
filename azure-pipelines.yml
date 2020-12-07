@@ -5,6 +5,7 @@
 
 trigger:
 - main
+- dev1
 
 pool:
   vmImage: 'windows-latest'
