@@ -30,6 +30,7 @@ namespace DoctorHouse.Persistance
             .HasForeignKey<UserDetails>(ud => ud.UserId);
 
             //one-to-one - optional relationship
+            modelBuilder.Entity<User>().ToTable("Users");
         }
     }
 }

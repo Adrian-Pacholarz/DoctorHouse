@@ -2,10 +2,8 @@
 
 namespace DoctorHouse.Models
 {
-    public class Specialist
+    public class Specialist : User
     {
-        public int Id { get; set; }
-
         [Required]
         public string SpecialistType { get; set; }
         public int? Area { get; set; }

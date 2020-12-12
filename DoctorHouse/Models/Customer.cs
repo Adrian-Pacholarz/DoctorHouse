@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DoctorHouse.Models
 {
-    public class Customer
+    public class Customer : User
     {
-        public int Id { get; set; }
 
         [Required]
         [Column(TypeName = "nvarchar(MAX)")]
