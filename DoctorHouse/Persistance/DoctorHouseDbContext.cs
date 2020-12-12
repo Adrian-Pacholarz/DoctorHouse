@@ -10,6 +10,7 @@ namespace DoctorHouse.Persistance
         public DbSet<UserDetails> UserDetails { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Specialist> Specialists { get; set; }
+        public DbSet<SpecialistCompanies> SpecialistCompanies { get; set; }
 
         public DoctorHouseDbContext(DbContextOptions<DoctorHouseDbContext> options)
         : base(options)
