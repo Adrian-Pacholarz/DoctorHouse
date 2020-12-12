@@ -17,5 +17,11 @@ namespace DoctorHouse.Models
         [Required]
         [Column(TypeName = "nvarchar(MAX)")]
         public string Description { get; set; }
+
+        public Customer Customer { get; set; }
+
+        public Specialist Specialist { get; set; }
+
+        public Company Company { get; set; }
     }
 }

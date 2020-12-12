@@ -11,6 +11,7 @@ namespace DoctorHouse.Persistance
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Specialist> Specialists { get; set; }
         public DbSet<SpecialistCompanies> SpecialistCompanies { get; set; }
+        public DbSet<Appointment> Appointment { get; set; }
 
         public DoctorHouseDbContext(DbContextOptions<DoctorHouseDbContext> options)
         : base(options)
@@ -36,6 +37,22 @@ namespace DoctorHouse.Persistance
             //many-to-many
             modelBuilder.Entity<SpecialistCompanies>()
             .HasKey(x => new { x.SpecialistId, x.CompanyId });
+
+            //zero-to-many
+            modelBuilder.Entity<Specialist>()
+                .HasMany(s => s.Appointments)
+                .WithOne(a => a.Specialist)
+                .IsRequired(false);
+
+            modelBuilder.Entity<Customer>()
+                .HasMany(c => c.Appointments)
+                .WithOne(a => a.Customer)
+                .IsRequired(false);
+
+            modelBuilder.Entity<Company>()
+                .HasMany(com => com.Appointments)
+                .WithOne(a => a.Company)
+                .IsRequired(false);
         }
     }
 }

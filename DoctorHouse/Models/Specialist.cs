@@ -12,5 +12,7 @@ namespace DoctorHouse.Models
         [Required]
         public ICollection<SpecialistCompanies> SpecialistCompanies { get; set; }
 
+        public ICollection<Appointment> Appointments { get; set; }
+
     }
 }
