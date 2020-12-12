@@ -4,70 +4,22 @@ using DoctorHouse.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DoctorHouse.Migrations
 {
     [DbContext(typeof(DoctorHouseDbContext))]
-    partial class DoctorHouseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201212220234_CreateCompanyTable")]
+    partial class CreateCompanyTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0");
-
-            modelBuilder.Entity("DoctorHouse.Models.Company", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(MAX)");
-
-                    b.Property<string>("CompanyName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(MAX)");
-
-                    b.Property<bool>("IsVerified")
-                        .HasColumnType("bit");
-
-                    b.Property<long>("NIP")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("PhoneNumber")
-                        .HasColumnType("bigint");
-
-                    b.Property<byte>("Rating")
-                        .HasColumnType("tinyint");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Company");
-                });
-
-            modelBuilder.Entity("DoctorHouse.Models.SpecialistCompanies", b =>
-                {
-                    b.Property<int>("SpecialistId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.HasKey("SpecialistId", "CompanyId");
-
-                    b.HasIndex("CompanyId");
-
-                    b.ToTable("SpecialistCompanies");
-                });
 
             modelBuilder.Entity("DoctorHouse.Models.User", b =>
                 {
@@ -160,25 +112,6 @@ namespace DoctorHouse.Migrations
                     b.HasDiscriminator().HasValue("Specialist");
                 });
 
-            modelBuilder.Entity("DoctorHouse.Models.SpecialistCompanies", b =>
-                {
-                    b.HasOne("DoctorHouse.Models.Company", "Company")
-                        .WithMany("SpecialistCompanies")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DoctorHouse.Models.Specialist", "Specialist")
-                        .WithMany("SpecialistCompanies")
-                        .HasForeignKey("SpecialistId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
-
-                    b.Navigation("Specialist");
-                });
-
             modelBuilder.Entity("DoctorHouse.Models.UserDetails", b =>
                 {
                     b.HasOne("DoctorHouse.Models.User", "User")
@@ -190,19 +123,9 @@ namespace DoctorHouse.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("DoctorHouse.Models.Company", b =>
-                {
-                    b.Navigation("SpecialistCompanies");
-                });
-
             modelBuilder.Entity("DoctorHouse.Models.User", b =>
                 {
                     b.Navigation("UserDetails");
-                });
-
-            modelBuilder.Entity("DoctorHouse.Models.Specialist", b =>
-                {
-                    b.Navigation("SpecialistCompanies");
                 });
 #pragma warning restore 612, 618
         }

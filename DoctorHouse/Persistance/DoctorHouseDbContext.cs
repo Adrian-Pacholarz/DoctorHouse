@@ -31,6 +31,10 @@ namespace DoctorHouse.Persistance
 
             //one-to-one - optional relationship
             modelBuilder.Entity<User>().ToTable("Users");
+
+            //many-to-many
+            modelBuilder.Entity<SpecialistCompanies>()
+            .HasKey(x => new { x.SpecialistId, x.CompanyId });
         }
     }
 }
