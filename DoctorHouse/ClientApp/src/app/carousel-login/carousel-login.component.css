@@ -1,0 +1,34 @@
+body {
+  background-color: #11234A;
+  padding-top: 30px;
+  color: #70FFFC;
+  margin-top:10%;
+}
+.login-form{
+    display:flex;
+ }
+
+#logo-main{
+    width: 70%;
+    min-width: 40%;
+}
+
+.right-form {
+    position: relative;
+    margin-right: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    align-content: space-around;
+}
+
+#main-text {
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size:15px;
+  font-weight: bold;
+  text-align: center;
+}
+

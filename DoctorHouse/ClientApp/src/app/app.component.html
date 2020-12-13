@@ -1,5 +1,5 @@
 <body>
-  <app-nav-menu *ngIf="router.url != '/login'"></app-nav-menu>
+  <app-nav-menu *ngIf="router.url.includes('/login') == false"></app-nav-menu>
   <div class="container">
     <router-outlet></router-outlet>
   </div>

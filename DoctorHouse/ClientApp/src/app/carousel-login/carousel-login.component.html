@@ -1,1 +1,32 @@
-<p>carousel-login works!</p>
+<body>
+  <div id="carouselLogin" class="carousel slide" data-ride="carousel" data-interval="0">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <form class="login-form">
+          <div class="left-form"><img id="logo-main" src="assets/images/logo.png" alt="First slide"></div>
+          <div class="right-form">
+            <p id="main-text">Login as customer</p>
+            <input type="text" placeholder="login" /><br />
+            <input type="text" placeholder="password" /><br />
+            <input type="submit" value="Login!" id="button" onclick="location.href = '/home'"><br>
+          </div>
+        </form>
+      </div>
+      <div class="carousel-item">
+        <form class="login-form">
+          <div class="left-form"><img id="logo-main" src="assets/images/logo.png" alt="First slide"></div>
+          <div class="right-form">
+            <p id="main-text">Login as specialist</p>
+            <input type="text" placeholder="login"> <br />
+            <input type="text" placeholder="password"> <br />
+            <input type="submit" value="Login!" id="button" onclick="location.href = '/home'">
+          </div>
+        </form>
+      </div>
+    </div>
+    <a class="carousel-control-next" href="#carouselLogin" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</body>
