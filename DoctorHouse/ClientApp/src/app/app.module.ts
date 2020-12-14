@@ -13,6 +13,8 @@ import { CarouselLoginComponent } from './carousel-login/carousel-login.componen
 import { UserLoginButtonComponent } from './user-login-button/user-login-button.component';
 import { MenuDropdownLinkComponent } from './menu-dropdown-link/menu-dropdown-link.component';
 import { NavLogoComponent } from './nav-logo/nav-logo.component';
+import { MainTextComponent } from './main-text/main-text.component';
+import { CardsComponent } from './cards/cards.component';
 
 
 @NgModule({
@@ -26,6 +28,8 @@ import { NavLogoComponent } from './nav-logo/nav-logo.component';
     UserLoginButtonComponent,
     MenuDropdownLinkComponent,
     NavLogoComponent,
+    MainTextComponent,
+    CardsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -21,9 +21,9 @@ body.dark-bg {
   background-color: #11234A;
 }
 
-body.light-bg {
-  background-color: #F2F2F2;
-}
+  body.light-bg {
+    background-color: #f8f9fa;
+  }
 
 
 code {
