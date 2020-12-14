@@ -11,6 +11,9 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { CarouselLoginComponent } from './carousel-login/carousel-login.component';
 import { UserLoginButtonComponent } from './user-login-button/user-login-button.component';
+import { MenuDropdownLinkComponent } from './menu-dropdown-link/menu-dropdown-link.component';
+import { NavLogoComponent } from './nav-logo/nav-logo.component';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +23,9 @@ import { UserLoginButtonComponent } from './user-login-button/user-login-button.
     CounterComponent,
     FetchDataComponent,
     CarouselLoginComponent,
-    UserLoginButtonComponent
+    UserLoginButtonComponent,
+    MenuDropdownLinkComponent,
+    NavLogoComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
