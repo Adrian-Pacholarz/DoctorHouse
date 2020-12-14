@@ -3,25 +3,46 @@ body {
   padding-top: 30px;
   color: #70FFFC;
   margin-top:10%;
+  margin-bottom: 10%;
 }
-.login-form{
-    display:flex;
- }
+
+.login-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
 #logo-main{
-    width: 70%;
-    min-width: 40%;
+    width: 100%;
+}
+
+.left-form {
+  display: flex;
+  margin-left: 10%;
+  margin-right: 10%;
+  width: 300px;
 }
 
 .right-form {
-    position: relative;
-    margin-right: 10%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    align-content: space-around;
+  margin-right: 10%;
+  margin-left: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  align-content: space-around;
+  width: 300px;
+}
+
+.login-images {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.image-below{
+    width: 10%;
 }
 
 #main-text {
