@@ -15,6 +15,7 @@ import { MenuDropdownLinkComponent } from './menu-dropdown-link/menu-dropdown-li
 import { NavLogoComponent } from './nav-logo/nav-logo.component';
 import { MainTextComponent } from './main-text/main-text.component';
 import { CardsComponent } from './cards/cards.component';
+import { SearchbarMainComponent } from './searchbar-main/searchbar-main.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { CardsComponent } from './cards/cards.component';
     NavLogoComponent,
     MainTextComponent,
     CardsComponent,
+    SearchbarMainComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
