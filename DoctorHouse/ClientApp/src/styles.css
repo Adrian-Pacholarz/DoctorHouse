@@ -1,5 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
-/* Provide sufficient contrast against white background */
+
 
 @import "~bootstrap/dist/css/bootstrap.css";
 
@@ -25,9 +24,6 @@ body {
 
   body.light-bg {
     background-color: #f8f9fa;
-/*    background-image: url("~/assets/images/footimage.png");
-    background-position: right bottom;
-    background-repeat: no-repeat;*/
   }
 
 
