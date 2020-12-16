@@ -15,17 +15,19 @@ a {
 
 body {
   background-color: #11234A;
+  min-width: 100%;
 }
 
-body.dark-bg {
-  background-color: #11234A;
-}
+  body.dark-bg {
+    background-color: #11234A;
+    min-width: 100%;
+  }
 
   body.light-bg {
     background-color: #f8f9fa;
-    background-image: url("~/assets/images/footimage.png");
+/*    background-image: url("~/assets/images/footimage.png");
     background-position: right bottom;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat;*/
   }
 
 
