@@ -7,6 +7,10 @@ import {FormGroup, FormControl} from '@angular/forms';
   styleUrls: ['./carousel-login.component.css']
 })
 export class CarouselLoginComponent implements OnInit {
+  form = new FormGroup({
+    username: new FormControl(),
+    password: new FormControl()
+  });
 
   constructor() { }
 
