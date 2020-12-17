@@ -53,3 +53,13 @@ body {
   text-align: center;
 }
 
+.carousel-control-next-icon {
+  background-image: none;
+}
+
+.carousel-control-next-icon::after {
+  content: '>>';
+  font-size: 45px;
+  color: #70FFFC;
+}
+

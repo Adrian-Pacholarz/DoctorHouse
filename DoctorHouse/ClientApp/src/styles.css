@@ -20,3 +20,91 @@ body {
 code {
   color: #e01a76;
 }
+
+.form-control {
+  color: #70FFFC;
+  background-color: transparent;
+  border: transparent;
+  border-bottom: 2px solid #70FFFC;
+  border-radius: 2px;
+}
+
+  .form-control:focus {
+    color: #70FFFC;
+    box-shadow: 0 0 5px #70FFFC;
+    background-color: transparent;
+    border-bottom: 2px solid #70FFFC;
+    border-radius: 2px;
+  }
+
+.form-label-group {
+  position: relative;
+  text-align: left;
+  margin: 5px;
+}
+
+
+  .form-label-group > input,
+  .form-label-group > label {
+    padding: var(--input-padding-y) var(--input-padding-x);
+  }
+
+  .form-label-group > label {
+    position: absolute;
+    top: 0;
+    left: 5px;
+    display: block;
+    width: 100%;
+    margin-bottom: 0; /* Override default `<label>` margin */
+    line-height: 1.5;
+    color: #70FFFC;
+    opacity: 0.5;
+    cursor: text; /* Match the input under the label */
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    transition: all .1s ease-in-out;
+    user-select: none;
+  }
+
+  .form-label-group input::-webkit-input-placeholder {
+    color: transparent;
+  }
+
+  .form-label-group input:-ms-input-placeholder {
+    color: transparent;
+  }
+
+  .form-label-group input::-ms-input-placeholder {
+    color: transparent;
+  }
+
+  .form-label-group input::-moz-placeholder {
+    color: transparent;
+  }
+
+  .form-label-group input::placeholder {
+    color: transparent;
+  }
+
+  .form-label-group input:not(:placeholder-shown) {
+    padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
+    padding-bottom: calc(var(--input-padding-y) / 3);
+  }
+
+    .form-label-group input:not(:placeholder-shown) ~ label {
+      padding-top: calc(var(--input-padding-y) / 3);
+      padding-bottom: calc(var(--input-padding-y) / 3);
+      font-size: 10px;
+      color: #70FFFC;
+    }
+
+form .btn {
+  color: #70FFFC;
+  border-color: #70FFFC;
+}
+
+ form .btn:hover {
+    color: #11234A;
+    font-weight: bold;
+    background-color: #70FFFC;
+  }

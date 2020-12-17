@@ -6,9 +6,15 @@
           <div class="left-form"><img id="logo-main" src="assets/images/logo1.png" alt="Doctor House for Customer" /></div>
           <div class="right-form">
             <p id="main-text">Login as customer</p>
-            <input type="text" placeholder="login" /><br />
-            <input type="text" placeholder="password" /><br />
-            <input type="submit" value="Login!" id="button" onclick="location.href = '/home'"><br />
+            <div class="form-label-group">
+              <input type="text" class="form-control" id="floatingLogin" placeholder="Username">
+              <label for="floatingLogin">Username</label>
+            </div>
+            <div class="form-label-group">
+              <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+              <label for="floatingPassword">Password</label>
+            </div>
+            <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit" onclick="location.href = '/home'">Log in!</button><br />
             <div class="login-images">
               <img class="image-below" src="assets/images/drillingmachine.png" />
               <img class="image-below" src="assets/images/paintroller.png" />
@@ -22,10 +28,16 @@
         <form class="login-form">
           <div class="left-form"><img id="logo-main" src="assets/images/logo1.png" alt="Doctor House for Specialist" /></div>
           <div class="right-form">
-            <p id="main-text">Login as specialist</p>
-            <input type="text" placeholder="login"> <br />
-            <input type="text" placeholder="password"> <br />
-            <input type="submit" value="Login!" id="button" onclick="location.href = '/home'"><br />
+            <p id="main-text">Login as customer</p>
+            <div class="form-label-group">
+              <input type="text" class="form-control" id="floatingLogin2" placeholder="Username">
+              <label for="floatingLogin2">Username</label>
+            </div>
+            <div class="form-label-group">
+              <input type="password" class="form-control" id="floatingPassword2" placeholder="Password">
+              <label for="floatingPassword2">Password</label>
+            </div>
+            <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit" onclick="location.href = '/home'">Log in!</button><br />
             <div class="login-images">
               <img class="image-below" src="assets/images/drillingmachine.png" />
               <img class="image-below" src="assets/images/paintroller.png" />
