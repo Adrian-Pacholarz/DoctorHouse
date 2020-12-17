@@ -2,8 +2,9 @@ main {
   background-color: #11234A;
   padding-top: 30px;
   color: #70FFFC;
-  margin-top:10%;
+  margin-top: 10%;
   margin-bottom: 10%;
+  box-shadow: -4px -4px 10px #70FFFC;
 }
 
 .login-form {
@@ -43,6 +44,7 @@ main {
 
 .image-below{
     width: 10%;
+    margin-bottom: 20px;
 }
 
 #main-text {
