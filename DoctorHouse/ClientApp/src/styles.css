@@ -1,5 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
-/* Provide sufficient contrast against white background */
+
 
 @import "~bootstrap/dist/css/bootstrap.css";
 
@@ -15,7 +14,19 @@ a {
 
 body {
   background-color: #11234A;
+  min-width: 100%;
 }
+
+  body.dark-bg {
+    background-color: #11234A;
+    min-width: 100%;
+  }
+
+  body.light-bg {
+    background-color: #f8f9fa;
+  }
+
+
 
 code {
   color: #e01a76;

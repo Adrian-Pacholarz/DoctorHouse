@@ -1,0 +1,49 @@
+div.footer-copyright.text-center.py-3 {
+  color: #767171;
+  background-color: #040914;
+
+}
+
+footer.page-footer.font-small.indigo {
+  background-color: #11234A;
+}
+
+div.container.text-center.text-md-left {
+  color: #11234A;
+  background-color: #11234A;
+}
+
+.footer-image-container {
+  background-color: #f8f9fa;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#footer-image {
+  display: flex;
+}
+
+
+h5.font-weight-bold.text-uppercase.mt-3.mb-4 {
+  color: #70FFFC;
+
+}
+
+a {
+  color: #70FFFC;
+  text-decoration: none;
+}
+
+  a:hover {
+    color:#CDFFFE;
+  }
+
+  a:active {
+    color: #CDFFFE;
+  }
+
+
+div.container.text-center.text-md-left {
+
+  justify-content: space-between;
+}

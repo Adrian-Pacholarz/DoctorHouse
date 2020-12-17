@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'app';
+  route : string;
   constructor(public router: Router) {
   };
 }

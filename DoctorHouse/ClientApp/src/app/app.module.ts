@@ -10,6 +10,14 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { CarouselLoginComponent } from './carousel-login/carousel-login.component';
+import { UserLoginButtonComponent } from './user-login-button/user-login-button.component';
+import { MenuDropdownLinkComponent } from './menu-dropdown-link/menu-dropdown-link.component';
+import { NavLogoComponent } from './nav-logo/nav-logo.component';
+import { MainTextComponent } from './main-text/main-text.component';
+import { CardsComponent } from './cards/cards.component';
+import { SearchbarMainComponent } from './searchbar-main/searchbar-main.component';
+import { FooterComponent } from './footer/footer.component';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +26,14 @@ import { CarouselLoginComponent } from './carousel-login/carousel-login.componen
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    CarouselLoginComponent
+    CarouselLoginComponent,
+    UserLoginButtonComponent,
+    MenuDropdownLinkComponent,
+    NavLogoComponent,
+    MainTextComponent,
+    CardsComponent,
+    SearchbarMainComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

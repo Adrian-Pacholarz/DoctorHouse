@@ -1,0 +1,10 @@
+
+.active-cyan-4 input[type=text]:focus:not([readonly]) {
+  border: 1px solid #70FFFC;
+  box-shadow: 0 0 0 1px #70FFFC;
+  max-width: 100%;
+}
+.active-cyan-3 input[type=text] {
+  border: 1px solid #70FFFC;
+  box-shadow: 0 0 0 1px #70FFFC;
+}
