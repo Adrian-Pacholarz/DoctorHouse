@@ -17,6 +17,7 @@ import { MainTextComponent } from './main-text/main-text.component';
 import { CardsComponent } from './cards/cards.component';
 import { SearchbarMainComponent } from './searchbar-main/searchbar-main.component';
 import { FooterComponent } from './footer/footer.component';
+import { DrawerSignupComponent } from './drawer-signup/drawer-signup.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { FooterComponent } from './footer/footer.component';
     CardsComponent,
     SearchbarMainComponent,
     FooterComponent,
+    DrawerSignupComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
