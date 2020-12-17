@@ -37,19 +37,19 @@ code {
     border-radius: 2px;
   }
 
-.form-label-group {
+.form-group {
   position: relative;
   text-align: left;
   margin: 5px;
 }
 
 
-  .form-label-group > input,
-  .form-label-group > label {
+  .form-group > input,
+  .form-group > label {
     padding: var(--input-padding-y) var(--input-padding-x);
   }
 
-  .form-label-group > label {
+  .form-group > label {
     position: absolute;
     top: 0;
     left: 5px;
@@ -66,32 +66,32 @@ code {
     user-select: none;
   }
 
-  .form-label-group input::-webkit-input-placeholder {
+  .form-group input::-webkit-input-placeholder {
     color: transparent;
   }
 
-  .form-label-group input:-ms-input-placeholder {
+  .form-group input:-ms-input-placeholder {
     color: transparent;
   }
 
-  .form-label-group input::-ms-input-placeholder {
+  .form-group input::-ms-input-placeholder {
     color: transparent;
   }
 
-  .form-label-group input::-moz-placeholder {
+  .form-group input::-moz-placeholder {
     color: transparent;
   }
 
-  .form-label-group input::placeholder {
+  .form-group input::placeholder {
     color: transparent;
   }
 
-  .form-label-group input:not(:placeholder-shown) {
+  .form-group input:not(:placeholder-shown) {
     padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
     padding-bottom: calc(var(--input-padding-y) / 3);
   }
 
-    .form-label-group input:not(:placeholder-shown) ~ label {
+    .form-group input:not(:placeholder-shown) ~ label {
       padding-top: calc(var(--input-padding-y) / 3);
       padding-bottom: calc(var(--input-padding-y) / 3);
       font-size: 10px;
