@@ -24,3 +24,26 @@ div.container.text-center.text-md-left {
 }
 
 
+h5.font-weight-bold.text-uppercase.mt-3.mb-4 {
+  color: #70FFFC;
+
+}
+
+a {
+  color: #70FFFC;
+  text-decoration: none;
+}
+
+  a:hover {
+    color:#CDFFFE;
+  }
+
+  a:active {
+    color: #CDFFFE;
+  }
+
+
+div.container.text-center.text-md-left {
+
+  justify-content: space-between;
+}
