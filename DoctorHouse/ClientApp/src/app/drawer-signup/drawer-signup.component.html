@@ -27,7 +27,7 @@
               <div *ngIf="repeatPassword.errors.required">Repeat the password</div>             
             </div>
           </div>
-          <div *ngIf="newPassword.valid && passwords.invalid" class="form-error">
+          <div *ngIf="newPassword.valid && repeatPassword.touched && passwords.invalid" class="form-error">
             <div *ngIf="passwords.errors.passwordsMustMatch">Passwords must match</div>
           </div>
         </div>
