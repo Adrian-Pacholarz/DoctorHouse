@@ -13,6 +13,12 @@ a {
   text-decoration: none;
 }
 
-img.card-img-top {
-  vertical-align: middle;
+div.card {
+    align-items: center;
+
 }
+
+div.card-body {
+  text-align: center;
+}
+
