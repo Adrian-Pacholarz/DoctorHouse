@@ -1,6 +1,10 @@
 
-
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
 @import "~bootstrap/dist/css/bootstrap.css";
+
+* {
+  font-family: 'Lato', sans-serif;
+}
 
 a {
   color: #0366d6;
@@ -15,6 +19,7 @@ a {
 body {
   background-color: #11234A;
   min-width: 100%;
+
 }
 
   body.dark-bg {
