@@ -1,8 +1,33 @@
-body {
-  margin-top: 20px;
-  color: #bcd0f7;
-  background: #1A233A;
+.text-primary {
+  color: #040914 !important;
+  font-size: 1.5rem;
+  text-transform: uppercase;
 }
+
+h5.user-name {
+  color: #040914 !important;
+  font-size: 1.7rem;
+  text-decoration: solid;
+}
+
+p, .user-email {
+  color: #6c757d;
+  font-size: 0.95rem;
+}
+
+#label {
+  text-transform: uppercase;
+  text-decoration: solid;
+  font-size: 0.85rem;
+  color: #4A75D6;
+}
+
+#data {
+  font-size: 1.3rem;
+  color: #040914;
+
+}
+
 
 .account-settings .user-profile {
   margin: 0 0 1rem 0;
@@ -39,12 +64,14 @@ body {
 }
 
 .card {
-  background: #272E48;
+  background: #fff;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
   border: 0;
   margin-bottom: 1rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  opacity: 1;
 }
 
 .form-control {
