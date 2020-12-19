@@ -13,3 +13,16 @@ a {
   text-decoration: none;
 }
 
+div.card {
+    align-items: center;
+
+}
+
+div.card-body {
+  text-align: center;
+}
+
+/*.card-img {
+  align-self: center;
+}
+*/
