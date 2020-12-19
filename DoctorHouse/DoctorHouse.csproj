@@ -37,15 +37,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\app\img\logo2.png" />
     <None Remove="ClientApp\src\assets\images\logo2.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="ClientApp\src\app\img\logo2.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Include="ClientApp\src\assets\images\logo2.png">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

@@ -18,6 +18,8 @@ import { CardsComponent } from './cards/cards.component';
 import { SearchbarMainComponent } from './searchbar-main/searchbar-main.component';
 import { FooterComponent } from './footer/footer.component';
 import { DrawerSignupComponent } from './drawer-signup/drawer-signup.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserProfileCardComponent } from './user-profile-card/user-profile-card.component';
 
 
 @NgModule({
@@ -36,6 +38,8 @@ import { DrawerSignupComponent } from './drawer-signup/drawer-signup.component';
     SearchbarMainComponent,
     FooterComponent,
     DrawerSignupComponent,
+    UserProfileComponent,
+    UserProfileCardComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -46,7 +50,8 @@ import { DrawerSignupComponent } from './drawer-signup/drawer-signup.component';
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
     { path: 'login', component: CarouselLoginComponent },
-    { path: 'counter', component: CounterComponent },
+      { path: 'counter', component: CounterComponent },
+      { path: 'user-profile', component: UserProfileComponent },
     { path: 'fetch-data', component: FetchDataComponent },
 ], { relativeLinkResolution: 'legacy' })
   ],

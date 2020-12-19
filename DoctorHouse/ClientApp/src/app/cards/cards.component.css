@@ -13,3 +13,6 @@ a {
   text-decoration: none;
 }
 
+img.card-img-top {
+  vertical-align: middle;
+}
