@@ -20,6 +20,8 @@ import { FooterComponent } from './footer/footer.component';
 import { DrawerSignupComponent } from './drawer-signup/drawer-signup.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserProfileCardComponent } from './user-profile-card/user-profile-card.component';
+import { UserSpecialistProfileComponent } from './user-specialist-profile/user-specialist-profile.component';
+import { UserSpecialistProfileCardComponent } from './user-specialist-profile-card/user-specialist-profile-card.component';
 
 
 @NgModule({
@@ -40,6 +42,8 @@ import { UserProfileCardComponent } from './user-profile-card/user-profile-card.
     DrawerSignupComponent,
     UserProfileComponent,
     UserProfileCardComponent,
+    UserSpecialistProfileComponent,
+    UserSpecialistProfileCardComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -52,6 +56,7 @@ import { UserProfileCardComponent } from './user-profile-card/user-profile-card.
     { path: 'login', component: CarouselLoginComponent },
       { path: 'counter', component: CounterComponent },
       { path: 'user-profile', component: UserProfileComponent },
+      { path: 'specialist-profile', component: UserSpecialistProfileComponent},
     { path: 'fetch-data', component: FetchDataComponent },
 ], { relativeLinkResolution: 'legacy' })
   ],
