@@ -16,7 +16,7 @@ namespace DoctorHouse.Models
         public string Password { get; set; }
 
         [Required]
-        public string UserRole { get; set; }
+        public bool IsAdmin { get; set; }
 
         public UserDetails UserDetails { get; set; }
     }

@@ -4,14 +4,16 @@ using DoctorHouse.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DoctorHouse.Migrations
 {
     [DbContext(typeof(DoctorHouseDbContext))]
-    partial class DoctorHouseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201228223714_RemoveUserRolesColumn")]
+    partial class RemoveUserRolesColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,8 +116,9 @@ namespace DoctorHouse.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<bool>("IsAdmin")
-                        .HasColumnType("bit");
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -128,6 +131,8 @@ namespace DoctorHouse.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
                 });
 
             modelBuilder.Entity("DoctorHouse.Models.UserDetails", b =>
@@ -174,7 +179,7 @@ namespace DoctorHouse.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(MAX)");
 
-                    b.ToTable("Customers");
+                    b.HasDiscriminator().HasValue("Customer");
                 });
 
             modelBuilder.Entity("DoctorHouse.Models.Specialist", b =>
@@ -188,7 +193,7 @@ namespace DoctorHouse.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Specialists");
+                    b.HasDiscriminator().HasValue("Specialist");
                 });
 
             modelBuilder.Entity("DoctorHouse.Models.Appointment", b =>
@@ -240,24 +245,6 @@ namespace DoctorHouse.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("DoctorHouse.Models.Customer", b =>
-                {
-                    b.HasOne("DoctorHouse.Models.User", null)
-                        .WithOne()
-                        .HasForeignKey("DoctorHouse.Models.Customer", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DoctorHouse.Models.Specialist", b =>
-                {
-                    b.HasOne("DoctorHouse.Models.User", null)
-                        .WithOne()
-                        .HasForeignKey("DoctorHouse.Models.Specialist", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("DoctorHouse.Models.Company", b =>
