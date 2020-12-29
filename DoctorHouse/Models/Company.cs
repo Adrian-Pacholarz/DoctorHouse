@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -32,10 +33,13 @@ namespace DoctorHouse.Models
         public Int64 PhoneNumber { get; set; }
 
         [Required]
-        public ICollection<SpecialistCompanies> SpecialistCompanies { get; set; }
+        public ICollection<SpecialistCompanies> Specialists { get; set; }
 
         public ICollection<Appointment> Appointments { get; set; }
 
-
+        public Company()
+        {
+            Specialists = new Collection<SpecialistCompanies>();
+        }
     }
 }

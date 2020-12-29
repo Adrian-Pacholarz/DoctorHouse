@@ -7,5 +7,7 @@
 
         public Specialist Specialist { get; set; }
         public Company Company { get; set; }
+
     }
+
 }

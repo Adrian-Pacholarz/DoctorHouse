@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace DoctorHouse.Controllers
 {
+    [Route("/api/users")]
     public class UsersController : Controller
     {
         private readonly DoctorHouseDbContext context;
@@ -22,7 +23,7 @@ namespace DoctorHouse.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet("/api/users")]
+        [HttpGet]
         public async Task<IEnumerable<UserResource>> GetUsers()
         {
             var users = await context.Users.ToListAsync();

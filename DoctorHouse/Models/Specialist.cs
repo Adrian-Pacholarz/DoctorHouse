@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,9 +12,13 @@ namespace DoctorHouse.Models
         public int? Area { get; set; }
 
         [Required]
-        public ICollection<SpecialistCompanies> SpecialistCompanies { get; set; }
+        public ICollection<SpecialistCompanies> Companies { get; set; }
 
         public ICollection<Appointment> Appointments { get; set; }
 
+        public Specialist()
+        {
+            Companies = new Collection<SpecialistCompanies>();
+        }
     }
 }
