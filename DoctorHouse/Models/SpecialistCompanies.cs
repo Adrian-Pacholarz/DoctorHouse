@@ -1,4 +1,7 @@
-﻿namespace DoctorHouse.Models
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
+namespace DoctorHouse.Models
 {
     public class SpecialistCompanies
     {
