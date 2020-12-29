@@ -16,6 +16,7 @@ namespace DoctorHouse.Mapping
             CreateMap<Specialist, SpecialistResource>();
             CreateMap<Customer, CustomerResource>();
 
+
             CreateMap<Customer, CustomerResource>()
                 .ForMember(c => c.Username, opt => opt.MapFrom(cr => cr.Username))
                 .ForMember(c => c.Password, opt => opt.MapFrom(cr => cr.Password))
