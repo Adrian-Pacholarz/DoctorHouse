@@ -10,7 +10,6 @@ namespace DoctorHouse.Models
         [Required]
         [Column(TypeName = "nvarchar(MAX)")]
         public string Address { get; set; }
-
         public ICollection<Appointment> Appointments { get; set; }
 
     }

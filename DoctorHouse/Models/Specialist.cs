@@ -19,6 +19,7 @@ namespace DoctorHouse.Models
         public Specialist()
         {
             Companies = new Collection<SpecialistCompanies>();
+            Appointments = new Collection<Appointment>();
         }
     }
 }
