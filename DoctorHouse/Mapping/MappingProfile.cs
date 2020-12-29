@@ -12,18 +12,23 @@ namespace DoctorHouse.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<UserDetails, UserDetailsResource>();
-            CreateMap<Specialist, SpecialistResource>();
+            //Models to API resources
+            CreateMap<Appointment, AppointmentResource>();
+            CreateMap<Company, CompanyResource>();
             CreateMap<Customer, CustomerResource>();
+            CreateMap<Specialist, SpecialistResource>();
+            CreateMap<SpecialistCompanies, SpecialistCompaniesResource>();
+            CreateMap<User, UserResource>();
+            CreateMap<UserDetails, UserDetailsResource>();
 
-
-            CreateMap<Customer, CustomerResource>()
+            //API resources to models
+            CreateMap<CustomerResource, Customer>()
                 .ForMember(c => c.Username, opt => opt.MapFrom(cr => cr.Username))
                 .ForMember(c => c.Password, opt => opt.MapFrom(cr => cr.Password))
                 .ForMember(c => c.IsAdmin, opt => opt.MapFrom(cr => cr.IsAdmin))
                 .ForMember(c => c.Address, opt => opt.MapFrom(cr => cr.Address));
 
-            CreateMap<Specialist, SpecialistResource>()
+            CreateMap<SpecialistResource, Specialist>()
                 .ForMember(s => s.Username, opt => opt.MapFrom(sr => sr.Username))
                 .ForMember(s => s.Password, opt => opt.MapFrom(sr => sr.Password))
                 .ForMember(s => s.Password, opt => opt.MapFrom(sr => sr.Password))
