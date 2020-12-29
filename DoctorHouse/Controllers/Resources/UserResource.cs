@@ -11,7 +11,7 @@ namespace DoctorHouse.Controllers.Resources
         public int Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public string UserRole { get; set; }
+        public bool IsAdmin { get; set; }
         public UserDetailsResource UserDetails { get; set; }
     }
 }

@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace DoctorHouse.Controllers.Resources
 {
-    public class CustomerResource
+    public class CustomerResource : UserResource
     {
-        public int Id { get; set; }
         public string Address { get; set; }
     }
 }
