@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoctorHouse.Migrations
 {
     [DbContext(typeof(DoctorHouseDbContext))]
-    [Migration("20201228235349_add-migration PopulateTable")]
-    partial class addmigrationPopulateTable
+    [Migration("20201229005628_AddGenerateOnAddValueToCustomerAndSpecialist")]
+    partial class AddGenerateOnAddValueToCustomerAndSpecialist
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
