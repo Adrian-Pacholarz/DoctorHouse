@@ -58,7 +58,6 @@ namespace DoctorHouse.Persistance
 
 
             modelBuilder.Entity<Specialist>().HasData(
-
             new Specialist { Id = 1, Username = "ElectricWizard", Password = "elelel", IsAdmin = true, SpecialistType = "Electrician", Area = 5 },
             new Specialist { Id = 3, Username = "FlowerPower", Password = "12345", IsAdmin = false, SpecialistType = "Gardener", Area = 3 }
             );
