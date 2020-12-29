@@ -53,6 +53,7 @@ namespace DoctorHouse.Persistance
                 .HasMany(com => com.Appointments)
                 .WithOne(a => a.Company)
                 .IsRequired(false);
+
         }
     }
 }

@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DoctorHouse.Models
 {
-    [Table("Specialists")]
     public class Specialist : User
     {
         [Required]

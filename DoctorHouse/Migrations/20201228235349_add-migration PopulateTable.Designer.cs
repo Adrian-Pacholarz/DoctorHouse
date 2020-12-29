@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoctorHouse.Migrations
 {
     [DbContext(typeof(DoctorHouseDbContext))]
-    [Migration("20201228225327_AddIsAdminColumnToUserTable")]
-    partial class AddIsAdminColumnToUserTable
+    [Migration("20201228235349_add-migration PopulateTable")]
+    partial class addmigrationPopulateTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -116,6 +116,10 @@ namespace DoctorHouse.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("bit");
 
@@ -130,6 +134,8 @@ namespace DoctorHouse.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
                 });
 
             modelBuilder.Entity("DoctorHouse.Models.UserDetails", b =>
@@ -176,7 +182,7 @@ namespace DoctorHouse.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(MAX)");
 
-                    b.ToTable("Customers");
+                    b.HasDiscriminator().HasValue("Customer");
                 });
 
             modelBuilder.Entity("DoctorHouse.Models.Specialist", b =>
@@ -190,7 +196,7 @@ namespace DoctorHouse.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Specialists");
+                    b.HasDiscriminator().HasValue("Specialist");
                 });
 
             modelBuilder.Entity("DoctorHouse.Models.Appointment", b =>
@@ -242,24 +248,6 @@ namespace DoctorHouse.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("DoctorHouse.Models.Customer", b =>
-                {
-                    b.HasOne("DoctorHouse.Models.User", null)
-                        .WithOne()
-                        .HasForeignKey("DoctorHouse.Models.Customer", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DoctorHouse.Models.Specialist", b =>
-                {
-                    b.HasOne("DoctorHouse.Models.User", null)
-                        .WithOne()
-                        .HasForeignKey("DoctorHouse.Models.Specialist", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("DoctorHouse.Models.Company", b =>

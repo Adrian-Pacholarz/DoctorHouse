@@ -13,9 +13,9 @@ namespace DoctorHouse.Mapping
         public MappingProfile()
         {
             CreateMap<User, UserResource>();
-            CreateMap<UserDetails, UserDetails>();
-            CreateMap<Specialist, SpecialistResource>();
-            CreateMap<Customer, CustomerResource>();
+            CreateMap<UserDetails, UserDetailsResource>();
+            //CreateMap<Specialist, SpecialistResource>();
+            //CreateMap<Customer, CustomerResource>();
         }
     }
 }

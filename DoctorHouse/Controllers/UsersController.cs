@@ -20,7 +20,6 @@ namespace DoctorHouse.Controllers
         {
             this.context = context;
             this.mapper = mapper;
-            
         }
 
         [HttpGet("/api/users")]
