@@ -56,16 +56,6 @@ namespace DoctorHouse.Persistance
                 .WithOne(a => a.Company)
                 .IsRequired(false);
 
-
-            modelBuilder.Entity<Specialist>().HasData(
-            new Specialist { Id = 1, Username = "ElectricWizard", Password = "elelel", IsAdmin = true, SpecialistType = "Electrician", Area = 5 },
-            new Specialist { Id = 3, Username = "FlowerPower", Password = "12345", IsAdmin = false, SpecialistType = "Gardener", Area = 3 }
-            );
-
-            modelBuilder.Entity<Customer>().HasData(
-            new Customer { Id = 2, Username = "Pipi", Password = "Pipi666", IsAdmin = false, Address = "Ul. Pipiego 2" },
-            new Customer { Id = 4, Username = "Piri", Password = "77777", IsAdmin = false, Address = "Os. Pipiów wielkich 666" }
-            );
         }
 
     }

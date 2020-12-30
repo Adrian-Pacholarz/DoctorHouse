@@ -35,7 +35,7 @@ namespace DoctorHouse.Mapping
                 .ForMember(s => s.SpecialistType, opt => opt.MapFrom(sr => sr.SpecialistType))
                 .ForMember(s => s.Area, opt => opt.MapFrom(sr => sr.Area))
                 .ForMember(s => s.UserDetailsId, opt => opt.MapFrom(sr => sr.UserDetailsId))
-                .ForMember(s => s.Companies, opt => opt.MapFrom(sr => sr.Companies.Select(id => new SpecialistCompanies { CompanyId = id})));
+                .ForMember(s => s.Companies, opt => opt.MapFrom(sr => sr.Companies.Select(id => new SpecialistCompanies { CompanyId = id })));
 
             CreateMap<UserResource, User>()
                 .ForMember(u => u.Username, opt => opt.MapFrom(ur => ur.Username))

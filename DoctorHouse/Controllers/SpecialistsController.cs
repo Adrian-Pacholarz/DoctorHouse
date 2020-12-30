@@ -22,12 +22,10 @@ namespace DoctorHouse.Controllers.Resources
             this.mapper = mapper;
         }
 
-
         [HttpGet]
         public async Task<IEnumerable<SpecialistResource>> GetSpecialists()
         {
             var specialists = await context.Specialists.ToListAsync();
-
             return mapper.Map<List<Specialist>, List<SpecialistResource>>(specialists);
         }
 
