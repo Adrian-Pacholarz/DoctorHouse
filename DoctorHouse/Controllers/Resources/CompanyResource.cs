@@ -13,13 +13,30 @@ namespace DoctorHouse.Controllers.Resources
     public class CompanyResource
     {
         public int Id { get; set; }
+
+        [Required]
         public Int64 NIP { get; set; }
+
+        [Required]
         public bool IsVerified { get; set; }
+
+        [Required]
+        [StringLength(30)]
         public string CompanyName { get; set; }
+
+        [Required]
+        [StringLength(255)]
         public string Address { get; set; }
         public byte Rating { get; set; }
+
+        [Required]
+        [StringLength(255)]
         public string Description { get; set; }
+
+        [Required]
         public Int64 PhoneNumber { get; set; }
+
+        [Required]
         public ICollection<int> Specialists { get; set; }
         public ICollection<int> Appointments { get; set; }
 

@@ -33,6 +33,9 @@ namespace DoctorHouse.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCustomer([FromBody] CustomerResource customerResource)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var customer = mapper.Map<CustomerResource, Customer>(customerResource);
 
             context.Customers.Add(customer);

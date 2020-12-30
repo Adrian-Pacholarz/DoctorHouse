@@ -14,7 +14,7 @@ namespace DoctorHouse.Models
 
         [Required]
         [Column(TypeName = "nvarchar(30)")]
-        public string SecondName { get; set; }
+        public string LastName { get; set; }
 
         [Required]
         [Column(TypeName = "nvarchar(50)")]
