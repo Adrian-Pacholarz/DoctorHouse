@@ -52,7 +52,13 @@ namespace DoctorHouse.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var customer = await context.Customers.FindAsync(id);
+            var customer = await context.Customers.Include(c => c.Appointments).SingleOrDefaultAsync(c => c.Id == id);
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
             mapper.Map<CustomerResource, Customer>(customerResource, customer);
 
             await context.SaveChangesAsync();
@@ -60,6 +66,37 @@ namespace DoctorHouse.Controllers
             var result = mapper.Map<Customer, CustomerResource>(customer);
 
             return Ok(result);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCustomer(int id)
+        {
+            var customer = await context.Customers.FindAsync(id);
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            context.Remove(customer);
+            await context.SaveChangesAsync();
+
+            return Ok(id);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCustomer(int id)
+        {
+            var customer = await context.Customers.Include(c => c.Appointments).SingleOrDefaultAsync(c => c.Id == id);
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            var customerResource = mapper.Map<Customer, CustomerResource>(customer);
+            return Ok(customerResource);
+
         }
     }
 }

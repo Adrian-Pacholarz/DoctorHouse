@@ -12,14 +12,13 @@ namespace DoctorHouse.Mapping
     {
         public MappingProfile()
         {
-            //Models to API resources
+            //DOMAIN TO API RESOURCES
             CreateMap<Appointment, AppointmentResource>();
             CreateMap<Company, CompanyResource>();
             CreateMap<Specialist, SpecialistResource>();
             CreateMap<SpecialistCompanies, SpecialistCompaniesResource>();
             CreateMap<User, UserResource>();
             CreateMap<UserDetails, UserDetailsResource>();
-
 
             //Customer
             CreateMap<Customer, CustomerResource>()
@@ -40,10 +39,12 @@ namespace DoctorHouse.Mapping
             .ForMember(sr => sr.Companies, opt => opt.MapFrom(s => s.Companies.Select(sc => sc.CompanyId))); //many-to-many relationship
 
 
-            //API resources to models
+
+            //API RESOURCES TO DOMAIN
             //Customer
             CreateMap<CustomerResource, Customer>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.Appointments, opt => opt.Ignore())
                 .ForMember(c => c.DetailsId, opt => opt.Ignore())
                 .ForMember(c => c.Username, opt => opt.MapFrom(cr => cr.Username))
                 .ForMember(c => c.Password, opt => opt.MapFrom(cr => cr.Password))
@@ -51,17 +52,39 @@ namespace DoctorHouse.Mapping
                 .ForMember(c => c.Address, opt => opt.MapFrom(cr => cr.Address))
                 .ForMember(c => c.DetailsId, opt => opt.MapFrom(cr => cr.DetailsId)); //one-to-one relationship
 
+
             //Specialist
             CreateMap<SpecialistResource, Specialist>()
                 .ForMember(s => s.Id, opt => opt.Ignore())
                 .ForMember(s => s.DetailsId, opt => opt.Ignore())
+                .ForMember(s => s.Appointments, opt => opt.Ignore())
+                .ForMember(s => s.Companies, opt => opt.Ignore())
                 .ForMember(s => s.Username, opt => opt.MapFrom(sr => sr.Username))
                 .ForMember(s => s.Password, opt => opt.MapFrom(sr => sr.Password))
                 .ForMember(s => s.IsAdmin, opt => opt.MapFrom(sr => sr.IsAdmin))
                 .ForMember(s => s.SpecialistType, opt => opt.MapFrom(sr => sr.SpecialistType))
                 .ForMember(s => s.Area, opt => opt.MapFrom(sr => sr.Area))
                 .ForMember(s => s.DetailsId, opt => opt.MapFrom(sr => sr.DetailsId)) //one-to-one relationship
-                .ForMember(s => s.Companies, opt => opt.MapFrom(sr => sr.Companies.Select(id => new SpecialistCompanies { CompanyId = id }))); //many-to-many relationship
+                .AfterMap((sr, s) =>
+                {
+                    //Remove companies
+                    var removedCompanies = s.Companies.Where(c => !sr.Companies.Contains(c.CompanyId));
+
+                    foreach (var c in removedCompanies)
+                    {
+                        s.Companies.Remove(c);
+                    }
+
+                    //Add new companies
+                    var addedCompanies = sr.Companies.Where(id => !s.Companies.Any(c => c.CompanyId == id)).Select(id => new SpecialistCompanies { CompanyId = id});
+
+                    foreach (var c in addedCompanies)
+                    {
+                        s.Companies.Add(c);
+                    }
+
+                }); //many-to-many relationship
+
 
             //User
             CreateMap<UserResource, User>()
