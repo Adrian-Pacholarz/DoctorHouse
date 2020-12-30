@@ -32,6 +32,7 @@ namespace DoctorHouse.Mapping
             CreateMap<SpecialistResource, Specialist>()
                 .ForMember(s => s.Username, opt => opt.MapFrom(sr => sr.Username))
                 .ForMember(s => s.Password, opt => opt.MapFrom(sr => sr.Password))
+                .ForMember(s => s.IsAdmin, opt => opt.MapFrom(sr => sr.IsAdmin))
                 .ForMember(s => s.SpecialistType, opt => opt.MapFrom(sr => sr.SpecialistType))
                 .ForMember(s => s.Area, opt => opt.MapFrom(sr => sr.Area))
                 .ForMember(s => s.UserDetailsId, opt => opt.MapFrom(sr => sr.UserDetailsId))
