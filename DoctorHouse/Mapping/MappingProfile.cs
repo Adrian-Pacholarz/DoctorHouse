@@ -27,7 +27,7 @@ namespace DoctorHouse.Mapping
                 .ForMember(c => c.Password, opt => opt.MapFrom(cr => cr.Password))
                 .ForMember(c => c.IsAdmin, opt => opt.MapFrom(cr => cr.IsAdmin))
                 .ForMember(c => c.Address, opt => opt.MapFrom(cr => cr.Address))
-                .ForMember(c => c.UserDetailsId, opt => opt.MapFrom(cr => cr.UserDetailsId));
+                .ForMember(c => c.Details, opt => opt.MapFrom(cr => cr.Details));
 
             CreateMap<SpecialistResource, Specialist>()
                 .ForMember(s => s.Username, opt => opt.MapFrom(sr => sr.Username))
@@ -35,13 +35,13 @@ namespace DoctorHouse.Mapping
                 .ForMember(s => s.IsAdmin, opt => opt.MapFrom(sr => sr.IsAdmin))
                 .ForMember(s => s.SpecialistType, opt => opt.MapFrom(sr => sr.SpecialistType))
                 .ForMember(s => s.Area, opt => opt.MapFrom(sr => sr.Area))
-                .ForMember(s => s.UserDetailsId, opt => opt.MapFrom(sr => sr.UserDetailsId))
+                .ForMember(s => s.Details, opt => opt.MapFrom(sr => sr.Details))
                 .ForMember(s => s.Companies, opt => opt.MapFrom(sr => sr.Companies.Select(id => new SpecialistCompanies { CompanyId = id })));
 
             CreateMap<UserResource, User>()
                 .ForMember(u => u.Username, opt => opt.MapFrom(ur => ur.Username))
                 .ForMember(u => u.Password, opt => opt.MapFrom(ur => ur.Password))
-                .ForMember(u => u.UserDetailsId, opt => opt.MapFrom(u => u.UserDetailsId))
+                .ForMember(u => u.Details, opt => opt.MapFrom(u => u.Details))
                 .ForMember(u => u.IsAdmin, opt => opt.MapFrom(ur => ur.IsAdmin));
         }
     }
