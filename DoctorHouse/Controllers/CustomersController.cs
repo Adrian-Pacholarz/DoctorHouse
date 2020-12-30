@@ -31,10 +31,16 @@ namespace DoctorHouse.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateCustomer([FromBody] CustomerResource customerResource)
+        public async Task<IActionResult> CreateCustomer([FromBody] CustomerResource customerResource)
         {
             var customer = mapper.Map<CustomerResource, Customer>(customerResource);
-            return Ok(customer);
+
+            context.Customers.Add(customer);
+            await context.SaveChangesAsync();
+
+            var result = mapper.Map<Customer, CustomerResource>(customer);
+
+            return Ok(result);
         }
     }
 }
