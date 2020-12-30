@@ -13,6 +13,8 @@ namespace DoctorHouse.Controllers.Resources
         [StringLength(30)]
         public string SpecialistType { get; set; }
 
+
+        [Range(1, 30)]
         public int Area { get; set; }
 
         [Required]
