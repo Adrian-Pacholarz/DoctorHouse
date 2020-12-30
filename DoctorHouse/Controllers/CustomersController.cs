@@ -45,5 +45,21 @@ namespace DoctorHouse.Controllers
 
             return Ok(result);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCustomer(int id, [FromBody] CustomerResource customerResource)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var customer = await context.Customers.FindAsync(id);
+            mapper.Map<CustomerResource, Customer>(customerResource, customer);
+
+            await context.SaveChangesAsync();
+
+            var result = mapper.Map<Customer, CustomerResource>(customer);
+
+            return Ok(result);
+        }
     }
 }
