@@ -53,6 +53,7 @@ namespace DoctorHouse.Controllers
                 return BadRequest(ModelState);
 
             var customer = await context.Customers.Include(c => c.Appointments).SingleOrDefaultAsync(c => c.Id == id);
+            customer.Details.DateOfRegistration = DateTime.Now;
 
             if (customer == null)
             {
