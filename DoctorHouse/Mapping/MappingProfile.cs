@@ -49,8 +49,7 @@ namespace DoctorHouse.Mapping
                 .ForMember(c => c.Username, opt => opt.MapFrom(cr => cr.Username))
                 .ForMember(c => c.Password, opt => opt.MapFrom(cr => cr.Password))
                 .ForMember(c => c.IsAdmin, opt => opt.MapFrom(cr => cr.IsAdmin))
-                .ForMember(c => c.Address, opt => opt.MapFrom(cr => cr.Address))
-                .ForMember(c => c.DetailsId, opt => opt.MapFrom(cr => cr.DetailsId)); //one-to-one relationship
+                .ForMember(c => c.Address, opt => opt.MapFrom(cr => cr.Address));
 
 
             //Specialist
@@ -64,7 +63,6 @@ namespace DoctorHouse.Mapping
                 .ForMember(s => s.IsAdmin, opt => opt.MapFrom(sr => sr.IsAdmin))
                 .ForMember(s => s.SpecialistType, opt => opt.MapFrom(sr => sr.SpecialistType))
                 .ForMember(s => s.Area, opt => opt.MapFrom(sr => sr.Area))
-                .ForMember(s => s.DetailsId, opt => opt.MapFrom(sr => sr.DetailsId)) //one-to-one relationship
                 .AfterMap((sr, s) =>
                 {
                     //Remove companies
@@ -92,7 +90,6 @@ namespace DoctorHouse.Mapping
                 .ForMember(u => u.DetailsId, opt => opt.Ignore())
                 .ForMember(u => u.Username, opt => opt.MapFrom(ur => ur.Username))
                 .ForMember(u => u.Password, opt => opt.MapFrom(ur => ur.Password))
-                .ForMember(u => u.DetailsId, opt => opt.MapFrom(u => u.DetailsId)) //one-to-one relationship
                 .ForMember(u => u.IsAdmin, opt => opt.MapFrom(ur => ur.IsAdmin));
         }
     }
