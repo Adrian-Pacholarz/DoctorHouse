@@ -25,8 +25,6 @@ namespace DoctorHouse.Controllers.Resources
         [Required]
         [Range(100000000, 999999999)]
         public Int64 PhoneNumber { get; set; }
-
-
         public int UserId { get; set; }
     }
 }

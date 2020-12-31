@@ -37,6 +37,7 @@ namespace DoctorHouse.Controllers
                 return BadRequest(ModelState);
 
             var customer = mapper.Map<CustomerResource, Customer>(customerResource);
+            customer.Details.DateOfRegistration = DateTime.Now;
 
             context.Customers.Add(customer);
             await context.SaveChangesAsync();
@@ -52,8 +53,10 @@ namespace DoctorHouse.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var customer = await context.Customers.Include(c => c.Appointments).SingleOrDefaultAsync(c => c.Id == id);
-            customer.Details.DateOfRegistration = DateTime.Now;
+            var customer = await context.Customers
+                .Include(c => c.Appointments)
+                .Include(c => c.Details)
+                .SingleOrDefaultAsync(c => c.Id == id);
 
             if (customer == null)
             {
@@ -63,7 +66,6 @@ namespace DoctorHouse.Controllers
             mapper.Map<CustomerResource, Customer>(customerResource, customer);
 
             await context.SaveChangesAsync();
-
             var result = mapper.Map<Customer, CustomerResource>(customer);
 
             return Ok(result);

@@ -30,6 +30,7 @@ namespace DoctorHouse.Persistance
             modelBuilder.Entity<Customer>().Property(c => c.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<UserDetails>().Property(ud => ud.Id).ValueGeneratedOnAdd();
 
+
             //one-to-one - REQUIRED
             modelBuilder.Entity<User>()
             .HasOne(u => u.Details)
