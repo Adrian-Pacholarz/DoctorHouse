@@ -13,12 +13,8 @@ namespace DoctorHouse.Mapping
         public MappingProfile()
         {
             //DOMAIN TO API RESOURCES
-            CreateMap<Appointment, AppointmentResource>();
             CreateMap<Company, CompanyResource>();
-            CreateMap<Specialist, SpecialistResource>();
             CreateMap<SpecialistCompanies, SpecialistCompaniesResource>();
-            CreateMap<User, UserResource>();
-            CreateMap<UserDetails, UserDetailsResource>();
 
             //Customer
             CreateMap<Customer, CustomerResource>()
@@ -46,6 +42,27 @@ namespace DoctorHouse.Mapping
                 .ForMember(ur => ur.Password, opt => opt.MapFrom(u => u.Password)) // to be removed for security reasons?
                 .ForMember(ur => ur.IsAdmin, opt => opt.MapFrom(u => u.IsAdmin))
                 .ForMember(ur => ur.Details, opt => opt.MapFrom(u => u.Details));
+
+            //Appointment
+            CreateMap<Appointment, AppointmentResource>()
+                .ForMember(ar => ar.AppointmentDate, opt => opt.MapFrom(a => a.AppointmentDate))
+                .ForMember(ar => ar.Status, opt => opt.MapFrom(a => a.Status))
+                .ForMember(ar => ar.Description, opt => opt.MapFrom(a => a.Description))
+                .ForMember(ar => ar.CustomerId, opt => opt.MapFrom(a => a.Customer.Id))
+                .ForMember(ar => ar.SpecialistId, opt => opt.MapFrom(a => a.Specialist.Id))
+                .ForMember(ar => ar.CompanyId, opt => opt.MapFrom(a => a.Company.Id));
+
+            //Company
+            CreateMap<Company, CompanyResource>()
+                .ForMember(cr => cr.NIP, opt => opt.MapFrom(c => c.NIP))
+                .ForMember(cr => cr.IsVerified, opt => opt.MapFrom(c => c.IsVerified))
+                .ForMember(cr => cr.CompanyName, opt => opt.MapFrom(c => c.CompanyName))
+                .ForMember(cr => cr.Address, opt => opt.MapFrom(c => c.Address))
+                .ForMember(cr => cr.Rating, opt => opt.MapFrom(c => c.Rating))
+                .ForMember(cr => cr.Description, opt => opt.MapFrom(c => c.Description))
+                .ForMember(cr => cr.PhoneNumber, opt => opt.MapFrom(c => c.PhoneNumber))
+                .ForMember(cr => cr.Specialists, opt => opt.MapFrom(c => c.Specialists.Select(c => c.SpecialistId)))
+                .ForMember(cr => cr.Appointments, opt => opt.MapFrom(c => c.Appointments.Select(c => c.Id)));
 
 
             //API RESOURCES TO DOMAIN
@@ -110,6 +127,29 @@ namespace DoctorHouse.Mapping
                 .ForMember(u => u.Password, opt => opt.MapFrom(ur => ur.Password))
                 .ForMember(u => u.IsAdmin, opt => opt.MapFrom(ur => ur.IsAdmin))
                 .ForMember(u => u.Details, opt => opt.MapFrom(ur => ur.Details));
+
+            //Appointment
+            CreateMap<AppointmentResource, Appointment>()
+                .ForMember(a => a.Id, opt => opt.Ignore())
+                .ForMember(a => a.AppointmentDate, opt => opt.MapFrom(ar => ar.AppointmentDate))
+                .ForMember(a => a.Status, opt => opt.MapFrom(ar => ar.Status))
+                .ForMember(a => a.Description, opt => opt.MapFrom(ar => ar.Description))
+                .ForMember(a => a.Customer, opt => opt.Ignore())
+                .ForMember(a => a.Specialist, opt => opt.Ignore())
+                .ForMember(a => a.Company, opt => opt.Ignore());
+
+            //Company
+            CreateMap<CompanyResource, Company>()
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.NIP, opt => opt.MapFrom(cr => cr.NIP))
+                .ForMember(c => c.IsVerified, opt => opt.MapFrom(cr => cr.IsVerified))
+                .ForMember(c => c.CompanyName, opt => opt.MapFrom(cr => cr.CompanyName))
+                .ForMember(c => c.Address, opt => opt.MapFrom(cr => cr.Address))
+                .ForMember(c => c.Rating, opt => opt.MapFrom(cr => cr.Rating))
+                .ForMember(c => c.Description, opt => opt.MapFrom(cr => cr.Description))
+                .ForMember(c => c.PhoneNumber, opt => opt.MapFrom(cr => cr.PhoneNumber))
+                .ForMember(c => c.Specialists, opt => opt.Ignore())
+                .ForMember(c => c.Appointments, opt => opt.Ignore());
         }
     }
 }
