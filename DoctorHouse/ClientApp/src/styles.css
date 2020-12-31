@@ -132,3 +132,17 @@ form .btn {
      opacity: 0.8;
  }
 
+.form-group input:-webkit-autofill,
+.form-group input:-webkit-autofill:hover,
+.form-group input:-webkit-autofill:focus,
+.form-group textarea:-webkit-autofill,
+.form-group textarea:-webkit-autofill:hover,
+.form-group textarea:-webkit-autofill:focus,
+.form-group select:-webkit-autofill,
+.form-group select:-webkit-autofill:hover,
+.form-group select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #70FFFC;
+  -webkit-box-shadow: 0 0 5px #70FFFC;
+  -webkit-background-clip: text;
+  caret-color: #70FFFC;
+}
