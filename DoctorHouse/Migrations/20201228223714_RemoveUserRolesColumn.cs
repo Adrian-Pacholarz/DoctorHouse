@@ -9,9 +9,15 @@ namespace DoctorHouse.Migrations
             migrationBuilder.DropColumn(
                 name: "UserRole",
                 table: "Users");
+
+            migrationBuilder.AddColumn<bool>(
+                name: "IsAdmin",
+                table: "Users",
+                type: "bit",
+                nullable: false);
         }
 
-        protected override void Down(MigrationBuilder migrationBuilder)
+    protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
                 name: "UserRole",
@@ -19,6 +25,10 @@ namespace DoctorHouse.Migrations
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "");
+
+            migrationBuilder.DropColumn(
+                name: "IsAdmin",
+                table: "Users");
         }
     }
 }
