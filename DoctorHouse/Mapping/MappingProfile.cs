@@ -49,6 +49,15 @@ namespace DoctorHouse.Mapping
 
 
             //API RESOURCES TO DOMAIN
+            //UserDetails
+            CreateMap<UserDetailsResource, UserDetails>()
+                .ForMember(ud => ud.Id, opt => opt.Ignore())
+                .ForMember(ud => ud.UserId, opt => opt.Ignore())
+                .ForMember(ud => ud.FirstName, opt => opt.MapFrom(udr => udr.FirstName))
+                .ForMember(ud => ud.LastName, opt => opt.MapFrom(udr => udr.LastName))
+                .ForMember(ud => ud.EMail, opt => opt.MapFrom(udr => udr.EMail))
+                .ForMember(ud => ud.PhoneNumber, opt => opt.MapFrom(udr => udr.PhoneNumber));
+
             //Customer
             CreateMap<CustomerResource, Customer>()
                 .ForMember(c => c.Id, opt => opt.Ignore())

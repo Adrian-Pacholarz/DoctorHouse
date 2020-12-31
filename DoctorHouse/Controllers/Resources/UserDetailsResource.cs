@@ -23,7 +23,7 @@ namespace DoctorHouse.Controllers.Resources
         public string EMail { get; set; }
 
         [Required]
-        [Range(9, 9)]
+        [Range(100000000, 999999999)]
         public Int64 PhoneNumber { get; set; }
 
 
