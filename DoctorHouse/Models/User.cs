@@ -15,6 +15,5 @@ namespace DoctorHouse.Models
         [Required]
         public bool IsAdmin { get; set; }
         public UserDetails Details { get; set; }
-        public int DetailsId { get; set; }
     }
 }
