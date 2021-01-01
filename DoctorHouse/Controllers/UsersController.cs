@@ -31,5 +31,19 @@ namespace DoctorHouse.Controllers
 
             return mapper.Map<List<User>, List<UserResource>>(users);
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUser(int id)
+        {
+            var user = await context.Users.Include(u => u.Details).SingleOrDefaultAsync(u => u.Id == id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var userResource = mapper.Map<User, UserResource>(user);
+            return Ok(userResource);
+        }
     }
 }
