@@ -129,7 +129,7 @@ namespace DoctorHouse.Mapping
             //Appointment
             CreateMap<AppointmentResource, Appointment>()
                 .ForMember(a => a.Id, opt => opt.Ignore())
-                .ForMember(a => a.AppointmentDate, opt => opt.Ignore())
+                .ForMember(a => a.AppointmentDate, opt => opt.MapFrom(ar => ar.AppointmentDate))
                 .ForMember(a => a.Status, opt => opt.MapFrom(ar => ar.Status))
                 .ForMember(a => a.Description, opt => opt.MapFrom(ar => ar.Description))
                 .ForMember(a => a.Customer.Id, opt => opt.MapFrom(ar => ar.CustomerId))
