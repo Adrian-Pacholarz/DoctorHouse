@@ -62,6 +62,8 @@ namespace DoctorHouse.Controllers.Resources
                 return BadRequest(ModelState);
 
             var specialist = mapper.Map<SpecialistResource, Specialist>(specialistResource);
+            specialist.Details.DateOfRegistration = DateTime.Now;
+
             context.Add(specialist);
             await context.SaveChangesAsync();
 
