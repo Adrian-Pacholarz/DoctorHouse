@@ -95,7 +95,6 @@ namespace DoctorHouse.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCustomer(int id)
         {
-            //var customer = await context.Customers.Include(c => c.Appointments).SingleOrDefaultAsync(c => c.Id == id);
             var customer = await context.Customers
                 .Include(c => c.Appointments)
                 .Include(c => c.Details)
