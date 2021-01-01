@@ -31,6 +31,21 @@ namespace DoctorHouse.Controllers
             return mapper.Map<List<Company>, List<CompanyResource>>(companies);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCompany(int id)
+        {
+            var company = await context.Companies.Include(c => c.Specialists).Include(c => c.Appointments).SingleOrDefaultAsync(c => c.Id == id);
+
+            if (company == null)
+            {
+                return NotFound();
+            }
+
+            var companyResource = mapper.Map<Company, CompanyResource>(company);
+            return Ok(companyResource);
+
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateCompany([FromBody] CompanyResource companyResource)
         {
