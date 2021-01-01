@@ -23,7 +23,7 @@ namespace DoctorHouse.Mapping
             //Customer
             CreateMap<Customer, CustomerResource>()
                 .ForMember(cr => cr.Username, opt => opt.MapFrom(c => c.Username))
-                .ForMember(cr => cr.Password, opt => opt.MapFrom(c => c.Password)) // to be removed for security reasons?
+                .ForMember(cr => cr.Password, opt => opt.MapFrom(c => c.Password))
                 .ForMember(cr => cr.IsAdmin, opt => opt.MapFrom(c => c.IsAdmin))
                 .ForMember(cr => cr.Appointments, opt => opt.MapFrom(c => c.Appointments))
                 .ForMember(cr => cr.Details, opt => opt.MapFrom(c => c.Details))
@@ -32,7 +32,7 @@ namespace DoctorHouse.Mapping
             //Specialist
             CreateMap<Specialist, SpecialistResource>()
             .ForMember(sr => sr.Username, opt => opt.MapFrom(s => s.Username))
-            .ForMember(sr => sr.Password, opt => opt.MapFrom(s => s.Password)) // to be removed for security reasons?
+            .ForMember(sr => sr.Password, opt => opt.MapFrom(s => s.Password))
             .ForMember(sr => sr.IsAdmin, opt => opt.MapFrom(s => s.IsAdmin))
             .ForMember(sr => sr.SpecialistType, opt => opt.MapFrom(s => s.SpecialistType))
             .ForMember(sr => sr.Appointments, opt => opt.MapFrom(s => s.Appointments))
