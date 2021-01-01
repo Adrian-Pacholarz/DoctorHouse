@@ -34,9 +34,28 @@ namespace DoctorHouse.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCompany([FromBody] CompanyResource companyResource)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var company = mapper.Map<CompanyResource, Company>(companyResource);
 
             context.Companies.Add(company);
+            await context.SaveChangesAsync();
+
+            var result = mapper.Map<Company, CompanyResource>(company);
+
+            return Ok(result);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCompany(int id, [FromBody] CompanyResource companyResource)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var company = await context.Companies.Include(c => c.Specialists).SingleOrDefaultAsync(c => c.Id == id);          
+            mapper.Map<CompanyResource, Company>(companyResource, company);
+
             await context.SaveChangesAsync();
 
             var result = mapper.Map<Company, CompanyResource>(company);

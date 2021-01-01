@@ -146,8 +146,35 @@ namespace DoctorHouse.Mapping
                 .ForMember(c => c.Rating, opt => opt.MapFrom(cr => cr.Rating))
                 .ForMember(c => c.Description, opt => opt.MapFrom(cr => cr.Description))
                 .ForMember(c => c.PhoneNumber, opt => opt.MapFrom(cr => cr.PhoneNumber))
-                .ForMember(c => c.Specialists, opt => opt.MapFrom(cr => cr.Specialists.Select(id => new SpecialistCompanies { SpecialistId = id })))
-                .ForMember(c => c.Appointments, opt => opt.Ignore());
+                .ForMember(c => c.Specialists, opt => opt.Ignore())
+                .ForMember(c => c.Appointments, opt => opt.Ignore())
+                .AfterMap((cr, c) =>
+                {
+
+                    var removedSpecialists = new List<SpecialistCompanies>();
+
+                    foreach (var s in c.Specialists)
+                    {
+                        if (!cr.Specialists.Contains(s.SpecialistId))
+                        {
+                            removedSpecialists.Add(s);
+                        }                      
+                    }
+                        
+                    foreach (var s in removedSpecialists)
+                    {
+                        c.Specialists.Remove(s);
+                    }
+                        
+                    foreach (var sId in cr.Specialists)
+                    { 
+                        if (!c.Specialists.Any(s => s.SpecialistId == sId))
+                        {
+                            c.Specialists.Add(new SpecialistCompanies { SpecialistId = sId });
+                        }
+                    }
+
+                });
         }
     }
 }
