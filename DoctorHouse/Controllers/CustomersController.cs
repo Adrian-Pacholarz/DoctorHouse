@@ -26,7 +26,9 @@ namespace DoctorHouse.Controllers
         [HttpGet]
         public async Task<IEnumerable<CustomerResource>> GetCustomers()
         {
-            var customers = await context.Customers.ToListAsync();
+            var customers = await context.Customers.Include(c => c.Details).Include(c => c.Appointments).ToListAsync();
+
+
             return mapper.Map<List<Customer>, List<CustomerResource>>(customers);
         }
 
@@ -74,7 +76,10 @@ namespace DoctorHouse.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomer(int id)
         {
-            var customer = await context.Customers.FindAsync(id);
+            var customer = await context.Customers
+                .Include(c => c.Appointments)
+                .Include(c => c.Details)
+                .SingleOrDefaultAsync(c => c.Id == id);
 
             if (customer == null)
             {
@@ -90,7 +95,10 @@ namespace DoctorHouse.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCustomer(int id)
         {
-            var customer = await context.Customers.Include(c => c.Appointments).SingleOrDefaultAsync(c => c.Id == id);
+            var customer = await context.Customers
+                .Include(c => c.Appointments)
+                .Include(c => c.Details)
+                .SingleOrDefaultAsync(c => c.Id == id);
 
             if (customer == null)
             {
