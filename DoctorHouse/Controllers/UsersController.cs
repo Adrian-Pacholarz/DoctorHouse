@@ -24,12 +24,14 @@ namespace DoctorHouse.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<UserResource>> GetUsers()
+        public async Task<IActionResult> GetUsers()
         {
 
             var users = await context.Users.Include(u => u.Details).ToListAsync();
 
-            return mapper.Map<List<User>, List<UserResource>>(users);
+            var userResources = mapper.Map<List<User>, List<UserResource>>(users);
+
+            return Ok(userResources);
         }
 
         [HttpGet("{id}")]

@@ -24,12 +24,12 @@ namespace DoctorHouse.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<CustomerResource>> GetCustomers()
+        public async Task<IActionResult> GetCustomers()
         {
             var customers = await context.Customers.Include(c => c.Details).Include(c => c.Appointments).ToListAsync();
+            var customersResources = mapper.Map<List<Customer>, List<CustomerResource>>(customers);
 
-
-            return mapper.Map<List<Customer>, List<CustomerResource>>(customers);
+            return Ok(customersResources);
         }
 
         [HttpPost]
