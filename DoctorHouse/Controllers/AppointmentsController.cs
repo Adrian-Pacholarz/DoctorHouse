@@ -27,14 +27,14 @@ namespace DoctorHouse.Controllers
         [HttpGet]
         public async Task<IEnumerable<AppointmentResource>> GetAppointments()
         {
-            var appointments = await context.Appointment.ToListAsync();
+            var appointments = await context.Appointments.ToListAsync();
             return mapper.Map<List<Appointment>, List<AppointmentResource>>(appointments);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAppointment(int id)
         {
-            var appointment = await context.Appointment.FindAsync(id);
+            var appointment = await context.Appointments.FindAsync(id);
 
             if (appointment == null)
             {
@@ -56,7 +56,7 @@ namespace DoctorHouse.Controllers
 
             var appointment = mapper.Map<AppointmentResource, Appointment>(appointmentResource);
 
-            context.Appointment.Add(appointment);
+            context.Appointments.Add(appointment);
             await context.SaveChangesAsync();
 
             var result = mapper.Map<Appointment, AppointmentResource>(appointment);
@@ -72,7 +72,7 @@ namespace DoctorHouse.Controllers
                 return BadRequest(ModelState);
             }
 
-            var appointment = await context.Appointment.FindAsync(id);
+            var appointment = await context.Appointments.FindAsync(id);
 
             if (appointment == null)
             {
