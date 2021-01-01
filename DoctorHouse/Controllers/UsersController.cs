@@ -26,7 +26,8 @@ namespace DoctorHouse.Controllers
         [HttpGet]
         public async Task<IEnumerable<UserResource>> GetUsers()
         {
-            var users = await context.Users.ToListAsync();
+
+            var users = await context.Users.Include(u => u.Details).ToListAsync();
 
             return mapper.Map<List<User>, List<UserResource>>(users);
         }
