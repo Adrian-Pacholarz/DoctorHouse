@@ -151,27 +151,16 @@ namespace DoctorHouse.Mapping
                 .AfterMap((cr, c) =>
                 {
 
-                    var removedSpecialists = new List<SpecialistCompanies>();
-
-                    foreach (var s in c.Specialists)
-                    {
-                        if (!cr.Specialists.Contains(s.SpecialistId))
-                        {
-                            removedSpecialists.Add(s);
-                        }                      
-                    }
-                        
+                    var removedSpecialists = c.Specialists.Where(s => !cr.Specialists.Contains(s.SpecialistId));                
                     foreach (var s in removedSpecialists)
                     {
                         c.Specialists.Remove(s);
                     }
                         
-                    foreach (var sId in cr.Specialists)
-                    { 
-                        if (!c.Specialists.Any(s => s.SpecialistId == sId))
-                        {
-                            c.Specialists.Add(new SpecialistCompanies { SpecialistId = sId });
-                        }
+                    var addedSpecialists = cr.Specialists.Where(sId => !c.Specialists.Any(s => s.SpecialistId == sId)).Select(sId => new SpecialistCompanies { SpecialistId = sId });
+                    foreach (var s in addedSpecialists)
+                    {
+                        c.Specialists.Add(s);
                     }
 
                 });
