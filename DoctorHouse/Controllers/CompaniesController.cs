@@ -35,7 +35,9 @@ namespace DoctorHouse.Controllers
         public async Task<IActionResult> CreateCompany([FromBody] CompanyResource companyResource)
         {
             if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
+            }        
 
             var company = mapper.Map<CompanyResource, Company>(companyResource);
 
@@ -51,16 +53,38 @@ namespace DoctorHouse.Controllers
         public async Task<IActionResult> UpdateCompany(int id, [FromBody] CompanyResource companyResource)
         {
             if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
+            }
 
-            var company = await context.Companies.Include(c => c.Specialists).SingleOrDefaultAsync(c => c.Id == id);          
+            var company = await context.Companies.Include(c => c.Specialists).SingleOrDefaultAsync(c => c.Id == id);
+
+            if (company == null)
+            {
+                return NotFound();
+            }
+
             mapper.Map<CompanyResource, Company>(companyResource, company);
-
             await context.SaveChangesAsync();
-
             var result = mapper.Map<Company, CompanyResource>(company);
 
             return Ok(result);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCompany(int id)
+        {
+            var company = await context.Companies.FindAsync(id);
+
+            if(company == null)
+            {
+                return NotFound();
+            }
+
+            context.Remove(company);
+            await context.SaveChangesAsync();
+
+            return Ok(id);
         }
     }
 }
