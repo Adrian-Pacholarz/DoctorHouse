@@ -10,6 +10,8 @@ namespace DoctorHouse.Persistance
         public DbSet<UserDetails> UserDetails { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Specialist> Specialists { get; set; }
+        public DbSet<Company> Companies { get; set; }
+
         public DbSet<SpecialistCompanies> SpecialistCompanies { get; set; }
         public DbSet<Appointment> Appointment { get; set; }
 
@@ -29,6 +31,8 @@ namespace DoctorHouse.Persistance
             modelBuilder.Entity<Specialist>().Property(s => s.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Customer>().Property(c => c.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<UserDetails>().Property(ud => ud.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Appointment>().Property(a => a.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Customer>().Property(c => c.Id).ValueGeneratedOnAdd();
 
 
             //one-to-one - REQUIRED

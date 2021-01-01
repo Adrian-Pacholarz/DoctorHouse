@@ -13,8 +13,6 @@ namespace DoctorHouse.Mapping
         public MappingProfile()
         {
             //DOMAIN TO API RESOURCES
-            CreateMap<Company, CompanyResource>();
-            CreateMap<SpecialistCompanies, SpecialistCompaniesResource>();
 
             //Customer
             CreateMap<Customer, CustomerResource>()
@@ -61,7 +59,7 @@ namespace DoctorHouse.Mapping
                 .ForMember(cr => cr.Rating, opt => opt.MapFrom(c => c.Rating))
                 .ForMember(cr => cr.Description, opt => opt.MapFrom(c => c.Description))
                 .ForMember(cr => cr.PhoneNumber, opt => opt.MapFrom(c => c.PhoneNumber))
-                .ForMember(cr => cr.Specialists, opt => opt.MapFrom(c => c.Specialists.Select(c => c.SpecialistId)))
+                .ForMember(cr => cr.Specialists, opt => opt.MapFrom(c => c.Specialists.Select(cs => cs.SpecialistId)))
                 .ForMember(cr => cr.Appointments, opt => opt.MapFrom(c => c.Appointments.Select(c => c.Id)));
 
 
@@ -131,12 +129,12 @@ namespace DoctorHouse.Mapping
             //Appointment
             CreateMap<AppointmentResource, Appointment>()
                 .ForMember(a => a.Id, opt => opt.Ignore())
-                .ForMember(a => a.AppointmentDate, opt => opt.MapFrom(ar => ar.AppointmentDate))
+                .ForMember(a => a.AppointmentDate, opt => opt.Ignore())
                 .ForMember(a => a.Status, opt => opt.MapFrom(ar => ar.Status))
                 .ForMember(a => a.Description, opt => opt.MapFrom(ar => ar.Description))
-                .ForMember(a => a.Customer, opt => opt.Ignore())
-                .ForMember(a => a.Specialist, opt => opt.Ignore())
-                .ForMember(a => a.Company, opt => opt.Ignore());
+                .ForMember(a => a.Customer.Id, opt => opt.MapFrom(ar => ar.CustomerId))
+                .ForMember(a => a.Specialist.Id, opt => opt.MapFrom(ar => ar.SpecialistId))
+                .ForMember(a => a.Company.Id, opt => opt.MapFrom(ar => ar.CompanyId));
 
             //Company
             CreateMap<CompanyResource, Company>()
@@ -148,7 +146,7 @@ namespace DoctorHouse.Mapping
                 .ForMember(c => c.Rating, opt => opt.MapFrom(cr => cr.Rating))
                 .ForMember(c => c.Description, opt => opt.MapFrom(cr => cr.Description))
                 .ForMember(c => c.PhoneNumber, opt => opt.MapFrom(cr => cr.PhoneNumber))
-                .ForMember(c => c.Specialists, opt => opt.Ignore())
+                .ForMember(c => c.Specialists, opt => opt.MapFrom(cr => cr.Specialists.Select(id => new SpecialistCompanies { SpecialistId = id })))
                 .ForMember(c => c.Appointments, opt => opt.Ignore());
         }
     }
