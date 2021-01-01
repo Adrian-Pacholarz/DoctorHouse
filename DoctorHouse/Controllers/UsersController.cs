@@ -45,5 +45,21 @@ namespace DoctorHouse.Controllers
             var userResource = mapper.Map<User, UserResource>(user);
             return Ok(userResource);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var user = await context.Users.Include(u => u.Details).SingleOrDefaultAsync(u => u.Id == id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            context.Remove(user);
+            await context.SaveChangesAsync();
+
+            return Ok(id);
+        }
     }
 }
