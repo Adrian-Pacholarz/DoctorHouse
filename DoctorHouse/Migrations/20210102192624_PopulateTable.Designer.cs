@@ -4,14 +4,16 @@ using DoctorHouse.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DoctorHouse.Migrations
 {
     [DbContext(typeof(DoctorHouseDbContext))]
-    partial class DoctorHouseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210102192624_PopulateTable")]
+    partial class PopulateTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,28 +131,6 @@ namespace DoctorHouse.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("SpecialistCompanies");
-
-                    b.HasData(
-                        new
-                        {
-                            SpecialistId = 1,
-                            CompanyId = 1
-                        },
-                        new
-                        {
-                            SpecialistId = 2,
-                            CompanyId = 2
-                        },
-                        new
-                        {
-                            SpecialistId = 3,
-                            CompanyId = 1
-                        },
-                        new
-                        {
-                            SpecialistId = 3,
-                            CompanyId = 2
-                        });
                 });
 
             modelBuilder.Entity("DoctorHouse.Models.User", b =>
@@ -221,7 +201,7 @@ namespace DoctorHouse.Migrations
                         new
                         {
                             Id = 1,
-                            DateOfRegistration = new DateTime(2021, 1, 2, 20, 44, 12, 920, DateTimeKind.Local).AddTicks(3825),
+                            DateOfRegistration = new DateTime(2021, 1, 2, 20, 26, 23, 70, DateTimeKind.Local).AddTicks(8967),
                             EMail = "pipi@pip.pi",
                             FirstName = "Pipek",
                             LastName = "Pipowski",
@@ -231,42 +211,12 @@ namespace DoctorHouse.Migrations
                         new
                         {
                             Id = 2,
-                            DateOfRegistration = new DateTime(2021, 1, 2, 20, 44, 12, 928, DateTimeKind.Local).AddTicks(6881),
+                            DateOfRegistration = new DateTime(2021, 1, 2, 20, 26, 23, 77, DateTimeKind.Local).AddTicks(1517),
                             EMail = "piri666@pip.pir",
                             FirstName = "Pirek",
                             LastName = "Pir",
                             PhoneNumber = 666777111L,
                             UserId = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            DateOfRegistration = new DateTime(2021, 1, 2, 20, 44, 12, 930, DateTimeKind.Local).AddTicks(9041),
-                            EMail = "jank@gmail0.com",
-                            FirstName = "Jan",
-                            LastName = "Kowalski",
-                            PhoneNumber = 444234089L,
-                            UserId = 3
-                        },
-                        new
-                        {
-                            Id = 4,
-                            DateOfRegistration = new DateTime(2021, 1, 2, 20, 44, 12, 930, DateTimeKind.Local).AddTicks(9133),
-                            EMail = "alojzyKA@gmail.pl",
-                            FirstName = "Alojzy",
-                            LastName = "Kwiatek",
-                            PhoneNumber = 654354676L,
-                            UserId = 4
-                        },
-                        new
-                        {
-                            Id = 5,
-                            DateOfRegistration = new DateTime(2021, 1, 2, 20, 44, 12, 930, DateTimeKind.Local).AddTicks(9141),
-                            EMail = "halinka@onet.com",
-                            FirstName = "Halina",
-                            LastName = "Kluczkowska",
-                            PhoneNumber = 967545234L,
-                            UserId = 5
                         });
                 });
 
@@ -311,35 +261,6 @@ namespace DoctorHouse.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Specialist");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 3,
-                            IsAdmin = true,
-                            Password = "elelele",
-                            Username = "ElectricWizard",
-                            Area = 5,
-                            SpecialistType = "Electrician"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            IsAdmin = false,
-                            Password = "66666666",
-                            Username = "FlowerPower",
-                            Area = 3,
-                            SpecialistType = "Gardener"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            IsAdmin = false,
-                            Password = "0%6hasfa",
-                            Username = "ZlotaRączka",
-                            Area = 1,
-                            SpecialistType = "Plumber"
-                        });
                 });
 
             modelBuilder.Entity("DoctorHouse.Models.Appointment", b =>

@@ -4,14 +4,16 @@ using DoctorHouse.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DoctorHouse.Migrations
 {
     [DbContext(typeof(DoctorHouseDbContext))]
-    partial class DoctorHouseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210102193636_PopulateSpecialistTable")]
+    partial class PopulateSpecialistTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,28 +131,6 @@ namespace DoctorHouse.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("SpecialistCompanies");
-
-                    b.HasData(
-                        new
-                        {
-                            SpecialistId = 1,
-                            CompanyId = 1
-                        },
-                        new
-                        {
-                            SpecialistId = 2,
-                            CompanyId = 2
-                        },
-                        new
-                        {
-                            SpecialistId = 3,
-                            CompanyId = 1
-                        },
-                        new
-                        {
-                            SpecialistId = 3,
-                            CompanyId = 2
-                        });
                 });
 
             modelBuilder.Entity("DoctorHouse.Models.User", b =>
@@ -221,7 +201,7 @@ namespace DoctorHouse.Migrations
                         new
                         {
                             Id = 1,
-                            DateOfRegistration = new DateTime(2021, 1, 2, 20, 44, 12, 920, DateTimeKind.Local).AddTicks(3825),
+                            DateOfRegistration = new DateTime(2021, 1, 2, 20, 36, 35, 97, DateTimeKind.Local).AddTicks(4745),
                             EMail = "pipi@pip.pi",
                             FirstName = "Pipek",
                             LastName = "Pipowski",
@@ -231,7 +211,7 @@ namespace DoctorHouse.Migrations
                         new
                         {
                             Id = 2,
-                            DateOfRegistration = new DateTime(2021, 1, 2, 20, 44, 12, 928, DateTimeKind.Local).AddTicks(6881),
+                            DateOfRegistration = new DateTime(2021, 1, 2, 20, 36, 35, 101, DateTimeKind.Local).AddTicks(396),
                             EMail = "piri666@pip.pir",
                             FirstName = "Pirek",
                             LastName = "Pir",
@@ -241,7 +221,7 @@ namespace DoctorHouse.Migrations
                         new
                         {
                             Id = 3,
-                            DateOfRegistration = new DateTime(2021, 1, 2, 20, 44, 12, 930, DateTimeKind.Local).AddTicks(9041),
+                            DateOfRegistration = new DateTime(2021, 1, 2, 20, 36, 35, 102, DateTimeKind.Local).AddTicks(591),
                             EMail = "jank@gmail0.com",
                             FirstName = "Jan",
                             LastName = "Kowalski",
@@ -251,7 +231,7 @@ namespace DoctorHouse.Migrations
                         new
                         {
                             Id = 4,
-                            DateOfRegistration = new DateTime(2021, 1, 2, 20, 44, 12, 930, DateTimeKind.Local).AddTicks(9133),
+                            DateOfRegistration = new DateTime(2021, 1, 2, 20, 36, 35, 102, DateTimeKind.Local).AddTicks(613),
                             EMail = "alojzyKA@gmail.pl",
                             FirstName = "Alojzy",
                             LastName = "Kwiatek",
@@ -261,7 +241,7 @@ namespace DoctorHouse.Migrations
                         new
                         {
                             Id = 5,
-                            DateOfRegistration = new DateTime(2021, 1, 2, 20, 44, 12, 930, DateTimeKind.Local).AddTicks(9141),
+                            DateOfRegistration = new DateTime(2021, 1, 2, 20, 36, 35, 102, DateTimeKind.Local).AddTicks(617),
                             EMail = "halinka@onet.com",
                             FirstName = "Halina",
                             LastName = "Kluczkowska",
