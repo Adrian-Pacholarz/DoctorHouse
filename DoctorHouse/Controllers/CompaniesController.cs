@@ -52,7 +52,7 @@ namespace DoctorHouse.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }        
+            }
 
             var company = mapper.Map<CompanyResource, Company>(companyResource);
 
