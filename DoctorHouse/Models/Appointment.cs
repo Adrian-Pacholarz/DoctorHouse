@@ -18,6 +18,12 @@ namespace DoctorHouse.Models
         [Column(TypeName = "nvarchar(MAX)")]
         public string Description { get; set; }
 
+        public int CustomerId { get; set; }
+
+        public int SpecialistId { get; set; }
+
+        public int CompanyId { get; set; }
+
         public Customer Customer { get; set; }
 
         public Specialist Specialist { get; set; }

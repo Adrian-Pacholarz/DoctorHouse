@@ -47,9 +47,9 @@ namespace DoctorHouse.Mapping
                 .ForMember(ar => ar.AppointmentDate, opt => opt.MapFrom(a => a.AppointmentDate))
                 .ForMember(ar => ar.Status, opt => opt.MapFrom(a => a.Status))
                 .ForMember(ar => ar.Description, opt => opt.MapFrom(a => a.Description))
-                .ForMember(ar => ar.CustomerId, opt => opt.MapFrom(a => a.Customer.Id))
-                .ForMember(ar => ar.SpecialistId, opt => opt.MapFrom(a => a.Specialist.Id))
-                .ForMember(ar => ar.CompanyId, opt => opt.MapFrom(a => a.Company.Id));
+                .ForMember(ar => ar.CustomerId, opt => opt.MapFrom(a => a.CustomerId))
+                .ForMember(ar => ar.SpecialistId, opt => opt.MapFrom(a => a.SpecialistId))
+                .ForMember(ar => ar.CompanyId, opt => opt.MapFrom(a => a.CompanyId));
 
             //Company
             CreateMap<Company, CompanyResource>()
@@ -133,9 +133,9 @@ namespace DoctorHouse.Mapping
                 .ForMember(a => a.AppointmentDate, opt => opt.MapFrom(ar => ar.AppointmentDate))
                 .ForMember(a => a.Status, opt => opt.MapFrom(ar => ar.Status))
                 .ForMember(a => a.Description, opt => opt.MapFrom(ar => ar.Description))
-                .ForPath(a => a.Customer.Id, opt => opt.MapFrom(ar => ar.CustomerId))
-                .ForPath(a => a.Specialist.Id, opt => opt.MapFrom(ar => ar.SpecialistId))
-                .ForPath(a => a.Company.Id, opt => opt.MapFrom(ar => ar.CompanyId));
+                .ForPath(a => a.CustomerId, opt => opt.MapFrom(ar => ar.CustomerId))
+                .ForPath(a => a.SpecialistId, opt => opt.MapFrom(ar => ar.SpecialistId))
+                .ForPath(a => a.CompanyId, opt => opt.MapFrom(ar => ar.CompanyId));
 
             //Company
             CreateMap<CompanyResource, Company>()
