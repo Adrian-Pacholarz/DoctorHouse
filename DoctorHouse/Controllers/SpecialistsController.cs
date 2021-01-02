@@ -23,17 +23,100 @@ namespace DoctorHouse.Controllers.Resources
         }
 
         [HttpGet]
-        public async Task<IEnumerable<SpecialistResource>> GetSpecialists()
+        public async Task<IActionResult> GetSpecialists()
         {
-            var specialists = await context.Specialists.ToListAsync();
-            return mapper.Map<List<Specialist>, List<SpecialistResource>>(specialists);
+            var specialists = await context.Specialists
+                .Include(s => s.Details)
+                .Include(s => s.Appointments)
+                .Include(s => s.Companies)
+                .ToListAsync();
+
+            var specialistsResources = mapper.Map<List<Specialist>, List<SpecialistResource>>(specialists);
+            return Ok(specialistsResources);
         }
 
-        [HttpPost]
-        public IActionResult CreateSpecialist([FromBody] SpecialistResource specialistResource)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetSpecialist(int id)
         {
+            var specialist = await context.Specialists
+                .Include(s => s.Details)
+                .Include(s => s.Appointments)
+                .Include(s => s.Companies)
+                .SingleOrDefaultAsync(s => s.Id == id);
+
+            if (specialist == null)
+            {
+                return NotFound();
+            }
+
+            var specialistResource = mapper.Map<Specialist, SpecialistResource>(specialist);
+
+            return Ok(specialistResource);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> CreateSpecialist([FromBody] SpecialistResource specialistResource)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var specialist = mapper.Map<SpecialistResource, Specialist>(specialistResource);
-            return Ok(specialist);
+            specialist.Details.DateOfRegistration = DateTime.Now;
+
+            context.Add(specialist);
+            await context.SaveChangesAsync();
+
+            var result = mapper.Map<Specialist, SpecialistResource>(specialist);
+
+            return Ok(result);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateSpecialist(int id, [FromBody] SpecialistResource specialistResource)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var specialist = await context.Specialists
+                .Include(s => s.Details)
+                .Include(s => s.Appointments)
+                .Include(s => s.Companies)
+                .SingleOrDefaultAsync(s => s.Id == id);
+
+            if (specialist == null)
+            {
+                return NotFound();
+            }
+
+            mapper.Map<SpecialistResource, Specialist>(specialistResource, specialist);
+            await context.SaveChangesAsync();
+
+            var result = mapper.Map<Specialist, SpecialistResource>(specialist);
+
+            return Ok(result);
+
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteSpecialist(int id)
+        {
+            var specialist = await context.Specialists
+                .Include(s => s.Details)
+                .Include(s => s.Appointments)
+                .Include(s => s.Companies)
+                .SingleOrDefaultAsync(s => s.Id == id);
+
+            if (specialist == null)
+            {
+                return NotFound();
+            }
+
+            context.Remove(specialist);
+            await context.SaveChangesAsync();
+
+            return Ok(id);
+
         }
     }
 }

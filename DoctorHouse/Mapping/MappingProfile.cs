@@ -19,8 +19,8 @@ namespace DoctorHouse.Mapping
                 .ForMember(cr => cr.Username, opt => opt.MapFrom(c => c.Username))
                 .ForMember(cr => cr.Password, opt => opt.MapFrom(c => c.Password))
                 .ForMember(cr => cr.IsAdmin, opt => opt.MapFrom(c => c.IsAdmin))
-                .ForMember(cr => cr.Appointments, opt => opt.MapFrom(c => c.Appointments))
                 .ForMember(cr => cr.Details, opt => opt.MapFrom(c => c.Details))
+                .ForMember(cr => cr.Appointments, opt => opt.MapFrom(s => s.Appointments.Select(a => a.Id)))
                 .ForMember(cr => cr.Address, opt => opt.MapFrom(c => c.Address));
 
             //Specialist
@@ -29,9 +29,9 @@ namespace DoctorHouse.Mapping
             .ForMember(sr => sr.Password, opt => opt.MapFrom(s => s.Password))
             .ForMember(sr => sr.IsAdmin, opt => opt.MapFrom(s => s.IsAdmin))
             .ForMember(sr => sr.SpecialistType, opt => opt.MapFrom(s => s.SpecialistType))
-            .ForMember(sr => sr.Appointments, opt => opt.MapFrom(s => s.Appointments))
             .ForMember(sr => sr.Area, opt => opt.MapFrom(s => s.Area))
             .ForMember(sr => sr.Details, opt => opt.MapFrom(s => s.Details))
+            .ForMember(sr => sr.Appointments, opt => opt.MapFrom(s => s.Appointments.Select(a => a.Id)))
             .ForMember(sr => sr.Companies, opt => opt.MapFrom(s => s.Companies.Select(sc => sc.CompanyId))); //many-to-many relationship
 
             //User

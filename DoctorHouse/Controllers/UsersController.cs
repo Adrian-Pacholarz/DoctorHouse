@@ -24,11 +24,44 @@ namespace DoctorHouse.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<UserResource>> GetUsers()
+        public async Task<IActionResult> GetUsers()
         {
-            var users = await context.Users.ToListAsync();
 
-            return mapper.Map<List<User>, List<UserResource>>(users);
+            var users = await context.Users.Include(u => u.Details).ToListAsync();
+
+            var userResources = mapper.Map<List<User>, List<UserResource>>(users);
+
+            return Ok(userResources);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUser(int id)
+        {
+            var user = await context.Users.Include(u => u.Details).SingleOrDefaultAsync(u => u.Id == id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var userResource = mapper.Map<User, UserResource>(user);
+            return Ok(userResource);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var user = await context.Users.Include(u => u.Details).SingleOrDefaultAsync(u => u.Id == id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            context.Remove(user);
+            await context.SaveChangesAsync();
+
+            return Ok(id);
         }
     }
 }
