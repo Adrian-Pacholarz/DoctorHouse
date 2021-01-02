@@ -15,7 +15,7 @@ namespace DoctorHouse.Controllers.Resources
         public int Id { get; set; }
 
         [Required]
-        [Range(10, 10)]
+        [Range(1000000000, 9999999999)]
         public Int64 NIP { get; set; }
 
         [Required]
@@ -35,7 +35,7 @@ namespace DoctorHouse.Controllers.Resources
         public string Description { get; set; }
 
         [Required]
-        [Range(9, 9)]
+        [Range(100000000, 999999999)]
         public Int64 PhoneNumber { get; set; }
 
         [Required]
