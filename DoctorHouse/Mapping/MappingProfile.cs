@@ -101,7 +101,16 @@ namespace DoctorHouse.Mapping
                 .AfterMap((sr, s) =>
                 {
                     //Remove companies
-                    var removedCompanies = s.Companies.Where(c => !sr.Companies.Contains(c.CompanyId));
+
+                    var removedCompanies = new List<SpecialistCompanies>();
+
+                    foreach (var c in s.Companies)
+                    {
+                        if (!sr.Companies.Contains(c.CompanyId))
+                        {
+                            removedCompanies.Add(c);
+                        }
+                    }
 
                     foreach (var c in removedCompanies)
                     {
@@ -152,7 +161,17 @@ namespace DoctorHouse.Mapping
                 .AfterMap((cr, c) =>
                 {
 
-                    var removedSpecialists = c.Specialists.Where(s => !cr.Specialists.Contains(s.SpecialistId));
+                    var removedSpecialists = new List<SpecialistCompanies>();
+
+                    foreach (var s in c.Specialists)
+                    {
+                        if (!cr.Specialists.Contains(s.SpecialistId))
+                        {
+                            removedSpecialists.Add(s);
+                        }
+
+                    }
+
                     foreach (var s in removedSpecialists)
                     {
                         c.Specialists.Remove(s);
