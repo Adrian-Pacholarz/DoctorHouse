@@ -13,6 +13,7 @@ namespace DoctorHouse.Mapping
         public MappingProfile()
         {
             //DOMAIN TO API RESOURCES
+            CreateMap<UserDetails, UserDetailsResource>();
 
             //Customer
             CreateMap<Customer, CustomerResource>()
@@ -151,12 +152,12 @@ namespace DoctorHouse.Mapping
                 .AfterMap((cr, c) =>
                 {
 
-                    var removedSpecialists = c.Specialists.Where(s => !cr.Specialists.Contains(s.SpecialistId));                
+                    var removedSpecialists = c.Specialists.Where(s => !cr.Specialists.Contains(s.SpecialistId));
                     foreach (var s in removedSpecialists)
                     {
                         c.Specialists.Remove(s);
                     }
-                        
+
                     var addedSpecialists = cr.Specialists.Where(sId => !c.Specialists.Any(s => s.SpecialistId == sId)).Select(sId => new SpecialistCompanies { SpecialistId = sId });
                     foreach (var s in addedSpecialists)
                     {
