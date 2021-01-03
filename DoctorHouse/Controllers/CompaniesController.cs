@@ -49,8 +49,13 @@ namespace DoctorHouse.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCompany([FromBody] CompanyResource companyResource)
         {
-            var specialists = context.Specialists.Select(s => s.Id);
-            var usersToCheck = companyResource.Specialists;
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var specialists = await context.Specialists.Select(s => s.Id).ToListAsync();
+            var usersToCheck = companyResource.Specialists.ToList();
 
                 foreach (var i in usersToCheck)
                 {
@@ -59,12 +64,6 @@ namespace DoctorHouse.Controllers
                     return BadRequest("Wrong type of users provided");
                     }
                 }
-
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
             var company = mapper.Map<CompanyResource, Company>(companyResource);
 
@@ -79,17 +78,6 @@ namespace DoctorHouse.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCompany(int id, [FromBody] CompanyResource companyResource)
         {
-            var specialists = context.Specialists.Select(s => s.Id);
-            var usersToCheck = companyResource.Specialists;
-
-            foreach (var i in usersToCheck)
-            {
-                if (!specialists.Contains(i))
-                {
-                    return BadRequest("Wrong type of users provided");
-                }
-            }
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -100,6 +88,17 @@ namespace DoctorHouse.Controllers
             if (company == null)
             {
                 return NotFound();
+            }
+
+            var specialists = await context.Specialists.Select(s => s.Id).ToListAsync();
+            var usersToCheck = companyResource.Specialists.ToList();
+
+            foreach (var i in usersToCheck)
+            {
+                if (!specialists.Contains(i))
+                {
+                    return BadRequest("Wrong type of users provided");
+                }
             }
 
             mapper.Map<CompanyResource, Company>(companyResource, company);

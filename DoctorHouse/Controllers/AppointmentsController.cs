@@ -54,6 +54,17 @@ namespace DoctorHouse.Controllers
                 return BadRequest(ModelState);
             }
 
+            var specialists = await context.Specialists.Select(s => s.Id).ToListAsync();
+            var customers = await context.Customers.Select(c => c.Id).ToListAsync();
+            var companies = await context.Companies.Select(c => c.Id).ToListAsync();
+
+            if (!specialists.Contains(appointmentResource.SpecialistId) ||
+                !customers.Contains(appointmentResource.CustomerId) ||
+                !companies.Contains(appointmentResource.CompanyId))
+            {
+                return BadRequest("Wrong type of data provided");
+            }
+
             var appointment = mapper.Map<AppointmentResource, Appointment>(appointmentResource);
 
             context.Appointments.Add(appointment);
@@ -77,6 +88,17 @@ namespace DoctorHouse.Controllers
             if (appointment == null)
             {
                 return NotFound();
+            }
+
+            var specialists = await context.Specialists.Select(s => s.Id).ToListAsync();
+            var customers = await context.Customers.Select(c => c.Id).ToListAsync();
+            var companies = await context.Companies.Select(c => c.Id).ToListAsync();
+
+            if (!specialists.Contains(appointmentResource.SpecialistId) ||
+                !customers.Contains(appointmentResource.CustomerId) ||
+                !companies.Contains(appointmentResource.CompanyId))
+            {
+                return BadRequest("Wrong type of data provided");
             }
 
             mapper.Map<AppointmentResource, Appointment>(appointmentResource, appointment);

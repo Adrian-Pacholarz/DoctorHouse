@@ -61,6 +61,16 @@ namespace DoctorHouse.Controllers.Resources
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            var companies = await context.Companies.Select(s => s.Id).ToListAsync();
+
+            foreach (var i in specialistResource.Companies)
+            {
+                if (!companies.Contains(i))
+                {
+                    return BadRequest("Wrong company code provided");
+                }
+            }
+
             var specialist = mapper.Map<SpecialistResource, Specialist>(specialistResource);
             specialist.Details.DateOfRegistration = DateTime.Now;
 
@@ -87,6 +97,16 @@ namespace DoctorHouse.Controllers.Resources
             if (specialist == null)
             {
                 return NotFound();
+            }
+
+            var companies = await context.Companies.Select(s => s.Id).ToListAsync();
+
+            foreach (var i in specialistResource.Companies)
+            {
+                if (!companies.Contains(i))
+                {
+                    return BadRequest("Wrong company code provided");
+                }
             }
 
             mapper.Map<SpecialistResource, Specialist>(specialistResource, specialist);

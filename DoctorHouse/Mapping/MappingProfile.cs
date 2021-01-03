@@ -142,9 +142,9 @@ namespace DoctorHouse.Mapping
                 .ForMember(a => a.AppointmentDate, opt => opt.MapFrom(ar => ar.AppointmentDate))
                 .ForMember(a => a.Status, opt => opt.MapFrom(ar => ar.Status))
                 .ForMember(a => a.Description, opt => opt.MapFrom(ar => ar.Description))
-                .ForPath(a => a.CustomerId, opt => opt.MapFrom(ar => ar.CustomerId))
-                .ForPath(a => a.SpecialistId, opt => opt.MapFrom(ar => ar.SpecialistId))
-                .ForPath(a => a.CompanyId, opt => opt.MapFrom(ar => ar.CompanyId));
+                .ForMember(a => a.CustomerId, opt => opt.MapFrom(ar => ar.CustomerId))
+                .ForMember(a => a.SpecialistId, opt => opt.MapFrom(ar => ar.SpecialistId))
+                .ForMember(a => a.CompanyId, opt => opt.MapFrom(ar => ar.CompanyId));
 
             //Company
             CreateMap<CompanyResource, Company>()
