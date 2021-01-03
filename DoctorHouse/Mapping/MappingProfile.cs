@@ -160,7 +160,6 @@ namespace DoctorHouse.Mapping
                 .ForMember(c => c.Appointments, opt => opt.Ignore())
                 .AfterMap((cr, c) =>
                 {
-
                     var removedSpecialists = new List<SpecialistCompanies>();
 
                     foreach (var s in c.Specialists)

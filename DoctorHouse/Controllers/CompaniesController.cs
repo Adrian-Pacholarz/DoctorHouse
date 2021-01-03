@@ -49,6 +49,18 @@ namespace DoctorHouse.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCompany([FromBody] CompanyResource companyResource)
         {
+            var specialists = context.Specialists.Select(s => s.Id);
+            var usersToCheck = companyResource.Specialists;
+
+                foreach (var i in usersToCheck)
+                {
+                    if (!specialists.Contains(i))
+                    {
+                    return BadRequest("Wrong type of users provided");
+                    }
+                }
+
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -67,6 +79,17 @@ namespace DoctorHouse.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCompany(int id, [FromBody] CompanyResource companyResource)
         {
+            var specialists = context.Specialists.Select(s => s.Id);
+            var usersToCheck = companyResource.Specialists;
+
+            foreach (var i in usersToCheck)
+            {
+                if (!specialists.Contains(i))
+                {
+                    return BadRequest("Wrong type of users provided");
+                }
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
