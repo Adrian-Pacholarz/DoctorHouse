@@ -123,7 +123,7 @@ namespace DoctorHouse.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAppointment(int id)
         {
-            var appointment = await context.Companies.FindAsync(id);
+            var appointment = await context.Appointments.FindAsync(id);
 
             if (appointment == null)
             {
