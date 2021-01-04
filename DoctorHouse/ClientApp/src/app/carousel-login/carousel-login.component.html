@@ -1,0 +1,61 @@
+<main role="main">
+  <div id="carouselLogin" class="carousel slide" data-ride="carousel" data-interval="0">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <form [formGroup]="form" class="login-form">
+          <div class="left-form"><img id="logo-main" src="assets/images/logo1.png" alt="Doctor House for Customer" /></div>
+          <div class="right-form">
+            <p id="main-text">Login as customer</p>
+            <div class="form-group">
+              <input formControlName="username" type="text" class="form-control" id="floatingLogin" placeholder="Username">
+              <label for="floatingLogin">Username</label>
+              <div *ngIf="username.touched && username.invalid" class="form-error">Username is required</div>
+            </div>
+            <div class="form-group">
+              <input formControlName="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+              <label for="floatingPassword">Password</label>
+              <div *ngIf="password.touched && password.invalid" class="form-error">Password is required</div>
+            </div>
+            <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit" [disabled]="form.invalid" onclick="location.href = '/home'">Log in!</button>
+            <div class="login-images">
+              <img class="image-below" src="assets/images/drillingmachine.png" />
+              <img class="image-below" src="assets/images/paintroller.png" />
+              <img class="image-below" src="assets/images/shovel (2).png" />
+              <img class="image-below" src="assets/images/tools.png" />
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="carousel-item">
+        <form [formGroup]="specialistForm" class="login-form">
+          <div class="left-form"><img id="logo-main" src="assets/images/logo1.png" alt="Doctor House for Specialist" /></div>
+          <div class="right-form">
+            <p id="main-text">Login as specialist</p>
+            <div class="form-group">
+              <input formControlName="specialistUsername" type="text" class="form-control" id="floatingLogin2" placeholder="Username">
+              <label for="floatingLogin2">Username</label>
+              <div *ngIf="specialistUsername.touched && specialistUsername.invalid" class="form-error">Username is required</div>
+            </div>
+            <div class="form-group">
+              <input formControlName="specialistPassword" type="password" class="form-control" id="floatingPassword2" placeholder="Password">
+              <label for="floatingPassword2">Password</label>
+              <div *ngIf="specialistPassword.touched && specialistPassword.invalid" class="form-error">Password is required</div>
+            </div>
+            <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit" [disabled]="specialistForm.invalid" onclick="location.href = '/home'">Log in!</button>
+            <div class="login-images">
+              <img class="image-below" src="assets/images/drillingmachine.png" />
+              <img class="image-below" src="assets/images/paintroller.png" />
+              <img class="image-below" src="assets/images/shovel (2).png" />
+              <img class="image-below" src="assets/images/tools.png" />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <a class="carousel-control-next" href="#carouselLogin" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+  <app-drawer-signup></app-drawer-signup>
+</main>

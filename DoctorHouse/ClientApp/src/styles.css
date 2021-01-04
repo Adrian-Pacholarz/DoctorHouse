@@ -1,16 +1,148 @@
-/* You can add global styles to this file, and also import other style files */
 
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+@import "~bootstrap/dist/css/bootstrap.css";
+
+* {
+  font-family: 'Lato', sans-serif;
 }
 
-code {
-  color: #e01a76;
+a {
+  color: #0366d6;
 }
 
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
+}
+
+body {
+  background-color: #11234A;
+  min-width: 100%;
+
+}
+
+  body.dark-bg {
+    background-color: #11234A;
+    min-width: 100%;
+  }
+
+  body.light-bg {
+    background-color: #f8f9fa;
+  }
+
+
+
+code {
+  color: #e01a76;
+}
+
+.form-control {
+  color: #70FFFC;
+  background-color: transparent;
+  border: transparent;
+  border-bottom: 2px solid #70FFFC;
+  border-radius: 2px;
+}
+
+  .form-control:focus {
+    color: #70FFFC;
+    box-shadow: 0 0 5px #70FFFC;
+    background-color: transparent;
+    border-bottom: 2px solid #70FFFC;
+    border-radius: 2px;
+  }
+
+.form-group {
+  position: relative;
+  text-align: left;
+  margin: 5px;
+}
+
+
+  .form-group > input,
+  .form-group > label {
+    padding: var(--input-padding-y) var(--input-padding-x);
+  }
+
+  .form-group > label {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    display: block;
+    width: 100%;
+    margin-bottom: 0;
+    line-height: 1.5;
+    color: #70FFFC;
+    opacity: 0.5;
+    cursor: text;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    transition: all .1s ease-in-out;
+    user-select: none;
+  }
+
+  .form-group input::-webkit-input-placeholder {
+    color: transparent;
+  }
+
+  .form-group input:-ms-input-placeholder {
+    color: transparent;
+  }
+
+  .form-group input::-ms-input-placeholder {
+    color: transparent;
+  }
+
+  .form-group input::-moz-placeholder {
+    color: transparent;
+  }
+
+  .form-group input::placeholder {
+    color: transparent;
+  }
+
+  .form-group input:not(:placeholder-shown) {
+    padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
+    padding-bottom: calc(var(--input-padding-y) / 3);
+  }
+
+    .form-group input:not(:placeholder-shown) ~ label {
+      top: -3px;
+      padding-top: calc(var(--input-padding-y) / 3);
+      padding-bottom: calc(var(--input-padding-y) / 3);
+      font-size: 10px;
+      color: #70FFFC;
+    }
+
+form .btn {
+  color: #70FFFC;
+  border-color: #70FFFC;
+}
+
+ form .btn:hover {
+    color: #11234A;
+    font-weight: bold;
+    background-color: #70FFFC;
+  }
+
+ .form-error{
+     font-size: small;
+     text-align: center;
+     opacity: 0.8;
+ }
+
+.form-group input:-webkit-autofill,
+.form-group input:-webkit-autofill:hover,
+.form-group input:-webkit-autofill:focus,
+.form-group textarea:-webkit-autofill,
+.form-group textarea:-webkit-autofill:hover,
+.form-group textarea:-webkit-autofill:focus,
+.form-group select:-webkit-autofill,
+.form-group select:-webkit-autofill:hover,
+.form-group select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #70FFFC;
+  -webkit-box-shadow: 0 0 5px #70FFFC;
+  -webkit-background-clip: text;
+  caret-color: #70FFFC;
 }
