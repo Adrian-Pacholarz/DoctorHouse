@@ -111,7 +111,9 @@ namespace DoctorHouse.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCompany(int id)
         {
-            var company = await context.Companies.FindAsync(id);
+            var company = await context.Companies
+                                .Include(c => c.Appointments)
+                                .SingleOrDefaultAsync(c => c.Id == id);
 
             if(company == null)
             {

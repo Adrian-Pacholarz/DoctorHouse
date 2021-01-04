@@ -52,17 +52,20 @@ namespace DoctorHouse.Persistance
             modelBuilder.Entity<Specialist>()
                 .HasMany(s => s.Appointments)
                 .WithOne(a => a.Specialist)
-                .IsRequired(false);
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
             modelBuilder.Entity<Customer>()
                 .HasMany(c => c.Appointments)
                 .WithOne(a => a.Customer)
-                .IsRequired(false);
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
             modelBuilder.Entity<Company>()
                 .HasMany(com => com.Appointments)
                 .WithOne(a => a.Company)
-                .IsRequired(false);
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
             modelBuilder.Entity<Customer>().HasData(
                 new Customer { Id = 1, Username = "Pipi", Password = "Pipi666", Address = "ul. Pipiego 2", IsAdmin = false },
