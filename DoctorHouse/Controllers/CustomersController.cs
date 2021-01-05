@@ -28,8 +28,8 @@ namespace DoctorHouse.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCustomers()
         {
-            var customers = await context.Customers.Include(c => c.Details).Include(c => c.Appointments).ToListAsync();
-            var customersResources = mapper.Map<List<Customer>, List<SaveCustomerResource>>(customers);
+            var customers = await repository.GetCustomers();
+            var customersResources = mapper.Map<List<Customer>, List<SaveCustomerResource>>(customers.ToList());
 
             return Ok(customersResources);
         }
@@ -43,7 +43,7 @@ namespace DoctorHouse.Controllers
             var customer = mapper.Map<SaveCustomerResource, Customer>(customerResource);
             customer.Details.DateOfRegistration = DateTime.Now;
 
-            context.Customers.Add(customer);
+            repository.Add(customer);
             await context.SaveChangesAsync();
 
             customer = await repository.GetCustomer(customer.Id);
@@ -77,17 +77,14 @@ namespace DoctorHouse.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomer(int id)
         {
-            var customer = await context.Customers
-                .Include(c => c.Appointments)
-                .Include(c => c.Details)
-                .SingleOrDefaultAsync(c => c.Id == id);
+            var customer = await repository.GetCustomerToDelete(id);
 
             if (customer == null)
             {
                 return NotFound();
             }
 
-            context.Remove(customer);
+            repository.Remove(customer);
             await context.SaveChangesAsync();
 
             return Ok(id);
