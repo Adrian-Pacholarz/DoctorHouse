@@ -119,6 +119,9 @@ namespace DoctorHouse.Controllers
 
             mapper.Map<SaveAppointmentResource, Appointment>(appointmentResource, appointment);
             await unitOfWork.CompleteAsync();
+
+            appointment = await repository.GetAppointment(appointment.Id);
+
             var result = mapper.Map<Appointment, AppointmentResource>(appointment);
 
             return Ok(result);

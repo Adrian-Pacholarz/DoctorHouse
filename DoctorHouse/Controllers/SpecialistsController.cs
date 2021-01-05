@@ -104,6 +104,8 @@ namespace DoctorHouse.Controllers.Resources
             mapper.Map<SaveSpecialistResource, Specialist>(specialistResource, specialist);
             await unitOfWork.CompleteAsync();
 
+            specialist = await repository.GetSpecialist(specialist.Id);
+
             var result = mapper.Map<Specialist, SpecialistResource>(specialist);
 
             return Ok(result);

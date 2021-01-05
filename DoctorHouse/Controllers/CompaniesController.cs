@@ -108,6 +108,9 @@ namespace DoctorHouse.Controllers
 
             mapper.Map<SaveCompanyResource, Company>(companyResource, company);
             await unitOfWork.CompleteAsync();
+
+            company = await repository.GetCompany(company.Id);
+
             var result = mapper.Map<Company, CompanyResource>(company);
 
             return Ok(result);

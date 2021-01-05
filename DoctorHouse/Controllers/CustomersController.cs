@@ -69,6 +69,9 @@ namespace DoctorHouse.Controllers
             mapper.Map<SaveCustomerResource, Customer>(customerResource, customer);
 
             await unitOfWork.CompleteAsync();
+
+            customer = await repository.GetCustomer(customer.Id);
+
             var result = mapper.Map<Customer, CustomerResource>(customer);
 
             return Ok(result);
