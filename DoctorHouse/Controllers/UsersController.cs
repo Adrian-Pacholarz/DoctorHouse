@@ -29,9 +29,9 @@ namespace DoctorHouse.Controllers
         public async Task<IActionResult> GetUsers()
         {
 
-            var users = await context.Users.Include(u => u.Details).ToListAsync();
+            var users = await repository.GetUsers();
 
-            var userResources = mapper.Map<List<User>, List<UserResource>>(users);
+            var userResources = mapper.Map<List<User>, List<UserResource>>(users.ToList());
 
             return Ok(userResources);
         }
@@ -53,14 +53,14 @@ namespace DoctorHouse.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            var user = await context.Users.Include(u => u.Details).SingleOrDefaultAsync(u => u.Id == id);
+            var user = await repository.GetUserToDelete(id);
 
             if (user == null)
             {
                 return NotFound();
             }
 
-            context.Remove(user);
+            repository.Remove(user);
             await context.SaveChangesAsync();
 
             return Ok(id);
