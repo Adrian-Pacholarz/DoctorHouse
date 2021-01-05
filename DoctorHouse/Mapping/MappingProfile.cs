@@ -16,13 +16,27 @@ namespace DoctorHouse.Mapping
             CreateMap<UserDetails, UserDetailsResource>();
 
             //Customer
-            CreateMap<Customer, CustomerResource>()
+            CreateMap<Customer, SaveCustomerResource>()
                 .ForMember(cr => cr.Username, opt => opt.MapFrom(c => c.Username))
                 .ForMember(cr => cr.Password, opt => opt.MapFrom(c => c.Password))
                 .ForMember(cr => cr.IsAdmin, opt => opt.MapFrom(c => c.IsAdmin))
                 .ForMember(cr => cr.Details, opt => opt.MapFrom(c => c.Details))
                 .ForMember(cr => cr.Appointments, opt => opt.MapFrom(s => s.Appointments.Select(a => a.Id)))
                 .ForMember(cr => cr.Address, opt => opt.MapFrom(c => c.Address));
+
+            CreateMap<Customer, CustomerResource>()
+                .ForMember(cr => cr.Details, opt => opt.MapFrom(s => s.Details))
+                .ForMember(cr => cr.Address, opt => opt.MapFrom(c => c.Address))
+                .ForMember(cr => cr.Appointments, opt => opt.MapFrom(c => c.Appointments.Select(c => new AppointmentResource
+                {
+                    Id = c.Id,
+                    AppointmentDate = c.AppointmentDate,
+                    Description = c.Description,
+                    Status = c.Status,
+                    Specialist = new KeyValuePairResource { Id = c.Specialist.Id, FullName = c.Specialist.Details.FirstName + " " + c.Specialist.Details.LastName, PhoneNumber = c.Specialist.Details.PhoneNumber },
+                    Customer = new KeyValuePairResource { Id = c.Customer.Id, FullName = c.Customer.Details.FirstName + " " + c.Customer.Details.LastName, PhoneNumber = c.Customer.Details.PhoneNumber },
+                    Company = new KeyValuePairResource { Id = c.Company.Id, FullName = c.Company.CompanyName, PhoneNumber = c.Company.PhoneNumber }
+                })));
 
             //Specialist
             CreateMap<Specialist, SaveSpecialistResource>()
@@ -103,7 +117,7 @@ namespace DoctorHouse.Mapping
 
 
             //Customer
-            CreateMap<CustomerResource, Customer>()
+            CreateMap<SaveCustomerResource, Customer>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.Appointments, opt => opt.Ignore())
                 .ForMember(c => c.Username, opt => opt.MapFrom(cr => cr.Username))

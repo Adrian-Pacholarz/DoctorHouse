@@ -27,30 +27,30 @@ namespace DoctorHouse.Controllers
         public async Task<IActionResult> GetCustomers()
         {
             var customers = await context.Customers.Include(c => c.Details).Include(c => c.Appointments).ToListAsync();
-            var customersResources = mapper.Map<List<Customer>, List<CustomerResource>>(customers);
+            var customersResources = mapper.Map<List<Customer>, List<SaveCustomerResource>>(customers);
 
             return Ok(customersResources);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCustomer([FromBody] CustomerResource customerResource)
+        public async Task<IActionResult> CreateCustomer([FromBody] SaveCustomerResource customerResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var customer = mapper.Map<CustomerResource, Customer>(customerResource);
+            var customer = mapper.Map<SaveCustomerResource, Customer>(customerResource);
             customer.Details.DateOfRegistration = DateTime.Now;
 
             context.Customers.Add(customer);
             await context.SaveChangesAsync();
 
-            var result = mapper.Map<Customer, CustomerResource>(customer);
+            var result = mapper.Map<Customer, SaveCustomerResource>(customer);
 
             return Ok(result);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCustomer(int id, [FromBody] CustomerResource customerResource)
+        public async Task<IActionResult> UpdateCustomer(int id, [FromBody] SaveCustomerResource customerResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -65,10 +65,10 @@ namespace DoctorHouse.Controllers
                 return NotFound();
             }
 
-            mapper.Map<CustomerResource, Customer>(customerResource, customer);
+            mapper.Map<SaveCustomerResource, Customer>(customerResource, customer);
 
             await context.SaveChangesAsync();
-            var result = mapper.Map<Customer, CustomerResource>(customer);
+            var result = mapper.Map<Customer, SaveCustomerResource>(customer);
 
             return Ok(result);
         }
@@ -97,6 +97,10 @@ namespace DoctorHouse.Controllers
         {
             var customer = await context.Customers
                 .Include(c => c.Appointments)
+                    .ThenInclude(a => a.Company)
+                .Include(c => c.Appointments)
+                    .ThenInclude(a => a.Specialist)
+                        .ThenInclude(s => s.Details)
                 .Include(c => c.Details)
                 .SingleOrDefaultAsync(c => c.Id == id);
 

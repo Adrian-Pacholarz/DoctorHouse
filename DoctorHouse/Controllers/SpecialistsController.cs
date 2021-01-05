@@ -43,9 +43,6 @@ namespace DoctorHouse.Controllers.Resources
                 .Include(c => c.Appointments)
                     .ThenInclude(a => a.Customer)
                         .ThenInclude(c => c.Details)
-                .Include(c => c.Appointments)
-                    .ThenInclude(a => a.Specialist)
-                        .ThenInclude(s => s.Details)
                 .Include(s => s.Companies)
                     .ThenInclude(sc => sc.Company)
                 .SingleOrDefaultAsync(s => s.Id == id);
