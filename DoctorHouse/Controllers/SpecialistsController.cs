@@ -31,7 +31,7 @@ namespace DoctorHouse.Controllers.Resources
                 .Include(s => s.Companies)
                 .ToListAsync();
 
-            var specialistsResources = mapper.Map<List<Specialist>, List<SpecialistResource>>(specialists);
+            var specialistsResources = mapper.Map<List<Specialist>, List<SaveSpecialistResource>>(specialists);
             return Ok(specialistsResources);
         }
 
@@ -40,8 +40,14 @@ namespace DoctorHouse.Controllers.Resources
         {
             var specialist = await context.Specialists
                 .Include(s => s.Details)
-                .Include(s => s.Appointments)
+                .Include(c => c.Appointments)
+                    .ThenInclude(a => a.Customer)
+                        .ThenInclude(c => c.Details)
+                .Include(c => c.Appointments)
+                    .ThenInclude(a => a.Specialist)
+                        .ThenInclude(s => s.Details)
                 .Include(s => s.Companies)
+                    .ThenInclude(sc => sc.Company)
                 .SingleOrDefaultAsync(s => s.Id == id);
 
             if (specialist == null)
@@ -56,7 +62,7 @@ namespace DoctorHouse.Controllers.Resources
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateSpecialist([FromBody] SpecialistResource specialistResource)
+        public async Task<IActionResult> CreateSpecialist([FromBody] SaveSpecialistResource specialistResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -71,19 +77,19 @@ namespace DoctorHouse.Controllers.Resources
                 }
             }
 
-            var specialist = mapper.Map<SpecialistResource, Specialist>(specialistResource);
+            var specialist = mapper.Map<SaveSpecialistResource, Specialist>(specialistResource);
             specialist.Details.DateOfRegistration = DateTime.Now;
 
             context.Add(specialist);
             await context.SaveChangesAsync();
 
-            var result = mapper.Map<Specialist, SpecialistResource>(specialist);
+            var result = mapper.Map<Specialist, SaveSpecialistResource>(specialist);
 
             return Ok(result);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateSpecialist(int id, [FromBody] SpecialistResource specialistResource)
+        public async Task<IActionResult> UpdateSpecialist(int id, [FromBody] SaveSpecialistResource specialistResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -109,10 +115,10 @@ namespace DoctorHouse.Controllers.Resources
                 }
             }
 
-            mapper.Map<SpecialistResource, Specialist>(specialistResource, specialist);
+            mapper.Map<SaveSpecialistResource, Specialist>(specialistResource, specialist);
             await context.SaveChangesAsync();
 
-            var result = mapper.Map<Specialist, SpecialistResource>(specialist);
+            var result = mapper.Map<Specialist, SaveSpecialistResource>(specialist);
 
             return Ok(result);
 

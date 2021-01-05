@@ -1,31 +1,29 @@
-﻿using System;
+﻿using Castle.MicroKernel.SubSystems.Conversion;
+using DoctorHouse.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace DoctorHouse.Controllers.Resources
 {
-    public class SpecialistResource : UserResource
+    public class SpecialistResource
     {
-        [Required]
-        [StringLength(30)]
+        public UserDetailsResource Details { get; set;}
         public string SpecialistType { get; set; }
-
-
-        [Range(1, 30)]
         public int Area { get; set; }
 
-        [Required]
-        public ICollection<int> Companies { get; set; }
-        public ICollection<int> Appointments { get; set; }
+        public ICollection<KeyValuePairResource> Companies { get; set; }
+
+        public ICollection<AppointmentResource> Appointments { get; set; }
 
         public SpecialistResource()
         {
-            Companies = new Collection<int>();
-            Appointments = new Collection<int>();
+            Companies = new Collection<KeyValuePairResource>();
+            Appointments = new Collection<AppointmentResource>();
         }
-
     }
 }
