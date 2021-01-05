@@ -30,10 +30,8 @@ namespace DoctorHouse.Controllers
         [HttpGet]
         public async Task<IEnumerable<SaveCompanyResource>> GetCompanies()
         {
-            var companies = await context.Companies
-                .Include(c => c.Specialists)
-                .Include(c => c.Appointments).ToListAsync();
-            return mapper.Map<List<Company>, List<SaveCompanyResource>>(companies);
+            var companies = await repository.GetCompanies();
+            return mapper.Map<List<Company>, List<SaveCompanyResource>>(companies.ToList());
         }
 
         [HttpGet("{id}")]
@@ -59,7 +57,7 @@ namespace DoctorHouse.Controllers
                 return BadRequest(ModelState);
             }
 
-            var specialists = await context.Specialists.Select(s => s.Id).ToListAsync();
+            var specialists = await repository.GetListOfSpecialistsIds();
             var usersToCheck = companyResource.Specialists.ToList();
 
                 foreach (var i in usersToCheck)
@@ -72,7 +70,7 @@ namespace DoctorHouse.Controllers
 
             var company = mapper.Map<SaveCompanyResource, Company>(companyResource);
 
-            context.Companies.Add(company);
+            repository.Add(company);
             await context.SaveChangesAsync();
 
             company = await repository.GetCompany(company.Id);
@@ -97,7 +95,7 @@ namespace DoctorHouse.Controllers
                 return NotFound();
             }
 
-            var specialists = await context.Specialists.Select(s => s.Id).ToListAsync();
+            var specialists = await repository.GetListOfSpecialistsIds();
             var usersToCheck = companyResource.Specialists.ToList();
 
             foreach (var i in usersToCheck)
@@ -118,16 +116,14 @@ namespace DoctorHouse.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCompany(int id)
         {
-            var company = await context.Companies
-                                .Include(c => c.Appointments)
-                                .SingleOrDefaultAsync(c => c.Id == id);
+            var company = await repository.GetCompanyToDelete(id);
 
             if(company == null)
             {
                 return NotFound();
             }
 
-            context.Remove(company);
+            repository.Remove(company);
             await context.SaveChangesAsync();
 
             return Ok(id);

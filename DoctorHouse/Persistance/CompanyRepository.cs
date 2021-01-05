@@ -15,6 +15,20 @@ namespace DoctorHouse.Persistance
         {
             this.context = context;
         }
+
+        public async Task<IEnumerable<Company>> GetCompanies()
+        {
+            return await context.Companies
+                .Include(c => c.Specialists)
+                .Include(c => c.Appointments).ToListAsync();
+
+        }
+        public async Task<Company> GetCompanyToDelete(int id)
+        {
+            return await context.Companies
+                                .Include(c => c.Appointments)
+                                .SingleOrDefaultAsync(c => c.Id == id);
+        }
         public async Task<Company> GetCompany(int id)
         {
             return await context.Companies
@@ -25,6 +39,21 @@ namespace DoctorHouse.Persistance
                     .ThenInclude(a => a.Customer)
                         .ThenInclude(c => c.Details)
                 .SingleOrDefaultAsync(c => c.Id == id);
+        }
+
+        public async Task<List<int>> GetListOfSpecialistsIds()
+        {
+            return await context.Specialists.Select(s => s.Id).ToListAsync();
+        }
+
+        public void Add(Company company)
+        {
+            context.Companies.Add(company);
+        }
+
+        public void Remove(Company company)
+        {
+            context.Remove(company);
         }
     }
 }
