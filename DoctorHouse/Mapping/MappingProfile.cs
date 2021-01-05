@@ -52,7 +52,7 @@ namespace DoctorHouse.Mapping
                 .ForMember(ar => ar.CompanyId, opt => opt.MapFrom(a => a.CompanyId));
 
             //Company
-            CreateMap<Company, CompanyResource>()
+            CreateMap<Company, SaveCompanyResource>()
                 .ForMember(cr => cr.NIP, opt => opt.MapFrom(c => c.NIP))
                 .ForMember(cr => cr.IsVerified, opt => opt.MapFrom(c => c.IsVerified))
                 .ForMember(cr => cr.CompanyName, opt => opt.MapFrom(c => c.CompanyName))
@@ -63,6 +63,10 @@ namespace DoctorHouse.Mapping
                 .ForMember(cr => cr.Specialists, opt => opt.MapFrom(c => c.Specialists.Select(cs => cs.SpecialistId)))
                 .ForMember(cr => cr.Appointments, opt => opt.MapFrom(c => c.Appointments.Select(c => c.Id)));
 
+            CreateMap<Company, CompanyResource>()
+                .ForMember(cr => cr.Specialists, opt => opt.MapFrom(c => c.Specialists.Select(cs => new SpecialistResource { Id = cs.Specialist.Id, SpecialistType = cs.Specialist.SpecialistType, 
+                    Details = new UserDetailsResource { FirstName = cs.Specialist.Details.FirstName, LastName = cs.Specialist.Details.LastName, PhoneNumber = cs.Specialist.Details.PhoneNumber } })))
+                .ForMember(cr => cr.Appointments, opt => opt.MapFrom(c => c.Appointments.Select(cs => new AppointmentResource { Id = cs.Id, AppointmentDate = cs.AppointmentDate, Description = cs.Description, Status = cs.Status})));
 
             //API RESOURCES TO DOMAIN
             //UserDetails
@@ -147,7 +151,7 @@ namespace DoctorHouse.Mapping
                 .ForMember(a => a.CompanyId, opt => opt.MapFrom(ar => ar.CompanyId));
 
             //Company
-            CreateMap<CompanyResource, Company>()
+            CreateMap<SaveCompanyResource, Company>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.NIP, opt => opt.MapFrom(cr => cr.NIP))
                 .ForMember(c => c.IsVerified, opt => opt.MapFrom(cr => cr.IsVerified))

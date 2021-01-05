@@ -25,16 +25,23 @@ namespace DoctorHouse.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<CompanyResource>> GetCompanies()
+        public async Task<IEnumerable<SaveCompanyResource>> GetCompanies()
         {
-            var companies = await context.Companies.Include(c => c.Specialists).Include(c => c.Appointments).ToListAsync();
-            return mapper.Map<List<Company>, List<CompanyResource>>(companies);
+            var companies = await context.Companies
+                .Include(c => c.Specialists)
+                .Include(c => c.Appointments).ToListAsync();
+            return mapper.Map<List<Company>, List<SaveCompanyResource>>(companies);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCompany(int id)
         {
-            var company = await context.Companies.Include(c => c.Specialists).Include(c => c.Appointments).SingleOrDefaultAsync(c => c.Id == id);
+            var company = await context.Companies
+                .Include(c => c.Specialists)
+                    .ThenInclude(cs => cs.Specialist)
+                        .ThenInclude(s => s.Details)
+                .Include(c => c.Appointments)
+                .SingleOrDefaultAsync(c => c.Id == id);
 
             if (company == null)
             {
@@ -47,7 +54,7 @@ namespace DoctorHouse.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCompany([FromBody] CompanyResource companyResource)
+        public async Task<IActionResult> CreateCompany([FromBody] SaveCompanyResource companyResource)
         {
             if (!ModelState.IsValid)
             {
@@ -65,18 +72,18 @@ namespace DoctorHouse.Controllers
                     }
                 }
 
-            var company = mapper.Map<CompanyResource, Company>(companyResource);
+            var company = mapper.Map<SaveCompanyResource, Company>(companyResource);
 
             context.Companies.Add(company);
             await context.SaveChangesAsync();
 
-            var result = mapper.Map<Company, CompanyResource>(company);
+            var result = mapper.Map<Company, SaveCompanyResource>(company);
 
             return Ok(result);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCompany(int id, [FromBody] CompanyResource companyResource)
+        public async Task<IActionResult> UpdateCompany(int id, [FromBody] SaveCompanyResource companyResource)
         {
             if (!ModelState.IsValid)
             {
@@ -101,9 +108,9 @@ namespace DoctorHouse.Controllers
                 }
             }
 
-            mapper.Map<CompanyResource, Company>(companyResource, company);
+            mapper.Map<SaveCompanyResource, Company>(companyResource, company);
             await context.SaveChangesAsync();
-            var result = mapper.Map<Company, CompanyResource>(company);
+            var result = mapper.Map<Company, SaveCompanyResource>(company);
 
             return Ok(result);
         }
