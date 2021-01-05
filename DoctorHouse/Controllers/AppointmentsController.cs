@@ -29,8 +29,8 @@ namespace DoctorHouse.Controllers
         [HttpGet]
         public async Task<IEnumerable<SaveAppointmentResource>> GetAppointments()
         {
-            var appointments = await context.Appointments.ToListAsync();
-            return mapper.Map<List<Appointment>, List<SaveAppointmentResource>>(appointments);
+            var appointments = await repository.GetAppointments();
+            return mapper.Map<List<Appointment>, List<SaveAppointmentResource>>(appointments.ToList());
         }
 
         [HttpGet("{id}")]
@@ -56,9 +56,9 @@ namespace DoctorHouse.Controllers
                 return BadRequest(ModelState);
             }
 
-            var specialists = await context.Specialists.Select(s => s.Id).ToListAsync();
-            var customers = await context.Customers.Select(c => c.Id).ToListAsync();
-            var companies = await context.Companies.Select(c => c.Id).ToListAsync();
+            var specialists = await repository.GetListOfSpecialistsIds();
+            var customers = await repository.GetListOfCustomersIds();
+            var companies = await repository.GetListOfCompaniesIds();
 
             if (!specialists.Contains(appointmentResource.SpecialistId) ||
                 !customers.Contains(appointmentResource.CustomerId) ||
@@ -66,8 +66,8 @@ namespace DoctorHouse.Controllers
             {
                 return BadRequest("Wrong type of data provided");
             }
-
-            var specialistsInCompany = await context.SpecialistCompanies.Where(sc => sc.CompanyId == appointmentResource.CompanyId).Select(s => s.SpecialistId).ToListAsync();
+          
+            var specialistsInCompany = await repository.GetListOfSpecialistsIds(appointmentResource.CompanyId);
             if (!specialistsInCompany.Contains(appointmentResource.SpecialistId))
             {
                 return BadRequest("Provided specialist doesn't belong to this company");
@@ -75,7 +75,7 @@ namespace DoctorHouse.Controllers
 
             var appointment = mapper.Map<SaveAppointmentResource, Appointment>(appointmentResource);
 
-            context.Appointments.Add(appointment);
+            repository.Add(appointment);
             await context.SaveChangesAsync();
 
             appointment = await repository.GetAppointment(appointment.Id);
@@ -100,9 +100,9 @@ namespace DoctorHouse.Controllers
                 return NotFound();
             }
 
-            var specialists = await context.Specialists.Select(s => s.Id).ToListAsync();
-            var customers = await context.Customers.Select(c => c.Id).ToListAsync();
-            var companies = await context.Companies.Select(c => c.Id).ToListAsync();
+            var specialists = await repository.GetListOfSpecialistsIds();
+            var customers = await repository.GetListOfCustomersIds();
+            var companies = await repository.GetListOfCompaniesIds();
 
             if (!specialists.Contains(appointmentResource.SpecialistId) ||
                 !customers.Contains(appointmentResource.CustomerId) ||
@@ -111,7 +111,7 @@ namespace DoctorHouse.Controllers
                 return BadRequest("Wrong type of data provided");
             }
 
-            var specialistsInCompany = await context.SpecialistCompanies.Where(sc => sc.CompanyId == appointmentResource.CompanyId).Select(s => s.SpecialistId).ToListAsync();
+            var specialistsInCompany = await repository.GetListOfSpecialistsIds(appointmentResource.CompanyId);
             if (!specialistsInCompany.Contains(appointmentResource.SpecialistId))
             {
                 return BadRequest("Provided specialist doesn't belong to this company");
@@ -127,14 +127,14 @@ namespace DoctorHouse.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAppointment(int id)
         {
-            var appointment = await context.Appointments.FindAsync(id);
+            var appointment = await repository.GetAppointmentToDelete(id);
 
             if (appointment == null)
             {
                 return NotFound();
             }
 
-            context.Remove(appointment);
+            repository.Remove(appointment);
             await context.SaveChangesAsync();
 
             return Ok(id);
