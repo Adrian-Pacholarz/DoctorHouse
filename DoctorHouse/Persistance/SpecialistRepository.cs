@@ -16,6 +16,16 @@ namespace DoctorHouse.Persistance
             this.context = context;
         }
 
+        public void Add(Specialist specialist)
+        {
+            context.Specialists.Add(specialist);
+        }
+
+        public async Task<List<int>> GetListOfCompaniesIds()
+        {
+            return await context.Companies.Select(s => s.Id).ToListAsync();
+        }
+
         public async Task<Specialist> GetSpecialist(int id)
         {
             return await context.Specialists
@@ -26,6 +36,29 @@ namespace DoctorHouse.Persistance
                 .Include(s => s.Companies)
                     .ThenInclude(sc => sc.Company)
                 .SingleOrDefaultAsync(s => s.Id == id);
+        }
+
+        public async Task<IEnumerable<Specialist>> GetSpecialists()
+        {
+            return await context.Specialists
+                .Include(s => s.Details)
+                .Include(s => s.Appointments)
+                .Include(s => s.Companies)
+                .ToListAsync();
+        }
+
+        public async Task<Specialist> GetSpecialistToDelete(int id)
+        {
+            return await context.Specialists
+                .Include(s => s.Details)
+                .Include(s => s.Appointments)
+                .Include(s => s.Companies)
+                .SingleOrDefaultAsync(s => s.Id == id);
+        }
+
+        public void Remove(Specialist specialist)
+        {
+            context.Remove(specialist);
         }
     }
 }

@@ -27,13 +27,9 @@ namespace DoctorHouse.Controllers.Resources
         [HttpGet]
         public async Task<IActionResult> GetSpecialists()
         {
-            var specialists = await context.Specialists
-                .Include(s => s.Details)
-                .Include(s => s.Appointments)
-                .Include(s => s.Companies)
-                .ToListAsync();
+            var specialists = await repository.GetSpecialists();
 
-            var specialistsResources = mapper.Map<List<Specialist>, List<SaveSpecialistResource>>(specialists);
+            var specialistsResources = mapper.Map<List<Specialist>, List<SaveSpecialistResource>>(specialists.ToList());
             return Ok(specialistsResources);
         }
 
@@ -59,7 +55,7 @@ namespace DoctorHouse.Controllers.Resources
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var companies = await context.Companies.Select(s => s.Id).ToListAsync();
+            var companies = await repository.GetListOfCompaniesIds();
 
             foreach (var i in specialistResource.Companies)
             {
@@ -72,7 +68,7 @@ namespace DoctorHouse.Controllers.Resources
             var specialist = mapper.Map<SaveSpecialistResource, Specialist>(specialistResource);
             specialist.Details.DateOfRegistration = DateTime.Now;
 
-            context.Add(specialist);
+            repository.Add(specialist);
             await context.SaveChangesAsync();
 
             specialist = await repository.GetSpecialist(specialist.Id);
@@ -95,7 +91,7 @@ namespace DoctorHouse.Controllers.Resources
                 return NotFound();
             }
 
-            var companies = await context.Companies.Select(s => s.Id).ToListAsync();
+            var companies = await repository.GetListOfCompaniesIds();
 
             foreach (var i in specialistResource.Companies)
             {
@@ -117,18 +113,14 @@ namespace DoctorHouse.Controllers.Resources
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSpecialist(int id)
         {
-            var specialist = await context.Specialists
-                .Include(s => s.Details)
-                .Include(s => s.Appointments)
-                .Include(s => s.Companies)
-                .SingleOrDefaultAsync(s => s.Id == id);
+            var specialist = await repository.GetSpecialistToDelete(id);
 
             if (specialist == null)
             {
                 return NotFound();
             }
 
-            context.Remove(specialist);
+            repository.Remove(specialist);
             await context.SaveChangesAsync();
 
             return Ok(id);
