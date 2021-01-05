@@ -29,13 +29,13 @@ namespace DoctorHouse.Controllers.Resources
         public Int64 PhoneNumber { get; set; }
 
         [Required]
-        public ICollection<SpecialistResource> Specialists { get; set; }
+        public ICollection<KeyValuePairResource> Specialists { get; set; }
 
         public ICollection<AppointmentResource> Appointments { get; set; }
 
         public CompanyResource()
         {
-            Specialists = new Collection<SpecialistResource>();
+            Specialists = new Collection<KeyValuePairResource>();
             Appointments = new Collection<AppointmentResource>();
         }
     }

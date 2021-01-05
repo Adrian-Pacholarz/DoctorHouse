@@ -10,20 +10,12 @@ using System.Threading.Tasks;
 
 namespace DoctorHouse.Controllers.Resources
 {
-    public class AppointmentResource
+    public class KeyValuePairResource
     {
         public int Id { get; set; }
 
-        public DateTime AppointmentDate { get; set; }
+        public string FullName { get; set; }
 
-        public string Status { get; set; }
-
-        public string Description { get; set; }
-
-        public KeyValuePairResource Customer { get; set; }
-
-        public KeyValuePairResource Specialist { get; set; }
-
-        public KeyValuePairResource Company { get; set; }
+        public Int64 PhoneNumber { get; set; }
     }
 }

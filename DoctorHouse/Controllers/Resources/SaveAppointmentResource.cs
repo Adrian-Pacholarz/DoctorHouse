@@ -1,8 +1,6 @@
-﻿using Castle.MicroKernel.SubSystems.Conversion;
-using DoctorHouse.Models;
+﻿using DoctorHouse.Models;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -10,20 +8,24 @@ using System.Threading.Tasks;
 
 namespace DoctorHouse.Controllers.Resources
 {
-    public class AppointmentResource
+    public class SaveAppointmentResource
     {
         public int Id { get; set; }
 
+        [Required]
         public DateTime AppointmentDate { get; set; }
 
+        [Required]
         public string Status { get; set; }
 
+        [Required]
+        [StringLength(255)]
         public string Description { get; set; }
 
-        public KeyValuePairResource Customer { get; set; }
+        public int CustomerId { get; set; }
 
-        public KeyValuePairResource Specialist { get; set; }
+        public int SpecialistId { get; set; }
 
-        public KeyValuePairResource Company { get; set; }
+        public int CompanyId { get; set; }
     }
 }

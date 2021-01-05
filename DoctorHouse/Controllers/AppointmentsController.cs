@@ -25,16 +25,22 @@ namespace DoctorHouse.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<AppointmentResource>> GetAppointments()
+        public async Task<IEnumerable<SaveAppointmentResource>> GetAppointments()
         {
             var appointments = await context.Appointments.ToListAsync();
-            return mapper.Map<List<Appointment>, List<AppointmentResource>>(appointments);
+            return mapper.Map<List<Appointment>, List<SaveAppointmentResource>>(appointments);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAppointment(int id)
         {
-            var appointment = await context.Appointments.FindAsync(id);
+            var appointment = await context.Appointments
+                .Include(a => a.Company)
+                .Include(a => a.Specialist)
+                    .ThenInclude(s => s.Details)
+                .Include(a => a.Customer)
+                    .ThenInclude(c => c.Details)
+                .SingleOrDefaultAsync(c => c.Id == id);
 
             if (appointment == null)
             {
@@ -47,7 +53,7 @@ namespace DoctorHouse.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAppointment([FromBody] AppointmentResource appointmentResource)
+        public async Task<IActionResult> CreateAppointment([FromBody] SaveAppointmentResource appointmentResource)
         {
             if (!ModelState.IsValid)
             {
@@ -71,18 +77,18 @@ namespace DoctorHouse.Controllers
                 return BadRequest("Provided specialist doesn't belong to this company");
             }
 
-            var appointment = mapper.Map<AppointmentResource, Appointment>(appointmentResource);
+            var appointment = mapper.Map<SaveAppointmentResource, Appointment>(appointmentResource);
 
             context.Appointments.Add(appointment);
             await context.SaveChangesAsync();
 
-            var result = mapper.Map<Appointment, AppointmentResource>(appointment);
+            var result = mapper.Map<Appointment, SaveAppointmentResource>(appointment);
 
             return Ok(result);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAppointment(int id, [FromBody] AppointmentResource appointmentResource)
+        public async Task<IActionResult> UpdateAppointment(int id, [FromBody] SaveAppointmentResource appointmentResource)
         {
             if (!ModelState.IsValid)
             {
@@ -113,9 +119,9 @@ namespace DoctorHouse.Controllers
                 return BadRequest("Provided specialist doesn't belong to this company");
             }
 
-            mapper.Map<AppointmentResource, Appointment>(appointmentResource, appointment);
+            mapper.Map<SaveAppointmentResource, Appointment>(appointmentResource, appointment);
             await context.SaveChangesAsync();
-            var result = mapper.Map<Appointment, AppointmentResource>(appointment);
+            var result = mapper.Map<Appointment, SaveAppointmentResource>(appointment);
 
             return Ok(result);
         }
