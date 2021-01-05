@@ -16,11 +16,13 @@ namespace DoctorHouse.Controllers
     {
         private readonly DoctorHouseDbContext context;
         private readonly IMapper mapper;
+        private readonly IUserRepository repository;
 
-        public UsersController(DoctorHouseDbContext context, IMapper mapper)
+        public UsersController(DoctorHouseDbContext context, IMapper mapper, IUserRepository repository)
         {
             this.context = context;
             this.mapper = mapper;
+            this.repository = repository;
         }
 
         [HttpGet]
@@ -37,7 +39,7 @@ namespace DoctorHouse.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(int id)
         {
-            var user = await context.Users.Include(u => u.Details).SingleOrDefaultAsync(u => u.Id == id);
+            var user = await repository.GetUser(id);
 
             if (user == null)
             {

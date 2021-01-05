@@ -15,11 +15,13 @@ namespace DoctorHouse.Controllers.Resources
     {
         private readonly DoctorHouseDbContext context;
         private readonly IMapper mapper;
+        private readonly ISpecialistRepository repository;
 
-        public SpecialistsController(DoctorHouseDbContext context, IMapper mapper)
+        public SpecialistsController(DoctorHouseDbContext context, IMapper mapper, ISpecialistRepository repository)
         {
             this.context = context;
             this.mapper = mapper;
+            this.repository = repository;
         }
 
         [HttpGet]
@@ -38,14 +40,7 @@ namespace DoctorHouse.Controllers.Resources
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSpecialist(int id)
         {
-            var specialist = await context.Specialists
-                .Include(s => s.Details)
-                .Include(c => c.Appointments)
-                    .ThenInclude(a => a.Customer)
-                        .ThenInclude(c => c.Details)
-                .Include(s => s.Companies)
-                    .ThenInclude(sc => sc.Company)
-                .SingleOrDefaultAsync(s => s.Id == id);
+            var specialist = await repository.GetSpecialist(id);
 
             if (specialist == null)
             {
@@ -80,7 +75,9 @@ namespace DoctorHouse.Controllers.Resources
             context.Add(specialist);
             await context.SaveChangesAsync();
 
-            var result = mapper.Map<Specialist, SaveSpecialistResource>(specialist);
+            specialist = await repository.GetSpecialist(specialist.Id);
+
+            var result = mapper.Map<Specialist, SpecialistResource>(specialist);
 
             return Ok(result);
         }
@@ -91,11 +88,7 @@ namespace DoctorHouse.Controllers.Resources
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var specialist = await context.Specialists
-                .Include(s => s.Details)
-                .Include(s => s.Appointments)
-                .Include(s => s.Companies)
-                .SingleOrDefaultAsync(s => s.Id == id);
+            var specialist = await repository.GetSpecialist(id);
 
             if (specialist == null)
             {
@@ -115,7 +108,7 @@ namespace DoctorHouse.Controllers.Resources
             mapper.Map<SaveSpecialistResource, Specialist>(specialistResource, specialist);
             await context.SaveChangesAsync();
 
-            var result = mapper.Map<Specialist, SaveSpecialistResource>(specialist);
+            var result = mapper.Map<Specialist, SpecialistResource>(specialist);
 
             return Ok(result);
 

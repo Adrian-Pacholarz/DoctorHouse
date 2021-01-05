@@ -16,11 +16,13 @@ namespace DoctorHouse.Controllers
     {
         private readonly DoctorHouseDbContext context;
         private readonly IMapper mapper;
+        private readonly ICustomerRepository repository;
 
-        public CustomersController(DoctorHouseDbContext context, IMapper mapper)
+        public CustomersController(DoctorHouseDbContext context, IMapper mapper, ICustomerRepository repository)
         {
             this.context = context;
             this.mapper = mapper;
+            this.repository = repository;
         }
 
         [HttpGet]
@@ -44,7 +46,9 @@ namespace DoctorHouse.Controllers
             context.Customers.Add(customer);
             await context.SaveChangesAsync();
 
-            var result = mapper.Map<Customer, SaveCustomerResource>(customer);
+            customer = await repository.GetCustomer(customer.Id);
+
+            var result = mapper.Map<Customer, CustomerResource>(customer);
 
             return Ok(result);
         }
@@ -55,10 +59,7 @@ namespace DoctorHouse.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var customer = await context.Customers
-                .Include(c => c.Appointments)
-                .Include(c => c.Details)
-                .SingleOrDefaultAsync(c => c.Id == id);
+            var customer = await repository.GetCustomer(id);
 
             if (customer == null)
             {
@@ -68,7 +69,7 @@ namespace DoctorHouse.Controllers
             mapper.Map<SaveCustomerResource, Customer>(customerResource, customer);
 
             await context.SaveChangesAsync();
-            var result = mapper.Map<Customer, SaveCustomerResource>(customer);
+            var result = mapper.Map<Customer, CustomerResource>(customer);
 
             return Ok(result);
         }
@@ -95,14 +96,7 @@ namespace DoctorHouse.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCustomer(int id)
         {
-            var customer = await context.Customers
-                .Include(c => c.Appointments)
-                    .ThenInclude(a => a.Company)
-                .Include(c => c.Appointments)
-                    .ThenInclude(a => a.Specialist)
-                        .ThenInclude(s => s.Details)
-                .Include(c => c.Details)
-                .SingleOrDefaultAsync(c => c.Id == id);
+            var customer = await repository.GetCustomer(id);
 
             if (customer == null)
             {
