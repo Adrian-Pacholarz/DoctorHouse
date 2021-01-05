@@ -18,10 +18,13 @@ namespace DoctorHouse.Controllers
     {
         private readonly DoctorHouseDbContext context;
         private readonly IMapper mapper;
-        public CompaniesController(DoctorHouseDbContext context, IMapper mapper)
+        private readonly ICompanyRepository repository;
+
+        public CompaniesController(DoctorHouseDbContext context, IMapper mapper, ICompanyRepository repository)
         {
             this.context = context;
             this.mapper = mapper;
+            this.repository = repository;
         }
 
         [HttpGet]
@@ -36,14 +39,7 @@ namespace DoctorHouse.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCompany(int id)
         {
-            var company = await context.Companies
-                .Include(c => c.Specialists)
-                    .ThenInclude(cs => cs.Specialist)
-                        .ThenInclude(s => s.Details)
-                .Include(c => c.Appointments)
-                    .ThenInclude(a => a.Customer)
-                        .ThenInclude(c => c.Details)
-                .SingleOrDefaultAsync(c => c.Id == id);
+            var company = await repository.GetCompany(id);
 
             if (company == null)
             {
@@ -79,7 +75,9 @@ namespace DoctorHouse.Controllers
             context.Companies.Add(company);
             await context.SaveChangesAsync();
 
-            var result = mapper.Map<Company, SaveCompanyResource>(company);
+            company = await repository.GetCompany(company.Id);
+
+            var result = mapper.Map<Company, CompanyResource>(company);
 
             return Ok(result);
         }
@@ -92,7 +90,7 @@ namespace DoctorHouse.Controllers
                 return BadRequest(ModelState);
             }
 
-            var company = await context.Companies.Include(c => c.Specialists).SingleOrDefaultAsync(c => c.Id == id);
+            var company = await repository.GetCompany(id);
 
             if (company == null)
             {
@@ -112,7 +110,7 @@ namespace DoctorHouse.Controllers
 
             mapper.Map<SaveCompanyResource, Company>(companyResource, company);
             await context.SaveChangesAsync();
-            var result = mapper.Map<Company, SaveCompanyResource>(company);
+            var result = mapper.Map<Company, CompanyResource>(company);
 
             return Ok(result);
         }

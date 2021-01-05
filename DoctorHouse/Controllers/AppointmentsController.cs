@@ -17,11 +17,13 @@ namespace DoctorHouse.Controllers
     {
         private readonly DoctorHouseDbContext context;
         private readonly IMapper mapper;
+        private readonly IAppointmentRepository repository;
 
-        public AppointmentsController(DoctorHouseDbContext context, IMapper mapper)
+        public AppointmentsController(DoctorHouseDbContext context, IMapper mapper, IAppointmentRepository repository)
         {
             this.context = context;
             this.mapper = mapper;
+            this.repository = repository;
         }
 
         [HttpGet]
@@ -34,13 +36,7 @@ namespace DoctorHouse.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAppointment(int id)
         {
-            var appointment = await context.Appointments
-                .Include(a => a.Company)
-                .Include(a => a.Specialist)
-                    .ThenInclude(s => s.Details)
-                .Include(a => a.Customer)
-                    .ThenInclude(c => c.Details)
-                .SingleOrDefaultAsync(c => c.Id == id);
+            var appointment = await repository.GetAppointment(id);
 
             if (appointment == null)
             {
@@ -82,7 +78,9 @@ namespace DoctorHouse.Controllers
             context.Appointments.Add(appointment);
             await context.SaveChangesAsync();
 
-            var result = mapper.Map<Appointment, SaveAppointmentResource>(appointment);
+            appointment = await repository.GetAppointment(appointment.Id);
+
+            var result = mapper.Map<Appointment, AppointmentResource>(appointment);
 
             return Ok(result);
         }
@@ -95,7 +93,7 @@ namespace DoctorHouse.Controllers
                 return BadRequest(ModelState);
             }
 
-            var appointment = await context.Appointments.FindAsync(id);
+            var appointment = await repository.GetAppointment(id);
 
             if (appointment == null)
             {
@@ -121,7 +119,7 @@ namespace DoctorHouse.Controllers
 
             mapper.Map<SaveAppointmentResource, Appointment>(appointmentResource, appointment);
             await context.SaveChangesAsync();
-            var result = mapper.Map<Appointment, SaveAppointmentResource>(appointment);
+            var result = mapper.Map<Appointment, AppointmentResource>(appointment);
 
             return Ok(result);
         }
