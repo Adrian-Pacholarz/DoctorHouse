@@ -14,15 +14,15 @@ namespace DoctorHouse.Controllers
     [Route("/api/users")]
     public class UsersController : Controller
     {
-        private readonly DoctorHouseDbContext context;
         private readonly IMapper mapper;
         private readonly IUserRepository repository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public UsersController(DoctorHouseDbContext context, IMapper mapper, IUserRepository repository)
+        public UsersController(IMapper mapper, IUserRepository repository, IUnitOfWork unitOfWork)
         {
-            this.context = context;
             this.mapper = mapper;
             this.repository = repository;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpGet]
@@ -61,7 +61,7 @@ namespace DoctorHouse.Controllers
             }
 
             repository.Remove(user);
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
             return Ok(id);
         }

@@ -16,15 +16,15 @@ namespace DoctorHouse.Controllers
     [Route("api/companies")]
     public class CompaniesController : Controller
     {
-        private readonly DoctorHouseDbContext context;
         private readonly IMapper mapper;
         private readonly ICompanyRepository repository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public CompaniesController(DoctorHouseDbContext context, IMapper mapper, ICompanyRepository repository)
+        public CompaniesController(IMapper mapper, ICompanyRepository repository, IUnitOfWork unitOfWork)
         {
-            this.context = context;
             this.mapper = mapper;
             this.repository = repository;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpGet]
@@ -71,7 +71,7 @@ namespace DoctorHouse.Controllers
             var company = mapper.Map<SaveCompanyResource, Company>(companyResource);
 
             repository.Add(company);
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
             company = await repository.GetCompany(company.Id);
 
@@ -107,7 +107,7 @@ namespace DoctorHouse.Controllers
             }
 
             mapper.Map<SaveCompanyResource, Company>(companyResource, company);
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
             var result = mapper.Map<Company, CompanyResource>(company);
 
             return Ok(result);
@@ -124,7 +124,7 @@ namespace DoctorHouse.Controllers
             }
 
             repository.Remove(company);
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
             return Ok(id);
         }

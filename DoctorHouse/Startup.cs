@@ -35,6 +35,7 @@ namespace DoctorHouse
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<ISpecialistRepository, SpecialistRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory

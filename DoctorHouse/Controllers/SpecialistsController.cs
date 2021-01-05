@@ -13,15 +13,15 @@ namespace DoctorHouse.Controllers.Resources
     [Route("/api/users/specialists")]
     public class SpecialistsController : Controller
     {
-        private readonly DoctorHouseDbContext context;
         private readonly IMapper mapper;
         private readonly ISpecialistRepository repository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public SpecialistsController(DoctorHouseDbContext context, IMapper mapper, ISpecialistRepository repository)
+        public SpecialistsController(IMapper mapper, ISpecialistRepository repository, IUnitOfWork unitOfWork)
         {
-            this.context = context;
             this.mapper = mapper;
             this.repository = repository;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpGet]
@@ -69,7 +69,7 @@ namespace DoctorHouse.Controllers.Resources
             specialist.Details.DateOfRegistration = DateTime.Now;
 
             repository.Add(specialist);
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
             specialist = await repository.GetSpecialist(specialist.Id);
 
@@ -102,7 +102,7 @@ namespace DoctorHouse.Controllers.Resources
             }
 
             mapper.Map<SaveSpecialistResource, Specialist>(specialistResource, specialist);
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
             var result = mapper.Map<Specialist, SpecialistResource>(specialist);
 
@@ -121,7 +121,7 @@ namespace DoctorHouse.Controllers.Resources
             }
 
             repository.Remove(specialist);
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
             return Ok(id);
 

@@ -15,15 +15,15 @@ namespace DoctorHouse.Controllers
     [Route("api/appointments")]
     public class AppointmentsController : Controller
     {
-        private readonly DoctorHouseDbContext context;
         private readonly IMapper mapper;
         private readonly IAppointmentRepository repository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public AppointmentsController(DoctorHouseDbContext context, IMapper mapper, IAppointmentRepository repository)
+        public AppointmentsController(IMapper mapper, IAppointmentRepository repository, IUnitOfWork unitOfWork)
         {
-            this.context = context;
             this.mapper = mapper;
             this.repository = repository;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpGet]
@@ -76,7 +76,7 @@ namespace DoctorHouse.Controllers
             var appointment = mapper.Map<SaveAppointmentResource, Appointment>(appointmentResource);
 
             repository.Add(appointment);
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
             appointment = await repository.GetAppointment(appointment.Id);
 
@@ -118,7 +118,7 @@ namespace DoctorHouse.Controllers
             }
 
             mapper.Map<SaveAppointmentResource, Appointment>(appointmentResource, appointment);
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
             var result = mapper.Map<Appointment, AppointmentResource>(appointment);
 
             return Ok(result);
@@ -135,7 +135,7 @@ namespace DoctorHouse.Controllers
             }
 
             repository.Remove(appointment);
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
             return Ok(id);
         }

@@ -14,15 +14,15 @@ namespace DoctorHouse.Controllers
     [Route("/api/users/customers")]
     public class CustomersController : Controller
     {
-        private readonly DoctorHouseDbContext context;
         private readonly IMapper mapper;
         private readonly ICustomerRepository repository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public CustomersController(DoctorHouseDbContext context, IMapper mapper, ICustomerRepository repository)
+        public CustomersController(IMapper mapper, ICustomerRepository repository, IUnitOfWork unitOfWork)
         {
-            this.context = context;
             this.mapper = mapper;
             this.repository = repository;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpGet]
@@ -44,7 +44,7 @@ namespace DoctorHouse.Controllers
             customer.Details.DateOfRegistration = DateTime.Now;
 
             repository.Add(customer);
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
             customer = await repository.GetCustomer(customer.Id);
 
@@ -68,7 +68,7 @@ namespace DoctorHouse.Controllers
 
             mapper.Map<SaveCustomerResource, Customer>(customerResource, customer);
 
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
             var result = mapper.Map<Customer, CustomerResource>(customer);
 
             return Ok(result);
@@ -85,7 +85,7 @@ namespace DoctorHouse.Controllers
             }
 
             repository.Remove(customer);
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
             return Ok(id);
         }
