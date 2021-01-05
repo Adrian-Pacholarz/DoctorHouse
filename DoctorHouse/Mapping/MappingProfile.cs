@@ -14,6 +14,7 @@ namespace DoctorHouse.Mapping
         {
             //DOMAIN TO API RESOURCES
             CreateMap<UserDetails, UserDetailsResource>();
+            CreateMap<UserDetails, SaveUserDetailsResource>();
 
             //Customer
             CreateMap<Customer, SaveCustomerResource>()
@@ -106,7 +107,7 @@ namespace DoctorHouse.Mapping
 
             //API RESOURCES TO DOMAIN
             //UserDetails
-            CreateMap<UserDetailsResource, UserDetails>()
+            CreateMap<SaveUserDetailsResource, UserDetails>()
                 .ForMember(ud => ud.Id, opt => opt.Ignore())
                 .ForMember(ud => ud.UserId, opt => opt.Ignore())
                 .ForMember(ud => ud.DateOfRegistration, opt => opt.Ignore())

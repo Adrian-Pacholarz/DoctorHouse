@@ -22,6 +22,6 @@ namespace DoctorHouse.Controllers.Resources
         [Required]
         public bool IsAdmin { get; set; }
 
-        public UserDetailsResource Details { get; set; }
+        public SaveUserDetailsResource Details { get; set; }
     }
 }
