@@ -1,5 +1,6 @@
 using AutoMapper;
 using DoctorHouse.Persistance;
+using DoctorHouse.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using AutoMapper;
 
 namespace DoctorHouse
 {
@@ -29,6 +29,13 @@ namespace DoctorHouse
 
             services.AddDbContext<DoctorHouseDbContext>
                 (options => options.UseSqlServer($"Server={Environment.MachineName}\\SQLEXPRESS; Database=DrHouseDb; Integrated Security = true;"));
+
+            services.AddScoped<ICompanyRepository, CompanyRepository>();
+            services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<ISpecialistRepository, SpecialistRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory

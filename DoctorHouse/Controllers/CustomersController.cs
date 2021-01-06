@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using DoctorHouse.Controllers.Resources;
-using DoctorHouse.Models;
-using DoctorHouse.Persistance;
+using DoctorHouse.Core.Models;
+using DoctorHouse.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,35 +14,39 @@ namespace DoctorHouse.Controllers
     [Route("/api/users/customers")]
     public class CustomersController : Controller
     {
-        private readonly DoctorHouseDbContext context;
         private readonly IMapper mapper;
+        private readonly ICustomerRepository repository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public CustomersController(DoctorHouseDbContext context, IMapper mapper)
+        public CustomersController(IMapper mapper, ICustomerRepository repository, IUnitOfWork unitOfWork)
         {
-            this.context = context;
             this.mapper = mapper;
+            this.repository = repository;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetCustomers()
         {
-            var customers = await context.Customers.Include(c => c.Details).Include(c => c.Appointments).ToListAsync();
-            var customersResources = mapper.Map<List<Customer>, List<CustomerResource>>(customers);
+            var customers = await repository.GetCustomers();
+            var customersResources = mapper.Map<List<Customer>, List<SaveCustomerResource>>(customers.ToList());
 
             return Ok(customersResources);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCustomer([FromBody] CustomerResource customerResource)
+        public async Task<IActionResult> CreateCustomer([FromBody] SaveCustomerResource customerResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var customer = mapper.Map<CustomerResource, Customer>(customerResource);
+            var customer = mapper.Map<SaveCustomerResource, Customer>(customerResource);
             customer.Details.DateOfRegistration = DateTime.Now;
 
-            context.Customers.Add(customer);
-            await context.SaveChangesAsync();
+            repository.Add(customer);
+            await unitOfWork.CompleteAsync();
+
+            customer = await repository.GetCustomer(customer.Id);
 
             var result = mapper.Map<Customer, CustomerResource>(customer);
 
@@ -50,24 +54,24 @@ namespace DoctorHouse.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCustomer(int id, [FromBody] CustomerResource customerResource)
+        public async Task<IActionResult> UpdateCustomer(int id, [FromBody] SaveCustomerResource customerResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var customer = await context.Customers
-                .Include(c => c.Appointments)
-                .Include(c => c.Details)
-                .SingleOrDefaultAsync(c => c.Id == id);
+            var customer = await repository.GetCustomer(id);
 
             if (customer == null)
             {
                 return NotFound();
             }
 
-            mapper.Map<CustomerResource, Customer>(customerResource, customer);
+            mapper.Map<SaveCustomerResource, Customer>(customerResource, customer);
 
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
+
+            customer = await repository.GetCustomer(customer.Id);
+
             var result = mapper.Map<Customer, CustomerResource>(customer);
 
             return Ok(result);
@@ -76,18 +80,15 @@ namespace DoctorHouse.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomer(int id)
         {
-            var customer = await context.Customers
-                .Include(c => c.Appointments)
-                .Include(c => c.Details)
-                .SingleOrDefaultAsync(c => c.Id == id);
+            var customer = await repository.GetCustomerToDelete(id);
 
             if (customer == null)
             {
                 return NotFound();
             }
 
-            context.Remove(customer);
-            await context.SaveChangesAsync();
+            repository.Remove(customer);
+            await unitOfWork.CompleteAsync();
 
             return Ok(id);
         }
@@ -95,10 +96,7 @@ namespace DoctorHouse.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCustomer(int id)
         {
-            var customer = await context.Customers
-                .Include(c => c.Appointments)
-                .Include(c => c.Details)
-                .SingleOrDefaultAsync(c => c.Id == id);
+            var customer = await repository.GetCustomer(id);
 
             if (customer == null)
             {

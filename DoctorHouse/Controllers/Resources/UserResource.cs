@@ -1,9 +1,4 @@
-﻿using DoctorHouse.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DoctorHouse.Controllers.Resources
 {
@@ -22,6 +17,6 @@ namespace DoctorHouse.Controllers.Resources
         [Required]
         public bool IsAdmin { get; set; }
 
-        public UserDetailsResource Details { get; set; }
+        public SaveUserDetailsResource Details { get; set; }
     }
 }

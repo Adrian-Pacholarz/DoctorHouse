@@ -1,4 +1,4 @@
-﻿using DoctorHouse.Models;
+﻿using DoctorHouse.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 

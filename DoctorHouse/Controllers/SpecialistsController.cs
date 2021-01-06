@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using DoctorHouse.Models;
-using DoctorHouse.Persistance;
+using DoctorHouse.Core.Models;
+using DoctorHouse.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,36 +13,30 @@ namespace DoctorHouse.Controllers.Resources
     [Route("/api/users/specialists")]
     public class SpecialistsController : Controller
     {
-        private readonly DoctorHouseDbContext context;
         private readonly IMapper mapper;
+        private readonly ISpecialistRepository repository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public SpecialistsController(DoctorHouseDbContext context, IMapper mapper)
+        public SpecialistsController(IMapper mapper, ISpecialistRepository repository, IUnitOfWork unitOfWork)
         {
-            this.context = context;
             this.mapper = mapper;
+            this.repository = repository;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetSpecialists()
         {
-            var specialists = await context.Specialists
-                .Include(s => s.Details)
-                .Include(s => s.Appointments)
-                .Include(s => s.Companies)
-                .ToListAsync();
+            var specialists = await repository.GetSpecialists();
 
-            var specialistsResources = mapper.Map<List<Specialist>, List<SpecialistResource>>(specialists);
+            var specialistsResources = mapper.Map<List<Specialist>, List<SaveSpecialistResource>>(specialists.ToList());
             return Ok(specialistsResources);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSpecialist(int id)
         {
-            var specialist = await context.Specialists
-                .Include(s => s.Details)
-                .Include(s => s.Appointments)
-                .Include(s => s.Companies)
-                .SingleOrDefaultAsync(s => s.Id == id);
+            var specialist = await repository.GetSpecialist(id);
 
             if (specialist == null)
             {
@@ -56,12 +50,12 @@ namespace DoctorHouse.Controllers.Resources
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateSpecialist([FromBody] SpecialistResource specialistResource)
+        public async Task<IActionResult> CreateSpecialist([FromBody] SaveSpecialistResource specialistResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var companies = await context.Companies.Select(s => s.Id).ToListAsync();
+            var companies = await repository.GetListOfCompaniesIds();
 
             foreach (var i in specialistResource.Companies)
             {
@@ -71,11 +65,13 @@ namespace DoctorHouse.Controllers.Resources
                 }
             }
 
-            var specialist = mapper.Map<SpecialistResource, Specialist>(specialistResource);
+            var specialist = mapper.Map<SaveSpecialistResource, Specialist>(specialistResource);
             specialist.Details.DateOfRegistration = DateTime.Now;
 
-            context.Add(specialist);
-            await context.SaveChangesAsync();
+            repository.Add(specialist);
+            await unitOfWork.CompleteAsync();
+
+            specialist = await repository.GetSpecialist(specialist.Id);
 
             var result = mapper.Map<Specialist, SpecialistResource>(specialist);
 
@@ -83,23 +79,19 @@ namespace DoctorHouse.Controllers.Resources
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateSpecialist(int id, [FromBody] SpecialistResource specialistResource)
+        public async Task<IActionResult> UpdateSpecialist(int id, [FromBody] SaveSpecialistResource specialistResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var specialist = await context.Specialists
-                .Include(s => s.Details)
-                .Include(s => s.Appointments)
-                .Include(s => s.Companies)
-                .SingleOrDefaultAsync(s => s.Id == id);
+            var specialist = await repository.GetSpecialist(id);
 
             if (specialist == null)
             {
                 return NotFound();
             }
 
-            var companies = await context.Companies.Select(s => s.Id).ToListAsync();
+            var companies = await repository.GetListOfCompaniesIds();
 
             foreach (var i in specialistResource.Companies)
             {
@@ -109,8 +101,10 @@ namespace DoctorHouse.Controllers.Resources
                 }
             }
 
-            mapper.Map<SpecialistResource, Specialist>(specialistResource, specialist);
-            await context.SaveChangesAsync();
+            mapper.Map<SaveSpecialistResource, Specialist>(specialistResource, specialist);
+            await unitOfWork.CompleteAsync();
+
+            specialist = await repository.GetSpecialist(specialist.Id);
 
             var result = mapper.Map<Specialist, SpecialistResource>(specialist);
 
@@ -121,19 +115,15 @@ namespace DoctorHouse.Controllers.Resources
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSpecialist(int id)
         {
-            var specialist = await context.Specialists
-                .Include(s => s.Details)
-                .Include(s => s.Appointments)
-                .Include(s => s.Companies)
-                .SingleOrDefaultAsync(s => s.Id == id);
+            var specialist = await repository.GetSpecialistToDelete(id);
 
             if (specialist == null)
             {
                 return NotFound();
             }
 
-            context.Remove(specialist);
-            await context.SaveChangesAsync();
+            repository.Remove(specialist);
+            await unitOfWork.CompleteAsync();
 
             return Ok(id);
 

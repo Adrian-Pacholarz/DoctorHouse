@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace DoctorHouse.Models
+namespace DoctorHouse.Core.Models
 {
     public class SpecialistCompanies
     {

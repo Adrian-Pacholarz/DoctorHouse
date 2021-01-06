@@ -2,45 +2,45 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DoctorHouse.Models
+namespace DoctorHouse.Controllers.Resources
 {
-    public class Company
+    public class SaveCompanyResource
     {
         public int Id { get; set; }
 
         [Required]
+        [Range(1000000000, 9999999999)]
         public Int64 NIP { get; set; }
 
         [Required]
         public bool IsVerified { get; set; }
 
         [Required]
-        [Column(TypeName = "nvarchar(30)")]
+        [StringLength(30)]
         public string CompanyName { get; set; }
 
         [Required]
-        [Column(TypeName = "nvarchar(MAX)")]
+        [StringLength(255)]
         public string Address { get; set; }
-
         public byte Rating { get; set; }
 
-        [Column(TypeName = "nvarchar(MAX)")]
+        [Required]
+        [StringLength(255)]
         public string Description { get; set; }
 
         [Required]
+        [Range(100000000, 999999999)]
         public Int64 PhoneNumber { get; set; }
 
         [Required]
-        public ICollection<SpecialistCompanies> Specialists { get; set; }
+        public ICollection<int> Specialists { get; set; }
+        public ICollection<int> Appointments { get; set; }
 
-        public ICollection<Appointment> Appointments { get; set; }
-
-        public Company()
+        public SaveCompanyResource()
         {
-            Specialists = new Collection<SpecialistCompanies>();
-            Appointments = new Collection<Appointment>();
+            Specialists = new Collection<int>();
+            Appointments = new Collection<int>();
         }
     }
 }

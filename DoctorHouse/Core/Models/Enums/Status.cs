@@ -1,4 +1,4 @@
-﻿namespace DoctorHouse.Models
+﻿namespace DoctorHouse.Core.Models
 {
     public enum Status
     {

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using DoctorHouse.Controllers.Resources;
-using DoctorHouse.Models;
-using DoctorHouse.Persistance;
+using DoctorHouse.Core.Models;
+using DoctorHouse.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,22 +14,24 @@ namespace DoctorHouse.Controllers
     [Route("/api/users")]
     public class UsersController : Controller
     {
-        private readonly DoctorHouseDbContext context;
         private readonly IMapper mapper;
+        private readonly IUserRepository repository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public UsersController(DoctorHouseDbContext context, IMapper mapper)
+        public UsersController(IMapper mapper, IUserRepository repository, IUnitOfWork unitOfWork)
         {
-            this.context = context;
             this.mapper = mapper;
+            this.repository = repository;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
 
-            var users = await context.Users.Include(u => u.Details).ToListAsync();
+            var users = await repository.GetUsers();
 
-            var userResources = mapper.Map<List<User>, List<UserResource>>(users);
+            var userResources = mapper.Map<List<User>, List<UserResource>>(users.ToList());
 
             return Ok(userResources);
         }
@@ -37,7 +39,7 @@ namespace DoctorHouse.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(int id)
         {
-            var user = await context.Users.Include(u => u.Details).SingleOrDefaultAsync(u => u.Id == id);
+            var user = await repository.GetUser(id);
 
             if (user == null)
             {
@@ -51,15 +53,15 @@ namespace DoctorHouse.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            var user = await context.Users.Include(u => u.Details).SingleOrDefaultAsync(u => u.Id == id);
+            var user = await repository.GetUserToDelete(id);
 
             if (user == null)
             {
                 return NotFound();
             }
 
-            context.Remove(user);
-            await context.SaveChangesAsync();
+            repository.Remove(user);
+            await unitOfWork.CompleteAsync();
 
             return Ok(id);
         }

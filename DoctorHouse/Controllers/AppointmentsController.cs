@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DoctorHouse.Controllers.Resources;
-using DoctorHouse.Models;
+using DoctorHouse.Core.Models;
 using AutoMapper;
-using DoctorHouse.Persistance;
+using DoctorHouse.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
@@ -15,26 +15,28 @@ namespace DoctorHouse.Controllers
     [Route("api/appointments")]
     public class AppointmentsController : Controller
     {
-        private readonly DoctorHouseDbContext context;
         private readonly IMapper mapper;
+        private readonly IAppointmentRepository repository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public AppointmentsController(DoctorHouseDbContext context, IMapper mapper)
+        public AppointmentsController(IMapper mapper, IAppointmentRepository repository, IUnitOfWork unitOfWork)
         {
-            this.context = context;
             this.mapper = mapper;
+            this.repository = repository;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<AppointmentResource>> GetAppointments()
+        public async Task<IEnumerable<SaveAppointmentResource>> GetAppointments()
         {
-            var appointments = await context.Appointments.ToListAsync();
-            return mapper.Map<List<Appointment>, List<AppointmentResource>>(appointments);
+            var appointments = await repository.GetAppointments();
+            return mapper.Map<List<Appointment>, List<SaveAppointmentResource>>(appointments.ToList());
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAppointment(int id)
         {
-            var appointment = await context.Appointments.FindAsync(id);
+            var appointment = await repository.GetAppointment(id);
 
             if (appointment == null)
             {
@@ -47,16 +49,16 @@ namespace DoctorHouse.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAppointment([FromBody] AppointmentResource appointmentResource)
+        public async Task<IActionResult> CreateAppointment([FromBody] SaveAppointmentResource appointmentResource)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var specialists = await context.Specialists.Select(s => s.Id).ToListAsync();
-            var customers = await context.Customers.Select(c => c.Id).ToListAsync();
-            var companies = await context.Companies.Select(c => c.Id).ToListAsync();
+            var specialists = await repository.GetListOfSpecialistsIds();
+            var customers = await repository.GetListOfCustomersIds();
+            var companies = await repository.GetListOfCompaniesIds();
 
             if (!specialists.Contains(appointmentResource.SpecialistId) ||
                 !customers.Contains(appointmentResource.CustomerId) ||
@@ -64,17 +66,19 @@ namespace DoctorHouse.Controllers
             {
                 return BadRequest("Wrong type of data provided");
             }
-
-            var specialistsInCompany = await context.SpecialistCompanies.Where(sc => sc.CompanyId == appointmentResource.CompanyId).Select(s => s.SpecialistId).ToListAsync();
+          
+            var specialistsInCompany = await repository.GetListOfSpecialistsIds(appointmentResource.CompanyId);
             if (!specialistsInCompany.Contains(appointmentResource.SpecialistId))
             {
                 return BadRequest("Provided specialist doesn't belong to this company");
             }
 
-            var appointment = mapper.Map<AppointmentResource, Appointment>(appointmentResource);
+            var appointment = mapper.Map<SaveAppointmentResource, Appointment>(appointmentResource);
 
-            context.Appointments.Add(appointment);
-            await context.SaveChangesAsync();
+            repository.Add(appointment);
+            await unitOfWork.CompleteAsync();
+
+            appointment = await repository.GetAppointment(appointment.Id);
 
             var result = mapper.Map<Appointment, AppointmentResource>(appointment);
 
@@ -82,23 +86,23 @@ namespace DoctorHouse.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAppointment(int id, [FromBody] AppointmentResource appointmentResource)
+        public async Task<IActionResult> UpdateAppointment(int id, [FromBody] SaveAppointmentResource appointmentResource)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var appointment = await context.Appointments.FindAsync(id);
+            var appointment = await repository.GetAppointment(id);
 
             if (appointment == null)
             {
                 return NotFound();
             }
 
-            var specialists = await context.Specialists.Select(s => s.Id).ToListAsync();
-            var customers = await context.Customers.Select(c => c.Id).ToListAsync();
-            var companies = await context.Companies.Select(c => c.Id).ToListAsync();
+            var specialists = await repository.GetListOfSpecialistsIds();
+            var customers = await repository.GetListOfCustomersIds();
+            var companies = await repository.GetListOfCompaniesIds();
 
             if (!specialists.Contains(appointmentResource.SpecialistId) ||
                 !customers.Contains(appointmentResource.CustomerId) ||
@@ -107,14 +111,17 @@ namespace DoctorHouse.Controllers
                 return BadRequest("Wrong type of data provided");
             }
 
-            var specialistsInCompany = await context.SpecialistCompanies.Where(sc => sc.CompanyId == appointmentResource.CompanyId).Select(s => s.SpecialistId).ToListAsync();
+            var specialistsInCompany = await repository.GetListOfSpecialistsIds(appointmentResource.CompanyId);
             if (!specialistsInCompany.Contains(appointmentResource.SpecialistId))
             {
                 return BadRequest("Provided specialist doesn't belong to this company");
             }
 
-            mapper.Map<AppointmentResource, Appointment>(appointmentResource, appointment);
-            await context.SaveChangesAsync();
+            mapper.Map<SaveAppointmentResource, Appointment>(appointmentResource, appointment);
+            await unitOfWork.CompleteAsync();
+
+            appointment = await repository.GetAppointment(appointment.Id);
+
             var result = mapper.Map<Appointment, AppointmentResource>(appointment);
 
             return Ok(result);
@@ -123,15 +130,15 @@ namespace DoctorHouse.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAppointment(int id)
         {
-            var appointment = await context.Appointments.FindAsync(id);
+            var appointment = await repository.GetAppointmentToDelete(id);
 
             if (appointment == null)
             {
                 return NotFound();
             }
 
-            context.Remove(appointment);
-            await context.SaveChangesAsync();
+            repository.Remove(appointment);
+            await unitOfWork.CompleteAsync();
 
             return Ok(id);
         }

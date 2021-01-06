@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DoctorHouse.Controllers.Resources;
-using DoctorHouse.Models;
+using DoctorHouse.Core.Models;
 using AutoMapper;
-using DoctorHouse.Persistance;
+using DoctorHouse.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
@@ -16,25 +16,28 @@ namespace DoctorHouse.Controllers
     [Route("api/companies")]
     public class CompaniesController : Controller
     {
-        private readonly DoctorHouseDbContext context;
         private readonly IMapper mapper;
-        public CompaniesController(DoctorHouseDbContext context, IMapper mapper)
+        private readonly ICompanyRepository repository;
+        private readonly IUnitOfWork unitOfWork;
+
+        public CompaniesController(IMapper mapper, ICompanyRepository repository, IUnitOfWork unitOfWork)
         {
-            this.context = context;
             this.mapper = mapper;
+            this.repository = repository;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<CompanyResource>> GetCompanies()
+        public async Task<IEnumerable<SaveCompanyResource>> GetCompanies()
         {
-            var companies = await context.Companies.Include(c => c.Specialists).Include(c => c.Appointments).ToListAsync();
-            return mapper.Map<List<Company>, List<CompanyResource>>(companies);
+            var companies = await repository.GetCompanies();
+            return mapper.Map<List<Company>, List<SaveCompanyResource>>(companies.ToList());
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCompany(int id)
         {
-            var company = await context.Companies.Include(c => c.Specialists).Include(c => c.Appointments).SingleOrDefaultAsync(c => c.Id == id);
+            var company = await repository.GetCompany(id);
 
             if (company == null)
             {
@@ -47,14 +50,14 @@ namespace DoctorHouse.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCompany([FromBody] CompanyResource companyResource)
+        public async Task<IActionResult> CreateCompany([FromBody] SaveCompanyResource companyResource)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var specialists = await context.Specialists.Select(s => s.Id).ToListAsync();
+            var specialists = await repository.GetListOfSpecialistsIds();
             var usersToCheck = companyResource.Specialists.ToList();
 
                 foreach (var i in usersToCheck)
@@ -65,10 +68,12 @@ namespace DoctorHouse.Controllers
                     }
                 }
 
-            var company = mapper.Map<CompanyResource, Company>(companyResource);
+            var company = mapper.Map<SaveCompanyResource, Company>(companyResource);
 
-            context.Companies.Add(company);
-            await context.SaveChangesAsync();
+            repository.Add(company);
+            await unitOfWork.CompleteAsync();
+
+            company = await repository.GetCompany(company.Id);
 
             var result = mapper.Map<Company, CompanyResource>(company);
 
@@ -76,21 +81,21 @@ namespace DoctorHouse.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCompany(int id, [FromBody] CompanyResource companyResource)
+        public async Task<IActionResult> UpdateCompany(int id, [FromBody] SaveCompanyResource companyResource)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var company = await context.Companies.Include(c => c.Specialists).SingleOrDefaultAsync(c => c.Id == id);
+            var company = await repository.GetCompany(id);
 
             if (company == null)
             {
                 return NotFound();
             }
 
-            var specialists = await context.Specialists.Select(s => s.Id).ToListAsync();
+            var specialists = await repository.GetListOfSpecialistsIds();
             var usersToCheck = companyResource.Specialists.ToList();
 
             foreach (var i in usersToCheck)
@@ -101,8 +106,11 @@ namespace DoctorHouse.Controllers
                 }
             }
 
-            mapper.Map<CompanyResource, Company>(companyResource, company);
-            await context.SaveChangesAsync();
+            mapper.Map<SaveCompanyResource, Company>(companyResource, company);
+            await unitOfWork.CompleteAsync();
+
+            company = await repository.GetCompany(company.Id);
+
             var result = mapper.Map<Company, CompanyResource>(company);
 
             return Ok(result);
@@ -111,17 +119,15 @@ namespace DoctorHouse.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCompany(int id)
         {
-            var company = await context.Companies
-                                .Include(c => c.Appointments)
-                                .SingleOrDefaultAsync(c => c.Id == id);
+            var company = await repository.GetCompanyToDelete(id);
 
             if(company == null)
             {
                 return NotFound();
             }
 
-            context.Remove(company);
-            await context.SaveChangesAsync();
+            repository.Remove(company);
+            await unitOfWork.CompleteAsync();
 
             return Ok(id);
         }

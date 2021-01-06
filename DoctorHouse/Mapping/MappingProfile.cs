@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DoctorHouse.Controllers.Resources;
-using DoctorHouse.Models;
+using DoctorHouse.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +14,10 @@ namespace DoctorHouse.Mapping
         {
             //DOMAIN TO API RESOURCES
             CreateMap<UserDetails, UserDetailsResource>();
+            CreateMap<UserDetails, SaveUserDetailsResource>();
 
             //Customer
-            CreateMap<Customer, CustomerResource>()
+            CreateMap<Customer, SaveCustomerResource>()
                 .ForMember(cr => cr.Username, opt => opt.MapFrom(c => c.Username))
                 .ForMember(cr => cr.Password, opt => opt.MapFrom(c => c.Password))
                 .ForMember(cr => cr.IsAdmin, opt => opt.MapFrom(c => c.IsAdmin))
@@ -24,8 +25,22 @@ namespace DoctorHouse.Mapping
                 .ForMember(cr => cr.Appointments, opt => opt.MapFrom(s => s.Appointments.Select(a => a.Id)))
                 .ForMember(cr => cr.Address, opt => opt.MapFrom(c => c.Address));
 
+            CreateMap<Customer, CustomerResource>()
+                .ForMember(cr => cr.Details, opt => opt.MapFrom(s => s.Details))
+                .ForMember(cr => cr.Address, opt => opt.MapFrom(c => c.Address))
+                .ForMember(cr => cr.Appointments, opt => opt.MapFrom(c => c.Appointments.Select(c => new AppointmentResource
+                {
+                    Id = c.Id,
+                    AppointmentDate = c.AppointmentDate,
+                    Description = c.Description,
+                    Status = c.Status,
+                    Specialist = new KeyValuePairResource { Id = c.Specialist.Id, FullName = c.Specialist.Details.FirstName + " " + c.Specialist.Details.LastName, PhoneNumber = c.Specialist.Details.PhoneNumber },
+                    Customer = new KeyValuePairResource { Id = c.Customer.Id, FullName = c.Customer.Details.FirstName + " " + c.Customer.Details.LastName, PhoneNumber = c.Customer.Details.PhoneNumber },
+                    Company = new KeyValuePairResource { Id = c.Company.Id, FullName = c.Company.CompanyName, PhoneNumber = c.Company.PhoneNumber }
+                })));
+
             //Specialist
-            CreateMap<Specialist, SpecialistResource>()
+            CreateMap<Specialist, SaveSpecialistResource>()
             .ForMember(sr => sr.Username, opt => opt.MapFrom(s => s.Username))
             .ForMember(sr => sr.Password, opt => opt.MapFrom(s => s.Password))
             .ForMember(sr => sr.IsAdmin, opt => opt.MapFrom(s => s.IsAdmin))
@@ -35,6 +50,20 @@ namespace DoctorHouse.Mapping
             .ForMember(sr => sr.Appointments, opt => opt.MapFrom(s => s.Appointments.Select(a => a.Id)))
             .ForMember(sr => sr.Companies, opt => opt.MapFrom(s => s.Companies.Select(sc => sc.CompanyId))); //many-to-many relationship
 
+            CreateMap<Specialist, SpecialistResource>()
+                .ForMember(sr => sr.Details, opt => opt.MapFrom(s => s.Details))
+                .ForMember(sr => sr.Companies, opt => opt.MapFrom(s => s.Companies.Select(sr => new KeyValuePairResource { Id = sr.Company.Id, FullName = sr.Company.CompanyName, PhoneNumber = sr.Company.PhoneNumber })))
+                .ForMember(sr => sr.Appointments, opt => opt.MapFrom(s => s.Appointments.Select(s => new AppointmentResource
+                {
+                    Id = s.Id,
+                    AppointmentDate = s.AppointmentDate,
+                    Description = s.Description,
+                    Status = s.Status,
+                    Specialist = new KeyValuePairResource { Id = s.Specialist.Id, FullName = s.Specialist.Details.FirstName + " " + s.Specialist.Details.LastName, PhoneNumber = s.Specialist.Details.PhoneNumber },
+                    Customer = new KeyValuePairResource { Id = s.Customer.Id, FullName = s.Customer.Details.FirstName + " " + s.Customer.Details.LastName, PhoneNumber = s.Customer.Details.PhoneNumber },
+                    Company = new KeyValuePairResource { Id = s.Company.Id, FullName = s.Company.CompanyName, PhoneNumber = s.Company.PhoneNumber }
+                })));
+
             //User
             CreateMap<User, UserResource>()
                 .ForMember(ur => ur.Username, opt => opt.MapFrom(u => u.Username))
@@ -43,7 +72,7 @@ namespace DoctorHouse.Mapping
                 .ForMember(ur => ur.Details, opt => opt.MapFrom(u => u.Details));
 
             //Appointment
-            CreateMap<Appointment, AppointmentResource>()
+            CreateMap<Appointment, SaveAppointmentResource>()
                 .ForMember(ar => ar.AppointmentDate, opt => opt.MapFrom(a => a.AppointmentDate))
                 .ForMember(ar => ar.Status, opt => opt.MapFrom(a => a.Status))
                 .ForMember(ar => ar.Description, opt => opt.MapFrom(a => a.Description))
@@ -51,8 +80,13 @@ namespace DoctorHouse.Mapping
                 .ForMember(ar => ar.SpecialistId, opt => opt.MapFrom(a => a.SpecialistId))
                 .ForMember(ar => ar.CompanyId, opt => opt.MapFrom(a => a.CompanyId));
 
+            CreateMap<Appointment, AppointmentResource>()
+                .ForMember(ar => ar.Customer, opt => opt.MapFrom(a => new KeyValuePairResource { Id = a.Customer.Id, FullName = a.Customer.Details.FirstName + " " + a.Customer.Details.LastName, PhoneNumber = a.Customer.Details.PhoneNumber }))
+                .ForMember(ar => ar.Specialist, opt => opt.MapFrom(a => new KeyValuePairResource { Id = a.Specialist.Id, FullName = a.Specialist.Details.FirstName + " " + a.Specialist.Details.LastName, PhoneNumber = a.Specialist.Details.PhoneNumber }))
+                .ForMember(ar => ar.Company, opt => opt.MapFrom(a => new KeyValuePairResource { Id = a.Company.Id, FullName = a.Company.CompanyName, PhoneNumber = a.Company.PhoneNumber }));
+
             //Company
-            CreateMap<Company, CompanyResource>()
+            CreateMap<Company, SaveCompanyResource>()
                 .ForMember(cr => cr.NIP, opt => opt.MapFrom(c => c.NIP))
                 .ForMember(cr => cr.IsVerified, opt => opt.MapFrom(c => c.IsVerified))
                 .ForMember(cr => cr.CompanyName, opt => opt.MapFrom(c => c.CompanyName))
@@ -63,10 +97,17 @@ namespace DoctorHouse.Mapping
                 .ForMember(cr => cr.Specialists, opt => opt.MapFrom(c => c.Specialists.Select(cs => cs.SpecialistId)))
                 .ForMember(cr => cr.Appointments, opt => opt.MapFrom(c => c.Appointments.Select(c => c.Id)));
 
+            CreateMap<Company, CompanyResource>()
+                .ForMember(cr => cr.Specialists, opt => opt.MapFrom(c => c.Specialists.Select(cs => new KeyValuePairResource { Id = cs.Specialist.Id, FullName = cs.Specialist.Details.FirstName + " " + cs.Specialist.Details.LastName, PhoneNumber = cs.Specialist.Details.PhoneNumber } )))
+                .ForMember(cr => cr.Appointments, opt => opt.MapFrom(c => c.Appointments.Select(cs => new AppointmentResource { Id = cs.Id, AppointmentDate = cs.AppointmentDate, Description = cs.Description, Status = cs.Status, 
+                    Specialist = new KeyValuePairResource {Id = cs.Specialist.Id, FullName = cs.Specialist.Details.FirstName + " " + cs.Specialist.Details.LastName, PhoneNumber = cs.Specialist.Details.PhoneNumber },
+                    Customer = new KeyValuePairResource { Id = cs.Customer.Id, FullName = cs.Customer.Details.FirstName + " " + cs.Customer.Details.LastName, PhoneNumber = cs.Customer.Details.PhoneNumber },
+                    Company = new KeyValuePairResource { Id = cs.Company.Id, FullName = cs.Company.CompanyName, PhoneNumber = cs.Company.PhoneNumber }
+                })));
 
             //API RESOURCES TO DOMAIN
             //UserDetails
-            CreateMap<UserDetailsResource, UserDetails>()
+            CreateMap<SaveUserDetailsResource, UserDetails>()
                 .ForMember(ud => ud.Id, opt => opt.Ignore())
                 .ForMember(ud => ud.UserId, opt => opt.Ignore())
                 .ForMember(ud => ud.DateOfRegistration, opt => opt.Ignore())
@@ -77,7 +118,7 @@ namespace DoctorHouse.Mapping
 
 
             //Customer
-            CreateMap<CustomerResource, Customer>()
+            CreateMap<SaveCustomerResource, Customer>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.Appointments, opt => opt.Ignore())
                 .ForMember(c => c.Username, opt => opt.MapFrom(cr => cr.Username))
@@ -88,7 +129,7 @@ namespace DoctorHouse.Mapping
 
 
             //Specialist
-            CreateMap<SpecialistResource, Specialist>()
+            CreateMap<SaveSpecialistResource, Specialist>()
                 .ForMember(s => s.Id, opt => opt.Ignore())
                 .ForMember(s => s.Appointments, opt => opt.Ignore())
                 .ForMember(s => s.Companies, opt => opt.Ignore())
@@ -137,7 +178,7 @@ namespace DoctorHouse.Mapping
                 .ForMember(u => u.Details, opt => opt.MapFrom(ur => ur.Details));
 
             //Appointment
-            CreateMap<AppointmentResource, Appointment>()
+            CreateMap<SaveAppointmentResource, Appointment>()
                 .ForMember(a => a.Id, opt => opt.Ignore())
                 .ForMember(a => a.AppointmentDate, opt => opt.MapFrom(ar => ar.AppointmentDate))
                 .ForMember(a => a.Status, opt => opt.MapFrom(ar => ar.Status))
@@ -147,7 +188,7 @@ namespace DoctorHouse.Mapping
                 .ForMember(a => a.CompanyId, opt => opt.MapFrom(ar => ar.CompanyId));
 
             //Company
-            CreateMap<CompanyResource, Company>()
+            CreateMap<SaveCompanyResource, Company>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.NIP, opt => opt.MapFrom(cr => cr.NIP))
                 .ForMember(c => c.IsVerified, opt => opt.MapFrom(cr => cr.IsVerified))
