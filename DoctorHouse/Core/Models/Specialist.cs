@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DoctorHouse.Models
+namespace DoctorHouse.Core.Models
 {
     public class Specialist : User
     {

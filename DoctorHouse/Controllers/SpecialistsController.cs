@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using DoctorHouse.Models;
-using DoctorHouse.Persistance;
+using DoctorHouse.Core.Models;
+using DoctorHouse.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;

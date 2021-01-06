@@ -1,8 +1,8 @@
-﻿using DoctorHouse.Models;
+﻿using DoctorHouse.Core.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DoctorHouse.Persistance
+namespace DoctorHouse.Core
 {
     public interface IAppointmentRepository
     {

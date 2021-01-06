@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DoctorHouse.Persistance
+namespace DoctorHouse.Core
 {
     public interface IUnitOfWork
     {

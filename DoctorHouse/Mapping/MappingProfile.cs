@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DoctorHouse.Controllers.Resources;
-using DoctorHouse.Models;
+using DoctorHouse.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
