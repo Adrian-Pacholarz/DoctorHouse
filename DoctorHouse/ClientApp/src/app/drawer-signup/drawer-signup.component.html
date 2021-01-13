@@ -1,7 +1,10 @@
+
 <p id="signup-text">Not a member yet? Sign up here!</p>
+
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div id="drawer-signup" class="container">
     <div class="collapse navbar-collapse navHeaderCollapse">
+
       <form [formGroup]="signupForm" class="nav navbar-nav">
         <div class="form-group">
           <input formControlName="newUsername" type="text" class="form-control" id="newLogin" placeholder="Username">
@@ -24,14 +27,16 @@
             <input formControlName="repeatPassword" type="password" class="form-control" id="repeatPassword" placeholder="Repeat password">
             <label for="repeatPassword">Repeat password</label>
             <div *ngIf="repeatPassword.touched && repeatPassword.invalid" class="form-error">
-              <div *ngIf="repeatPassword.errors.required">Repeat the password</div>             
+              <div *ngIf="repeatPassword.errors.required">Repeat the password</div>
             </div>
           </div>
           <div *ngIf="newPassword.valid && repeatPassword.touched && passwords.invalid" class="form-error">
             <div *ngIf="passwords.errors.passwordsMustMatch">Passwords must match</div>
           </div>
+
         </div>
-          <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit" [disabled]="signupForm.invalid" onclick="location.href = '/home'">Sign up!</button>
+
+        <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit" [disabled]="signupForm.invalid" onclick="location.href = '/home'">Sign up!</button>
       </form>
     </div>
     <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse"></button>

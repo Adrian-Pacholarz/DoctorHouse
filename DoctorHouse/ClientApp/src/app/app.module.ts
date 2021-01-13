@@ -22,6 +22,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserProfileCardComponent } from './user-profile-card/user-profile-card.component';
 import { UserSpecialistProfileComponent } from './user-specialist-profile/user-specialist-profile.component';
 import { UserSpecialistProfileCardComponent } from './user-specialist-profile-card/user-specialist-profile-card.component';
+import { RadioButtonComponent } from './radio-button/radio-button.component';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { UserSpecialistProfileCardComponent } from './user-specialist-profile-ca
     UserProfileCardComponent,
     UserSpecialistProfileComponent,
     UserSpecialistProfileCardComponent,
+    RadioButtonComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
