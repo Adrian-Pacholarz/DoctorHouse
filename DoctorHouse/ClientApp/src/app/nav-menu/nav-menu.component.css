@@ -57,18 +57,14 @@ a#megamneu.nav-link.dropdown-toggle.font-weight-bold.text-uppercase, a.nav-link.
   font-weight: 200;
 }
 
-a.nav-link.text-small.pb-0 {
-  color: #6b97a4;
-  font-weight: 500;
-}
 
 a.nav-link.text-small.pb-0 {
   color: #6b97a4;
-  font-weight: 500;
+  font-weight: 600;
 }
 
   a.nav-link.text-small.pb-0:hover {
-    background-color: #CDFFFE;
+    background-color: #cafffe;
     color: #040914;
     opacity: 0.75;
   }
