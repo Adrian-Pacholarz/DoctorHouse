@@ -65,11 +65,11 @@ import { UsersMiniCardsComponent } from './users-mini-cards/users-mini-cards.com
     { path: 'home', component: HomeComponent },
     { path: 'login', component: CarouselLoginComponent },
       { path: 'counter', component: CounterComponent },
-      { path: 'users\customers\id', component: UserProfileComponent },
-      { path: 'users\specialists\id', component: UserSpecialistProfileComponent},
+      { path: 'users/customers/id', component: UserProfileComponent },
+      { path: 'users/specialists/id', component: UserSpecialistProfileComponent},
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'users\customers\id\0', component: UserEditProfileComponent },
-      { path: 'users\specialist\id\0', component: UserSpecialistEditProfileComponent },
+      { path: 'users/customers/id/0', component: UserEditProfileComponent },
+      { path: 'users/specialist/id/0', component: UserSpecialistEditProfileComponent },
       {path: 'users', component: GetUsersComponent}
 ], { relativeLinkResolution: 'legacy' })
   ],
