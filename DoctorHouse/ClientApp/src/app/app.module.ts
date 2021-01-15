@@ -25,6 +25,8 @@ import { UserSpecialistProfileCardComponent } from './user-specialist-profile-ca
 import { RadioButtonComponent } from './radio-button/radio-button.component';
 import { UserEditProfileComponent } from './user-edit-profile/user-edit-profile.component';
 import { UserSpecialistEditProfileComponent } from './user-specialist-edit-profile/user-specialist-edit-profile.component';
+import { GetUsersComponent } from './get-users/get-users.component';
+import { UsersMiniCardsComponent } from './users-mini-cards/users-mini-cards.component';
 
 
 @NgModule({
@@ -50,6 +52,8 @@ import { UserSpecialistEditProfileComponent } from './user-specialist-edit-profi
     RadioButtonComponent,
     UserEditProfileComponent,
     UserSpecialistEditProfileComponent,
+    GetUsersComponent,
+    UsersMiniCardsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -61,11 +65,12 @@ import { UserSpecialistEditProfileComponent } from './user-specialist-edit-profi
     { path: 'home', component: HomeComponent },
     { path: 'login', component: CarouselLoginComponent },
       { path: 'counter', component: CounterComponent },
-      { path: 'user-profile', component: UserProfileComponent },
-      { path: 'specialist-profile', component: UserSpecialistProfileComponent},
+      { path: 'users\customers\id', component: UserProfileComponent },
+      { path: 'users\specialists\id', component: UserSpecialistProfileComponent},
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'update-user-profile', component: UserEditProfileComponent },
-      {path: 'update-specialist-profile', component: UserSpecialistEditProfileComponent}
+      { path: 'users\customers\id\0', component: UserEditProfileComponent },
+      { path: 'users\specialist\id\0', component: UserSpecialistEditProfileComponent },
+      {path: 'users', component: GetUsersComponent}
 ], { relativeLinkResolution: 'legacy' })
   ],
   providers: [],
