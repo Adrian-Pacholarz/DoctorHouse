@@ -57,6 +57,7 @@ textarea {
 
   textarea:focus, textarea:active {
     color: #70FFFC;
+    outline: none !important;
     box-shadow: 0 0 5px #70FFFC;
     background-color: transparent;
     border-bottom: 2px solid #70FFFC;
