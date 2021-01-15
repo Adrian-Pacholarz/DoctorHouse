@@ -37,7 +37,33 @@ code {
   color: #e01a76;
 }
 
-.form-control {
+textarea {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  height: 100px;
+  display: block;
+  width: 100%;
+  margin-bottom: 0;
+  line-height: 1.5;
+  color: #70FFFC;
+  opacity: 0.5;
+  cursor: text;
+  border-bottom: 2px solid #70FFFC;
+  border-radius: .25rem;
+  transition: all .1s ease-in-out;
+  user-select: none;
+}
+
+  textarea:focus, textarea:active {
+    color: #70FFFC;
+    box-shadow: 0 0 5px #70FFFC;
+    background-color: transparent;
+    border-bottom: 2px solid #70FFFC;
+    border-radius: 2px;
+  }
+
+.form-control, textarea {
   color: #70FFFC;
   background-color: transparent;
   border: transparent;
@@ -61,7 +87,7 @@ code {
 
 
   .form-group > input,
-  .form-group > label {
+  .form-group > label, textarea {
     padding: var(--input-padding-y) var(--input-padding-x);
   }
 
@@ -82,9 +108,11 @@ code {
     user-select: none;
   }
 
-  .form-group input::-webkit-input-placeholder {
-    color: transparent;
-  }
+
+
+.form-group input::-webkit-input-placeholder {
+  color: transparent;
+}
 
   .form-group input:-ms-input-placeholder {
     color: transparent;

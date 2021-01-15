@@ -4,47 +4,15 @@ body {
   background: #1A233A;
 }
 
-a {
-  color: #6b97a4;
-}
-
-  a:hover {
-    background-color: #cafffe;
-    color: #040914;
-    opacity: 0.75;
-    text-decoration: none;
-  }
-
-  a:active {
-    background-color: #f8f9fa;
-    color: #11234A;
-  }
 
 .text-primary, h5.user-name {
   color: #97d3e1 !important;
   font-size: 1.4rem;
 }
 
-.labels {
-  color: #97d3e1 !important;
-  font-size: 1rem;
-}
-
 h6.user-email, p {
   color: #6b97a4 !important;
   font-size: 1rem;
-}
-
-.details {
-  color: #caffee;
-/*  background-color: rgba(112, 255, 252, 0.2);*/
-  border: transparent;
-  border-bottom: 2px solid #70FFFC;
-  border-radius: 2px;
-  padding-right: 15px;
-  padding-left: 15px;
-  padding-bottom: 5px;
-  padding-top: 5px;
 }
 
 .account-settings .user-profile {
@@ -89,7 +57,6 @@ h6.user-email, p {
   border: 0;
   margin-bottom: 1rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
 }
 
 div.user-avatar:hover {

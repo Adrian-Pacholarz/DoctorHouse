@@ -23,6 +23,7 @@ import { UserProfileCardComponent } from './user-profile-card/user-profile-card.
 import { UserSpecialistProfileComponent } from './user-specialist-profile/user-specialist-profile.component';
 import { UserSpecialistProfileCardComponent } from './user-specialist-profile-card/user-specialist-profile-card.component';
 import { RadioButtonComponent } from './radio-button/radio-button.component';
+import { UserEditProfileComponent } from './user-edit-profile/user-edit-profile.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { RadioButtonComponent } from './radio-button/radio-button.component';
     UserSpecialistProfileComponent,
     UserSpecialistProfileCardComponent,
     RadioButtonComponent,
+    UserEditProfileComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -59,7 +61,8 @@ import { RadioButtonComponent } from './radio-button/radio-button.component';
       { path: 'counter', component: CounterComponent },
       { path: 'user-profile', component: UserProfileComponent },
       { path: 'specialist-profile', component: UserSpecialistProfileComponent},
-    { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'update-user-profile', component: UserEditProfileComponent },
 ], { relativeLinkResolution: 'legacy' })
   ],
   providers: [],
