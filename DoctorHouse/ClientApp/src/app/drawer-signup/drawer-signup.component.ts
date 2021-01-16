@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { PasswordValidators } from '../common/validators/password.validators';
+import { PhoneValidators } from '../common/validators/phone.validators';
 import { CreateCustomerService } from '../services/create-customer.service';
 
 @Component({
@@ -15,8 +16,8 @@ export class DrawerSignupComponent implements OnInit {
     newName: new FormControl('', Validators.required),
     newSurname: new FormControl('', Validators.required),
     newAddress: new FormControl('', Validators.required),
-    newPhone: new FormControl('', Validators.required),
-    newEmail: new FormControl('', Validators.required),
+    newPhone: new FormControl('', [Validators.required, PhoneValidators.phoneIsNaN, PhoneValidators.phoneLength]),
+    newEmail: new FormControl('', [Validators.required, Validators.email]),
       passwords: new FormGroup({
       newPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
       repeatPassword: new FormControl('', Validators.required)

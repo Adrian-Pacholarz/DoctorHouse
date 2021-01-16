@@ -27,6 +27,7 @@
               <label for="newEmail">Email</label>
               <div *ngIf="newEmail.touched && newEmail.invalid" class="form-error">
                 <div *ngIf="newEmail.errors.required">Email is required</div>
+                <div *ngIf="newEmail.errors.email">Invalid email</div>
               </div>
             </div>
           </div>
@@ -43,6 +44,8 @@
               <label for="newPhone">Phone Number</label>
               <div *ngIf="newPhone.touched && newPhone.invalid" class="form-error">
                 <div *ngIf="newPhone.errors.required">Phone number is required</div>
+                <div *ngIf="newPhone.errors.phoneIsNaN">Phone number can have only digits</div>
+                <div *ngIf="newPhone.errors.phoneLength">Phone number must have exactly 9 characters</div>
               </div>
             </div>
           </div>
