@@ -12,6 +12,9 @@ export class DrawerSignupComponent implements OnInit {
     newUsername: new FormControl('', [Validators.required, Validators.minLength(6)]),
     newName: new FormControl('', Validators.required),
     newSurname: new FormControl('', Validators.required),
+    newAddress: new FormControl('', Validators.required),
+    newPhone: new FormControl('', Validators.required),
+    newEmail: new FormControl('', Validators.required),
       passwords: new FormGroup({
       newPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
       repeatPassword: new FormControl('', Validators.required)
@@ -28,6 +31,18 @@ export class DrawerSignupComponent implements OnInit {
 
   get newSurname() {
     return this.signupForm.get('newSurname');
+  }
+
+  get newAddress() {
+    return this.signupForm.get('newAddress');
+  }
+
+  get newPhone() {
+    return this.signupForm.get('newPhone');
+  }
+
+  get newEmail() {
+    return this.signupForm.get('newEmail');
   }
 
   get newPassword() {
