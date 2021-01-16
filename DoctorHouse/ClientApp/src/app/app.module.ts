@@ -27,6 +27,7 @@ import { UserEditProfileComponent } from './user-edit-profile/user-edit-profile.
 import { UserSpecialistEditProfileComponent } from './user-specialist-edit-profile/user-specialist-edit-profile.component';
 import { GetUsersComponent } from './get-users/get-users.component';
 import { UsersMiniCardsComponent } from './users-mini-cards/users-mini-cards.component';
+import { CreateCustomerService } from './services/create-customer.service';
 
 
 @NgModule({
@@ -73,7 +74,9 @@ import { UsersMiniCardsComponent } from './users-mini-cards/users-mini-cards.com
       {path: 'users', component: GetUsersComponent}
 ], { relativeLinkResolution: 'legacy' })
   ],
-  providers: [],
+  providers: [
+    CreateCustomerService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

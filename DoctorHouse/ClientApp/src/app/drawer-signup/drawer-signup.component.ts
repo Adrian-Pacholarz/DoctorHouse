@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { PasswordValidators } from '../common/validators/password.validators';
+import { CreateCustomerService } from '../services/create-customer.service';
 
 @Component({
   selector: 'app-drawer-signup',
@@ -8,6 +9,7 @@ import { PasswordValidators } from '../common/validators/password.validators';
   styleUrls: ['./drawer-signup.component.css']
 })
 export class DrawerSignupComponent implements OnInit {
+
   signupForm = new FormGroup({
     newUsername: new FormControl('', [Validators.required, Validators.minLength(6)]),
     newName: new FormControl('', Validators.required),
@@ -57,13 +59,28 @@ export class DrawerSignupComponent implements OnInit {
     return this.signupForm.get('passwords');
   }
 
+
   submit() {
-    alert("Form Submitted");
+
+    let newCustomer = {
+      address: this.newAddress.value,
+      username: this.newUsername.value,
+      password: this.newPassword.value,
+      details: {
+        firstName: this.newName.value,
+        lastName: this.newSurname.value,
+        eMail: this.newEmail.value,
+        phoneNumber: +this.newPhone.value,
+      }
+    };
+
+    this.customerService.createCustomer(newCustomer).subscribe(x => console.log(x));
   }
 
-  constructor() {  }
+  constructor(private customerService: CreateCustomerService) {  }
 
   ngOnInit(): void {
+    
   }
 
 }

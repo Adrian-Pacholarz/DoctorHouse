@@ -49,6 +49,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\src\app\services\" />
     <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
