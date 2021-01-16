@@ -3,10 +3,9 @@
     margin-bottom: 0;
 }
 
-#drawer-signup{
-    display: flex;
-    justify-content: center;
-    width: 300px;
+#drawer-signup {
+  display: flex;
+  justify-content: center;
 }
 
 .navbar-toggle {
@@ -28,3 +27,30 @@
 
   }
 
+.flex-form {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin-right: 20%;
+  margin-left: 20%;
+}
+
+  .flex-form .left-form {
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+  }
+
+  .flex-form .right-form {
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+  }
+
+.below-form {
+  display: block;
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+}
