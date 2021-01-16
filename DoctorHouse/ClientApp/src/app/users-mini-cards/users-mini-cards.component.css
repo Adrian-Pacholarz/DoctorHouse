@@ -47,6 +47,7 @@ h1 {
   height: 368px;
   border: none;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
 }
 
   .profile-card-3 .background-block {
@@ -54,6 +55,7 @@ h1 {
     width: auto;
     height: 200px;
     overflow: hidden;
+
   }
 
     .profile-card-3 .background-block .background {
@@ -63,6 +65,7 @@ h1 {
       -webkit-filter: blur(0.5px);
       filter: blur(0.5px);
       -webkit-transform: scale(1.2);
+
 /*      transform: scale(2.8);*/
     }
 
@@ -75,6 +78,7 @@ h1 {
     height: 50%;
     border-radius: 0 0 5px 5px;
     position: relative;
+
 
   }
 
