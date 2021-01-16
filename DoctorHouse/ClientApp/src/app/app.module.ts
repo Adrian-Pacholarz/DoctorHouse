@@ -27,6 +27,7 @@ import { UserEditProfileComponent } from './user-edit-profile/user-edit-profile.
 import { UserSpecialistEditProfileComponent } from './user-specialist-edit-profile/user-specialist-edit-profile.component';
 import { GetUsersComponent } from './get-users/get-users.component';
 import { UsersMiniCardsComponent } from './users-mini-cards/users-mini-cards.component';
+import { CompanyProfileComponent } from './company-profile/company-profile.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { UsersMiniCardsComponent } from './users-mini-cards/users-mini-cards.com
     UserSpecialistEditProfileComponent,
     GetUsersComponent,
     UsersMiniCardsComponent,
+    CompanyProfileComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -70,7 +72,8 @@ import { UsersMiniCardsComponent } from './users-mini-cards/users-mini-cards.com
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'users/customers/id/0', component: UserEditProfileComponent },
       { path: 'users/specialist/id/0', component: UserSpecialistEditProfileComponent },
-      {path: 'users', component: GetUsersComponent}
+      { path: 'users', component: GetUsersComponent },
+      {path: 'companies', component: CompanyProfileComponent}
 ], { relativeLinkResolution: 'legacy' })
   ],
   providers: [],
