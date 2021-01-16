@@ -10,6 +10,8 @@ import { PasswordValidators } from '../common/validators/password.validators';
 export class DrawerSignupComponent implements OnInit {
   signupForm = new FormGroup({
     newUsername: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    newName: new FormControl('', Validators.required),
+    newSurname: new FormControl('', Validators.required),
       passwords: new FormGroup({
       newPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
       repeatPassword: new FormControl('', Validators.required)
@@ -18,6 +20,14 @@ export class DrawerSignupComponent implements OnInit {
 
   get newUsername() {
     return this.signupForm.get('newUsername');
+  }
+
+  get newName() {
+    return this.signupForm.get('newName');
+  }
+
+  get newSurname() {
+    return this.signupForm.get('newSurname');
   }
 
   get newPassword() {
@@ -30,6 +40,10 @@ export class DrawerSignupComponent implements OnInit {
 
   get passwords() {
     return this.signupForm.get('passwords');
+  }
+
+  submit() {
+    alert("Form Submitted");
   }
 
   constructor() {  }
