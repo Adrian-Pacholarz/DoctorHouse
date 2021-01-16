@@ -64,7 +64,7 @@ textarea {
     border-radius: 2px;
   }
 
-.form-control, textarea {
+.form-control {
   color: #70FFFC;
   background-color: transparent;
   border: transparent;
@@ -88,7 +88,7 @@ textarea {
 
 
   .form-group > input,
-  .form-group > label, textarea {
+  .form-group > label {
     padding: var(--input-padding-y) var(--input-padding-x);
   }
 
