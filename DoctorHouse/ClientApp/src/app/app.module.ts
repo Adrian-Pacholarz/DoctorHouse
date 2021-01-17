@@ -29,6 +29,8 @@ import { GetUsersComponent } from './get-users/get-users.component';
 import { UsersMiniCardsComponent } from './users-mini-cards/users-mini-cards.component';
 import { CompanyProfileComponent } from './company-profile/company-profile.component';
 import { CreateCustomerService } from './services/create-customer.service';
+import { CreateCustomerComponent } from './create-customer/create-customer.component';
+import { CreateSpecialistComponent } from './create-specialist/create-specialist.component';
 
 
 @NgModule({
@@ -57,6 +59,8 @@ import { CreateCustomerService } from './services/create-customer.service';
     GetUsersComponent,
     UsersMiniCardsComponent,
     CompanyProfileComponent,
+    CreateCustomerComponent,
+    CreateSpecialistComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

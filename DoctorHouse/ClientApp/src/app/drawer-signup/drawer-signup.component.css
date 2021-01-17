@@ -8,6 +8,12 @@
   justify-content: center;
 }
 
+.user-type {
+  display: flex;
+  justify-content: center;
+  justify-content: space-evenly;
+}
+
 .navbar-toggle {
   opacity: 0.6;
   border-color: transparent;
@@ -27,30 +33,3 @@
 
   }
 
-.flex-form {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  flex-direction: row;
-  margin-right: 20%;
-  margin-left: 20%;
-}
-
-  .flex-form .left-form {
-    margin-right: auto;
-    margin-left: auto;
-    text-align: center;
-  }
-
-  .flex-form .right-form {
-    margin-right: auto;
-    margin-left: auto;
-    text-align: center;
-  }
-
-.below-form {
-  display: block;
-  text-align: center;
-  margin-right: auto;
-  margin-left: auto;
-}
