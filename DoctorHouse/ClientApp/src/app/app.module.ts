@@ -31,6 +31,7 @@ import { CompanyProfileComponent } from './company-profile/company-profile.compo
 import { CreateCustomerService } from './services/create-customer.service';
 import { CreateCustomerComponent } from './create-customer/create-customer.component';
 import { CreateSpecialistComponent } from './create-specialist/create-specialist.component';
+import { GetCustomerComponent } from './get-customer/get-customer.component';
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import { CreateSpecialistComponent } from './create-specialist/create-specialist
     CompanyProfileComponent,
     CreateCustomerComponent,
     CreateSpecialistComponent,
+    GetCustomerComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
