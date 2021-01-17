@@ -49,10 +49,10 @@ textarea {
   color: #70FFFC;
   opacity: 0.5;
   cursor: text;
+  background-color: transparent;
   border-bottom: 2px solid #70FFFC;
-  border-radius: .25rem;
-  transition: all .1s ease-in-out;
-  user-select: none;
+  border-radius: 2px;
+  outline: none !important;
 }
 
   textarea:focus, textarea:active {
