@@ -29,6 +29,7 @@ import { GetUsersComponent } from './get-users/get-users.component';
 import { UsersMiniCardsComponent } from './users-mini-cards/users-mini-cards.component';
 import { CompanyProfileComponent } from './company-profile/company-profile.component';
 import { CreateCustomerService } from './services/create-customer.service';
+import { CreateSpecialistService } from './services/create-specialist.service';
 import { CreateCustomerComponent } from './create-customer/create-customer.component';
 import { CreateSpecialistComponent } from './create-specialist/create-specialist.component';
 
@@ -83,6 +84,7 @@ import { CreateSpecialistComponent } from './create-specialist/create-specialist
   ],
   providers: [
     CreateCustomerService,
+    CreateSpecialistService,
   ],
   bootstrap: [AppComponent]
 })
