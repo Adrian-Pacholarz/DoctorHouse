@@ -32,6 +32,8 @@ import { CreateCustomerService } from './services/create-customer.service';
 import { CreateCustomerComponent } from './create-customer/create-customer.component';
 import { CreateSpecialistComponent } from './create-specialist/create-specialist.component';
 import { GetCustomerComponent } from './get-customer/get-customer.component';
+import { CustomerService } from './services/customer.service';
+
 
 
 @NgModule({
@@ -63,6 +65,7 @@ import { GetCustomerComponent } from './get-customer/get-customer.component';
     CreateCustomerComponent,
     CreateSpecialistComponent,
     GetCustomerComponent,
+
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -74,17 +77,18 @@ import { GetCustomerComponent } from './get-customer/get-customer.component';
     { path: 'home', component: HomeComponent },
     { path: 'login', component: CarouselLoginComponent },
       { path: 'counter', component: CounterComponent },
-      { path: 'users/customers/id', component: UserProfileComponent },
-      { path: 'users/specialists/id', component: UserSpecialistProfileComponent},
+      { path: 'users/customers/:id', component: UserProfileComponent },
+      { path: 'users/specialists/:id', component: UserSpecialistProfileComponent},
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'users/customers/id/0', component: UserEditProfileComponent },
-      { path: 'users/specialist/id/0', component: UserSpecialistEditProfileComponent },
-      { path: 'users', component: GetUsersComponent },
-      {path: 'companies', component: CompanyProfileComponent}
+      { path: 'users/specialists/id/0', component: UserSpecialistEditProfileComponent },
+      { path: 'users/specialists', component: GetUsersComponent },
+      {path: 'companies/:id', component: CompanyProfileComponent}
 ], { relativeLinkResolution: 'legacy' })
   ],
   providers: [
     CreateCustomerService,
+    CustomerService
   ],
   bootstrap: [AppComponent]
 })

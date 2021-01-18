@@ -6,25 +6,31 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetCustomerService = void 0;
+exports.CustomerService = void 0;
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/common/http");
-var GetCustomerService = /** @class */ (function () {
-    function GetCustomerService(http) {
+var CustomerService = /** @class */ (function () {
+    function CustomerService(http) {
         this.http = http;
-        this.url = '/api/users/customers/';
+        this.url = '/api/users/customers';
         this.httpOptions = {
             headers: new http_1.HttpHeaders({ 'Content-Type': 'application/json' })
         };
     }
-    GetCustomerService.prototype.getCustomer = function () {
+    CustomerService.prototype.ngOnInit = function () {
     };
-    GetCustomerService = __decorate([
+    CustomerService.prototype.getCustomers = function () {
+        return this.http.get(this.url);
+    };
+    CustomerService.prototype.getCustomerById = function (id) {
+        return this.http.get(this.url + '/' + id);
+    };
+    CustomerService = __decorate([
         core_1.Injectable({
             providedIn: 'root'
         })
-    ], GetCustomerService);
-    return GetCustomerService;
+    ], CustomerService);
+    return CustomerService;
 }());
-exports.GetCustomerService = GetCustomerService;
-//# sourceMappingURL=get-customer.service.js.map
+exports.CustomerService = CustomerService;
+//# sourceMappingURL=customer.service.js.map

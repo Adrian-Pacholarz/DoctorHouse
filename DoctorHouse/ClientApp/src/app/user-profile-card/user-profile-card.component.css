@@ -20,7 +20,19 @@ a {
     color: #11234A;
   }
 
-.text-primary, h5.user-name {
+#h5 {
+  color: #97d3e1 !important;
+  font-size: 1.4rem;
+  border: none;
+}
+
+#h6 {
+  color: #6b97a4 !important;
+  font-size: 1rem;
+  border: none;
+}
+
+.text-primary {
   color: #97d3e1 !important;
   font-size: 1.4rem;
 }
@@ -30,7 +42,7 @@ a {
   font-size: 1rem;
 }
 
-h6.user-email, p {
+p {
   color: #6b97a4 !important;
   font-size: 1rem;
 }
@@ -94,4 +106,12 @@ h6.user-email, p {
 user-avatar:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   opacity: 0.65;
+}
+
+.form-control, .form-control:read-only {
+  color: #6b97a4 !important;
+  background-color: transparent;
+  border: transparent;
+  border-bottom: 2px solid #70FFFC;
+  border-radius: 2px;
 }

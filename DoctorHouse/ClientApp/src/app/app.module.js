@@ -40,6 +40,7 @@ var create_customer_service_1 = require("./services/create-customer.service");
 var create_customer_component_1 = require("./create-customer/create-customer.component");
 var create_specialist_component_1 = require("./create-specialist/create-specialist.component");
 var get_customer_component_1 = require("./get-customer/get-customer.component");
+var customer_service_1 = require("./services/customer.service");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -84,17 +85,18 @@ var AppModule = /** @class */ (function () {
                     { path: 'home', component: home_component_1.HomeComponent },
                     { path: 'login', component: carousel_login_component_1.CarouselLoginComponent },
                     { path: 'counter', component: counter_component_1.CounterComponent },
-                    { path: 'users/customers/id', component: user_profile_component_1.UserProfileComponent },
-                    { path: 'users/specialists/id', component: user_specialist_profile_component_1.UserSpecialistProfileComponent },
+                    { path: 'users/customers/:id', component: user_profile_component_1.UserProfileComponent },
+                    { path: 'users/specialists/:id', component: user_specialist_profile_component_1.UserSpecialistProfileComponent },
                     { path: 'fetch-data', component: fetch_data_component_1.FetchDataComponent },
                     { path: 'users/customers/id/0', component: user_edit_profile_component_1.UserEditProfileComponent },
-                    { path: 'users/specialist/id/0', component: user_specialist_edit_profile_component_1.UserSpecialistEditProfileComponent },
-                    { path: 'users', component: get_users_component_1.GetUsersComponent },
-                    { path: 'companies', component: company_profile_component_1.CompanyProfileComponent }
+                    { path: 'users/specialists/id/0', component: user_specialist_edit_profile_component_1.UserSpecialistEditProfileComponent },
+                    { path: 'users/specialists', component: get_users_component_1.GetUsersComponent },
+                    { path: 'companies/:id', component: company_profile_component_1.CompanyProfileComponent }
                 ], { relativeLinkResolution: 'legacy' })
             ],
             providers: [
                 create_customer_service_1.CreateCustomerService,
+                customer_service_1.CustomerService
             ],
             bootstrap: [app_component_1.AppComponent]
         })
