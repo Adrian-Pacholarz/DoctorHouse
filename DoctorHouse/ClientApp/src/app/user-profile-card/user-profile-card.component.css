@@ -24,12 +24,14 @@ a {
   color: #97d3e1 !important;
   font-size: 1.4rem;
   border: none;
+  text-align: center;
 }
 
 #h6 {
   color: #6b97a4 !important;
   font-size: 1rem;
   border: none;
+  text-align: center;
 }
 
 .text-primary {
