@@ -97,7 +97,12 @@ export class CreateSpecialistComponent implements OnInit {
 
     newSpecialist.companies = companiesIds;
 
-    this.specialistService.createSpecialist(newSpecialist).subscribe(x => console.log(x));
+    this.specialistService.createSpecialist(newSpecialist).subscribe(specialist => {
+      alert('An account has been created succesfully')
+      },
+      error => {
+        alert('An error occured and account was not created');
+      });
   }
 
   constructor(private specialistService: CreateSpecialistService, private companiesService: CompaniesService) { }

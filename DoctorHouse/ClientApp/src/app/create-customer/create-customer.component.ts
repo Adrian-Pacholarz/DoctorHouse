@@ -75,7 +75,12 @@ export class CreateCustomerComponent implements OnInit {
       }
     };
 
-    this.customerService.createCustomer(newCustomer).subscribe(x => console.log(x));
+    this.customerService.createCustomer(newCustomer).subscribe(customer => {
+      alert('An account has been created succesfully')
+    },
+      error => {
+        alert('An error occured and account was not created');
+    });
   }
 
   constructor(private customerService: CreateCustomerService) { }

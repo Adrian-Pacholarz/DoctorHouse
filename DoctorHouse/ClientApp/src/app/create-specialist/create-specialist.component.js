@@ -127,7 +127,11 @@ var CreateSpecialistComponent = /** @class */ (function () {
             companiesIds.push(+value);
         });
         newSpecialist.companies = companiesIds;
-        this.specialistService.createSpecialist(newSpecialist).subscribe(function (x) { return console.log(x); });
+        this.specialistService.createSpecialist(newSpecialist).subscribe(function (specialist) {
+            alert('An account has been created succesfully');
+        }, function (error) {
+            alert('An error occured and account was not created');
+        });
     };
     CreateSpecialistComponent.prototype.ngOnInit = function () {
         var _this = this;

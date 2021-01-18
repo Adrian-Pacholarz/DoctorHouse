@@ -18,6 +18,7 @@ var CreateCustomerComponent = /** @class */ (function () {
             newUsername: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(6)]),
             newName: new forms_1.FormControl('', forms_1.Validators.required),
             newSurname: new forms_1.FormControl('', forms_1.Validators.required),
+            newAddress: new forms_1.FormControl('', forms_1.Validators.required),
             newPhone: new forms_1.FormControl('', [forms_1.Validators.required, phone_validators_1.PhoneValidators.phoneIsNaN, phone_validators_1.PhoneValidators.phoneLength]),
             newEmail: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.email]),
             passwords: new forms_1.FormGroup({
@@ -91,6 +92,7 @@ var CreateCustomerComponent = /** @class */ (function () {
     });
     CreateCustomerComponent.prototype.submit = function () {
         var newCustomer = {
+            address: this.newAddress.value,
             username: this.newUsername.value,
             password: this.newPassword.value,
             details: {
@@ -100,7 +102,13 @@ var CreateCustomerComponent = /** @class */ (function () {
                 phoneNumber: +this.newPhone.value,
             }
         };
-        this.customerService.createCustomer(newCustomer).subscribe(function (x) { return console.log(x); });
+        this.customerService.createCustomer(newCustomer).subscribe(null, function (error) {
+            if (error.status)
+                alert('An error occured and account has not been created');
+            else {
+                alert('Account has been created succesfully');
+            }
+        });
     };
     CreateCustomerComponent.prototype.ngOnInit = function () {
     };
