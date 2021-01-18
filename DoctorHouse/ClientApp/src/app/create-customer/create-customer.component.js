@@ -114,13 +114,23 @@ var CreateCustomerComponent = /** @class */ (function () {
             });
             location.reload();
         }, function (error) {
-            _this.toastyService.error({
-                title: 'Error',
-                msg: 'An error occured and account was not created',
-                theme: 'bootstrap',
-                showClose: true,
-                timeout: 5000
-            });
+            if (error.status === 500)
+                _this.toastyService.error({
+                    title: 'Error',
+                    msg: 'Wrong data provided or username already exists',
+                    theme: 'bootstrap',
+                    showClose: true,
+                    timeout: 5000
+                });
+            else {
+                _this.toastyService.error({
+                    title: 'Error',
+                    msg: 'An error occured and account was not created',
+                    theme: 'bootstrap',
+                    showClose: true,
+                    timeout: 5000
+                });
+            }
         });
     };
     CreateCustomerComponent.prototype.ngOnInit = function () {
