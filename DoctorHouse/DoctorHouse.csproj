@@ -43,6 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\common\validators\area.validators.ts" />
     <None Remove="ClientApp\src\app\common\validators\phone.validators.ts" />
     <None Remove="ClientApp\src\assets\images\logo2.png" />
   </ItemGroup>

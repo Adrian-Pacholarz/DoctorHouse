@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { ToastyService } from 'ng2-toasty';
 import { PasswordValidators } from '../common/validators/password.validators';
 import { PhoneValidators } from '../common/validators/phone.validators';
 import { CreateCustomerService } from '../services/create-customer.service';
@@ -75,10 +76,32 @@ export class CreateCustomerComponent implements OnInit {
       }
     };
 
-    this.customerService.createCustomer(newCustomer).subscribe(x => console.log(x));
+    this.customerService.createCustomer(newCustomer).subscribe(customer => {
+      this.toastyService.success({
+        title: 'Success',
+        msg: 'An account has been created succesfully',
+        theme: 'bootstrap',
+        showClose: true,
+        timeout: 5000
+      })
+
+      location.reload();
+    },
+      error => {
+        this.toastyService.error({
+          title: 'Error',
+          msg: 'An error occured and account was not created',
+          theme: 'bootstrap',
+          showClose: true,
+          timeout: 5000
+        })
+    });
   }
 
-  constructor(private customerService: CreateCustomerService) { }
+  constructor(
+    private customerService: CreateCustomerService,
+    private toastyService: ToastyService
+  ) { }
 
   ngOnInit(): void {
 
