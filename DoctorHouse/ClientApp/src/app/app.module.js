@@ -12,6 +12,7 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/common/http");
 var router_1 = require("@angular/router");
+var ng2_toasty_1 = require("ng2-toasty");
 var app_component_1 = require("./app.component");
 var nav_menu_component_1 = require("./nav-menu/nav-menu.component");
 var home_component_1 = require("./home/home.component");
@@ -37,8 +38,10 @@ var get_users_component_1 = require("./get-users/get-users.component");
 var users_mini_cards_component_1 = require("./users-mini-cards/users-mini-cards.component");
 var company_profile_component_1 = require("./company-profile/company-profile.component");
 var create_customer_service_1 = require("./services/create-customer.service");
+var create_specialist_service_1 = require("./services/create-specialist.service");
 var create_customer_component_1 = require("./create-customer/create-customer.component");
 var create_specialist_component_1 = require("./create-specialist/create-specialist.component");
+var companies_service_1 = require("./services/companies.service");
 var get_customer_component_1 = require("./get-customer/get-customer.component");
 var customer_service_1 = require("./services/customer.service");
 var AppModule = /** @class */ (function () {
@@ -79,6 +82,7 @@ var AppModule = /** @class */ (function () {
                 platform_browser_1.BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
                 http_1.HttpClientModule,
                 forms_1.FormsModule,
+                ng2_toasty_1.ToastyModule.forRoot(),
                 forms_1.ReactiveFormsModule,
                 router_1.RouterModule.forRoot([
                     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -96,7 +100,8 @@ var AppModule = /** @class */ (function () {
             ],
             providers: [
                 create_customer_service_1.CreateCustomerService,
-                customer_service_1.CustomerService
+                create_specialist_service_1.CreateSpecialistService,
+                companies_service_1.CompaniesService
             ],
             bootstrap: [app_component_1.AppComponent]
         })

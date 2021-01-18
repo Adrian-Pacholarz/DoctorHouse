@@ -43,6 +43,10 @@ namespace DoctorHouse.Persistance
             .WithOne(ud => ud.User)
             .HasForeignKey<UserDetails>(ud => ud.UserId);
 
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Username)
+                .IsUnique();
+
 
             //many-to-many
             modelBuilder.Entity<SpecialistCompanies>()

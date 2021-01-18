@@ -1,7 +1,8 @@
 <body [ngClass]="router.url.includes('/login') ? 'dark-bg' : 'light-bg'">
   <app-nav-menu *ngIf="router.url.includes('/login') == false"></app-nav-menu>
+  <ng2-toasty [position]="'top-right'"></ng2-toasty>
   <div class="container">
-   <br /><br /> <router-outlet></router-outlet><br /><br /><br /><br />
+    <br /><br /> <router-outlet></router-outlet><br /><br /><br /><br />
   </div>
   <app-footer *ngIf="router.url.includes('/login') == false"></app-footer>
 </body>

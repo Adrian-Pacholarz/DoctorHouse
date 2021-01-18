@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { ToastyModule } from 'ng2-toasty';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -29,8 +30,10 @@ import { GetUsersComponent } from './get-users/get-users.component';
 import { UsersMiniCardsComponent } from './users-mini-cards/users-mini-cards.component';
 import { CompanyProfileComponent } from './company-profile/company-profile.component';
 import { CreateCustomerService } from './services/create-customer.service';
+import { CreateSpecialistService } from './services/create-specialist.service';
 import { CreateCustomerComponent } from './create-customer/create-customer.component';
 import { CreateSpecialistComponent } from './create-specialist/create-specialist.component';
+import { CompaniesService } from './services/companies.service';
 import { GetCustomerComponent } from './get-customer/get-customer.component';
 import { CustomerService } from './services/customer.service';
 
@@ -71,6 +74,7 @@ import { CustomerService } from './services/customer.service';
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    ToastyModule.forRoot(),
     ReactiveFormsModule,
     RouterModule.forRoot([
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -88,7 +92,8 @@ import { CustomerService } from './services/customer.service';
   ],
   providers: [
     CreateCustomerService,
-    CustomerService
+    CreateSpecialistService,
+    CompaniesService
   ],
   bootstrap: [AppComponent]
 })

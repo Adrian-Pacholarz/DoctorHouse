@@ -72,6 +72,15 @@ textarea {
   border-radius: 2px;
 }
 
+select {
+  overflow-y: auto;
+}
+  select option {
+      margin-top: 5px;
+    background-color: #11234A;
+  }
+
+
   .form-control:focus {
     color: #70FFFC;
     box-shadow: 0 0 5px #70FFFC;
@@ -137,6 +146,14 @@ textarea {
   }
 
     .form-group input:not(:placeholder-shown) ~ label {
+      top: -3px;
+      padding-top: calc(var(--input-padding-y) / 3);
+      padding-bottom: calc(var(--input-padding-y) / 3);
+      font-size: 10px;
+      color: #70FFFC;
+    }
+
+    .form-group select ~ label {
       top: -3px;
       padding-top: calc(var(--input-padding-y) / 3);
       padding-bottom: calc(var(--input-padding-y) / 3);
