@@ -12,6 +12,7 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/common/http");
 var router_1 = require("@angular/router");
+var ng2_toasty_1 = require("ng2-toasty");
 var app_component_1 = require("./app.component");
 var nav_menu_component_1 = require("./nav-menu/nav-menu.component");
 var home_component_1 = require("./home/home.component");
@@ -78,6 +79,7 @@ var AppModule = /** @class */ (function () {
                 platform_browser_1.BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
                 http_1.HttpClientModule,
                 forms_1.FormsModule,
+                ng2_toasty_1.ToastyModule.forRoot(),
                 forms_1.ReactiveFormsModule,
                 router_1.RouterModule.forRoot([
                     { path: '', redirectTo: 'login', pathMatch: 'full' },

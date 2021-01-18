@@ -12,8 +12,9 @@ var forms_1 = require("@angular/forms");
 var password_validators_1 = require("../common/validators/password.validators");
 var phone_validators_1 = require("../common/validators/phone.validators");
 var CreateCustomerComponent = /** @class */ (function () {
-    function CreateCustomerComponent(customerService) {
+    function CreateCustomerComponent(customerService, toastyService) {
         this.customerService = customerService;
+        this.toastyService = toastyService;
         this.signupForm = new forms_1.FormGroup({
             newUsername: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(6)]),
             newName: new forms_1.FormControl('', forms_1.Validators.required),
@@ -91,6 +92,7 @@ var CreateCustomerComponent = /** @class */ (function () {
         configurable: true
     });
     CreateCustomerComponent.prototype.submit = function () {
+        var _this = this;
         var newCustomer = {
             address: this.newAddress.value,
             username: this.newUsername.value,
@@ -102,12 +104,23 @@ var CreateCustomerComponent = /** @class */ (function () {
                 phoneNumber: +this.newPhone.value,
             }
         };
-        this.customerService.createCustomer(newCustomer).subscribe(null, function (error) {
-            if (error.status)
-                alert('An error occured and account has not been created');
-            else {
-                alert('Account has been created succesfully');
-            }
+        this.customerService.createCustomer(newCustomer).subscribe(function (customer) {
+            _this.toastyService.success({
+                title: 'Success',
+                msg: 'An account has been created succesfully',
+                theme: 'bootstrap',
+                showClose: true,
+                timeout: 5000
+            });
+            location.reload();
+        }, function (error) {
+            _this.toastyService.error({
+                title: 'Error',
+                msg: 'An error occured and account was not created',
+                theme: 'bootstrap',
+                showClose: true,
+                timeout: 5000
+            });
         });
     };
     CreateCustomerComponent.prototype.ngOnInit = function () {

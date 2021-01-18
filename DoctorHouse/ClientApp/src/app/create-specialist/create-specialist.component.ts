@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { ToastyService } from 'ng2-toasty';
 import { AreaValidators } from '../common/validators/area.validators';
 import { PasswordValidators } from '../common/validators/password.validators';
 import { PhoneValidators } from '../common/validators/phone.validators';
@@ -98,14 +99,33 @@ export class CreateSpecialistComponent implements OnInit {
     newSpecialist.companies = companiesIds;
 
     this.specialistService.createSpecialist(newSpecialist).subscribe(specialist => {
-      alert('An account has been created succesfully')
+      this.toastyService.success({
+        title: 'Success',
+        msg: 'An account has been created succesfully',
+        theme: 'bootstrap',
+        showClose: true,
+        timeout: 5000
+      })
+
+      location.reload();
+
       },
       error => {
-        alert('An error occured and account was not created');
+        this.toastyService.error({
+          title: 'Error',
+          msg: 'An error occured and account was not created',
+          theme: 'bootstrap',
+          showClose: true,
+          timeout: 5000
+        })
+        
       });
   }
 
-  constructor(private specialistService: CreateSpecialistService, private companiesService: CompaniesService) { }
+  constructor(
+    private specialistService: CreateSpecialistService,
+    private companiesService: CompaniesService,
+    private toastyService: ToastyService) { }
 
   ngOnInit(): void {
     this.companiesService.getCompanies().subscribe(companies => {

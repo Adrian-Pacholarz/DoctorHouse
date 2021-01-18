@@ -13,9 +13,10 @@ var area_validators_1 = require("../common/validators/area.validators");
 var password_validators_1 = require("../common/validators/password.validators");
 var phone_validators_1 = require("../common/validators/phone.validators");
 var CreateSpecialistComponent = /** @class */ (function () {
-    function CreateSpecialistComponent(specialistService, companiesService) {
+    function CreateSpecialistComponent(specialistService, companiesService, toastyService) {
         this.specialistService = specialistService;
         this.companiesService = companiesService;
+        this.toastyService = toastyService;
         this.signupForm = new forms_1.FormGroup({
             newUsername: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(6)]),
             newName: new forms_1.FormControl('', forms_1.Validators.required),
@@ -109,6 +110,7 @@ var CreateSpecialistComponent = /** @class */ (function () {
         configurable: true
     });
     CreateSpecialistComponent.prototype.submit = function () {
+        var _this = this;
         var newSpecialist = {
             username: this.newUsername.value,
             password: this.newPassword.value,
@@ -128,9 +130,22 @@ var CreateSpecialistComponent = /** @class */ (function () {
         });
         newSpecialist.companies = companiesIds;
         this.specialistService.createSpecialist(newSpecialist).subscribe(function (specialist) {
-            alert('An account has been created succesfully');
+            _this.toastyService.success({
+                title: 'Success',
+                msg: 'An account has been created succesfully',
+                theme: 'bootstrap',
+                showClose: true,
+                timeout: 5000
+            });
+            location.reload();
         }, function (error) {
-            alert('An error occured and account was not created');
+            _this.toastyService.error({
+                title: 'Error',
+                msg: 'An error occured and account was not created',
+                theme: 'bootstrap',
+                showClose: true,
+                timeout: 5000
+            });
         });
     };
     CreateSpecialistComponent.prototype.ngOnInit = function () {
