@@ -32,6 +32,7 @@ import { CreateCustomerService } from './services/create-customer.service';
 import { CreateSpecialistService } from './services/create-specialist.service';
 import { CreateCustomerComponent } from './create-customer/create-customer.component';
 import { CreateSpecialistComponent } from './create-specialist/create-specialist.component';
+import { CompaniesService } from './services/companies.service';
 
 
 @NgModule({
@@ -85,6 +86,7 @@ import { CreateSpecialistComponent } from './create-specialist/create-specialist
   providers: [
     CreateCustomerService,
     CreateSpecialistService,
+    CompaniesService
   ],
   bootstrap: [AppComponent]
 })

@@ -67,8 +67,7 @@
       </div>
       <div class="form-group">
         <select multiple formControlName="newCompanies" class="form-control" id="newCompanies" placeholder="Companies">
-          <option value="1">1</option>
-          <option value="3">3</option>
+          <option *ngFor="let c of allCompanies" value="{{c.id}}">{{c.companyName}}</option>
         </select>
         <label for="newCompanies">Companies</label>
         <div *ngIf="newCompanies.touched && newCompanies.invalid" class="form-error">

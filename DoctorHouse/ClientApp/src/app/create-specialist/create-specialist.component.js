@@ -12,8 +12,9 @@ var forms_1 = require("@angular/forms");
 var password_validators_1 = require("../common/validators/password.validators");
 var phone_validators_1 = require("../common/validators/phone.validators");
 var CreateSpecialistComponent = /** @class */ (function () {
-    function CreateSpecialistComponent(specialistService) {
+    function CreateSpecialistComponent(specialistService, companiesService) {
         this.specialistService = specialistService;
+        this.companiesService = companiesService;
         this.signupForm = new forms_1.FormGroup({
             newUsername: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(6)]),
             newName: new forms_1.FormControl('', forms_1.Validators.required),
@@ -134,10 +135,13 @@ var CreateSpecialistComponent = /** @class */ (function () {
             companiesIds.push(+value);
         });
         newSpecialist.companies = companiesIds;
-        alert(JSON.stringify(newSpecialist));
         this.specialistService.createSpecialist(newSpecialist).subscribe(function (x) { return console.log(x); });
     };
     CreateSpecialistComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.companiesService.getCompanies().subscribe(function (companies) {
+            _this.allCompanies = companies;
+        });
     };
     CreateSpecialistComponent = __decorate([
         core_1.Component({

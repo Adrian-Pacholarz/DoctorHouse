@@ -40,6 +40,7 @@ var create_customer_service_1 = require("./services/create-customer.service");
 var create_specialist_service_1 = require("./services/create-specialist.service");
 var create_customer_component_1 = require("./create-customer/create-customer.component");
 var create_specialist_component_1 = require("./create-specialist/create-specialist.component");
+var companies_service_1 = require("./services/companies.service");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -95,6 +96,7 @@ var AppModule = /** @class */ (function () {
             providers: [
                 create_customer_service_1.CreateCustomerService,
                 create_specialist_service_1.CreateSpecialistService,
+                companies_service_1.CompaniesService
             ],
             bootstrap: [app_component_1.AppComponent]
         })

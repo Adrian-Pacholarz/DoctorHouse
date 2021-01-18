@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { PasswordValidators } from '../common/validators/password.validators';
 import { PhoneValidators } from '../common/validators/phone.validators';
+import { CompaniesService } from '../services/companies.service';
 import { CreateSpecialistService } from '../services/create-specialist.service';
 
 @Component({
@@ -10,6 +11,8 @@ import { CreateSpecialistService } from '../services/create-specialist.service';
   styleUrls: ['./create-specialist.component.css']
 })
 export class CreateSpecialistComponent implements OnInit {
+
+  allCompanies;
 
   signupForm = new FormGroup({
     newUsername: new FormControl('', [Validators.required, Validators.minLength(6)]),
@@ -99,15 +102,14 @@ export class CreateSpecialistComponent implements OnInit {
 
     newSpecialist.companies = companiesIds;
 
-    alert(JSON.stringify(newSpecialist));
     this.specialistService.createSpecialist(newSpecialist).subscribe(x => console.log(x));
   }
 
-  constructor(private specialistService: CreateSpecialistService) { }
+  constructor(private specialistService: CreateSpecialistService, private companiesService: CompaniesService) { }
 
   ngOnInit(): void {
-
+    this.companiesService.getCompanies().subscribe(companies => {
+      this.allCompanies = companies
+      })
+    }
   }
-
-}
-
