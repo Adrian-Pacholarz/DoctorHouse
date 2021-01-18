@@ -9,13 +9,6 @@
         </div>
       </div>
       <div class="form-group">
-        <input formControlName="newAddress" type="text" class="form-control" id="newAddress" placeholder="Address">
-        <label for="newAddress">Address</label>
-        <div *ngIf="newAddress.touched && newAddress.invalid" class="form-error">
-          <div *ngIf="newAddress.errors.required">Address is required</div>
-        </div>
-      </div>
-      <div class="form-group">
         <input formControlName="newEmail" type="text" class="form-control" id="newEmail" placeholder="Email">
         <label for="newEmail">Email</label>
         <div *ngIf="newEmail.touched && newEmail.invalid" class="form-error">
@@ -61,8 +54,7 @@
         <label for="newArea">Area</label>
         <div *ngIf="newArea.touched && newArea.invalid" class="form-error">
           <div *ngIf="newArea.errors.required">Area is required</div>
-          <div *ngIf="newArea.errors.phoneIsNaN">Area can have only digits</div>
-          <div *ngIf="newArea.errors.maxlength">Area can have maximum {{newArea.errors.maxlength.requiredLength}} digits </div>
+          <div *ngIf="newArea.errors.areaIsNanAndMoreThan30">Area is a number from 1 to 30</div>
         </div>
       </div>
       <div class="form-group">
