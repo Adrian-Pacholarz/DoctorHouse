@@ -16,7 +16,8 @@
               <label for="floatingPassword">Password</label>
               <div *ngIf="password.touched && password.invalid" class="form-error">Password is required</div>
             </div>
-            <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit" [disabled]="form.invalid" onclick="location.href = '/home'">Log in!</button>
+            <div *ngIf="invalidLogin" class="form-error">Invalid username and/or password</div>
+            <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit" [disabled]="form.invalid" (click)="logIn()">Log in!</button>
             <div class="login-images">
               <img class="image-below" src="assets/images/drillingmachine.png" />
               <img class="image-below" src="assets/images/paintroller.png" />

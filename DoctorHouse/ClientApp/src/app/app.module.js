@@ -43,6 +43,7 @@ var create_customer_component_1 = require("./create-customer/create-customer.com
 var create_specialist_component_1 = require("./create-specialist/create-specialist.component");
 var companies_service_1 = require("./services/companies.service");
 var get_customer_component_1 = require("./get-customer/get-customer.component");
+var authenticate_service_1 = require("./services/authenticate.service");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -98,6 +99,7 @@ var AppModule = /** @class */ (function () {
                 ], { relativeLinkResolution: 'legacy' })
             ],
             providers: [
+                authenticate_service_1.AuthenticateService,
                 create_customer_service_1.CreateCustomerService,
                 create_specialist_service_1.CreateSpecialistService,
                 companies_service_1.CompaniesService

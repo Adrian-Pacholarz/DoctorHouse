@@ -35,6 +35,7 @@ import { CreateCustomerComponent } from './create-customer/create-customer.compo
 import { CreateSpecialistComponent } from './create-specialist/create-specialist.component';
 import { CompaniesService } from './services/companies.service';
 import { GetCustomerComponent } from './get-customer/get-customer.component';
+import { AuthenticateService } from './services/authenticate.service';
 
 
 @NgModule({
@@ -88,6 +89,7 @@ import { GetCustomerComponent } from './get-customer/get-customer.component';
 ], { relativeLinkResolution: 'legacy' })
   ],
   providers: [
+    AuthenticateService,
     CreateCustomerService,
     CreateSpecialistService,
     CompaniesService
