@@ -5,6 +5,22 @@ body {
 }
 
 
+
+#h5 {
+  color: #97d3e1 !important;
+  font-size: 1.4rem;
+  border: none;
+  text-align: center;
+}
+
+#h6 {
+  color: #6b97a4 !important;
+  font-size: 1rem;
+  border: none;
+  text-align: center;
+}
+
+
 .text-primary, h5.user-name {
   color: #97d3e1 !important;
   font-size: 1.4rem;
@@ -14,6 +30,13 @@ h6.user-email, p {
   color: #6b97a4 !important;
   font-size: 1rem;
 }
+
+.account-settings .about {
+  margin: 1rem 0 0 0;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
 
 .account-settings .user-profile {
   margin: 0 0 1rem 0;
@@ -43,10 +66,14 @@ h6.user-email, p {
     font-weight: 400;
   }
 
-.account-settings .about {
-  margin: 1rem 0 0 0;
-  font-size: 0.8rem;
-  text-align: center;
+.text-primary, h5.user-name {
+  color: #97d3e1 !important;
+  font-size: 1.4rem;
+}
+
+h6.user-email, p {
+  color: #6b97a4 !important;
+  font-size: 1rem;
 }
 
 .card {
@@ -63,3 +90,19 @@ div.user-avatar:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   opacity: 0.65;
 }
+
+a {
+  color: #6b97a4;
+}
+
+  a:hover {
+    background-color: #cafffe;
+    color: #040914;
+    opacity: 0.75;
+    text-decoration: none;
+  }
+
+  a:active {
+    background-color: #f8f9fa;
+    color: #11234A;
+  }
