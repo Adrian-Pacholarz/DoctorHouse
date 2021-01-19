@@ -1,4 +1,92 @@
 .card {
-  background-color: #1A233A;
+  background-color: #11234A;
 }
 
+a {
+  color: #6b97a4;
+}
+
+  a:hover {
+    background-color: #cafffe;
+    color: #040914;
+    opacity: 0.75;
+    text-decoration: none;
+  }
+
+  a:active {
+    background-color: #f8f9fa;
+    color: #11234A;
+  }
+
+#h5 {
+  color: #97d3e1 !important;
+  font-size: 1.4rem;
+  border: none;
+  text-align: center;
+}
+
+#h6 {
+  color: #6b97a4 !important;
+  font-size: 1rem;
+  border: none;
+  text-align: center;
+}
+
+.text-primary {
+  color: #97d3e1 !important;
+  font-size: 1.4rem;
+}
+
+.labels {
+  color: #97d3e1 !important;
+  font-size: 1rem;
+}
+
+p {
+  color: #6b97a4 !important;
+  font-size: 1rem;
+}
+
+.text-primary, h5.user-name {
+  color: #97d3e1 !important;
+  font-size: 1.4rem;
+}
+
+h6.user-email, p {
+  color: #6b97a4 !important;
+  font-size: 1rem;
+}
+
+.account-settings .user-profile {
+  margin: 0 0 1rem 0;
+  padding-bottom: 1rem;
+  text-align: center;
+}
+
+  .account-settings .user-profile .user-avatar {
+    margin: 0 0 1rem 0;
+  }
+
+    .account-settings .user-profile .user-avatar img {
+      width: 90px;
+      height: 90px;
+      -webkit-border-radius: 100px;
+      -moz-border-radius: 100px;
+      border-radius: 100px;
+    }
+
+  .account-settings .user-profile h5.user-name {
+    margin: 0 0 0.5rem 0;
+  }
+
+  .account-settings .user-profile h6.user-email {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 400;
+  }
+
+.account-settings .about {
+  margin: 1rem 0 0 0;
+  font-size: 0.8rem;
+  text-align: center;
+}
