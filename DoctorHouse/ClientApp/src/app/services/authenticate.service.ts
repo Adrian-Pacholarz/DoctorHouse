@@ -22,6 +22,7 @@ export class AuthenticateService {
           localStorage.setItem('id', response['id']);
           localStorage.setItem('name', response['firstName']);
           localStorage.setItem('surname', response['lastName']);
+          localStorage.setItem('role', response['userRole']);
           return true;
         }
         return false;

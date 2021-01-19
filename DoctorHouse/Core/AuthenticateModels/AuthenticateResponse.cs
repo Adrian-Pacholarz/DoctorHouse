@@ -12,6 +12,7 @@ namespace DoctorHouse.Core.AuthenticateModels
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Username { get; set; }
+        public string UserRole { get; set; }
         public string Token { get; set; }
 
 
@@ -21,6 +22,7 @@ namespace DoctorHouse.Core.AuthenticateModels
             FirstName = user.Details.FirstName;
             LastName = user.Details.LastName;
             Username = user.Username;
+            UserRole = user.Discriminator;
             Token = token;
         }
     }

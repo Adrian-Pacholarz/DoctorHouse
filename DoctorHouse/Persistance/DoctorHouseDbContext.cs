@@ -47,6 +47,9 @@ namespace DoctorHouse.Persistance
                 .HasIndex(u => u.Username)
                 .IsUnique();
 
+            modelBuilder.Entity<User>()
+                .HasDiscriminator(u => u.Discriminator);
+
 
             //many-to-many
             modelBuilder.Entity<SpecialistCompanies>()
@@ -99,8 +102,8 @@ namespace DoctorHouse.Persistance
                 );
 
             modelBuilder.Entity<SpecialistCompanies>().HasData(
-                new SpecialistCompanies { CompanyId = 1, SpecialistId = 1},
-                new SpecialistCompanies { CompanyId = 2, SpecialistId = 2 },
+                new SpecialistCompanies { CompanyId = 1, SpecialistId = 4},
+                new SpecialistCompanies { CompanyId = 2, SpecialistId = 5 },
                 new SpecialistCompanies { CompanyId = 1, SpecialistId = 3 },
                 new SpecialistCompanies { CompanyId = 2, SpecialistId = 3 }
                 );
