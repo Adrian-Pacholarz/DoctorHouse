@@ -94,3 +94,21 @@ img:hover{
   font-size: 0.8rem;
   text-align: center;
 }
+
+label.btn.btn-primary {
+  color: #70FFFC;
+  border-color: #70FFFC;
+  background-color: transparent;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  width: 95%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+}
+
+  label.btn.btn-primary:hover {
+    color: #11234A;
+    font-weight: bold;
+    background-color: #70FFFC;
+  }

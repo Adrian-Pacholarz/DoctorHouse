@@ -10,8 +10,19 @@
       </div>
       <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
         <div class="card h-100">
-          <!--<app-user-profile-card></app-user-profile-card>-->
-          <app-user-edit-profile></app-user-edit-profile>
+          <div *ngIf="edit.value == false">
+            <app-user-profile-card></app-user-profile-card>
+
+            <form [formGroup]="editProfile" class="edit-profile">
+              <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off" hidden formControlName="edit" (click)="clickEditProfile($event)" value=false>
+              <label class="btn btn-primary" for="btn-check">Edit</label>
+            </form>
+
+            <br /><br />
+          </div>
+          <div *ngIf="edit.value == true">
+            <app-user-edit-profile></app-user-edit-profile>
+          </div>
         </div>
       </div>
 

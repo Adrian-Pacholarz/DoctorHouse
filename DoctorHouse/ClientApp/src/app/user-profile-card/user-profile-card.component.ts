@@ -47,6 +47,7 @@ export class UserProfileCardComponent implements OnInit {
 
   }
 
+
   ngOnInit(): void {
     this.customerService.getCustomerById(1).subscribe(customer => { this.customer = customer
       this.firstName.setValue(this.customer.details.firstName)

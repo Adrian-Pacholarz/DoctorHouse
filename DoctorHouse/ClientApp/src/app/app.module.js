@@ -43,7 +43,7 @@ var create_customer_component_1 = require("./create-customer/create-customer.com
 var create_specialist_component_1 = require("./create-specialist/create-specialist.component");
 var companies_service_1 = require("./services/companies.service");
 var get_customer_component_1 = require("./get-customer/get-customer.component");
-var customer_service_1 = require("./services/customer.service");
+var left_column_details_component_1 = require("./left-column-details/left-column-details.component");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -77,6 +77,7 @@ var AppModule = /** @class */ (function () {
                 create_customer_component_1.CreateCustomerComponent,
                 create_specialist_component_1.CreateSpecialistComponent,
                 get_customer_component_1.GetCustomerComponent,
+                left_column_details_component_1.LeftColumnDetailsComponent,
             ],
             imports: [
                 platform_browser_1.BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

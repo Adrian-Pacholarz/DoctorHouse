@@ -17,7 +17,8 @@ export class DrawerSignupComponent implements OnInit {
   }
 
   setDefaultValue() {
-    this.chooseUserType.setValue({userType: 'customer'});
+    this.chooseUserType.setValue({ userType: 'customer' })
+
   }
 
   constructor() {
