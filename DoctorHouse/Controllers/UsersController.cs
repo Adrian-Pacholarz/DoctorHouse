@@ -80,7 +80,7 @@ namespace DoctorHouse.Controllers
             var allUsers = await repository.GetUsers();
             var user = allUsers.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
 
-            // return null if user not found
+            // return bad request if user not found
             if (user == null)
             {
                 return BadRequest(new { message = "Username or password is incorrect" });
