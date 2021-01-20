@@ -4,6 +4,40 @@ body {
   background: #1A233A;
 }
 
+#labels {
+  color: #97d3e1 !important;
+  font-size: 1rem;
+}
+
+label.btn.btn-primary {
+  color: #70FFFC !important;
+  border-color: #70FFFC !important;
+  background-color: transparent !important;
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+  border-radius: 0.25rem !important;
+  width: 95% !important;
+  margin-left: 2.5% !important;
+  margin-right: 2.5% !important;
+}
+
+  label.btn.btn-primary:hover {
+    color: #11234A;
+    font-weight: bold;
+    background-color: #70FFFC;
+  }
+
+#cancel {
+  color: #70FFFC;
+  border-color: #70FFFC;
+  background-color: transparent;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  width: 95%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+}
 
 #h5 {
   color: #97d3e1 !important;
@@ -25,7 +59,7 @@ body {
   font-size: 1.4rem;
 }
 
-h6.user-email, p {
+p {
   color: #6b97a4 !important;
   font-size: 1rem;
 }
@@ -52,7 +86,7 @@ h6.user-email, p {
     margin: 0 0 0.5rem 0;
   }
 
-  .account-settings .user-profile h6.user-email {
+  .account-settings .user-profile  {
     margin: 0;
     font-size: 0.8rem;
     font-weight: 400;

@@ -56,8 +56,6 @@ export class UserProfileCardComponent implements OnInit {
       this.phone.setValue(this.customer.details.phoneNumber)
       this.address.setValue(this.customer.address)
 
-
-
     })
   }
 

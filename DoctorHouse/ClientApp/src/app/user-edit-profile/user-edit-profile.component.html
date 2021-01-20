@@ -1,74 +1,125 @@
+<form [formGroup]="updateUser">
+  <div class="card-body">
+    <div class="row gutters">
 
-        <div class="card-body">
-          <div class="row gutters">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <h6 class="mb-3 text-primary">Personal Details</h6>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="firstName">First Name</label>
-                <input type="text" class="form-control" id="firstName" placeholder="Enter first name">
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="lastName">Last Name</label>
-                <input type="text" class="form-control" id="lastName" placeholder="Enter last name">
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="phone">Mobile no.</label>
-                <input type="text" class="form-control" id="phone" placeholder="Enter phone number">
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="eMail">E-mail</label>
-                <input type="email" class="form-control" id="eMail" placeholder="Your e-mail">
-              </div>
-            </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <h6 class="mb-3 text-primary">Personal Details</h6>
+      </div>
+
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+        <p id="labels">First name</p>
+        <div class="form-group">
+          <label for="firstName"></label>
+          <input formControlName="firstName" type="text" class="form-control" id="firstName">
+          <div *ngIf="firstName.invalid" class="form-error">
+            <div *ngIf="firstName.errors.required">First name is invalid</div>
           </div>
-          <br /><br />
-          <div class="row gutters">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <h6 class="mb-3 text-primary">Account details</h6>
-            </div>
-
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="password">Password</label>
-                <input type="text" class="form-control" id="password" placeholder="New password">
-              </div>
-            </div>
-
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="userName">Username</label>
-                <input type="text" class="form-control" id="userName" placeholder="Your username">
-              </div>
-            </div>
-
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="newPassword">New password</label>
-                <input type="text" class="form-control" id="newPassword" placeholder="Confirm password">
-              </div>
-            </div>
+        </div>
+        <br />
+      </div>
 
 
-          </div><br /><br />
-          <div class="row gutters">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <h6 class="mb-3 text-primary">Address</h6>
-
-              <div class="form-group">
-                <input type="text" class="form-control" id="Address" placeholder="Enter address">
-              </div>
-              <button type="button" id="submit" name="submit" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0">Update</button>
-              <button type="button" id="submit" name="submit" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0">Cancel</button>
-
-            </div><br /><br />
-
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+        <p id="labels">Last name</p>
+        <div class="form-group">
+          <label for="lastName"></label>
+          <input formControlName="lastName" type="text" class="form-control" id="lastName">
+          <div *ngIf="lastName.invalid" class="form-error">
+            <div *ngIf="lastName.errors.required">Surname is invalid</div>
+          </div>
         </div>
       </div>
+
+
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+        <p id="labels">Mobile no.</p>
+        <div class="form-group">
+          <label for="phone"></label>
+          <input formControlName="phone" type="text" class="form-control" id="phone">
+          <div *ngIf="phone.invalid" class="form-error">
+            <div *ngIf="phone.errors.phoneIsNaN">Phone number can have only digits</div>
+            <div *ngIf="phone.errors.phoneLength">Phone number must have exactly 9 characters</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+        <p id="labels">E-mail</p>
+        <div class="form-group">
+          <label for="email"></label>
+          <input formControlName="email" type="text" class="form-control" id="email">
+          <div *ngIf="email.invalid" class="form-error">
+            <div *ngIf="email.errors.required">Email is invalid</div>
+          </div>
+        </div><br />
+      </div>
+    </div>
+    <br /><br />
+
+    <!--TO BE USED IN CHANGE PASSWORD COMPONENT-->
+    <!--<div class="row gutters">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <h6 class="mb-3 text-primary">Account details</h6>
+      </div>
+
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+        <p id="labels">Password</p>
+        <div class="form-group">
+          <label for="password"></label>
+          <input formControlName="password" type="text" class="form-control" id="password">-->
+    <!--<div *ngIf="newEmail.invalid" class="form-error">
+      <div *ngIf="newEmail.errors.required">Email is invalid</div>
+    </div>-->
+    <!--</div><br />
+      </div>
+
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+        <div class="form-group">
+          <label for="userName">Username</label>
+          <input type="text" class="form-control" id="userName" placeholder="Your username">
+        </div>
+      </div>
+
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+        <div class="form-group">
+          <label for="newPassword">New password</label>
+          <input type="text" class="form-control" id="newPassword" placeholder="Confirm password">
+        </div><br />
+      </div>
+    </div>
+    <br /><br />-->
+
+    <div class="row gutters">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <h6 class="mb-3 text-primary">Address</h6>
+
+        <div class="form-group">
+          <label for="address"></label>
+          <input formControlName="address" type="text" class="form-control" id="address">
+          <div *ngIf="address.invalid" class="form-error">
+            <div *ngIf="address.errors.required">Address is invalid</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</form>
+
+
+<div class="row gutters">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <button type="button" name="submit" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0">Update</button>
+    <form [formGroup]="editProfile" class="edit-profile">
+      <input type="checkbox" class="btn-check" id="cancel" autocomplete="off" hidden formControlName="cancel" (click)="clickCancel($event)" value=false>
+      <label class="btn btn-primary" for="btn-check">Cancel</label>
+    </form><br />
+    <br />
+  </div>
+</div>
+
+
+
+
+
+

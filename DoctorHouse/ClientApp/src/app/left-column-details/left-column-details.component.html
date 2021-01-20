@@ -1,10 +1,13 @@
+
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+<form [formGroup]="getUserForm">
   <div class="card-body">
     <div class="account-settings">
       <div class="user-profile">
         <div class="user-avatar">
           <img src="../../assets/images/user2.png">
         </div>
+
         <div class="form-group">
           <input formControlName="firstName" type="text" class="form-control" id="h5" readonly="readonly">
           <input formControlName="lastName" type="text" class="form-control" id="h5" readonly="readonly">
@@ -21,3 +24,4 @@
       </div>
     </div>
   </div>
+</form>
