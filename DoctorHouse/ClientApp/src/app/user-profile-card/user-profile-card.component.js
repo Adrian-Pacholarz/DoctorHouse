@@ -19,7 +19,18 @@ var UserProfileCardComponent = /** @class */ (function () {
             email: new forms_1.FormControl(),
             address: new forms_1.FormControl()
         });
+        this.editProfile = new forms_1.FormGroup({
+            edit: new forms_1.FormControl()
+        });
+        this.setDefaultValue();
     }
+    Object.defineProperty(UserProfileCardComponent.prototype, "edit", {
+        get: function () {
+            return this.editProfile.get("edit");
+        },
+        enumerable: false,
+        configurable: true
+    });
     Object.defineProperty(UserProfileCardComponent.prototype, "firstName", {
         get: function () {
             return this.getUserForm.get('firstName');
@@ -55,6 +66,13 @@ var UserProfileCardComponent = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    UserProfileCardComponent.prototype.setDefaultValue = function () {
+        this.edit.setValue(false);
+    };
+    UserProfileCardComponent.prototype.clickEditProfile = function ($event) {
+        this.edit.setValue(true);
+        console.log('button clicked');
+    };
     UserProfileCardComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.customerService.getCustomerById(1).subscribe(function (customer) {

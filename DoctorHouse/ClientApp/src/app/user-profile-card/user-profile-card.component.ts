@@ -21,6 +21,13 @@ export class UserProfileCardComponent implements OnInit {
     address: new FormControl()
   });
 
+  editProfile = new FormGroup({
+    edit: new FormControl()
+  })
+
+  get edit() {
+    return this.editProfile.get("edit");
+  }
 
 
   get firstName() {
@@ -43,8 +50,17 @@ export class UserProfileCardComponent implements OnInit {
     return this.getUserForm.get('address')
   }
 
-  constructor(private customerService: CustomerService) {
+  setDefaultValue() {
+    this.edit.setValue(false)
+  }
 
+  clickEditProfile($event) {
+    this.edit.setValue(true)
+    console.log('button clicked');
+  }
+
+  constructor(private customerService: CustomerService) {
+    this.setDefaultValue();
   }
 
 

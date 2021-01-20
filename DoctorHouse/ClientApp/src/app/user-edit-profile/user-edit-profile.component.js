@@ -22,6 +22,10 @@ var UserEditProfileComponent = /** @class */ (function () {
             username: new forms_1.FormControl(),
             password: new forms_1.FormControl()
         });
+        this.backToProfile = new forms_1.FormGroup({
+            goback: new forms_1.FormControl()
+        });
+        this.setDefaultGoBackValue();
     }
     Object.defineProperty(UserEditProfileComponent.prototype, "firstName", {
         get: function () {
@@ -72,6 +76,20 @@ var UserEditProfileComponent = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    Object.defineProperty(UserEditProfileComponent.prototype, "goback", {
+        get: function () {
+            return this.backToProfile.get("goback");
+        },
+        enumerable: false,
+        configurable: true
+    });
+    UserEditProfileComponent.prototype.setDefaultGoBackValue = function () {
+        this.goback.setValue(false);
+    };
+    UserEditProfileComponent.prototype.goBackToProfile = function ($event) {
+        this.goback.setValue(true);
+        console.log('button clicked');
+    };
     UserEditProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.customerService.getCustomerById(1).subscribe(function (customer) {

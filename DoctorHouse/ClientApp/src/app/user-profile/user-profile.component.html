@@ -3,11 +3,13 @@
   <br />
   <div class="container">
     <div class="row gutters">
+
       <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
         <div class="card h-100">
           <app-left-column-details></app-left-column-details>
         </div>
       </div>
+
       <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
         <div class="card h-100">
           <div *ngIf="edit.value == false">
@@ -20,10 +22,12 @@
 
             <br /><br />
           </div>
+
           <div *ngIf="edit.value == true">
             <app-user-edit-profile></app-user-edit-profile>
           </div>
         </div>
+
       </div>
 
 

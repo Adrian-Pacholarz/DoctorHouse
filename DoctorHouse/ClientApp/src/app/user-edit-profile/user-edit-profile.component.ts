@@ -25,6 +25,11 @@ export class UserEditProfileComponent implements OnInit {
     password: new FormControl()
   });
 
+  backToProfile = new FormGroup({
+    goback: new FormControl()
+  });
+
+
 
   get firstName() {
     return this.updateUser.get('firstName')
@@ -54,10 +59,27 @@ export class UserEditProfileComponent implements OnInit {
     return this.updateUser.get('address')
   }
 
+  get goback() {
+    return this.backToProfile.get("goback");
+  }
+
   constructor(
     private customerService: CustomerService,
     private toastyService: ToastyService) {
+    this.setDefaultGoBackValue();
   }
+
+
+
+  setDefaultGoBackValue() {
+    this.goback.setValue(false);
+  }
+
+  goBackToProfile($event) {
+    this.goback.setValue(true)
+    console.log('button clicked');
+  }
+
 
   ngOnInit(): void {
     this.customerService.getCustomerById(1).subscribe(customer => {

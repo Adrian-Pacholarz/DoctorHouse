@@ -125,7 +125,9 @@ label.btn.btn-primary {
   font-size: 1rem;
   line-height: 1.5;
   border-radius: 0.25rem;
-  width: 100%;
+  width: 95%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
 }
 
   label.btn.btn-primary:hover {
