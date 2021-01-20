@@ -1,128 +1,111 @@
 <div *ngIf="!goback.value">
-  <form [formGroup]="updateUser">
-    <div class="card-body">
-      <div class="row gutters">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-          <h6 class="mb-3 text-primary">Personal Details</h6>
+  <div class="container">
+    <div class="row gutters">
+
+      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+        <div class="card h-100">
+          <app-left-column-details></app-left-column-details>
         </div>
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-          <p id="labels">First name</p>
-          <div class="form-group">
-            <label for="firstName"></label>
-            <input formControlName="firstName" type="text" class="form-control" id="firstName">
-            <div *ngIf="firstName.invalid" class="form-error">
-              <div *ngIf="firstName.errors.required">First name is invalid</div>
+      </div>
+
+      <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+        <div class="card h-100">
+
+          <form [formGroup]="updateUser">
+            <div class="card-body">
+              <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <h6 class="mb-3 text-primary">Personal Details</h6>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <p id="labels">First name</p>
+                  <div class="form-group">
+                    <label for="firstName"></label>
+                    <input formControlName="firstName" type="text" class="form-control" id="firstName">
+                    <div *ngIf="firstName.invalid" class="form-error">
+                      <div *ngIf="firstName.errors.required">First name is invalid</div>
+                    </div>
+                  </div>
+                  <br />
+                </div>
+
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <p id="labels">Last name</p>
+                  <div class="form-group">
+                    <label for="lastName"></label>
+                    <input formControlName="lastName" type="text" class="form-control" id="lastName">
+                    <div *ngIf="lastName.invalid" class="form-error">
+                      <div *ngIf="lastName.errors.required">Surname is invalid</div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <p id="labels">Mobile no.</p>
+                  <div class="form-group">
+                    <label for="phone"></label>
+                    <input formControlName="phone" type="text" class="form-control" id="phone">
+                    <div *ngIf="phone.invalid" class="form-error">
+                      <div *ngIf="phone.errors.phoneIsNaN">Phone number can have only digits</div>
+                      <div *ngIf="phone.errors.phoneLength">Phone number must have exactly 9 characters</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <p id="labels">E-mail</p>
+                  <div class="form-group">
+                    <label for="email"></label>
+                    <input formControlName="email" type="text" class="form-control" id="email">
+                    <div *ngIf="email.invalid" class="form-error">
+                      <div *ngIf="email.errors.required">Email is invalid</div>
+                    </div>
+                  </div><br />
+                </div>
+              </div>
+              <br /><br />
+
+
+              <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <h6 class="mb-3 text-primary">Address</h6>
+
+                  <div class="form-group">
+                    <label for="address"></label>
+                    <input formControlName="address" type="text" class="form-control" id="address">
+                    <div *ngIf="address.invalid" class="form-error">
+                      <div *ngIf="address.errors.required">Address is invalid</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </form>
+
+          <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <!--<form [formGroup]="saveChanges" class="change-data">
+                <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off" hidden formControlName="edit-data" (click)="editData($event)" value=false>
+                <label class="btn btn-primary" for="btn-check">Save</label>
+              </form>-->
+              <form [formGroup]="backToProfile" class="goback">
+                <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off" hidden formControlName="goback" (click)="goBackToProfile($event)" value=false>
+                <label class="btn btn-primary" for="btn-check">Cancel</label>
+              </form>
+              <br />
+              <br />
             </div>
           </div>
           <br />
         </div>
-
-
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-          <p id="labels">Last name</p>
-          <div class="form-group">
-            <label for="lastName"></label>
-            <input formControlName="lastName" type="text" class="form-control" id="lastName">
-            <div *ngIf="lastName.invalid" class="form-error">
-              <div *ngIf="lastName.errors.required">Surname is invalid</div>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-          <p id="labels">Mobile no.</p>
-          <div class="form-group">
-            <label for="phone"></label>
-            <input formControlName="phone" type="text" class="form-control" id="phone">
-            <div *ngIf="phone.invalid" class="form-error">
-              <div *ngIf="phone.errors.phoneIsNaN">Phone number can have only digits</div>
-              <div *ngIf="phone.errors.phoneLength">Phone number must have exactly 9 characters</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-          <p id="labels">E-mail</p>
-          <div class="form-group">
-            <label for="email"></label>
-            <input formControlName="email" type="text" class="form-control" id="email">
-            <div *ngIf="email.invalid" class="form-error">
-              <div *ngIf="email.errors.required">Email is invalid</div>
-            </div>
-          </div><br />
-        </div>
       </div>
-      <br /><br />
-
-      <!--TO BE USED IN CHANGE PASSWORD COMPONENT-->
-      <!--<div class="row gutters">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-          <h6 class="mb-3 text-primary">Account details</h6>
-        </div>
-
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-          <p id="labels">Password</p>
-          <div class="form-group">
-            <label for="password"></label>
-            <input formControlName="password" type="text" class="form-control" id="password">-->
-      <!--<div *ngIf="newEmail.invalid" class="form-error">
-        <div *ngIf="newEmail.errors.required">Email is invalid</div>
-      </div>-->
-      <!--</div><br />
-        </div>
-
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-          <div class="form-group">
-            <label for="userName">Username</label>
-            <input type="text" class="form-control" id="userName" placeholder="Your username">
-          </div>
-        </div>
-
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-          <div class="form-group">
-            <label for="newPassword">New password</label>
-            <input type="text" class="form-control" id="newPassword" placeholder="Confirm password">
-          </div><br />
-        </div>
-      </div>
-      <br /><br />-->
-
-      <div class="row gutters">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-          <h6 class="mb-3 text-primary">Address</h6>
-
-          <div class="form-group">
-            <label for="address"></label>
-            <input formControlName="address" type="text" class="form-control" id="address">
-            <div *ngIf="address.invalid" class="form-error">
-              <div *ngIf="address.errors.required">Address is invalid</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </form>
-
-
-  <div class="row gutters">
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <!--<form [formGroup]="saveChanges" class="change-data">
-        <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off" hidden formControlName="edit-data" (click)="editData($event)" value=false>
-        <label class="btn btn-primary" for="btn-check">Edit</label>
-      </form>-->
-      <form [formGroup]="backToProfile" class="goback">
-        <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off" hidden formControlName="goback" (click)="goBackToProfile($event)" value=false>
-        <label class="btn btn-primary" for="btn-check">Cancel</label>
-      </form>
-      <br />
-      <br />
     </div>
   </div>
-</div>
-<br />
+  </div>
 
-<div *ngIf="goback.value">
-  <app-user-profile-card></app-user-profile-card>
-</div>
+  <div *ngIf="goback.value">
+    <app-user-profile-card></app-user-profile-card>
+  </div>

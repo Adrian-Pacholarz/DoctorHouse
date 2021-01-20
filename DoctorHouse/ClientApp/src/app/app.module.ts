@@ -37,6 +37,7 @@ import { CompaniesService } from './services/companies.service';
 import { GetCustomerComponent } from './get-customer/get-customer.component';
 import { CustomerService } from './services/customer.service';
 import { LeftColumnDetailsComponent } from './left-column-details/left-column-details.component';
+import { LeftColumnComponent } from './left-column/left-column.component';
 
 
 
@@ -70,6 +71,7 @@ import { LeftColumnDetailsComponent } from './left-column-details/left-column-de
     CreateSpecialistComponent,
     GetCustomerComponent,
     LeftColumnDetailsComponent,
+    LeftColumnComponent,
 
   ],
   imports: [
