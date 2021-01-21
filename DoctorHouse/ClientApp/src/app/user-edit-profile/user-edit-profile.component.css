@@ -27,7 +27,22 @@ label.btn.btn-primary {
     background-color: #70FFFC;
   }
 
+.btn-outline-info {
+  color: #70FFFC;
+  border-color: #70FFFC;
+}
 
+#save {
+  width: 95%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+}
+
+  #save:hover {
+    color: #11234A;
+    font-weight: bold;
+    background-color: #70FFFC;
+  }
 
 #h5 {
   color: #97d3e1 !important;

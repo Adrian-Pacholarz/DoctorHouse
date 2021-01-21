@@ -12,7 +12,6 @@ export class UserProfileCardComponent implements OnInit {
 
   customer;
 
-
   getUserForm = new FormGroup({
     firstName: new FormControl(),
     lastName: new FormControl(),

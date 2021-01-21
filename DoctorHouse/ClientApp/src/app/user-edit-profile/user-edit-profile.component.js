@@ -9,18 +9,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserEditProfileComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var phone_validators_1 = require("../common/validators/phone.validators");
 var UserEditProfileComponent = /** @class */ (function () {
     function UserEditProfileComponent(customerService, toastyService) {
         this.customerService = customerService;
         this.toastyService = toastyService;
         this.updateUser = new forms_1.FormGroup({
-            firstName: new forms_1.FormControl(),
-            lastName: new forms_1.FormControl(),
-            phone: new forms_1.FormControl(),
-            email: new forms_1.FormControl(),
+            firstName: new forms_1.FormControl('', [forms_1.Validators.minLength(6)]),
+            lastName: new forms_1.FormControl('', [forms_1.Validators.minLength(3)]),
+            phone: new forms_1.FormControl('', [phone_validators_1.PhoneValidators.phoneIsNaN, phone_validators_1.PhoneValidators.phoneLength]),
+            email: new forms_1.FormControl('', [forms_1.Validators.email]),
             address: new forms_1.FormControl(),
-            username: new forms_1.FormControl(),
-            password: new forms_1.FormControl()
         });
         this.backToProfile = new forms_1.FormGroup({
             goback: new forms_1.FormControl()
@@ -30,13 +29,6 @@ var UserEditProfileComponent = /** @class */ (function () {
     Object.defineProperty(UserEditProfileComponent.prototype, "firstName", {
         get: function () {
             return this.updateUser.get('firstName');
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(UserEditProfileComponent.prototype, "username", {
-        get: function () {
-            return this.updateUser.get('username');
         },
         enumerable: false,
         configurable: true
@@ -88,7 +80,43 @@ var UserEditProfileComponent = /** @class */ (function () {
     };
     UserEditProfileComponent.prototype.goBackToProfile = function ($event) {
         this.goback.setValue(true);
-        console.log('button clicked');
+    };
+    UserEditProfileComponent.prototype.updateCustomer = function (id, customer) {
+        var _this = this;
+        this.customerService.updateCustomer(1, this.customer).subscribe(function (customer) {
+            _this.customer = customer;
+            _this.firstName.setValue(_this.customer.details.firstName);
+            _this.lastName.setValue(_this.customer.details.lastName);
+            _this.email.setValue(_this.customer.details.eMail);
+            _this.phone.setValue(_this.customer.details.phoneNumber);
+            _this.address.setValue(_this.customer.address);
+            _this.toastyService.success({
+                title: 'Success',
+                msg: 'An account has been updated',
+                theme: 'bootstrap',
+                showClose: true,
+                timeout: 5000
+            });
+            location.reload();
+        }, function (error) {
+            if (error.status === 500)
+                _this.toastyService.error({
+                    title: 'Error',
+                    msg: 'Wrong data provided',
+                    theme: 'bootstrap',
+                    showClose: true,
+                    timeout: 5000
+                });
+            else {
+                _this.toastyService.error({
+                    title: 'Error',
+                    msg: 'An error occured and account has not been updated',
+                    theme: 'bootstrap',
+                    showClose: true,
+                    timeout: 5000
+                });
+            }
+        });
     };
     UserEditProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -99,8 +127,6 @@ var UserEditProfileComponent = /** @class */ (function () {
             _this.email.setValue(_this.customer.details.eMail);
             _this.phone.setValue(_this.customer.details.phoneNumber);
             _this.address.setValue(_this.customer.address);
-            _this.username.setValue(_this.customer.username);
-            _this.password.setValue(_this.customer.password);
         });
     };
     UserEditProfileComponent = __decorate([

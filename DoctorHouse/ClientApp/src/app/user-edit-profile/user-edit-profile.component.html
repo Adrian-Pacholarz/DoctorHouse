@@ -23,7 +23,7 @@
                     <label for="firstName"></label>
                     <input formControlName="firstName" type="text" class="form-control" id="firstName">
                     <div *ngIf="firstName.invalid" class="form-error">
-                      <div *ngIf="firstName.errors.required">First name is invalid</div>
+                      <div *ngIf="firstName.errors.minlength">First name should be minimum {{firstName.errors.minlength.requiredLength}} characters</div>
                     </div>
                   </div>
                   <br />
@@ -36,7 +36,7 @@
                     <label for="lastName"></label>
                     <input formControlName="lastName" type="text" class="form-control" id="lastName">
                     <div *ngIf="lastName.invalid" class="form-error">
-                      <div *ngIf="lastName.errors.required">Surname is invalid</div>
+                      <div *ngIf="lastName.errors.minlength">Last name should be minimum {{lastName.errors.minlength.requiredLength}} characters</div>
                     </div>
                   </div>
                 </div>
@@ -83,28 +83,32 @@
               </div>
 
             </div>
+
+
+            <div class="row gutters">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" id="save" type="submit" (click)="updateCustomer(id, customer)">Save</button>
+              </div>
+            </div>
           </form>
 
           <div class="row gutters">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <!--<form [formGroup]="saveChanges" class="change-data">
-                <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off" hidden formControlName="edit-data" (click)="editData($event)" value=false>
-                <label class="btn btn-primary" for="btn-check">Save</label>
-              </form>-->
               <form [formGroup]="backToProfile" class="goback">
                 <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off" hidden formControlName="goback" (click)="goBackToProfile($event)" value=false>
                 <label class="btn btn-primary" for="btn-check">Cancel</label>
               </form>
               <br />
               <br />
+              </div>
             </div>
+          </div>
+      </div>
           </div>
           <br />
         </div>
       </div>
-    </div>
-  </div>
-  </div>
+
 
   <div *ngIf="goback.value">
     <app-user-profile-card></app-user-profile-card>

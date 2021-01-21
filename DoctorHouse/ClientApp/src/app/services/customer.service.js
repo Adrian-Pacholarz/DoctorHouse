@@ -25,6 +25,9 @@ var CustomerService = /** @class */ (function () {
     CustomerService.prototype.getCustomerById = function (id) {
         return this.http.get(this.url + '/' + id);
     };
+    CustomerService.prototype.updateCustomer = function (id, customer) {
+        return this.http.put(this.url + '/' + id, JSON.stringify(customer), this.httpOptions);
+    };
     CustomerService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

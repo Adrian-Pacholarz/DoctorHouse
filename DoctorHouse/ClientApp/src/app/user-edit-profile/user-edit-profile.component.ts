@@ -16,13 +16,11 @@ export class UserEditProfileComponent implements OnInit {
   customer;
 
   updateUser = new FormGroup({
-    firstName: new FormControl(),
-    lastName: new FormControl(),
-    phone: new FormControl(),
-    email: new FormControl(),
+    firstName: new FormControl('', [Validators.minLength(6)]),
+    lastName: new FormControl('', [Validators.minLength(3)]),
+    phone: new FormControl('', [PhoneValidators.phoneIsNaN, PhoneValidators.phoneLength]),
+    email: new FormControl('', [Validators.email]),
     address: new FormControl(),
-    username: new FormControl(),
-    password: new FormControl()
   });
 
   backToProfile = new FormGroup({
@@ -35,9 +33,6 @@ export class UserEditProfileComponent implements OnInit {
     return this.updateUser.get('firstName')
   }
 
-  get username() {
-    return this.updateUser.get('username')
-  }
 
   get password() {
     return this.updateUser.get('password')
@@ -69,15 +64,52 @@ export class UserEditProfileComponent implements OnInit {
     this.setDefaultGoBackValue();
   }
 
-
-
   setDefaultGoBackValue() {
     this.goback.setValue(false);
   }
 
   goBackToProfile($event) {
     this.goback.setValue(true)
-    console.log('button clicked');
+  }
+
+  updateCustomer(id, customer) {
+    this.customerService.updateCustomer(1, this.customer).subscribe(customer => {
+      this.customer = customer
+      this.firstName.setValue(this.customer.details.firstName)
+      this.lastName.setValue(this.customer.details.lastName)
+      this.email.setValue(this.customer.details.eMail)
+      this.phone.setValue(this.customer.details.phoneNumber)
+      this.address.setValue(this.customer.address)
+
+      this.toastyService.success({
+        title: 'Success',
+        msg: 'An account has been updated',
+        theme: 'bootstrap',
+        showClose: true,
+        timeout: 5000
+      })
+      location.reload();
+    },
+
+      (error: Response) => {
+        if (error.status === 500)
+          this.toastyService.error({
+            title: 'Error',
+            msg: 'Wrong data provided',
+            theme: 'bootstrap',
+            showClose: true,
+            timeout: 5000
+          })
+        else {
+          this.toastyService.error({
+            title: 'Error',
+            msg: 'An error occured and account has not been updated',
+            theme: 'bootstrap',
+            showClose: true,
+            timeout: 5000
+          })
+        }
+      });
   }
 
 
@@ -89,9 +121,9 @@ export class UserEditProfileComponent implements OnInit {
       this.email.setValue(this.customer.details.eMail)
       this.phone.setValue(this.customer.details.phoneNumber)
       this.address.setValue(this.customer.address)
-      this.username.setValue(this.customer.username)
-      this.password.setValue(this.customer.password)
     })
+
+
 
   }
 }
