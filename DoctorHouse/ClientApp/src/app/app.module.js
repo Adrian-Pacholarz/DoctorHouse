@@ -44,6 +44,7 @@ var create_specialist_component_1 = require("./create-specialist/create-speciali
 var companies_service_1 = require("./services/companies.service");
 var get_customer_component_1 = require("./get-customer/get-customer.component");
 var authenticate_service_1 = require("./services/authenticate.service");
+var auth_guard_service_1 = require("./services/auth-guard.service");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -85,8 +86,8 @@ var AppModule = /** @class */ (function () {
                 ng2_toasty_1.ToastyModule.forRoot(),
                 forms_1.ReactiveFormsModule,
                 router_1.RouterModule.forRoot([
-                    { path: '', redirectTo: 'login', pathMatch: 'full' },
-                    { path: 'home', component: home_component_1.HomeComponent },
+                    { path: '', redirectTo: 'home', pathMatch: 'full' },
+                    { path: 'home', component: home_component_1.HomeComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'login', component: carousel_login_component_1.CarouselLoginComponent },
                     { path: 'counter', component: counter_component_1.CounterComponent },
                     { path: 'users/customers/id', component: user_profile_component_1.UserProfileComponent },
@@ -100,6 +101,7 @@ var AppModule = /** @class */ (function () {
             ],
             providers: [
                 authenticate_service_1.AuthenticateService,
+                auth_guard_service_1.AuthGuard,
                 create_customer_service_1.CreateCustomerService,
                 create_specialist_service_1.CreateSpecialistService,
                 companies_service_1.CompaniesService

@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthenticateService = void 0;
+var angular_jwt_1 = require("@auth0/angular-jwt");
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/common/http");
 var operators_1 = require("rxjs/operators");
@@ -33,10 +34,28 @@ var AuthenticateService = /** @class */ (function () {
         }));
     };
     AuthenticateService.prototype.logout = function () {
+        localStorage.clear();
     };
     AuthenticateService.prototype.isLoggedIn = function () {
-        return false;
+        var jwtHelper = new angular_jwt_1.JwtHelperService();
+        return !jwtHelper.isTokenExpired(localStorage.getItem('token'));
     };
+    Object.defineProperty(AuthenticateService.prototype, "currentUser", {
+        get: function () {
+            var token = localStorage.getItem('token');
+            if (!token)
+                return null;
+            var currentUser = {
+                id: localStorage.getItem('id'),
+                name: localStorage.getItem('name'),
+                surname: localStorage.getItem('surname'),
+                role: localStorage.getItem('role')
+            };
+            return currentUser;
+        },
+        enumerable: false,
+        configurable: true
+    });
     AuthenticateService = __decorate([
         core_1.Injectable({
             providedIn: 'root'
