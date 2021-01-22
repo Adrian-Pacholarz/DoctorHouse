@@ -9,6 +9,13 @@ body {
   font-size: 1rem;
 }
 
+.form-error {
+  font-size: small;
+  text-align: center;
+  opacity: 0.8;
+  color: #70FFFC;
+}
+
 label.btn.btn-primary {
   color: #70FFFC;
   border-color: #70FFFC;

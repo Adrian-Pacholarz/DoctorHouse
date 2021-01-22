@@ -22,7 +22,8 @@
                   <div class="form-group">
                     <label for="firstName"></label>
                     <input formControlName="firstName" type="text" class="form-control" id="firstName">
-                    <div *ngIf="firstName.invalid" class="form-error">
+                    <div *ngIf="firstName.touched && firstName.invalid" class="form-error">
+                      <div *ngIf="firstName.errors.required">First name is required</div>
                       <div *ngIf="firstName.errors.minlength">First name should be minimum {{firstName.errors.minlength.requiredLength}} characters</div>
                     </div>
                   </div>
@@ -35,7 +36,8 @@
                   <div class="form-group">
                     <label for="lastName"></label>
                     <input formControlName="lastName" type="text" class="form-control" id="lastName">
-                    <div *ngIf="lastName.invalid" class="form-error">
+                    <div *ngIf="lastName.touched && lastName.invalid" class="form-error">
+                      <div *ngIf="lastName.errors.required">Last name is required</div>
                       <div *ngIf="lastName.errors.minlength">Last name should be minimum {{lastName.errors.minlength.requiredLength}} characters</div>
                     </div>
                   </div>
@@ -47,7 +49,8 @@
                   <div class="form-group">
                     <label for="phone"></label>
                     <input formControlName="phone" type="text" class="form-control" id="phone">
-                    <div *ngIf="phone.invalid" class="form-error">
+                    <div *ngIf="phone.touched && phone.invalid" class="form-error">
+                      <div *ngIf="phone.errors.required">Phone number is required</div>
                       <div *ngIf="phone.errors.phoneIsNaN">Phone number can have only digits</div>
                       <div *ngIf="phone.errors.phoneLength">Phone number must have exactly 9 characters</div>
                     </div>
@@ -59,8 +62,9 @@
                   <div class="form-group">
                     <label for="email"></label>
                     <input formControlName="email" type="text" class="form-control" id="email">
-                    <div *ngIf="email.invalid" class="form-error">
-                      <div *ngIf="email.errors.required">Email is invalid</div>
+                    <div *ngIf="email.touched && email.invalid" class="form-error">
+                      <div *ngIf="email.errors.required">Email is required</div>
+                      <div *ngIf="email.errors.email">Invalid email</div>
                     </div>
                   </div><br />
                 </div>
@@ -75,7 +79,7 @@
                   <div class="form-group">
                     <label for="address"></label>
                     <input formControlName="address" type="text" class="form-control" id="address">
-                    <div *ngIf="address.invalid" class="form-error">
+                    <div *ngIf="address.touched && address.invalid" class="form-error">
                       <div *ngIf="address.errors.required">Address is invalid</div>
                     </div>
                   </div>
@@ -87,7 +91,7 @@
 
             <div class="row gutters">
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" id="save" type="submit" (click)="updateCustomer(id, customer)">Save</button>
+                <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" id="save" type="submit" (click)="update()">Save</button>
               </div>
             </div>
           </form>

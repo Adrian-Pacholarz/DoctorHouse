@@ -15,11 +15,11 @@ var UserEditProfileComponent = /** @class */ (function () {
         this.customerService = customerService;
         this.toastyService = toastyService;
         this.updateUser = new forms_1.FormGroup({
-            firstName: new forms_1.FormControl('', [forms_1.Validators.minLength(6)]),
-            lastName: new forms_1.FormControl('', [forms_1.Validators.minLength(3)]),
-            phone: new forms_1.FormControl('', [phone_validators_1.PhoneValidators.phoneIsNaN, phone_validators_1.PhoneValidators.phoneLength]),
-            email: new forms_1.FormControl('', [forms_1.Validators.email]),
-            address: new forms_1.FormControl(),
+            firstName: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(3)]),
+            lastName: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(3)]),
+            phone: new forms_1.FormControl('', [forms_1.Validators.required, phone_validators_1.PhoneValidators.phoneIsNaN, phone_validators_1.PhoneValidators.phoneLength]),
+            email: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.email]),
+            address: new forms_1.FormControl('', [forms_1.Validators.required]),
         });
         this.backToProfile = new forms_1.FormGroup({
             goback: new forms_1.FormControl()
@@ -81,15 +81,18 @@ var UserEditProfileComponent = /** @class */ (function () {
     UserEditProfileComponent.prototype.goBackToProfile = function ($event) {
         this.goback.setValue(true);
     };
-    UserEditProfileComponent.prototype.updateCustomer = function (id, customer) {
+    UserEditProfileComponent.prototype.update = function () {
         var _this = this;
-        this.customerService.updateCustomer(1, this.customer).subscribe(function (customer) {
-            _this.customer = customer;
-            _this.firstName.setValue(_this.customer.details.firstName);
-            _this.lastName.setValue(_this.customer.details.lastName);
-            _this.email.setValue(_this.customer.details.eMail);
-            _this.phone.setValue(_this.customer.details.phoneNumber);
-            _this.address.setValue(_this.customer.address);
+        var updatedCustomer = {
+            address: this.address.value,
+            details: {
+                firstName: this.firstName.value,
+                lastName: this.lastName.value,
+                eMail: this.email.value,
+                phoneNumber: this.phone.value,
+            }
+        };
+        this.customerService.updateCustomer(1, updatedCustomer).subscribe(function (customer) {
             _this.toastyService.success({
                 title: 'Success',
                 msg: 'An account has been updated',

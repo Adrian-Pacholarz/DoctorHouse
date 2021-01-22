@@ -16,11 +16,11 @@ export class UserEditProfileComponent implements OnInit {
   customer;
 
   updateUser = new FormGroup({
-    firstName: new FormControl('', [Validators.minLength(6)]),
-    lastName: new FormControl('', [Validators.minLength(3)]),
-    phone: new FormControl('', [PhoneValidators.phoneIsNaN, PhoneValidators.phoneLength]),
-    email: new FormControl('', [Validators.email]),
-    address: new FormControl(),
+    firstName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    lastName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    phone: new FormControl('', [Validators.required, PhoneValidators.phoneIsNaN, PhoneValidators.phoneLength]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    address: new FormControl('', [Validators.required]),
   });
 
   backToProfile = new FormGroup({
@@ -72,15 +72,17 @@ export class UserEditProfileComponent implements OnInit {
     this.goback.setValue(true)
   }
 
-  updateCustomer(id, customer) {
-    this.customerService.updateCustomer(1, this.customer).subscribe(customer => {
-      this.customer = customer
-      this.firstName.setValue(this.customer.details.firstName)
-      this.lastName.setValue(this.customer.details.lastName)
-      this.email.setValue(this.customer.details.eMail)
-      this.phone.setValue(this.customer.details.phoneNumber)
-      this.address.setValue(this.customer.address)
-
+  update() {
+    let updatedCustomer = {
+      address: this.address.value,
+      details: {
+        firstName: this.firstName.value,
+        lastName: this.lastName.value,
+        eMail: this.email.value,
+        phoneNumber: this.phone.value,
+      }
+    };
+    this.customerService.updateCustomer(1, updatedCustomer).subscribe(customer => {
       this.toastyService.success({
         title: 'Success',
         msg: 'An account has been updated',
