@@ -26,8 +26,6 @@ export class CustomerService {
   }
 
   updateCustomer(id, customer) {
-    return this.http.patch(this.url + '/' + id, JSON.stringify(customer), this.httpOptions).subscribe(response => {
-      console.log(response.json)
-    })
+    return this.http.patch(this.url + '/' + id, JSON.stringify(customer), this.httpOptions);
   }
 }

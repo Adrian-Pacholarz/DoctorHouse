@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.JsonPatch.Operations;
 
 namespace DoctorHouse.Mapping
 {
@@ -99,7 +101,7 @@ namespace DoctorHouse.Mapping
 
             CreateMap<Company, CompanyResource>()
                 .ForMember(cr => cr.Specialists, opt => opt.MapFrom(c => c.Specialists.Select(cs => new KeyValuePairResource { Id = cs.Specialist.Id, FullName = cs.Specialist.Details.FirstName + " " + cs.Specialist.Details.LastName, PhoneNumber = cs.Specialist.Details.PhoneNumber } )))
-                .ForMember(cr => cr.Appointments, opt => opt.MapFrom(c => c.Appointments.Select(cs => new AppointmentResource { Id = cs.Id, AppointmentDate = cs.AppointmentDate, Description = cs.Description, Status = cs.Status, 
+                .ForMember(cr => cr.Appointments, opt => opt.MapFrom(c => c.Appointments.Select(cs => new AppointmentResource { Id = cs.Id, AppointmentDate = cs.AppointmentDate, Description = cs.Description, Status = cs.Status,
                     Specialist = new KeyValuePairResource {Id = cs.Specialist.Id, FullName = cs.Specialist.Details.FirstName + " " + cs.Specialist.Details.LastName, PhoneNumber = cs.Specialist.Details.PhoneNumber },
                     Customer = new KeyValuePairResource { Id = cs.Customer.Id, FullName = cs.Customer.Details.FirstName + " " + cs.Customer.Details.LastName, PhoneNumber = cs.Customer.Details.PhoneNumber },
                     Company = new KeyValuePairResource { Id = cs.Company.Id, FullName = cs.Company.CompanyName, PhoneNumber = cs.Company.PhoneNumber }
@@ -176,6 +178,10 @@ namespace DoctorHouse.Mapping
                 .ForMember(u => u.Password, opt => opt.MapFrom(ur => ur.Password))
                 .ForMember(u => u.IsAdmin, opt => opt.MapFrom(ur => ur.IsAdmin))
                 .ForMember(u => u.Details, opt => opt.MapFrom(ur => ur.Details));
+
+            //JSONPatchDoc
+            CreateMap<JsonPatchDocument<SaveCustomerResource>, JsonPatchDocument<Customer>>();
+            CreateMap<Operation<SaveCustomerResource>, Operation<Customer>>();
 
             //Appointment
             CreateMap<SaveAppointmentResource, Appointment>()

@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.JsonPatch;
+
 
 namespace DoctorHouse.Controllers
 {
@@ -76,6 +78,33 @@ namespace DoctorHouse.Controllers
 
             return Ok(result);
         }
+
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> UpdateCustomerDetails(int id, [FromBody] JsonPatchDocument<SaveCustomerResource> patchEntity)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var customer = await repository.GetCustomer(id);
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            var saveCustomer = mapper.Map<Customer, SaveCustomerResource>(customer);
+
+            patchEntity.ApplyTo(saveCustomer);
+
+            var result = mapper.Map<SaveCustomerResource, Customer>(saveCustomer);
+
+            await unitOfWork.CompleteAsync();
+
+            return Ok(result);
+
+        }
+
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomer(int id)
