@@ -23,11 +23,13 @@
             <div class="p-4">
               <div class="row">
                 <div class="col-lg-6 mb-4">
-                  <ul class="list-unstyled">
+                  <div id="loggedUser" *ngIf="isLoggedIn()">User: {{currentUser.name}} {{currentUser.surname}}</div>
+                  <ul class="list-unstyled">              
                     <li class="nav-item"><a href="" class="nav-link text-small pb-0">Home</a></li>
                     <li class="nav-item"><a href="" class="nav-link text-small pb-0 ">About</a></li>
                     <li class="nav-item"><a href="" class="nav-link text-small pb-0 ">Help</a></li>
                     <li class="nav-item"><a href="" class="nav-link text-small pb-0 ">Account</a></li>
+                    <li id="logout" class="nav-item" *ngIf="isLoggedIn()"><a (click)="logout()" class="nav-link text-small pb-0 ">Logout</a></li>
                   </ul>
                 </div>
               </div>

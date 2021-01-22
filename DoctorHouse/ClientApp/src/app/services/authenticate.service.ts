@@ -1,3 +1,4 @@
+import { JwtHelperService } from "@auth0/angular-jwt";
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
@@ -31,11 +32,28 @@ export class AuthenticateService {
   }
 
   logout() {
+    localStorage.clear();
 
   }
 
   isLoggedIn() {
-    return false;
+    let jwtHelper = new JwtHelperService();
+    return !jwtHelper.isTokenExpired(localStorage.getItem('token'));
+
+  }
+
+  get currentUser() {
+    let token = localStorage.getItem('token');
+    if (!token) return null
+
+    let currentUser = {
+      id : localStorage.getItem('id'),
+      name : localStorage.getItem('name'),
+      surname : localStorage.getItem('surname'),
+      role : localStorage.getItem('role')
+    }
+
+    return currentUser;
   }
 
 }

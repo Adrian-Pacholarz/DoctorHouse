@@ -36,6 +36,7 @@ import { CreateSpecialistComponent } from './create-specialist/create-specialist
 import { CompaniesService } from './services/companies.service';
 import { GetCustomerComponent } from './get-customer/get-customer.component';
 import { AuthenticateService } from './services/authenticate.service';
+import { AuthGuard } from './services/auth-guard.service';
 
 
 @NgModule({
@@ -75,8 +76,8 @@ import { AuthenticateService } from './services/authenticate.service';
     ToastyModule.forRoot(),
     ReactiveFormsModule,
     RouterModule.forRoot([
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent },
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'login', component: CarouselLoginComponent },
       { path: 'counter', component: CounterComponent },
       { path: 'users/customers/id', component: UserProfileComponent },
@@ -90,6 +91,7 @@ import { AuthenticateService } from './services/authenticate.service';
   ],
   providers: [
     AuthenticateService,
+    AuthGuard,
     CreateCustomerService,
     CreateSpecialistService,
     CompaniesService

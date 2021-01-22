@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticateService } from '../services/authenticate.service';
 
 @Component({
   selector: 'app-user-login-button',
@@ -7,7 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserLoginButtonComponent implements OnInit {
 
-  constructor() { }
+  currentUser = this.authService.currentUser;
+  
+  logout() {
+    this.authService.logout();
+    location.reload();
+  }
+
+  isLoggedIn() {
+    return this.authService.isLoggedIn();
+  }
+
+
+  constructor(private authService: AuthenticateService) {
+    console.log(this.currentUser);}
 
   ngOnInit(): void {
   }
