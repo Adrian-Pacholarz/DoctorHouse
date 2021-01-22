@@ -27,6 +27,14 @@ namespace DoctorHouse.Mapping
                 .ForMember(cr => cr.Appointments, opt => opt.MapFrom(s => s.Appointments.Select(a => a.Id)))
                 .ForMember(cr => cr.Address, opt => opt.MapFrom(c => c.Address));
 
+            CreateMap<Customer, UpdateCustomerResource>()
+                .ForMember(cr => cr.Username, opt => opt.MapFrom(c => c.Username))
+                .ForMember(cr => cr.Password, opt => opt.MapFrom(c => c.Password))
+                .ForMember(cr => cr.IsAdmin, opt => opt.MapFrom(c => c.IsAdmin))
+                .ForMember(cr => cr.Details, opt => opt.MapFrom(c => c.Details))
+                .ForMember(cr => cr.Appointments, opt => opt.MapFrom(s => s.Appointments.Select(a => a.Id)))
+                .ForMember(cr => cr.Address, opt => opt.MapFrom(c => c.Address));
+
             CreateMap<Customer, CustomerResource>()
                 .ForMember(cr => cr.Details, opt => opt.MapFrom(s => s.Details))
                 .ForMember(cr => cr.Address, opt => opt.MapFrom(c => c.Address))
@@ -120,14 +128,16 @@ namespace DoctorHouse.Mapping
 
 
             //Customer
-            CreateMap<SaveCustomerResource, Customer>()
+            CreateMap<UpdateCustomerResource, Customer>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.Appointments, opt => opt.Ignore())
-                .ForMember(c => c.Username, opt => opt.MapFrom(cr => cr.Username))
-                .ForMember(c => c.Password, opt => opt.MapFrom(cr => cr.Password))
+                .ForMember(c => c.Username, opt => opt.Ignore())
+                .ForMember(c => c.Password, opt => opt.Ignore())
                 .ForMember(c => c.IsAdmin, opt => opt.MapFrom(cr => cr.IsAdmin))
                 .ForMember(c => c.Address, opt => opt.MapFrom(cr => cr.Address))
                 .ForMember(c => c.Details, opt => opt.MapFrom(cr => cr.Details));
+
+
 
 
             //Specialist

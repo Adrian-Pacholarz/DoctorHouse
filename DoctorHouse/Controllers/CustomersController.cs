@@ -56,7 +56,7 @@ namespace DoctorHouse.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCustomer(int id, [FromBody] SaveCustomerResource customerResource)
+        public async Task<IActionResult> UpdateCustomer(int id, [FromBody] UpdateCustomerResource customerResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -68,7 +68,7 @@ namespace DoctorHouse.Controllers
                 return NotFound();
             }
 
-            mapper.Map<SaveCustomerResource, Customer>(customerResource, customer);
+            mapper.Map<UpdateCustomerResource, Customer>(customerResource, customer);
 
             await unitOfWork.CompleteAsync();
 
@@ -96,9 +96,12 @@ namespace DoctorHouse.Controllers
 
             patchEntity.ApplyTo(saveCustomer);
 
-            var result = mapper.Map<SaveCustomerResource, Customer>(saveCustomer);
+            mapper.Map<SaveCustomerResource, Customer>(saveCustomer);
 
             await unitOfWork.CompleteAsync();
+            customer = await repository.GetCustomer(customer.Id);
+
+            var result = mapper.Map<Customer, CustomerResource>(customer);
 
             return Ok(result);
 
