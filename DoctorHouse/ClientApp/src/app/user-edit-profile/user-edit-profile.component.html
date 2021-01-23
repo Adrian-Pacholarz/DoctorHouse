@@ -80,7 +80,8 @@
                     <label for="address"></label>
                     <input formControlName="address" type="text" class="form-control" id="address">
                     <div *ngIf="address.touched && address.invalid" class="form-error">
-                      <div *ngIf="address.errors.required">Address is invalid</div>
+                      <div *ngIf="address.errors.required">Address is required</div>
+                      <div *ngIf="address.errors.minlength">Address too short!</div>
                     </div>
                   </div>
                 </div>
@@ -91,7 +92,7 @@
 
             <div class="row gutters">
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" id="save" type="submit" (click)="update()">Save</button>
+                <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" id="save" type="submit" [disabled]="updateUser.invalid" (click)="update()">Save</button>
               </div>
             </div>
           </form>

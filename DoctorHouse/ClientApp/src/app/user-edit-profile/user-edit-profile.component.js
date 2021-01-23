@@ -19,7 +19,7 @@ var UserEditProfileComponent = /** @class */ (function () {
             lastName: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(3)]),
             phone: new forms_1.FormControl('', [forms_1.Validators.required, phone_validators_1.PhoneValidators.phoneIsNaN, phone_validators_1.PhoneValidators.phoneLength]),
             email: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.email]),
-            address: new forms_1.FormControl('', [forms_1.Validators.required]),
+            address: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(10)]),
         });
         this.backToProfile = new forms_1.FormGroup({
             goback: new forms_1.FormControl()
@@ -29,13 +29,6 @@ var UserEditProfileComponent = /** @class */ (function () {
     Object.defineProperty(UserEditProfileComponent.prototype, "firstName", {
         get: function () {
             return this.updateUser.get('firstName');
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(UserEditProfileComponent.prototype, "password", {
-        get: function () {
-            return this.updateUser.get('password');
         },
         enumerable: false,
         configurable: true
@@ -89,7 +82,7 @@ var UserEditProfileComponent = /** @class */ (function () {
                 firstName: this.firstName.value,
                 lastName: this.lastName.value,
                 eMail: this.email.value,
-                phoneNumber: this.phone.value,
+                phoneNumber: +this.phone.value,
             }
         };
         this.customerService.updateCustomer(1, updatedCustomer).subscribe(function (customer) {
@@ -128,7 +121,7 @@ var UserEditProfileComponent = /** @class */ (function () {
             _this.firstName.setValue(_this.customer.details.firstName);
             _this.lastName.setValue(_this.customer.details.lastName);
             _this.email.setValue(_this.customer.details.eMail);
-            _this.phone.setValue(_this.customer.details.phoneNumber);
+            _this.phone.setValue((_this.customer.details.phoneNumber).toString());
             _this.address.setValue(_this.customer.address);
         });
     };

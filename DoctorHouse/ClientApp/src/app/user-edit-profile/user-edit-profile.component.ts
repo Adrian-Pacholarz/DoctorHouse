@@ -20,7 +20,7 @@ export class UserEditProfileComponent implements OnInit {
     lastName: new FormControl('', [Validators.required, Validators.minLength(3)]),
     phone: new FormControl('', [Validators.required, PhoneValidators.phoneIsNaN, PhoneValidators.phoneLength]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    address: new FormControl('', [Validators.required]),
+    address: new FormControl('', [Validators.required, Validators.minLength(10)]),
   });
 
   backToProfile = new FormGroup({
@@ -34,16 +34,12 @@ export class UserEditProfileComponent implements OnInit {
   }
 
 
-  get password() {
-    return this.updateUser.get('password')
-  }
-
   get lastName() {
     return this.updateUser.get('lastName')
   }
 
   get phone() {
-    return this.updateUser.get('phone')
+    return this.updateUser.get('phone');
   }
 
   get email() {
@@ -79,7 +75,7 @@ export class UserEditProfileComponent implements OnInit {
         firstName: this.firstName.value,
         lastName: this.lastName.value,
         eMail: this.email.value,
-        phoneNumber: this.phone.value,
+        phoneNumber: +this.phone.value,
       }
     };
     this.customerService.updateCustomer(1, updatedCustomer).subscribe(customer => {
@@ -102,6 +98,7 @@ export class UserEditProfileComponent implements OnInit {
             showClose: true,
             timeout: 5000
           })
+
         else {
           this.toastyService.error({
             title: 'Error',
@@ -121,7 +118,7 @@ export class UserEditProfileComponent implements OnInit {
       this.firstName.setValue(this.customer.details.firstName)
       this.lastName.setValue(this.customer.details.lastName)
       this.email.setValue(this.customer.details.eMail)
-      this.phone.setValue(this.customer.details.phoneNumber)
+      this.phone.setValue((this.customer.details.phoneNumber).toString())
       this.address.setValue(this.customer.address)
     })
 
