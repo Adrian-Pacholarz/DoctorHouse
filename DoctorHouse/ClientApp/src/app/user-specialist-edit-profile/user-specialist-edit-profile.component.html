@@ -1,119 +1,121 @@
-<div class="container">
-  <div class="row gutters">
-    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-      <div class="card h-100">
-        <div class="card-body">
-          <div class="account-settings">
-            <div class="user-profile">
-              <div class="user-avatar">
-                <img src="../../assets/images/user2.png">
-              </div>
-              <h5 class="user-name">Doctor House</h5>
-              <h6 class="user-email">doctor@house.com</h6>
-            </div>
-            <div class="about">
-              <h5 class="mb-2 text-primary">About</h5>
-              <div class="form-group">
-                <textarea>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</textarea>
-              </div>
-            </div>
-          </div>
+<div *ngIf="!goback.value">
+  <div class="container">
+    <div class="row gutters">
+
+      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+        <div class="card h-100">
+          <app-left-column-specialist></app-left-column-specialist>
         </div>
       </div>
-    </div>
 
-    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-      <div class="card h-100">
-        <div class="card-body">
-          <div class="row gutters">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <h6 class="mb-3 text-primary">Personal Details</h6>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="firstName">First Name</label>
-                <input type="text" class="form-control" id="firstName" placeholder="Enter first name">
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="lastName">Last Name</label>
-                <input type="text" class="form-control" id="lastName" placeholder="Enter last name">
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="phone">Mobile no.</label>
-                <input type="text" class="form-control" id="phone" placeholder="Enter phone number">
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="eMail">E-mail</label>
-                <input type="email" class="form-control" id="eMail" placeholder="Your e-mail">
-              </div>
-            </div>
-          </div>
-          <br /><br />
-                <div class="row gutters">
-                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <h6 class="mb-3 text-primary">Account details</h6>
-                  </div>
-
-                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group">
-                      <label for="password">Password</label>
-                      <input type="text" class="form-control" id="password" placeholder="New password">
+      <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+        <div class="card h-100">
+          <form [formGroup]="updateUser">
+            <div class="card-body">
+              <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <h6 class="mb-3 text-primary">Personal Details</h6>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <p id="labels">First name</p>
+                  <div class="form-group">
+                    <label for="firstName"></label>
+                    <input formControlName="firstName" type="text" class="form-control" id="firstName">
+                    <div *ngIf="firstName.touched && firstName.invalid" class="form-error">
+                      <div *ngIf="firstName.errors.required">First name is required</div>
+                      <div *ngIf="firstName.errors.minlength">First name should be minimum {{firstName.errors.minlength.requiredLength}} characters</div>
                     </div>
                   </div>
+                  <br />
+                </div>
 
-                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group">
-                      <label for="userName">Username</label>
-                      <input type="text" class="form-control" id="userName" placeholder="Your username">
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <p id="labels">Last name</p>
+                  <div class="form-group">
+                    <label for="lastName"></label>
+                    <input formControlName="lastName" type="text" class="form-control" id="lastName">
+                    <div *ngIf="lastName.touched && lastName.invalid" class="form-error">
+                      <div *ngIf="lastName.errors.required">Last name is required</div>
+                      <div *ngIf="lastName.errors.minlength">Last name should be minimum {{lastName.errors.minlength.requiredLength}} characters</div>
                     </div>
                   </div>
+                </div>
 
-                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group">
-                      <label for="newPassword">New password</label>
-                      <input type="text" class="form-control" id="newPassword" placeholder="Confirm password">
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <p id="labels">Mobile no.</p>
+                  <div class="form-group">
+                    <label for="phone"></label>
+                    <input formControlName="phone" type="text" class="form-control" id="phone">
+                    <div *ngIf="phone.touched && phone.invalid" class="form-error">
+                      <div *ngIf="phone.errors.required">Phone number is required</div>
+                      <div *ngIf="phone.errors.phoneIsNaN">Phone number can have only digits</div>
+                      <div *ngIf="phone.errors.phoneLength">Phone number must have exactly 9 characters</div>
                     </div>
                   </div>
+                </div>
 
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <p id="labels">E-mail</p>
+                  <div class="form-group">
+                    <label for="email"></label>
+                    <input formControlName="email" type="text" class="form-control" id="email">
+                    <div *ngIf="email.touched && email.invalid" class="form-error">
+                      <div *ngIf="email.errors.required">Email is required</div>
+                      <div *ngIf="email.errors.email">Invalid email</div>
+                    </div>
+                  </div><br />
+                </div>
+              </div>
+              <br /><br />
 
-                </div><br /><br />
+              <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <h6 class="mb-3 text-primary">Employment</h6>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group">
+                    <label for="Street">Occupation</label>
+                    <input type="text" class="form-control" id="Occupation" placeholder="Enter Occupation">
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group">
+                    <label for="ciTy">Companies</label>
+                    <input type="text" class="form-control" id="Company" placeholder="Enter Company">
+                    <div class="text-right">
+                      <button type="button" id="submit" name="submit" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0">Add another</button>
+                    </div>
+                  </div>
+                </div>
+              </div><br /><br />
 
-          <div class="row gutters">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <h6 class="mb-3 text-primary">Employment</h6>
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="Street">Occupation</label>
-                <input type="text" class="form-control" id="Occupation" placeholder="Enter Occupation">
+            <div class="row gutters">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" id="save" type="submit" [disabled]="updateUser.invalid" (click)="update()">Save</button>
               </div>
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="ciTy">Companies</label>
-                <input type="text" class="form-control" id="Company" placeholder="Enter Company">
-                <div class="text-right">
-                  <button type="button" id="submit" name="submit" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0">Add another</button>
+          </form>
+
+              <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <form [formGroup]="backToProfile" class="goback">
+                    <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off" hidden formControlName="goback" (click)="goBackToProfile($event)" value=false>
+                    <label class="btn btn-primary" for="btn-check">Cancel</label>
+                  </form>
+                  <br />
+                  <br />
                 </div>
               </div>
             </div>
-          </div><br /><br />
-          <div class="row gutters">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <div class="text-right">
-                <button type="button" id="submit" name="submit" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0">Update</button>
-                <button type="button" id="submit" name="submit" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0">Cancel</button>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </div>
+
+
+<div *ngIf="goback.value">
+  <app-user-specialist-profile-card></app-user-specialist-profile-card>
 </div>

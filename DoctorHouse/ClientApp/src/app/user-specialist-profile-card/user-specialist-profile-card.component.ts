@@ -74,7 +74,6 @@ export class UserSpecialistProfileCardComponent implements OnInit {
       this.phone.setValue(this.specialist.details.phoneNumber)
       this.type.setValue(this.specialist.specialistType)
       this.companies.setValue(this.specialist.companies)
-      console.log(this.companies.value)
 
     })
   }
