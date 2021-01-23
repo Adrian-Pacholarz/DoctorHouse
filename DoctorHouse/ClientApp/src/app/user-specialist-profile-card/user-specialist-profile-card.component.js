@@ -18,6 +18,7 @@ var UserSpecialistProfileCardComponent = /** @class */ (function () {
             phone: new forms_1.FormControl(),
             email: new forms_1.FormControl(),
             type: new forms_1.FormControl(),
+            companies: new forms_1.FormControl()
         });
         this.editProfile = new forms_1.FormGroup({
             edit: new forms_1.FormControl()
@@ -66,6 +67,13 @@ var UserSpecialistProfileCardComponent = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    Object.defineProperty(UserSpecialistProfileCardComponent.prototype, "companies", {
+        get: function () {
+            return this.getUserForm.get('companies');
+        },
+        enumerable: false,
+        configurable: true
+    });
     UserSpecialistProfileCardComponent.prototype.setDefaultValue = function () {
         this.edit.setValue(false);
     };
@@ -81,6 +89,7 @@ var UserSpecialistProfileCardComponent = /** @class */ (function () {
             _this.email.setValue(_this.specialist.details.eMail);
             _this.phone.setValue(_this.specialist.details.phoneNumber);
             _this.type.setValue(_this.specialist.specialistType);
+            _this.companies.setValue(_this.specialist.companies);
         });
     };
     UserSpecialistProfileCardComponent = __decorate([

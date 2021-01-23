@@ -35,9 +35,10 @@ import { CreateCustomerComponent } from './create-customer/create-customer.compo
 import { CreateSpecialistComponent } from './create-specialist/create-specialist.component';
 import { CompaniesService } from './services/companies.service';
 import { GetCustomerComponent } from './get-customer/get-customer.component';
-import { CustomerService } from './services/customer.service';
+
 import { LeftColumnDetailsComponent } from './left-column-details/left-column-details.component';
 import { LeftColumnSpecialistComponent } from './left-column-specialist/left-column-specialist.component';
+import { CustomerService } from './services/customer.service';
 
 
 
@@ -70,8 +71,8 @@ import { LeftColumnSpecialistComponent } from './left-column-specialist/left-col
     CreateCustomerComponent,
     CreateSpecialistComponent,
     GetCustomerComponent,
-    LeftColumnDetailsComponent,
-    LeftColumnSpecialistComponent
+    LeftColumnSpecialistComponent,
+    LeftColumnDetailsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

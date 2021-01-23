@@ -16,6 +16,7 @@ export class UserSpecialistProfileCardComponent implements OnInit {
     phone: new FormControl(),
     email: new FormControl(),
     type: new FormControl(),
+    companies: new FormControl()
   });
 
   editProfile = new FormGroup({
@@ -47,6 +48,10 @@ export class UserSpecialistProfileCardComponent implements OnInit {
     return this.getUserForm.get('type')
   }
 
+  get companies() {
+    return this.getUserForm.get('companies')
+  }
+
   setDefaultValue() {
     this.edit.setValue(false)
   }
@@ -68,6 +73,7 @@ export class UserSpecialistProfileCardComponent implements OnInit {
       this.email.setValue(this.specialist.details.eMail)
       this.phone.setValue(this.specialist.details.phoneNumber)
       this.type.setValue(this.specialist.specialistType)
+      this.companies.setValue(this.specialist.companies)
 
     })
   }

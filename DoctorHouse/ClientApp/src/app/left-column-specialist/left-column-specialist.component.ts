@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
-import { SpecialistService   } from '../services/specialist.service';
+import { SpecialistService } from '../services/specialist.service';
 
 @Component({
-  selector: 'app-left-column-details',
+  selector: 'app-left-column-specialist',
   templateUrl: './left-column-specialist.component.html',
   styleUrls: ['./left-column-specialist.component.css']
 })
@@ -11,14 +11,11 @@ export class LeftColumnSpecialistComponent implements OnInit {
 
   specialist;
 
-
   getUserForm = new FormGroup({
     firstName: new FormControl(),
     lastName: new FormControl(),
     email: new FormControl(),
   });
-
-
 
   get firstName() {
     return this.getUserForm.get('firstName')

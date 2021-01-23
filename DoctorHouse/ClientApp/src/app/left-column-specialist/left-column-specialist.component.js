@@ -50,7 +50,7 @@ var LeftColumnSpecialistComponent = /** @class */ (function () {
     };
     LeftColumnSpecialistComponent = __decorate([
         core_1.Component({
-            selector: 'app-left-column-details',
+            selector: 'app-left-column-specialist',
             templateUrl: './left-column-specialist.component.html',
             styleUrls: ['./left-column-specialist.component.css']
         })

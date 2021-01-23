@@ -78,8 +78,8 @@ var AppModule = /** @class */ (function () {
                 create_customer_component_1.CreateCustomerComponent,
                 create_specialist_component_1.CreateSpecialistComponent,
                 get_customer_component_1.GetCustomerComponent,
-                left_column_details_component_1.LeftColumnDetailsComponent,
-                left_column_specialist_component_1.LeftColumnSpecialistComponent
+                left_column_specialist_component_1.LeftColumnSpecialistComponent,
+                left_column_details_component_1.LeftColumnDetailsComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
