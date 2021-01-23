@@ -74,6 +74,46 @@ var UserSpecialistEditProfileComponent = /** @class */ (function () {
     UserSpecialistEditProfileComponent.prototype.goBackToProfile = function ($event) {
         this.goback.setValue(true);
     };
+    UserSpecialistEditProfileComponent.prototype.update = function () {
+        var _this = this;
+        var updatedSpecialist = {
+            specialistType: this.type.value,
+            details: {
+                firstName: this.firstName.value,
+                lastName: this.lastName.value,
+                eMail: this.email.value,
+                phoneNumber: +this.phone.value,
+            }
+        };
+        this.specialistService.updateSpecialist(3, updatedSpecialist).subscribe(function (specialist) {
+            _this.toastyService.success({
+                title: 'Success',
+                msg: 'An account has been updated',
+                theme: 'bootstrap',
+                showClose: true,
+                timeout: 5000
+            });
+            location.reload();
+        }, function (error) {
+            if (error.status === 500)
+                _this.toastyService.error({
+                    title: 'Error',
+                    msg: 'Wrong data provided',
+                    theme: 'bootstrap',
+                    showClose: true,
+                    timeout: 5000
+                });
+            else {
+                _this.toastyService.error({
+                    title: 'Error',
+                    msg: 'An error occured and account has not been updated',
+                    theme: 'bootstrap',
+                    showClose: true,
+                    timeout: 5000
+                });
+            }
+        });
+    };
     UserSpecialistEditProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.specialistService.getSpecialistById(3).subscribe(function (specialist) {
@@ -81,7 +121,7 @@ var UserSpecialistEditProfileComponent = /** @class */ (function () {
             _this.firstName.setValue(_this.specialist.details.firstName);
             _this.lastName.setValue(_this.specialist.details.lastName);
             _this.email.setValue(_this.specialist.details.eMail);
-            _this.phone.setValue(_this.specialist.details.phoneNumber);
+            _this.phone.setValue(_this.specialist.details.phoneNumber.toString());
             _this.type.setValue(_this.specialist.specialistType);
         });
     };

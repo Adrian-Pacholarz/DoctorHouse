@@ -65,13 +65,56 @@ export class UserSpecialistEditProfileComponent implements OnInit {
     this.goback.setValue(true)
   }
 
+  update() {
+    let updatedSpecialist = {
+      specialistType: this.type.value,
+      details: {
+        firstName: this.firstName.value,
+        lastName: this.lastName.value,
+        eMail: this.email.value,
+        phoneNumber: +this.phone.value,
+      }
+    };
+    this.specialistService.updateSpecialist(3, updatedSpecialist).subscribe(specialist => {
+      this.toastyService.success({
+        title: 'Success',
+        msg: 'An account has been updated',
+        theme: 'bootstrap',
+        showClose: true,
+        timeout: 5000
+      })
+      location.reload();
+    },
+
+      (error: Response) => {
+        if (error.status === 500)
+          this.toastyService.error({
+            title: 'Error',
+            msg: 'Wrong data provided',
+            theme: 'bootstrap',
+            showClose: true,
+            timeout: 5000
+          })
+
+        else {
+          this.toastyService.error({
+            title: 'Error',
+            msg: 'An error occured and account has not been updated',
+            theme: 'bootstrap',
+            showClose: true,
+            timeout: 5000
+          })
+        }
+      });
+  }
+
   ngOnInit(): void {
     this.specialistService.getSpecialistById(3).subscribe(specialist => {
       this.specialist = specialist
       this.firstName.setValue(this.specialist.details.firstName)
       this.lastName.setValue(this.specialist.details.lastName)
       this.email.setValue(this.specialist.details.eMail)
-      this.phone.setValue(this.specialist.details.phoneNumber)
+      this.phone.setValue(this.specialist.details.phoneNumber.toString())
       this.type.setValue(this.specialist.specialistType)
     })
    }

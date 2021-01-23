@@ -60,6 +60,17 @@ namespace DoctorHouse.Mapping
             .ForMember(sr => sr.Appointments, opt => opt.MapFrom(s => s.Appointments.Select(a => a.Id)))
             .ForMember(sr => sr.Companies, opt => opt.MapFrom(s => s.Companies.Select(sc => sc.CompanyId))); //many-to-many relationship
 
+
+            CreateMap<Specialist, UpdateSpecialistResource>()
+                .ForMember(sr => sr.Username, opt => opt.MapFrom(s => s.Username))
+                .ForMember(sr => sr.Password, opt => opt.MapFrom(s => s.Password))
+                .ForMember(sr => sr.IsAdmin, opt => opt.MapFrom(s => s.IsAdmin))
+                .ForMember(sr => sr.SpecialistType, opt => opt.MapFrom(s => s.SpecialistType))
+                .ForMember(sr => sr.Area, opt => opt.MapFrom(s => s.Area))
+                .ForMember(sr => sr.Details, opt => opt.MapFrom(s => s.Details))
+                .ForMember(sr => sr.Appointments, opt => opt.MapFrom(s => s.Appointments.Select(a => a.Id)))
+                .ForMember(sr => sr.Companies, opt => opt.MapFrom(s => s.Companies.Select(sc => sc.CompanyId)));
+
             CreateMap<Specialist, SpecialistResource>()
                 .ForMember(sr => sr.Details, opt => opt.MapFrom(s => s.Details))
                 .ForMember(sr => sr.Companies, opt => opt.MapFrom(s => s.Companies.Select(sr => new KeyValuePairResource { Id = sr.Company.Id, FullName = sr.Company.CompanyName, PhoneNumber = sr.Company.PhoneNumber })))
@@ -179,6 +190,46 @@ namespace DoctorHouse.Mapping
                     }
 
                 }); //many-to-many relationship
+
+
+            CreateMap<UpdateSpecialistResource, Specialist>()
+              .ForMember(s => s.Id, opt => opt.Ignore())
+              .ForMember(s => s.Appointments, opt => opt.Ignore())
+              .ForMember(s => s.Companies, opt => opt.Ignore())
+              .ForMember(s => s.Username, opt => opt.Ignore())
+              .ForMember(s => s.Password, opt => opt.Ignore())
+              .ForMember(s => s.IsAdmin, opt => opt.MapFrom(sr => sr.IsAdmin))
+              .ForMember(s => s.SpecialistType, opt => opt.MapFrom(sr => sr.SpecialistType))
+              .ForMember(s => s.Area, opt => opt.MapFrom(sr => sr.Area))
+              .ForMember(s => s.Details, opt => opt.MapFrom(sr => sr.Details))
+              .AfterMap((sr, s) =>
+                {
+                    //Remove companies
+
+                    var removedCompanies = new List<SpecialistCompanies>();
+
+                      foreach (var c in s.Companies)
+                      {
+                          if (!sr.Companies.Contains(c.CompanyId))
+                          {
+                              removedCompanies.Add(c);
+                          }
+                      }
+
+                      foreach (var c in removedCompanies)
+                      {
+                          s.Companies.Remove(c);
+                      }
+
+                            //Add new companies
+                            var addedCompanies = sr.Companies.Where(id => !s.Companies.Any(c => c.CompanyId == id)).Select(id => new SpecialistCompanies { CompanyId = id });
+
+                      foreach (var c in addedCompanies)
+                      {
+                          s.Companies.Add(c);
+                      }
+
+          }); //many-to-many relationship
 
 
             //User
