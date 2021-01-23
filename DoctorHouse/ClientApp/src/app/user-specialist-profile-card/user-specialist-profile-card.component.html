@@ -60,10 +60,7 @@
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                   <label class="labels">Companies</label>
                   <div class="form-group">
-                    <input type="text" class="form-control" id="Company" placeholder="Enter Company">
-                    <div class="text-right">
-                      <button type="button" id="submit" name="submit" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0">Add another</button>
-                    </div>
+                    <input formControlName="company" type="text" class="form-control" id="Company"  readonly="readonly">
                   </div>
                 </div>
               </div><br /><br />
@@ -85,5 +82,5 @@
 </div>
 
 <div *ngIf="edit.value == true">
-  <app-user-edit-profile></app-user-edit-profile>
+  <app-user-specialist-edit-profile></app-user-specialist-edit-profile>
 </div>
