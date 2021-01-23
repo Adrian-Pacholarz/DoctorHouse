@@ -59,8 +59,9 @@
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                   <label class="labels">Companies</label>
+
                   <div class="form-group">
-                    <input formControlName="companies" type="text" class="form-control" readonly="readonly">
+                    <input *ngFor="let company of companies.value" value="{{company.fullName}}" type="text" class="form-control" readonly="readonly">
                   </div>
                 </div>
               </div><br /><br />
