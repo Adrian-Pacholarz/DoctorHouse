@@ -1,77 +1,89 @@
-<div class="container">
-  <div class="row gutters">
-    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-      <div class="card h-100">
-        <div class="card-body">
-          <div class="account-settings">
-            <div class="user-profile">
-              <div class="user-avatar">
-                <img src="../../assets/images/user2.png">
-              </div>
-              <h5 class="user-name">Doctor House</h5>
-              <h6 class="user-email">doctor@house.com</h6>
-            </div>
-            <div class="about">
-              <h5 class="mb-2 text-primary">About</h5>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </div>
-            <div class="about">
-              <h5 class="mb-2 text-primary">My appointments</h5>
-              <p><a href="#">See my appointments >></a></p>
-            </div>
-          </div>
+
+<div *ngIf="edit.value == false">
+  <div class="container">
+    <div class="row gutters">
+
+      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+        <div class="card h-100">
+          <app-left-column-specialist></app-left-column-specialist>
         </div>
       </div>
-    </div>
 
-    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-      <div class="card h-100">
-        <div class="card-body">
-          <div class="row gutters">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <h6 class="mb-3 text-primary">Personal Details</h6>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <label class="labels">Full Name</label>
-              <p class="details">Doctor House</p>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <label class="labels">E-mail</label>
-              <p class="details">doctor@house.com</p>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <label class="labels">Mobile no.</label>
-              <p class="details">666 333 777</p>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <label class="labels">Phone no.</label>
-              <p class="details">(12) 652 32 12</p>
-            </div>
-          </div>
-          <br /><br />
-          <div class="row gutters">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <h6 class="mb-3 text-primary">Employment</h6>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <label class="labels">Occupation</label>
-              <p class="details">Electrician</p>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <label class="labels">Companies</label>
-              <p class="details">Dr.House&Co</p>
-              <p class="details">ElectricWizards</p>
-            </div>
-          </div><br /><br />
-          <div class="row gutters">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <div class="text-right">
-                <button type="button" id="submit" name="submit" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0">Edit</button>
+      <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+        <div class="card h-100">
+
+          <form [formGroup]="getUserForm">
+            <div class="card-body">
+
+              <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <h6 class="mb-3 text-primary">Personal Details</h6>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <label class="labels">First name</label>
+                  <div class="form-group">
+                    <input formControlName="firstName" type="text" class="form-control" readonly="readonly">
+                  </div><br />
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <label class="labels">Last name</label>
+                  <div class="form-group">
+                    <input formControlName="lastName" type="text" class="form-control" readonly="readonly">
+                  </div><br />
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <label class="labels">Mobile no.</label>
+                  <div class="form-group">
+                    <input formControlName="phone" type="text" class="form-control" readonly="readonly">
+                  </div><br />
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <label class="labels">Email</label>
+                  <div class="form-group">
+                    <input formControlName="email" type="text" class="form-control" readonly="readonly">
+                  </div><br />
+                </div>
               </div>
+              <br /><br />
+
+
+              <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <h6 class="mb-3 text-primary">Employment</h6>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <label class="labels">Occupation</label>
+                  <div class="form-group">
+                    <input formControlName="type" type="text" class="form-control" readonly="readonly">
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <label class="labels">Companies</label>
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="Company" placeholder="Enter Company">
+                    <div class="text-right">
+                      <button type="button" id="submit" name="submit" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0">Add another</button>
+                    </div>
+                  </div>
+                </div>
+              </div><br /><br />
             </div>
-          </div>
+
+          </form>
+          <form [formGroup]="editProfile" class="edit-profile">
+            <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off" hidden formControlName="edit" (click)="clickEditProfile($event)" value=false>
+            <label class="btn btn-primary" for="btn-check">Edit</label>
+          </form>
+
+          <br /><br />
+
         </div>
+
       </div>
     </div>
   </div>
+</div>
+
+<div *ngIf="edit.value == true">
+  <app-user-edit-profile></app-user-edit-profile>
 </div>
