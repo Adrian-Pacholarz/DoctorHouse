@@ -5,6 +5,7 @@ import { AreaValidators } from '../common/validators/area.validators';
 import { PasswordValidators } from '../common/validators/password.validators';
 import { PhoneValidators } from '../common/validators/phone.validators';
 import { SpecialistService } from '../services/specialist.service';
+import { CompaniesService } from '../services/companies.service';
 
 @Component({
   selector: 'app-user-specialist-edit-profile',
@@ -14,13 +15,16 @@ import { SpecialistService } from '../services/specialist.service';
 export class UserSpecialistEditProfileComponent implements OnInit {
 
   specialist;
+  allCompanies;
 
   updateUser = new FormGroup({
     firstName: new FormControl('', [Validators.required, Validators.minLength(3)]),
     lastName: new FormControl('', [Validators.required, Validators.minLength(3)]),
     phone: new FormControl('', [Validators.required, PhoneValidators.phoneIsNaN, PhoneValidators.phoneLength]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    type: new FormControl(''),
+    type: new FormControl('', Validators.required),
+    area: new FormControl('', [Validators.required, AreaValidators.areaIsNanAndMoreThan30]),
+    companies: new FormControl('', Validators.required),
   });
 
   backToProfile = new FormGroup({
@@ -36,6 +40,11 @@ export class UserSpecialistEditProfileComponent implements OnInit {
     return this.updateUser.get('lastName')
   }
 
+
+  get area() {
+    return this.updateUser.get('area')
+  }
+
   get phone() {
     return this.updateUser.get('phone');
   }
@@ -48,12 +57,17 @@ export class UserSpecialistEditProfileComponent implements OnInit {
     return this.updateUser.get('type')
   }
 
+  get companies() {
+    return this.updateUser.get('companies')
+  }
+
   get goback() {
     return this.backToProfile.get("goback");
   }
 
   constructor(private specialistService: SpecialistService,
-    private toastyService: ToastyService) {
+    private toastyService: ToastyService,
+    private companiesService: CompaniesService) {
     this.setDefaultGoBackValue();
   }
 
@@ -66,8 +80,11 @@ export class UserSpecialistEditProfileComponent implements OnInit {
   }
 
   update() {
+
     let updatedSpecialist = {
+      area: +this.area.value,
       specialistType: this.type.value,
+      companies: this.companies.value,
       details: {
         firstName: this.firstName.value,
         lastName: this.lastName.value,
@@ -75,31 +92,38 @@ export class UserSpecialistEditProfileComponent implements OnInit {
         phoneNumber: +this.phone.value,
       }
     };
+    let companiesIds = [];
+    updatedSpecialist.companies.forEach(function (value) {
+      companiesIds.push(+value);
+    })
+
+    updatedSpecialist.companies = companiesIds;
+
     this.specialistService.updateSpecialist(3, updatedSpecialist).subscribe(specialist => {
       this.toastyService.success({
         title: 'Success',
-        msg: 'An account has been updated',
+        msg: 'An account has been created succesfully',
         theme: 'bootstrap',
         showClose: true,
         timeout: 5000
       })
-      location.reload();
-    },
 
+      location.reload();
+
+    },
       (error: Response) => {
         if (error.status === 500)
           this.toastyService.error({
             title: 'Error',
-            msg: 'Wrong data provided',
+            msg: 'Wrong data provided or username already exists',
             theme: 'bootstrap',
             showClose: true,
             timeout: 5000
           })
-
         else {
           this.toastyService.error({
             title: 'Error',
-            msg: 'An error occured and account has not been updated',
+            msg: 'An error occured and account was not created',
             theme: 'bootstrap',
             showClose: true,
             timeout: 5000
@@ -115,9 +139,14 @@ export class UserSpecialistEditProfileComponent implements OnInit {
       this.lastName.setValue(this.specialist.details.lastName)
       this.email.setValue(this.specialist.details.eMail)
       this.phone.setValue(this.specialist.details.phoneNumber.toString())
+      this.area.setValue(this.specialist.area.toString())
       this.type.setValue(this.specialist.specialistType)
-    })
-   }
+      this.companies.setValue(this.specialist.companies)
 
+      });
 
-}
+      this.companiesService.getCompanies().subscribe(companies => {
+        this.allCompanies = companies
+      })
+    }
+  }

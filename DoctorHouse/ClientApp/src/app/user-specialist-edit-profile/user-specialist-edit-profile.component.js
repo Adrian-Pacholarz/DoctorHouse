@@ -9,17 +9,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserSpecialistEditProfileComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var area_validators_1 = require("../common/validators/area.validators");
 var phone_validators_1 = require("../common/validators/phone.validators");
 var UserSpecialistEditProfileComponent = /** @class */ (function () {
-    function UserSpecialistEditProfileComponent(specialistService, toastyService) {
+    function UserSpecialistEditProfileComponent(specialistService, toastyService, companiesService) {
         this.specialistService = specialistService;
         this.toastyService = toastyService;
+        this.companiesService = companiesService;
         this.updateUser = new forms_1.FormGroup({
             firstName: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(3)]),
             lastName: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(3)]),
             phone: new forms_1.FormControl('', [forms_1.Validators.required, phone_validators_1.PhoneValidators.phoneIsNaN, phone_validators_1.PhoneValidators.phoneLength]),
             email: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.email]),
-            type: new forms_1.FormControl(''),
+            type: new forms_1.FormControl('', forms_1.Validators.required),
+            area: new forms_1.FormControl('', [forms_1.Validators.required, area_validators_1.AreaValidators.areaIsNanAndMoreThan30]),
+            companies: new forms_1.FormControl('', forms_1.Validators.required),
         });
         this.backToProfile = new forms_1.FormGroup({
             goback: new forms_1.FormControl()
@@ -36,6 +40,13 @@ var UserSpecialistEditProfileComponent = /** @class */ (function () {
     Object.defineProperty(UserSpecialistEditProfileComponent.prototype, "lastName", {
         get: function () {
             return this.updateUser.get('lastName');
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(UserSpecialistEditProfileComponent.prototype, "area", {
+        get: function () {
+            return this.updateUser.get('area');
         },
         enumerable: false,
         configurable: true
@@ -61,6 +72,13 @@ var UserSpecialistEditProfileComponent = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    Object.defineProperty(UserSpecialistEditProfileComponent.prototype, "companies", {
+        get: function () {
+            return this.updateUser.get('companies');
+        },
+        enumerable: false,
+        configurable: true
+    });
     Object.defineProperty(UserSpecialistEditProfileComponent.prototype, "goback", {
         get: function () {
             return this.backToProfile.get("goback");
@@ -77,7 +95,9 @@ var UserSpecialistEditProfileComponent = /** @class */ (function () {
     UserSpecialistEditProfileComponent.prototype.update = function () {
         var _this = this;
         var updatedSpecialist = {
+            area: +this.area.value,
             specialistType: this.type.value,
+            companies: this.companies.value,
             details: {
                 firstName: this.firstName.value,
                 lastName: this.lastName.value,
@@ -85,10 +105,15 @@ var UserSpecialistEditProfileComponent = /** @class */ (function () {
                 phoneNumber: +this.phone.value,
             }
         };
+        var companiesIds = [];
+        updatedSpecialist.companies.forEach(function (value) {
+            companiesIds.push(+value);
+        });
+        updatedSpecialist.companies = companiesIds;
         this.specialistService.updateSpecialist(3, updatedSpecialist).subscribe(function (specialist) {
             _this.toastyService.success({
                 title: 'Success',
-                msg: 'An account has been updated',
+                msg: 'An account has been created succesfully',
                 theme: 'bootstrap',
                 showClose: true,
                 timeout: 5000
@@ -98,7 +123,7 @@ var UserSpecialistEditProfileComponent = /** @class */ (function () {
             if (error.status === 500)
                 _this.toastyService.error({
                     title: 'Error',
-                    msg: 'Wrong data provided',
+                    msg: 'Wrong data provided or username already exists',
                     theme: 'bootstrap',
                     showClose: true,
                     timeout: 5000
@@ -106,7 +131,7 @@ var UserSpecialistEditProfileComponent = /** @class */ (function () {
             else {
                 _this.toastyService.error({
                     title: 'Error',
-                    msg: 'An error occured and account has not been updated',
+                    msg: 'An error occured and account was not created',
                     theme: 'bootstrap',
                     showClose: true,
                     timeout: 5000
@@ -122,7 +147,12 @@ var UserSpecialistEditProfileComponent = /** @class */ (function () {
             _this.lastName.setValue(_this.specialist.details.lastName);
             _this.email.setValue(_this.specialist.details.eMail);
             _this.phone.setValue(_this.specialist.details.phoneNumber.toString());
+            _this.area.setValue(_this.specialist.area.toString());
             _this.type.setValue(_this.specialist.specialistType);
+            _this.companies.setValue(_this.specialist.companies);
+        });
+        this.companiesService.getCompanies().subscribe(function (companies) {
+            _this.allCompanies = companies;
         });
     };
     UserSpecialistEditProfileComponent = __decorate([

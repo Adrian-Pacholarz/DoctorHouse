@@ -70,26 +70,57 @@
               </div>
               <br /><br />
 
-              <div class="row gutters">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                  <h6 class="mb-3 text-primary">Employment</h6>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                  <div class="form-group">
-                    <label for="Street">Occupation</label>
-                    <input type="text" class="form-control" id="Occupation" placeholder="Enter Occupation">
-                  </div>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                  <div class="form-group">
-                    <label for="ciTy">Companies</label>
-                    <input type="text" class="form-control" id="Company" placeholder="Enter Company">
-                    <div class="text-right">
-                      <button type="button" id="submit" name="submit" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0">Add another</button>
-                    </div>
-                  </div>
-                </div>
-              </div><br /><br />
+                    <div class="row gutters">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h6 class="mb-3 text-primary">Employment</h6>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <p id="labels">Area</p>
+                        <div class="form-group">
+                          <label for="area"></label>
+                          <input formControlName="area" type="text" class="form-control" id="area">
+                          <div *ngIf="area.touched && area.invalid" class="form-error">
+                            <div *ngIf="area.errors.required">Area is required</div>
+                            <div *ngIf="area.errors.areaIsNanAndMoreThan30">Area is a number from 1 to 30</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <p id="labels">Occupation</p>
+                        <div class="form-group">
+                          <select formControlName="type" class="form-control" id="type">
+                            <option value="Gardener">Gardener</option>
+                            <option value="Plumber">Plumber</option>
+                            <option value="Electrician">Electrician</option>
+                            <option value="Tailor">Tailor</option>
+                            <option value="Locksmith">Locksmith</option>
+                            <option value="IndoorPainter">IndoorPainter</option>
+                            <option value="Bricklayer">Bricklayer</option>
+                          </select>
+
+                          <div *ngIf="type.touched && type.invalid" class="form-error">
+                            <div *ngIf="type.errors.required">Specialization is required</div>
+                          </div>
+                        </div><br />
+                      </div>
+
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <p id="labels">Companies</p>
+                        <div class="form-group">
+                          <select multiple formControlName="companies" class="form-control" id="companies" placeholder="Companies">
+
+                            <option *ngFor="let c of allCompanies" value="{{c.id}}">{{c.companyName}}</option>
+                          </select>
+                          <div *ngIf="companies.touched && companies.invalid" class="form-error">
+                            <div *ngIf="companies.errors.required">At least 1 company must be selected</div>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+                    </div><br /><br />
 
             </div>
             <div class="row gutters">
@@ -99,23 +130,27 @@
             </div>
           </form>
 
-              <div class="row gutters">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                  <form [formGroup]="backToProfile" class="goback">
-                    <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off" hidden formControlName="goback" (click)="goBackToProfile($event)" value=false>
-                    <label class="btn btn-primary" for="btn-check">Cancel</label>
-                  </form>
-                  <br />
-                  <br />
-                </div>
-              </div>
+          <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <form [formGroup]="backToProfile" class="goback">
+                <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off" hidden formControlName="goback" (click)="goBackToProfile($event)" value=false>
+                <label class="btn btn-primary" for="btn-check">Cancel</label>
+              </form>
+              <br />
+              <br />
             </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
 
 <div *ngIf="goback.value">
   <app-user-specialist-profile-card></app-user-specialist-profile-card>
 </div>
+
+<!--<div class="text-right">
+                          <button type="button" id="submit" name="submit" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0">Add another</button>
+                        </div>-->
