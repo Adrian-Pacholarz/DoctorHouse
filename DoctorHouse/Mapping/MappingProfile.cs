@@ -120,7 +120,7 @@ namespace DoctorHouse.Mapping
 
             CreateMap<Company, CompanyResource>()
                 .ForMember(cr => cr.Specialists, opt => opt.MapFrom(c => c.Specialists.Select(cs => new KeyValuePairResource { Id = cs.Specialist.Id, FullName = cs.Specialist.Details.FirstName + " " + cs.Specialist.Details.LastName, PhoneNumber = cs.Specialist.Details.PhoneNumber } )))
-                .ForMember(cr => cr.Appointments, opt => opt.MapFrom(c => c.Appointments.Select(cs => new AppointmentResource { Id = cs.Id, AppointmentDate = cs.AppointmentDate, Description = cs.Description, Status = cs.Status, 
+                .ForMember(cr => cr.Appointments, opt => opt.MapFrom(c => c.Appointments.Select(cs => new AppointmentResource { Id = cs.Id, AppointmentDate = cs.AppointmentDate, Description = cs.Description, Status = cs.Status,
                     Specialist = cs.Specialist == null ? new KeyValuePairResource { FullName = "User no longer exists" } : new KeyValuePairResource {Id = cs.Specialist.Id, FullName = cs.Specialist.Details.FirstName + " " + cs.Specialist.Details.LastName, PhoneNumber = cs.Specialist.Details.PhoneNumber },
                     Customer = cs.Customer == null ? new KeyValuePairResource { FullName = "User no longer exists" } : new KeyValuePairResource { Id = cs.Customer.Id, FullName = cs.Customer.Details.FirstName + " " + cs.Customer.Details.LastName, PhoneNumber = cs.Customer.Details.PhoneNumber },
                     Company = cs.Company == null ? new KeyValuePairResource { FullName = "Company no longer exists" } : new KeyValuePairResource { Id = cs.Company.Id, FullName = cs.Company.CompanyName, PhoneNumber = cs.Company.PhoneNumber }
@@ -148,7 +148,15 @@ namespace DoctorHouse.Mapping
                 .ForMember(c => c.Address, opt => opt.MapFrom(cr => cr.Address))
                 .ForMember(c => c.Details, opt => opt.MapFrom(cr => cr.Details));
 
-
+            //Customer
+            CreateMap<SaveCustomerResource, Customer>()
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.Appointments, opt => opt.Ignore())
+                .ForMember(c => c.Username, opt => opt.MapFrom(cr => cr.Username))
+                .ForMember(c => c.Password, opt => opt.MapFrom(cr => cr.Password))
+                .ForMember(c => c.IsAdmin, opt => opt.MapFrom(cr => cr.IsAdmin))
+                .ForMember(c => c.Address, opt => opt.MapFrom(cr => cr.Address))
+                .ForMember(c => c.Details, opt => opt.MapFrom(cr => cr.Details));
 
 
             //Specialist
