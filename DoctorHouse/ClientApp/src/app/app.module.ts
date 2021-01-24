@@ -35,6 +35,8 @@ import { CreateCustomerComponent } from './create-customer/create-customer.compo
 import { CreateSpecialistComponent } from './create-specialist/create-specialist.component';
 import { CompaniesService } from './services/companies.service';
 import { GetCustomerComponent } from './get-customer/get-customer.component';
+import { AuthenticateService } from './services/authenticate.service';
+import { AuthGuard } from './services/auth-guard.service';
 
 import { LeftColumnDetailsComponent } from './left-column-details/left-column-details.component';
 import { LeftColumnSpecialistComponent } from './left-column-specialist/left-column-specialist.component';
@@ -81,8 +83,8 @@ import { CustomerService } from './services/customer.service';
     ToastyModule.forRoot(),
     ReactiveFormsModule,
     RouterModule.forRoot([
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent },
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'login', component: CarouselLoginComponent },
       { path: 'counter', component: CounterComponent },
       { path: 'users/customers/:id', component: UserProfileComponent },
@@ -95,6 +97,8 @@ import { CustomerService } from './services/customer.service';
 ], { relativeLinkResolution: 'legacy' })
   ],
   providers: [
+    AuthenticateService,
+    AuthGuard,
     CreateCustomerService,
     CreateSpecialistService,
     CompaniesService

@@ -44,9 +44,9 @@ namespace DoctorHouse.Mapping
                     AppointmentDate = c.AppointmentDate,
                     Description = c.Description,
                     Status = c.Status,
-                    Specialist = new KeyValuePairResource { Id = c.Specialist.Id, FullName = c.Specialist.Details.FirstName + " " + c.Specialist.Details.LastName, PhoneNumber = c.Specialist.Details.PhoneNumber },
-                    Customer = new KeyValuePairResource { Id = c.Customer.Id, FullName = c.Customer.Details.FirstName + " " + c.Customer.Details.LastName, PhoneNumber = c.Customer.Details.PhoneNumber },
-                    Company = new KeyValuePairResource { Id = c.Company.Id, FullName = c.Company.CompanyName, PhoneNumber = c.Company.PhoneNumber }
+                    Specialist = c.Specialist == null ? new KeyValuePairResource { FullName = "User no longer exists" } : new KeyValuePairResource { Id = c.Specialist.Id, FullName = c.Specialist.Details.FirstName + " " + c.Specialist.Details.LastName, PhoneNumber = c.Specialist.Details.PhoneNumber },
+                    Customer = c.Customer == null ? new KeyValuePairResource { FullName = "User no longer exists" } : new KeyValuePairResource { Id = c.Customer.Id, FullName = c.Customer.Details.FirstName + " " + c.Customer.Details.LastName, PhoneNumber = c.Customer.Details.PhoneNumber },
+                    Company = c.Company == null ? new KeyValuePairResource { FullName = "Company no longer exists" } : new KeyValuePairResource { Id = c.Company.Id, FullName = c.Company.CompanyName, PhoneNumber = c.Company.PhoneNumber }
                 })));
 
             //Specialist
@@ -80,9 +80,9 @@ namespace DoctorHouse.Mapping
                     AppointmentDate = s.AppointmentDate,
                     Description = s.Description,
                     Status = s.Status,
-                    Specialist = new KeyValuePairResource { Id = s.Specialist.Id, FullName = s.Specialist.Details.FirstName + " " + s.Specialist.Details.LastName, PhoneNumber = s.Specialist.Details.PhoneNumber },
-                    Customer = new KeyValuePairResource { Id = s.Customer.Id, FullName = s.Customer.Details.FirstName + " " + s.Customer.Details.LastName, PhoneNumber = s.Customer.Details.PhoneNumber },
-                    Company = new KeyValuePairResource { Id = s.Company.Id, FullName = s.Company.CompanyName, PhoneNumber = s.Company.PhoneNumber }
+                    Specialist = s.Specialist == null ? new KeyValuePairResource { FullName = "User no longer exists" } : new KeyValuePairResource { Id = s.Specialist.Id, FullName = s.Specialist.Details.FirstName + " " + s.Specialist.Details.LastName, PhoneNumber = s.Specialist.Details.PhoneNumber },
+                    Customer = s.Customer == null ? new KeyValuePairResource { FullName = "User no longer exists" } : new KeyValuePairResource { Id = s.Customer.Id, FullName = s.Customer.Details.FirstName + " " + s.Customer.Details.LastName, PhoneNumber = s.Customer.Details.PhoneNumber },
+                    Company = s.Company == null ? new KeyValuePairResource { FullName = "Company no longer exists" } : new KeyValuePairResource { Id = s.Company.Id, FullName = s.Company.CompanyName, PhoneNumber = s.Company.PhoneNumber }
                 })));
 
             //User
@@ -120,10 +120,10 @@ namespace DoctorHouse.Mapping
 
             CreateMap<Company, CompanyResource>()
                 .ForMember(cr => cr.Specialists, opt => opt.MapFrom(c => c.Specialists.Select(cs => new KeyValuePairResource { Id = cs.Specialist.Id, FullName = cs.Specialist.Details.FirstName + " " + cs.Specialist.Details.LastName, PhoneNumber = cs.Specialist.Details.PhoneNumber } )))
-                .ForMember(cr => cr.Appointments, opt => opt.MapFrom(c => c.Appointments.Select(cs => new AppointmentResource { Id = cs.Id, AppointmentDate = cs.AppointmentDate, Description = cs.Description, Status = cs.Status,
-                    Specialist = new KeyValuePairResource {Id = cs.Specialist.Id, FullName = cs.Specialist.Details.FirstName + " " + cs.Specialist.Details.LastName, PhoneNumber = cs.Specialist.Details.PhoneNumber },
-                    Customer = new KeyValuePairResource { Id = cs.Customer.Id, FullName = cs.Customer.Details.FirstName + " " + cs.Customer.Details.LastName, PhoneNumber = cs.Customer.Details.PhoneNumber },
-                    Company = new KeyValuePairResource { Id = cs.Company.Id, FullName = cs.Company.CompanyName, PhoneNumber = cs.Company.PhoneNumber }
+                .ForMember(cr => cr.Appointments, opt => opt.MapFrom(c => c.Appointments.Select(cs => new AppointmentResource { Id = cs.Id, AppointmentDate = cs.AppointmentDate, Description = cs.Description, Status = cs.Status, 
+                    Specialist = cs.Specialist == null ? new KeyValuePairResource { FullName = "User no longer exists" } : new KeyValuePairResource {Id = cs.Specialist.Id, FullName = cs.Specialist.Details.FirstName + " " + cs.Specialist.Details.LastName, PhoneNumber = cs.Specialist.Details.PhoneNumber },
+                    Customer = cs.Customer == null ? new KeyValuePairResource { FullName = "User no longer exists" } : new KeyValuePairResource { Id = cs.Customer.Id, FullName = cs.Customer.Details.FirstName + " " + cs.Customer.Details.LastName, PhoneNumber = cs.Customer.Details.PhoneNumber },
+                    Company = cs.Company == null ? new KeyValuePairResource { FullName = "Company no longer exists" } : new KeyValuePairResource { Id = cs.Company.Id, FullName = cs.Company.CompanyName, PhoneNumber = cs.Company.PhoneNumber }
                 })));
 
             //API RESOURCES TO DOMAIN

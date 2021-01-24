@@ -21,3 +21,13 @@ a.nav-link.text-small.pb-0 {
   a.nav-link.text-small.pb-0:active {
     color: #fff;
   }
+
+  #logout{
+      cursor: pointer
+  }
+
+#loggedUser {
+    min-width: 150px;
+    display: flex;
+    color:#70FFFC ;
+}
