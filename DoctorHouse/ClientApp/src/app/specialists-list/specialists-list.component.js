@@ -20,7 +20,17 @@ var SpecialistsListComponent = /** @class */ (function () {
             _this.filter = params.filter;
         });
         this.specialistService.getSpecialists()
-            .subscribe(function (specialists) { return _this.specialists = specialists; });
+            .subscribe(function (allSpecialists) {
+            _this.allSpecialists = allSpecialists;
+            _this.onFilterChange();
+        });
+    };
+    SpecialistsListComponent.prototype.onFilterChange = function () {
+        var _this = this;
+        var specialists = this.allSpecialists;
+        if (this.filter)
+            specialists = specialists.filter(function (s) { return s.specialistType.toLowerCase() == _this.filter; });
+        this.specialists = specialists;
     };
     SpecialistsListComponent = __decorate([
         core_1.Component({

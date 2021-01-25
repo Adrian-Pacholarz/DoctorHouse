@@ -8,11 +8,14 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./specialists-list.component.css']
 })
 export class SpecialistsListComponent implements OnInit {
+  allSpecialists;
   specialists;
   filter: string;
 
   constructor(private specialistService: SpecialistService,
-  private route: ActivatedRoute) { }
+    private route: ActivatedRoute) {
+
+  }
 
   ngOnInit(): void {
     this.route.queryParams
@@ -21,7 +24,23 @@ export class SpecialistsListComponent implements OnInit {
       })
 
     this.specialistService.getSpecialists()
-      .subscribe(specialists => this.specialists = specialists);
+      .subscribe(allSpecialists => {
+        this.allSpecialists = allSpecialists
+        this.onFilterChange()
+
+      });
+
+  }
+
+  onFilterChange() {
+    var specialists = this.allSpecialists;
+
+    if (this.filter)
+      specialists = specialists.filter(s => s.specialistType.toLowerCase() == this.filter);
+
+    this.specialists = specialists;
+
+
   }
 
 }
