@@ -1,6 +1,18 @@
-<ul *ngFor="let s of specialists">
-  <li>{{s.id}}</li>
-  <li>{{s.details.firstName}}, {{s.details.lastName}}</li>
-  <li>{{s.specialistType}}</li>
-  <li>{{s.details.eMail}}, {{s.details.phoneNumber}}</li>
-</ul>
+<div *ngFor="let s of specialists" class="col-md-4" id="specialist-card">
+  <a href="users/specialists/{{s.id}}">
+    <div class="card mb-4 box-shadow">
+      <br />
+      <div class="card-body">
+        <div class="left-card">
+          <img img src="../../assets/images/{{s.specialistType.toLowerCase()}}.png">
+        </div>
+        <div class="right-card">
+          <p class="card-text"><b>{{s.details.firstName}} {{s.details.lastName}}</b></p>
+          <p>{{s.specialistType}} from area {{s.area}}</p>
+          <p>{{s.details.phoneNumber}}</p>
+          <p>{{s.details.eMail}}</p>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
