@@ -47,6 +47,7 @@ var authenticate_service_1 = require("./services/authenticate.service");
 var auth_guard_service_1 = require("./services/auth-guard.service");
 var left_column_details_component_1 = require("./left-column-details/left-column-details.component");
 var left_column_specialist_component_1 = require("./left-column-specialist/left-column-specialist.component");
+var specialists_list_component_1 = require("./specialists-list/specialists-list.component");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -81,7 +82,8 @@ var AppModule = /** @class */ (function () {
                 create_specialist_component_1.CreateSpecialistComponent,
                 get_customer_component_1.GetCustomerComponent,
                 left_column_specialist_component_1.LeftColumnSpecialistComponent,
-                left_column_details_component_1.LeftColumnDetailsComponent
+                left_column_details_component_1.LeftColumnDetailsComponent,
+                specialists_list_component_1.SpecialistsListComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -96,6 +98,7 @@ var AppModule = /** @class */ (function () {
                     { path: 'counter', component: counter_component_1.CounterComponent },
                     { path: 'users/customers/:id', component: user_profile_component_1.UserProfileComponent },
                     { path: 'users/specialists/:id', component: user_specialist_profile_component_1.UserSpecialistProfileComponent },
+                    { path: 'specialists-list', component: specialists_list_component_1.SpecialistsListComponent },
                     { path: 'fetch-data', component: fetch_data_component_1.FetchDataComponent },
                     { path: 'users/customers/id/0', component: user_edit_profile_component_1.UserEditProfileComponent },
                     { path: 'users/specialists/id/0', component: user_specialist_edit_profile_component_1.UserSpecialistEditProfileComponent },

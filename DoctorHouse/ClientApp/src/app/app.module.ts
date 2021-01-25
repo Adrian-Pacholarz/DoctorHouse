@@ -41,6 +41,7 @@ import { AuthGuard } from './services/auth-guard.service';
 import { LeftColumnDetailsComponent } from './left-column-details/left-column-details.component';
 import { LeftColumnSpecialistComponent } from './left-column-specialist/left-column-specialist.component';
 import { CustomerService } from './services/customer.service';
+import { SpecialistsListComponent } from './specialists-list/specialists-list.component';
 
 
 
@@ -74,7 +75,8 @@ import { CustomerService } from './services/customer.service';
     CreateSpecialistComponent,
     GetCustomerComponent,
     LeftColumnSpecialistComponent,
-    LeftColumnDetailsComponent
+    LeftColumnDetailsComponent,
+    SpecialistsListComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -88,7 +90,8 @@ import { CustomerService } from './services/customer.service';
     { path: 'login', component: CarouselLoginComponent },
       { path: 'counter', component: CounterComponent },
       { path: 'users/customers/:id', component: UserProfileComponent },
-      { path: 'users/specialists/:id', component: UserSpecialistProfileComponent},
+      { path: 'users/specialists/:id', component: UserSpecialistProfileComponent },
+      { path: 'specialists-list', component: SpecialistsListComponent},
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'users/customers/id/0', component: UserEditProfileComponent },
       { path: 'users/specialists/id/0', component: UserSpecialistEditProfileComponent },
