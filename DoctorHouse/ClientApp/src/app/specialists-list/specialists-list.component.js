@@ -9,11 +9,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SpecialistsListComponent = void 0;
 var core_1 = require("@angular/core");
 var SpecialistsListComponent = /** @class */ (function () {
-    function SpecialistsListComponent(specialistService) {
+    function SpecialistsListComponent(specialistService, route) {
         this.specialistService = specialistService;
+        this.route = route;
     }
     SpecialistsListComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.route.queryParams
+            .subscribe(function (params) {
+            _this.filter = params.filter;
+        });
         this.specialistService.getSpecialists()
             .subscribe(function (specialists) { return _this.specialists = specialists; });
     };
