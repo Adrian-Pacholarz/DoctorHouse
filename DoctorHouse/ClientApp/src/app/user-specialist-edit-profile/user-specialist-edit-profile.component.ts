@@ -79,6 +79,20 @@ export class UserSpecialistEditProfileComponent implements OnInit {
     this.goback.setValue(true)
   }
 
+  selectCompanies(c) {
+
+    let currentCompanies = [];
+    for (let company of (this.updateUser.get('companies')).value) {
+      currentCompanies.push(+company.id)
+    }
+
+    if (currentCompanies.includes(+c.id)) {
+      return true;
+    }
+
+  }
+
+
   update() {
 
     let updatedSpecialist = {
@@ -92,10 +106,22 @@ export class UserSpecialistEditProfileComponent implements OnInit {
         phoneNumber: +this.phone.value,
       }
     };
+
+
     let companiesIds = [];
-    updatedSpecialist.companies.forEach(function (value) {
-      companiesIds.push(+value);
-    })
+
+
+    if (this.updateUser.get('companies').dirty) {
+      updatedSpecialist.companies.forEach(function (value) {
+        companiesIds.push(+value);
+      })
+    }
+    else if (!this.updateUser.get('companies').dirty) {
+      updatedSpecialist.companies.forEach(function (value) {
+        companiesIds.push(value.id);
+      })
+    }
+
 
     updatedSpecialist.companies = companiesIds;
 
@@ -120,6 +146,7 @@ export class UserSpecialistEditProfileComponent implements OnInit {
             showClose: true,
             timeout: 5000
           })
+
         else {
           this.toastyService.error({
             title: 'Error',
@@ -142,11 +169,15 @@ export class UserSpecialistEditProfileComponent implements OnInit {
       this.area.setValue(this.specialist.area.toString())
       this.type.setValue(this.specialist.specialistType)
       this.companies.setValue(this.specialist.companies)
-
       });
 
-      this.companiesService.getCompanies().subscribe(companies => {
-        this.allCompanies = companies
+    this.companiesService.getCompanies().subscribe(allCompanies => {
+      this.allCompanies = allCompanies
       })
+
+
+
+
+
     }
   }

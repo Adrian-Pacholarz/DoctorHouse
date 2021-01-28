@@ -92,6 +92,16 @@ var UserSpecialistEditProfileComponent = /** @class */ (function () {
     UserSpecialistEditProfileComponent.prototype.goBackToProfile = function ($event) {
         this.goback.setValue(true);
     };
+    UserSpecialistEditProfileComponent.prototype.selectCompanies = function (c) {
+        var currentCompanies = [];
+        for (var _i = 0, _a = (this.updateUser.get('companies')).value; _i < _a.length; _i++) {
+            var company = _a[_i];
+            currentCompanies.push(+company.id);
+        }
+        if (currentCompanies.includes(+c.id)) {
+            return true;
+        }
+    };
     UserSpecialistEditProfileComponent.prototype.update = function () {
         var _this = this;
         var updatedSpecialist = {
@@ -106,9 +116,16 @@ var UserSpecialistEditProfileComponent = /** @class */ (function () {
             }
         };
         var companiesIds = [];
-        updatedSpecialist.companies.forEach(function (value) {
-            companiesIds.push(+value);
-        });
+        if (this.updateUser.get('companies').dirty) {
+            updatedSpecialist.companies.forEach(function (value) {
+                companiesIds.push(+value);
+            });
+        }
+        else if (!this.updateUser.get('companies').dirty) {
+            updatedSpecialist.companies.forEach(function (value) {
+                companiesIds.push(value.id);
+            });
+        }
         updatedSpecialist.companies = companiesIds;
         this.specialistService.updateSpecialist(3, updatedSpecialist).subscribe(function (specialist) {
             _this.toastyService.success({
@@ -151,8 +168,8 @@ var UserSpecialistEditProfileComponent = /** @class */ (function () {
             _this.type.setValue(_this.specialist.specialistType);
             _this.companies.setValue(_this.specialist.companies);
         });
-        this.companiesService.getCompanies().subscribe(function (companies) {
-            _this.allCompanies = companies;
+        this.companiesService.getCompanies().subscribe(function (allCompanies) {
+            _this.allCompanies = allCompanies;
         });
     };
     UserSpecialistEditProfileComponent = __decorate([

@@ -110,7 +110,7 @@
                         <div class="form-group">
                           <select multiple formControlName="companies" class="form-control" id="companies" placeholder="Companies">
 
-                            <option *ngFor="let c of allCompanies" value="{{c.id}}">{{c.companyName}}</option>
+                            <option *ngFor="let c of allCompanies" [selected]="selectCompanies(c)" value="{{c.id}}">{{c.companyName}}</option>
                           </select>
                           <div *ngIf="companies.touched && companies.invalid" class="form-error">
                             <div *ngIf="companies.errors.required">At least 1 company must be selected</div>
