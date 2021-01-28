@@ -130,7 +130,7 @@ var UserSpecialistEditProfileComponent = /** @class */ (function () {
         this.specialistService.updateSpecialist(3, updatedSpecialist).subscribe(function (specialist) {
             _this.toastyService.success({
                 title: 'Success',
-                msg: 'An account has been created succesfully',
+                msg: 'An account has been updated',
                 theme: 'bootstrap',
                 showClose: true,
                 timeout: 5000
@@ -140,7 +140,7 @@ var UserSpecialistEditProfileComponent = /** @class */ (function () {
             if (error.status === 500)
                 _this.toastyService.error({
                     title: 'Error',
-                    msg: 'Wrong data provided or username already exists',
+                    msg: 'Wrong data provided',
                     theme: 'bootstrap',
                     showClose: true,
                     timeout: 5000
@@ -148,7 +148,7 @@ var UserSpecialistEditProfileComponent = /** @class */ (function () {
             else {
                 _this.toastyService.error({
                     title: 'Error',
-                    msg: 'An error occured and account was not created',
+                    msg: 'An error occured and account was not updated',
                     theme: 'bootstrap',
                     showClose: true,
                     timeout: 5000

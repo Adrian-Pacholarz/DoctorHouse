@@ -128,7 +128,7 @@ export class UserSpecialistEditProfileComponent implements OnInit {
     this.specialistService.updateSpecialist(3, updatedSpecialist).subscribe(specialist => {
       this.toastyService.success({
         title: 'Success',
-        msg: 'An account has been created succesfully',
+        msg: 'An account has been updated',
         theme: 'bootstrap',
         showClose: true,
         timeout: 5000
@@ -141,7 +141,7 @@ export class UserSpecialistEditProfileComponent implements OnInit {
         if (error.status === 500)
           this.toastyService.error({
             title: 'Error',
-            msg: 'Wrong data provided or username already exists',
+            msg: 'Wrong data provided',
             theme: 'bootstrap',
             showClose: true,
             timeout: 5000
@@ -150,7 +150,7 @@ export class UserSpecialistEditProfileComponent implements OnInit {
         else {
           this.toastyService.error({
             title: 'Error',
-            msg: 'An error occured and account was not created',
+            msg: 'An error occured and account was not updated',
             theme: 'bootstrap',
             showClose: true,
             timeout: 5000
