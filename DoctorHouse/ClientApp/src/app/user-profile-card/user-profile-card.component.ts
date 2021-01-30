@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { CustomerService } from '../services/customer.service';
+import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user-profile-card',
@@ -58,7 +59,23 @@ export class UserProfileCardComponent implements OnInit {
     console.log('button clicked');
   }
 
-  constructor(private customerService: CustomerService) {
+  formatAddress(): SafeResourceUrl {
+    let addressDb = this.getUserForm.get('address').value.toLowerCase();
+    let street = 'ul.';
+    let settlement = 'os.';
+    console.log(addressDb);
+
+    if (addressDb.includes(street) || addressDb.includes(settlement)) {
+      addressDb = addressDb.slice(3);
+    }
+
+    addressDb = addressDb.trim(' ');
+    addressDb = addressDb.replace(/\s/g, '+');
+    let map = 'https://www.google.com/maps/embed/v1/place?key=AIzaSyBlYuKgi1m3lnyfIHv2qkWf_MzpBBc2mr8&q=' + addressDb;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(map);
+  }
+
+  constructor(private customerService: CustomerService, private sanitizer: DomSanitizer ) {
     this.setDefaultValue();
   }
 
