@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class CompaniesService {
-  private url = '/api/companies/'
+  private url = '/api/companies'
 
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -15,5 +15,9 @@ export class CompaniesService {
 
   getCompanies() {
     return this.http.get(this.url)
+  }
+
+  getCompanyById(id) {
+    return this.http.get(this.url + '/' + id)
   }
 }

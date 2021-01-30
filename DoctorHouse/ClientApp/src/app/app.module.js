@@ -47,6 +47,7 @@ var authenticate_service_1 = require("./services/authenticate.service");
 var auth_guard_service_1 = require("./services/auth-guard.service");
 var left_column_details_component_1 = require("./left-column-details/left-column-details.component");
 var left_column_specialist_component_1 = require("./left-column-specialist/left-column-specialist.component");
+var safe_pipe_1 = require("./safe.pipe");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -81,7 +82,8 @@ var AppModule = /** @class */ (function () {
                 create_specialist_component_1.CreateSpecialistComponent,
                 get_customer_component_1.GetCustomerComponent,
                 left_column_specialist_component_1.LeftColumnSpecialistComponent,
-                left_column_details_component_1.LeftColumnDetailsComponent
+                left_column_details_component_1.LeftColumnDetailsComponent,
+                safe_pipe_1.SafePipe
             ],
             imports: [
                 platform_browser_1.BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -108,7 +110,8 @@ var AppModule = /** @class */ (function () {
                 auth_guard_service_1.AuthGuard,
                 create_customer_service_1.CreateCustomerService,
                 create_specialist_service_1.CreateSpecialistService,
-                companies_service_1.CompaniesService
+                companies_service_1.CompaniesService,
+                safe_pipe_1.SafePipe
             ],
             bootstrap: [app_component_1.AppComponent]
         })
