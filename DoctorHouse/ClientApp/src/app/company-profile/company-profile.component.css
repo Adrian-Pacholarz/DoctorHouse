@@ -7,6 +7,10 @@ info-card, i {
   color: #97d3e1 !important;
 }
 
+app-users-mini-cards {
+  padding: 75px;
+}
+
 /*social */
 .card-one {
   position: relative;

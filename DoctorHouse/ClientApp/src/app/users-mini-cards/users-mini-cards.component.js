@@ -14,24 +14,21 @@ var UsersMiniCardsComponent = /** @class */ (function () {
         this.specialistService = specialistService;
         this.companiesService = companiesService;
         this.getCompanyForm = new forms_1.FormGroup({
-            specialist: new forms_1.FormControl(),
+            specialists: new forms_1.FormControl(),
             fullName: new forms_1.FormControl(),
-            specialistId: new forms_1.FormControl()
-        });
-        this.getSpecialistForm = new forms_1.FormGroup({
-            type: new forms_1.FormControl(),
+            specialistsId: new forms_1.FormControl()
         });
     }
     Object.defineProperty(UsersMiniCardsComponent.prototype, "specialists", {
         get: function () {
-            return this.getCompanyForm.get('specialist');
+            return this.getCompanyForm.get('specialists');
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(UsersMiniCardsComponent.prototype, "specialistId", {
+    Object.defineProperty(UsersMiniCardsComponent.prototype, "specialistsId", {
         get: function () {
-            return this.getCompanyForm.get('specialistId');
+            return this.getCompanyForm.get('specialistsId');
         },
         enumerable: false,
         configurable: true
@@ -43,40 +40,27 @@ var UsersMiniCardsComponent = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(UsersMiniCardsComponent.prototype, "type", {
-        get: function () {
-            return this.getSpecialistForm.get('type');
-        },
-        enumerable: false,
-        configurable: true
-    });
-    UsersMiniCardsComponent.prototype.selectSpecialists = function (s) {
-        var _this = this;
+    UsersMiniCardsComponent.prototype.selectSpecialists = function (specialist) {
         var companySpecialists = [];
-        for (var _i = 0, _a = (this.getCompanyForm.get('specialist').value); _i < _a.length; _i++) {
-            var specialist = _a[_i];
-            companySpecialists.push(+specialist.id);
+        for (var _i = 0, _a = (this.getCompanyForm.get('specialists').value); _i < _a.length; _i++) {
+            var specialist_1 = _a[_i];
+            companySpecialists.push(+specialist_1.id);
         }
-        if (companySpecialists.includes(+s.id)) {
-            this.specialistService.getSpecialistById(s.id).subscribe(function (specialist) {
-                _this.specialist = specialist;
-                _this.type.setValue(_this.specialist.specialistType);
-            });
+        if (companySpecialists.includes(+specialist.id)) {
+            return true;
         }
     };
     UsersMiniCardsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.companiesService.getCompanyById(1).subscribe(function (company) {
             _this.company = company;
-            _this.specialist.setValue(_this.company.specialists);
+            _this.specialists.setValue(_this.company.specialists);
             _this.fullName.setValue(_this.company.specialists.fullName);
-            _this.specialistId.setValue(_this.company.specialists.id);
+            _this.specialistsId.setValue(_this.company.specialists.id);
         });
         this.specialistService.getSpecialists().subscribe(function (allSpecialists) {
             _this.allSpecialists = allSpecialists;
         });
-        console.log(this.specialist);
-        console.log(this.fullName);
     };
     UsersMiniCardsComponent = __decorate([
         core_1.Component({

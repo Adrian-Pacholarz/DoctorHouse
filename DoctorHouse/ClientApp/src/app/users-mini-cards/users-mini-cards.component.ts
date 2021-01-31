@@ -11,50 +11,40 @@ import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms'
 export class UsersMiniCardsComponent implements OnInit {
   allSpecialists;
   company;
-  specialist;
 
   getCompanyForm = new FormGroup({
-    specialist: new FormControl(),
+    specialists: new FormControl(),
     fullName: new FormControl(),
-    specialistId: new FormControl()
-
-  });
-
-  getSpecialistForm = new FormGroup({
-    type: new FormControl(),
+    specialistsId: new FormControl()
   });
 
   get specialists() {
-    return this.getCompanyForm.get('specialist')
+    return this.getCompanyForm.get('specialists')
   }
 
-  get specialistId() {
-    return this.getCompanyForm.get('specialistId')
+  get specialistsId() {
+    return this.getCompanyForm.get('specialistsId')
   }
 
   get fullName() {
     return this.getCompanyForm.get('fullName')
   }
 
-  get type() {
-    return this.getSpecialistForm.get('type')
-  }
 
-  selectSpecialists(s) {
+
+
+  selectSpecialists(specialist) {
 
     let companySpecialists = [];
-    for (let specialist of (this.getCompanyForm.get('specialist').value)) {
+    for (let specialist of (this.getCompanyForm.get('specialists').value)) {
       companySpecialists.push(+specialist.id)
     }
 
-    if (companySpecialists.includes(+s.id)) {
-      this.specialistService.getSpecialistById(s.id).subscribe(specialist => {
-        this.specialist = specialist
-        this.type.setValue(this.specialist.specialistType);
-      })
+    if (companySpecialists.includes(+specialist.id)) {
+      return true;
+      }
     }
 
-  }
 
   constructor(private specialistService: SpecialistService,
     private companiesService: CompaniesService) { }
@@ -63,17 +53,14 @@ export class UsersMiniCardsComponent implements OnInit {
 
     this.companiesService.getCompanyById(1).subscribe(company => {
       this.company = company
-      this.specialist.setValue(this.company.specialists);
+      this.specialists.setValue(this.company.specialists);
       this.fullName.setValue(this.company.specialists.fullName);
-      this.specialistId.setValue(this.company.specialists.id);
+      this.specialistsId.setValue(this.company.specialists.id);
     })
 
     this.specialistService.getSpecialists().subscribe(allSpecialists => {
       this.allSpecialists = allSpecialists;
     })
-
-    console.log(this.specialist);
-    console.log(this.fullName);
   }
 
 }
