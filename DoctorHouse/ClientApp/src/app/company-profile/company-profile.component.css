@@ -126,6 +126,22 @@ div.img {
   font-size: 1.4rem;
 }
 
+.form-control {
+  background-color: transparent;
+  border: 0;
+}
+
+#companyName{
+  color: #97d3e1 !important;
+  font-size: 4rem;
+  text-align: center;
+}
+
+#details {
+  color: #6b97a4 !important;
+  font-size: 1rem;
+}
+
 h3 {
   color: #97d3e1 !important;
   font-size: 4rem;
@@ -136,7 +152,7 @@ h4 {
   font-size: 1rem;
 }
 
-p, div.social-info {
+p {
   color: #6b97a4 !important;
   font-size: 1rem;
 }

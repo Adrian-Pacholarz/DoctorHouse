@@ -10,8 +10,9 @@ exports.UserProfileCardComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var UserProfileCardComponent = /** @class */ (function () {
-    function UserProfileCardComponent(customerService) {
+    function UserProfileCardComponent(customerService, sanitizer) {
         this.customerService = customerService;
+        this.sanitizer = sanitizer;
         this.getUserForm = new forms_1.FormGroup({
             firstName: new forms_1.FormControl(),
             lastName: new forms_1.FormControl(),
@@ -72,6 +73,19 @@ var UserProfileCardComponent = /** @class */ (function () {
     UserProfileCardComponent.prototype.clickEditProfile = function ($event) {
         this.edit.setValue(true);
         console.log('button clicked');
+    };
+    UserProfileCardComponent.prototype.formatAddress = function () {
+        var addressDb = this.getUserForm.get('address').value.toLowerCase();
+        var street = 'ul.';
+        var settlement = 'os.';
+        console.log(addressDb);
+        if (addressDb.includes(street) || addressDb.includes(settlement)) {
+            addressDb = addressDb.slice(3);
+        }
+        addressDb = addressDb.trim(' ');
+        addressDb = addressDb.replace(/\s/g, '+');
+        var map = 'https://www.google.com/maps/embed/v1/place?key=AIzaSyBlYuKgi1m3lnyfIHv2qkWf_MzpBBc2mr8&q=' + addressDb;
+        return this.sanitizer.bypassSecurityTrustResourceUrl(map);
     };
     UserProfileCardComponent.prototype.ngOnInit = function () {
         var _this = this;

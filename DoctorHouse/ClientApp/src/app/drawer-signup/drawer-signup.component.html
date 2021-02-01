@@ -6,13 +6,13 @@
     <div class="collapse navbar-collapse navHeaderCollapse">
 
       <form [formGroup]="chooseUserType" class="user-type">
-        <div>
-          <input formControlName="userType" type="radio" id="customer" value="customer">
-          <label for="customer">Customer</label>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input formControlName="userType" type="radio" id="customer" value="customer" class="custom-control-input">
+          <label for="customer" class="custom-control-label">Customer</label>
         </div>
-        <div>
-          <input formControlName="userType" type="radio" id="specialist" value="specialist">
-          <label for="specialist">Specialist</label>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input formControlName="userType" type="radio" id="specialist" value="specialist" class="custom-control-input">
+          <label for="specialist" class="custom-control-label">Specialist</label>
         </div>
       </form>
 

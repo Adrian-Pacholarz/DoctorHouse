@@ -79,6 +79,20 @@ export class UserSpecialistEditProfileComponent implements OnInit {
     this.goback.setValue(true)
   }
 
+  selectCompanies(c) {
+
+    let currentCompanies = [];
+    for (let company of (this.updateUser.get('companies')).value) {
+      currentCompanies.push(+company.id)
+    }
+
+    if (currentCompanies.includes(+c.id)) {
+      return true;
+    }
+
+  }
+
+
   update() {
 
     let updatedSpecialist = {
@@ -92,17 +106,29 @@ export class UserSpecialistEditProfileComponent implements OnInit {
         phoneNumber: +this.phone.value,
       }
     };
+
+
     let companiesIds = [];
-    updatedSpecialist.companies.forEach(function (value) {
-      companiesIds.push(+value);
-    })
+
+
+    if (this.updateUser.get('companies').dirty) {
+      updatedSpecialist.companies.forEach(function (value) {
+        companiesIds.push(+value);
+      })
+    }
+    else if (!this.updateUser.get('companies').dirty) {
+      updatedSpecialist.companies.forEach(function (value) {
+        companiesIds.push(value.id);
+      })
+    }
+
 
     updatedSpecialist.companies = companiesIds;
 
     this.specialistService.updateSpecialist(3, updatedSpecialist).subscribe(specialist => {
       this.toastyService.success({
         title: 'Success',
-        msg: 'An account has been created succesfully',
+        msg: 'An account has been updated',
         theme: 'bootstrap',
         showClose: true,
         timeout: 5000
@@ -115,15 +141,16 @@ export class UserSpecialistEditProfileComponent implements OnInit {
         if (error.status === 500)
           this.toastyService.error({
             title: 'Error',
-            msg: 'Wrong data provided or username already exists',
+            msg: 'Wrong data provided',
             theme: 'bootstrap',
             showClose: true,
             timeout: 5000
           })
+
         else {
           this.toastyService.error({
             title: 'Error',
-            msg: 'An error occured and account was not created',
+            msg: 'An error occured and account was not updated',
             theme: 'bootstrap',
             showClose: true,
             timeout: 5000
@@ -142,11 +169,15 @@ export class UserSpecialistEditProfileComponent implements OnInit {
       this.area.setValue(this.specialist.area.toString())
       this.type.setValue(this.specialist.specialistType)
       this.companies.setValue(this.specialist.companies)
-
       });
 
-      this.companiesService.getCompanies().subscribe(companies => {
-        this.allCompanies = companies
+    this.companiesService.getCompanies().subscribe(allCompanies => {
+      this.allCompanies = allCompanies
       })
+
+
+
+
+
     }
   }

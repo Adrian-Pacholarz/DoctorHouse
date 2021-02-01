@@ -1,88 +1,95 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
+<form [formGroup]="getCompanyForm">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+      </div>
     </div>
-  </div>
-  <div class="img" style="background-image: linear-gradient(150deg, rgba(209, 209, 209, .3)15%, rgba(209, 209, 209, .3)70%, rgba(209, 209, 209, .3)94%), url(../../assets/images/profilebg1.jfif);
+    <div class="img" style="background-image: linear-gradient(150deg, rgba(209, 209, 209, .3)15%, rgba(209, 209, 209, .3)70%, rgba(209, 209, 209, .3)94%), url(../../assets/images/profilebg1.jfif);
     height: 350px;
     background-size: cover;"></div>
-  <div class="card social-prof">
-    <div class="card-body">
-      <div class="wrapper">
-        <img src="../../assets/images/logo1.png" alt="" class="user-profile">
-        <h3>Doctor House and Company</h3>
-        <p>Company</p>
+    <div class="card social-prof">
+      <div class="card-body">
+        <div class="wrapper">
+          <img src="../../assets/images/logo1.png" alt="" class="user-profile">
+          <div class="form-group">
+            <input formControlName="companyName" type="text" class="form-control" readonly="readonly" id="companyName">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-body info-card social-about">
+            <h4><strong>About us</strong></h4>
+            <div class="form-group">
+              <input formControlName="description" type="text" class="form-control" readonly="readonly" id="details">
+            </div>
+            <h4 class="mb-3"><strong>Details</strong></h4>
+            <div class="row">
+
+              <div class="col-6">
+                <div class="social-info">
+                  <i class="fas fa-map-marker-alt mr-2"></i><br />
+                  <div class="form-group">
+                    <input formControlName="address" type="text" class="form-control" readonly="readonly" id="details">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="social-info">
+                <h4>Rating</h4>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <div class="form-group">
+                    <input formControlName="rating" type="text" class="form-control" readonly="readonly" id="details">
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-6">
+                <div class="social-info">
+                  <i class="fas fas fa-mobile mr-2"></i><br />
+                  <div class="form-group">
+                    <input formControlName="phone" type="text" class="form-control" readonly="readonly" id="details">
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+
+
+
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-body info-card social-about">
+            <h4><strong>We are here:</strong></h4>
+            <div class="form-group">
+              <iframe [src]="formatAddress()" width="100%" height="250" frameborder="0" style="border:0" allowfullscreen="true"></iframe>
+            </div>
+          </div>
+        </div>
+        <div>
+          <input type="button" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"  value="Make an appointment" />
+        </div>
+
+
       </div>
     </div>
   </div>
-
-  <div class="row">
-    <div class="col-lg-6">
-      <div class="card">
-        <div class="card-body info-card social-about">
-          <h4><strong>About us</strong></h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-          <h4 class="mb-3"><strong>Details</strong></h4>
-          <div class="row">
-
-            <div class="col-6">
-              <div class="social-info">
-                <i class="fas fa-map-marker-alt mr-2"></i><br />
-                <span> Krakow, ul. Testowa 2/1 31-652</span>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="social-info">
-                <i class="fas fas fa-envelope mr-2"></i><br />
-                <span>drHouse@example.com</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-6">
-              <div class="social-info">
-                <i class="fas fas fa-mobile mr-2"></i><br />
-                <span>515 231 123</span>
-              </div>
-            </div>
-
-            <div class="col-6">
-              <div class="social-info">
-                <span>Rating</span><br />
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-
-              </div>
-            </div>
-          </div>
-
-
-
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-6">
-      <div class="card">
-        <div class="card-body info-card social-about">
-          <h4><strong>We are here:</strong></h4><br />
-          <div class="map-box">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d470029.1604841957!2d72.29955005258641!3d23.019996818380896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e848aba5bd449%3A0x4fcedd11614f6516!2sAhmedabad%2C+Gujarat!5e0!3m2!1sen!2sin!4v1493204785508" width="100%" height="150" frameborder="0" style="border:0" allowfullscreen=""></iframe>
-          </div>
-        </div>
-      </div>
-      <div>
-        <button type="button" id="submit" name="submit" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0">Make an appointment</button>
-      </div>
-
-
-
-    </div>
-      </div>
-    </div>
-    <app-get-users></app-get-users>
-
+  <app-get-users></app-get-users>
+</form>

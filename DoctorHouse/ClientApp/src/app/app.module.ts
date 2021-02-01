@@ -37,11 +37,11 @@ import { CompaniesService } from './services/companies.service';
 import { GetCustomerComponent } from './get-customer/get-customer.component';
 import { AuthenticateService } from './services/authenticate.service';
 import { AuthGuard } from './services/auth-guard.service';
-
 import { LeftColumnDetailsComponent } from './left-column-details/left-column-details.component';
 import { LeftColumnSpecialistComponent } from './left-column-specialist/left-column-specialist.component';
 import { CustomerService } from './services/customer.service';
 import { SpecialistsListComponent } from './specialists-list/specialists-list.component';
+import { SafePipe } from './safe.pipe';
 
 
 
@@ -76,7 +76,8 @@ import { SpecialistsListComponent } from './specialists-list/specialists-list.co
     GetCustomerComponent,
     LeftColumnSpecialistComponent,
     LeftColumnDetailsComponent,
-    SpecialistsListComponent
+    SpecialistsListComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -104,7 +105,8 @@ import { SpecialistsListComponent } from './specialists-list/specialists-list.co
     AuthGuard,
     CreateCustomerService,
     CreateSpecialistService,
-    CompaniesService
+    CompaniesService,
+    SafePipe
   ],
   bootstrap: [AppComponent]
 })
