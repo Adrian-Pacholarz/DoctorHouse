@@ -4,31 +4,29 @@
       Specialists
     </p><br />
 
-        <div *ngFor="let specialist of allSpecialists">
-          <div *ngIf="selectSpecialists(specialist)">
-            <div class="row">
-              <div class="col-md-4">
-                <div class="card profile-card-3">
-                  <div class="background-block">
-                    <img src="../../assets/images/profilebg2.png" class="background" />
-                  </div>
-                  <div class="profile-thumb-block">
-                    <img src="../../assets/images/user2.png" class="profile" />
-                  </div>
-                  <div class="card-content">
+        <div class="row">
+          <ng-container *ngFor="let specialist of allSpecialists">
+            <div *ngIf="selectSpecialists(specialist)" class="col-lg-4">
+              <div class="card profile-card-3">
+                <div class="background-block">
+                  <img src="../../assets/images/profilebg2.png" class="background" />
+                </div>
+                <div class="profile-thumb-block">
+                  <img src="../../assets/images/user2.png" class="profile" />
+                </div>
+                <div class="card-content">
 
-                    <h2>
-                      {{specialist.details.firstName}} {{specialist.details.lastName}}
-                    </h2>
-                    {{specialist.specialistType}}
+                  <h2>
+                    {{specialist.details.firstName}} {{specialist.details.lastName}}
+                  </h2>
+                  {{specialist.specialistType}}
 
-                    <div class="icon-block"><a href="#"><i class="fa fa-facebook" alt="See the full profile"></i></a></div>
-                  </div>
+                  <div class="icon-block"><a href="#"><i class="fa fa-facebook" alt="See the full profile"></i></a></div>
                 </div>
               </div>
             </div>
-          </div>
-    </div>
-  </div>
+          </ng-container>
+        </div>
 
+  </div>
 </div>
