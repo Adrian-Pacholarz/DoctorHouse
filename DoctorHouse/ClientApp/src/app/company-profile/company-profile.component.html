@@ -41,15 +41,16 @@
             </div><br /><br />
 
 
-                <h4><strong>Rating</strong></h4><br />
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <div class="form-group">
-                  <input formControlName="rating" type="text" class="form-control" readonly="readonly" id="details">
-                </div><br />
+            <h4><strong>Rating</strong></h4><br />
+            <ngb-rating [max]="5" [(rate)]="starRating" [readonly]="false"></ngb-rating>
+            <i class="fas fa-star" ></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="far fa-star"></i>
+            <div class="form-group">
+              <input formControlName="rating" type="text" class="form-control" readonly="readonly" id="details">
+            </div><br />
 
           </div>
           </div>

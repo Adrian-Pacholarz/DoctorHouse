@@ -4,6 +4,9 @@ import { CompaniesService } from '../services/companies.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { SafePipe } from '../safe.pipe';
 
+
+
+
 @Component({
   selector: 'app-company-profile',
   templateUrl: './company-profile.component.html',
