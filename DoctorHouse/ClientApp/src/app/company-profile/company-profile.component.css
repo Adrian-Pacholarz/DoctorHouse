@@ -5,6 +5,7 @@ body {
 
 info-card, i {
   color: #97d3e1 !important;
+  font-size: 1.4rem;
 }
 
 app-users-mini-cards {
@@ -143,7 +144,7 @@ div.img {
 
 #details {
   color: #6b97a4 !important;
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 h3 {
@@ -153,7 +154,7 @@ h3 {
 
 h4 {
   color: #97d3e1 !important;
-  font-size: 1rem;
+  font-size: 1.4rem;
 }
 
 p {
@@ -205,7 +206,7 @@ ul.friend-list {
 }
 
 .info-card h4 {
-  font-size: 15px;
+  font-size: 1.3rem;
 }
 
 .info-card h2 {
