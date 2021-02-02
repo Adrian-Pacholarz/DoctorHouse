@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CompaniesService } from '../services/companies.service';
 import { SpecialistService } from '../services/specialist.service';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-users-mini-cards',
@@ -10,6 +11,7 @@ import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms'
 })
 export class UsersMiniCardsComponent implements OnInit {
   allSpecialists;
+  companyId;
   company;
 
   getCompanyForm = new FormGroup({
@@ -47,11 +49,17 @@ export class UsersMiniCardsComponent implements OnInit {
 
 
   constructor(private specialistService: SpecialistService,
-    private companiesService: CompaniesService) { }
+    private companiesService: CompaniesService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
 
-    this.companiesService.getCompanyById(1).subscribe(company => {
+    this.route.params.subscribe(p => {
+      this.companyId = +p['id'];
+    })
+
+    this.companiesService.getCompanyById(this.companyId).subscribe(company => {
       this.company = company
       this.specialists.setValue(this.company.specialists);
       this.fullName.setValue(this.company.specialists.fullName);

@@ -10,9 +10,11 @@ exports.CompanyProfileComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var CompanyProfileComponent = /** @class */ (function () {
-    function CompanyProfileComponent(companiesService, sanitizer) {
+    function CompanyProfileComponent(companiesService, sanitizer, route, router) {
         this.companiesService = companiesService;
         this.sanitizer = sanitizer;
+        this.route = route;
+        this.router = router;
         this.getCompanyForm = new forms_1.FormGroup({
             companyName: new forms_1.FormControl(),
             address: new forms_1.FormControl(),
@@ -71,13 +73,19 @@ var CompanyProfileComponent = /** @class */ (function () {
     };
     CompanyProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.companiesService.getCompanyById(1).subscribe(function (company) {
+        this.route.params.subscribe(function (p) {
+            _this.companyId = +p['id'];
+        });
+        this.companiesService.getCompanyById(this.companyId).subscribe(function (company) {
             _this.company = company;
             _this.companyName.setValue(_this.company.companyName);
             _this.rating.setValue(_this.company.rating);
             _this.address.setValue(_this.company.address);
             _this.phone.setValue(_this.company.phoneNumber);
             _this.description.setValue(_this.company.description);
+        }, function (err) {
+            if (err.status == 404)
+                _this.router.navigate(['/not-found']);
         });
     };
     CompanyProfileComponent = __decorate([

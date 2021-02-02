@@ -3,6 +3,7 @@ import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms'
 import { CompaniesService } from '../services/companies.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { SafePipe } from '../safe.pipe';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-company-profile',
@@ -10,7 +11,7 @@ import { SafePipe } from '../safe.pipe';
   styleUrls: ['./company-profile.component.css']
 })
 export class CompanyProfileComponent implements OnInit {
-
+  companyId;
   company;
 
   getCompanyForm = new FormGroup({
@@ -57,11 +58,21 @@ export class CompanyProfileComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl(map);
   }
 
-  constructor(private companiesService: CompaniesService, private sanitizer: DomSanitizer ) {
+  constructor(
+    private companiesService: CompaniesService,
+    private sanitizer: DomSanitizer,
+    private route: ActivatedRoute,
+    private router: Router) {
   }
 
   ngOnInit(): void {
-    this.companiesService.getCompanyById(1).subscribe(company => {
+
+    this.route.params.subscribe(p => {
+      this.companyId = +p['id'];
+    })
+
+
+    this.companiesService.getCompanyById(this.companyId).subscribe(company => {
       this.company = company
       this.companyName.setValue(this.company.companyName)
       this.rating.setValue(this.company.rating)
@@ -69,6 +80,9 @@ export class CompanyProfileComponent implements OnInit {
       this.phone.setValue(this.company.phoneNumber)
       this.description.setValue(this.company.description)
 
+    }, err => {
+      if (err.status == 404)
+        this.router.navigate(['/not-found'])
     })
   }
 
