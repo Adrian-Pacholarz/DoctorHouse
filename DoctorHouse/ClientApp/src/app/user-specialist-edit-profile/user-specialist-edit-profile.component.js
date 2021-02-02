@@ -12,10 +12,12 @@ var forms_1 = require("@angular/forms");
 var area_validators_1 = require("../common/validators/area.validators");
 var phone_validators_1 = require("../common/validators/phone.validators");
 var UserSpecialistEditProfileComponent = /** @class */ (function () {
-    function UserSpecialistEditProfileComponent(specialistService, toastyService, companiesService) {
+    function UserSpecialistEditProfileComponent(specialistService, toastyService, companiesService, route, router) {
         this.specialistService = specialistService;
         this.toastyService = toastyService;
         this.companiesService = companiesService;
+        this.route = route;
+        this.router = router;
         this.updateUser = new forms_1.FormGroup({
             firstName: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(3)]),
             lastName: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(3)]),
@@ -127,7 +129,7 @@ var UserSpecialistEditProfileComponent = /** @class */ (function () {
             });
         }
         updatedSpecialist.companies = companiesIds;
-        this.specialistService.updateSpecialist(3, updatedSpecialist).subscribe(function (specialist) {
+        this.specialistService.updateSpecialist(this.specialistId, updatedSpecialist).subscribe(function (specialist) {
             _this.toastyService.success({
                 title: 'Success',
                 msg: 'An account has been updated',
@@ -158,7 +160,10 @@ var UserSpecialistEditProfileComponent = /** @class */ (function () {
     };
     UserSpecialistEditProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.specialistService.getSpecialistById(3).subscribe(function (specialist) {
+        this.route.params.subscribe(function (p) {
+            _this.specialistId = +p['id'];
+        });
+        this.specialistService.getSpecialistById(this.specialistId).subscribe(function (specialist) {
             _this.specialist = specialist;
             _this.firstName.setValue(_this.specialist.details.firstName);
             _this.lastName.setValue(_this.specialist.details.lastName);

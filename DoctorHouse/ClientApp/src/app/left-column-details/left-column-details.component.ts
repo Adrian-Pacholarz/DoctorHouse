@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerService } from '../services/customer.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { CustomerService } from '../services/customer.service';
   styleUrls: ['./left-column-details.component.css']
 })
 export class LeftColumnDetailsComponent implements OnInit {
-
+  customerId;
   customer;
 
 
@@ -33,13 +34,21 @@ export class LeftColumnDetailsComponent implements OnInit {
   }
 
 
-  constructor(private customerService: CustomerService) {
+  constructor(
+    private customerService: CustomerService,
+    private route: ActivatedRoute,
+    private router: Router) {
 
   }
 
 
   ngOnInit(): void {
-    this.customerService.getCustomerById(1).subscribe(customer => {
+
+    this.route.params.subscribe(p => {
+      this.customerId = +p['id'];
+    })
+
+    this.customerService.getCustomerById(this.customerId).subscribe(customer => {
       this.customer = customer
       this.firstName.setValue(this.customer.details.firstName)
       this.lastName.setValue(this.customer.details.lastName)

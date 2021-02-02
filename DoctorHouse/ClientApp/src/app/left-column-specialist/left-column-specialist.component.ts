@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SpecialistService } from '../services/specialist.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { SpecialistService } from '../services/specialist.service';
   styleUrls: ['./left-column-specialist.component.css']
 })
 export class LeftColumnSpecialistComponent implements OnInit {
-
+  specialistId;
   specialist;
 
   getUserForm = new FormGroup({
@@ -30,13 +31,21 @@ export class LeftColumnSpecialistComponent implements OnInit {
   }
 
 
-  constructor(private specialistService: SpecialistService) {
+  constructor(
+    private specialistService: SpecialistService,
+    private route: ActivatedRoute,
+    private router: Router) {
 
   }
 
 
   ngOnInit(): void {
-    this.specialistService.getSpecialistById(3).subscribe(specialist => {
+
+    this.route.params.subscribe(p => {
+      this.specialistId = +p['id'];
+    })
+
+    this.specialistService.getSpecialistById(this.specialistId).subscribe(specialist => {
       this.specialist = specialist
       this.firstName.setValue(this.specialist.details.firstName)
       this.lastName.setValue(this.specialist.details.lastName)
