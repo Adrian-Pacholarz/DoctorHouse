@@ -42,6 +42,7 @@ import { LeftColumnSpecialistComponent } from './left-column-specialist/left-col
 import { CustomerService } from './services/customer.service';
 import { SpecialistsListComponent } from './specialists-list/specialists-list.component';
 import { SafePipe } from './safe.pipe';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 
@@ -77,7 +78,8 @@ import { SafePipe } from './safe.pipe';
     LeftColumnSpecialistComponent,
     LeftColumnDetailsComponent,
     SpecialistsListComponent,
-    SafePipe
+    SafePipe,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -94,7 +96,9 @@ import { SafePipe } from './safe.pipe';
       { path: 'users/specialists/:id', component: UserSpecialistProfileComponent },
       { path: 'specialists-list', component: SpecialistsListComponent},
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'companies/:id', component: CompanyProfileComponent}
+      { path: 'companies/:id', component: CompanyProfileComponent },
+      { path: 'not-found', component: NotFoundComponent },
+      { path: '**', redirectTo: 'not-found' }
 ], { relativeLinkResolution: 'legacy' })
   ],
   providers: [

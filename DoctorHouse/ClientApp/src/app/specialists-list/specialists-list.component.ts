@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SpecialistService } from '../services/specialist.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-specialists-list',
@@ -13,7 +13,8 @@ export class SpecialistsListComponent implements OnInit {
   filter: string;
 
   constructor(private specialistService: SpecialistService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private router: Router) {
 
   }
 
@@ -27,7 +28,9 @@ export class SpecialistsListComponent implements OnInit {
       .subscribe(allSpecialists => {
         this.allSpecialists = allSpecialists
         this.onFilterChange()
-
+        console.log(this.specialists)
+        if (!this.specialists.length)
+          this.router.navigate(['/not-found'])
       });
 
   }

@@ -49,6 +49,7 @@ var left_column_details_component_1 = require("./left-column-details/left-column
 var left_column_specialist_component_1 = require("./left-column-specialist/left-column-specialist.component");
 var specialists_list_component_1 = require("./specialists-list/specialists-list.component");
 var safe_pipe_1 = require("./safe.pipe");
+var not_found_component_1 = require("./not-found/not-found.component");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -85,7 +86,8 @@ var AppModule = /** @class */ (function () {
                 left_column_specialist_component_1.LeftColumnSpecialistComponent,
                 left_column_details_component_1.LeftColumnDetailsComponent,
                 specialists_list_component_1.SpecialistsListComponent,
-                safe_pipe_1.SafePipe
+                safe_pipe_1.SafePipe,
+                not_found_component_1.NotFoundComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -102,7 +104,9 @@ var AppModule = /** @class */ (function () {
                     { path: 'users/specialists/:id', component: user_specialist_profile_component_1.UserSpecialistProfileComponent },
                     { path: 'specialists-list', component: specialists_list_component_1.SpecialistsListComponent },
                     { path: 'fetch-data', component: fetch_data_component_1.FetchDataComponent },
-                    { path: 'companies/:id', component: company_profile_component_1.CompanyProfileComponent }
+                    { path: 'companies/:id', component: company_profile_component_1.CompanyProfileComponent },
+                    { path: 'not-found', component: not_found_component_1.NotFoundComponent },
+                    { path: '**', redirectTo: 'not-found' }
                 ], { relativeLinkResolution: 'legacy' })
             ],
             providers: [
