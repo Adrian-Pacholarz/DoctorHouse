@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SpecialistService } from '../services/specialist.service';
 
 @Component({
@@ -8,6 +9,7 @@ import { SpecialistService } from '../services/specialist.service';
   styleUrls: ['./user-specialist-profile-card.component.css']
 })
 export class UserSpecialistProfileCardComponent implements OnInit {
+  specialistId;
   specialist;
 
   getUserForm = new FormGroup({
@@ -60,13 +62,22 @@ export class UserSpecialistProfileCardComponent implements OnInit {
     this.edit.setValue(true)
   }
 
-  constructor(private specialistService: SpecialistService) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private specialistService: SpecialistService) {
     this.setDefaultValue();
+
   }
 
 
   ngOnInit(): void {
-    this.specialistService.getSpecialistById(3).subscribe(specialist => {
+
+    this.route.params.subscribe(p => {
+      this.specialistId = +p['id'];
+    })
+
+    this.specialistService.getSpecialistById(this.specialistId).subscribe(specialist => {
       this.specialist = specialist
       this.firstName.setValue(this.specialist.details.firstName)
       this.lastName.setValue(this.specialist.details.lastName)
@@ -75,6 +86,9 @@ export class UserSpecialistProfileCardComponent implements OnInit {
       this.type.setValue(this.specialist.specialistType)
       this.companies.setValue(this.specialist.companies)
 
+    }, err => {
+        if (err.status == 404)
+          this.router.navigate(['/not-found'])
     })
   }
 

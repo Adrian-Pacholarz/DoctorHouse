@@ -94,8 +94,6 @@ import { SafePipe } from './safe.pipe';
       { path: 'users/specialists/:id', component: UserSpecialistProfileComponent },
       { path: 'specialists-list', component: SpecialistsListComponent},
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'users/customers/id/0', component: UserEditProfileComponent },
-      { path: 'users/specialists/id/0', component: UserSpecialistEditProfileComponent },
       { path: 'users/specialists', component: GetUsersComponent },
       {path: 'companies/:id', component: CompanyProfileComponent}
 ], { relativeLinkResolution: 'legacy' })

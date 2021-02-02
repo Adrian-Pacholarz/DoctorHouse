@@ -6,6 +6,7 @@ import { PasswordValidators } from '../common/validators/password.validators';
 import { PhoneValidators } from '../common/validators/phone.validators';
 import { SpecialistService } from '../services/specialist.service';
 import { CompaniesService } from '../services/companies.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-specialist-edit-profile',
@@ -13,7 +14,7 @@ import { CompaniesService } from '../services/companies.service';
   styleUrls: ['./user-specialist-edit-profile.component.css']
 })
 export class UserSpecialistEditProfileComponent implements OnInit {
-
+  specialistId;
   specialist;
   allCompanies;
 
@@ -65,9 +66,12 @@ export class UserSpecialistEditProfileComponent implements OnInit {
     return this.backToProfile.get("goback");
   }
 
-  constructor(private specialistService: SpecialistService,
+  constructor(
+    private specialistService: SpecialistService,
     private toastyService: ToastyService,
-    private companiesService: CompaniesService) {
+    private companiesService: CompaniesService,
+    private route: ActivatedRoute,
+    private router: Router) {
     this.setDefaultGoBackValue();
   }
 
@@ -125,7 +129,7 @@ export class UserSpecialistEditProfileComponent implements OnInit {
 
     updatedSpecialist.companies = companiesIds;
 
-    this.specialistService.updateSpecialist(3, updatedSpecialist).subscribe(specialist => {
+    this.specialistService.updateSpecialist(this.specialistId, updatedSpecialist).subscribe(specialist => {
       this.toastyService.success({
         title: 'Success',
         msg: 'An account has been updated',
@@ -160,7 +164,12 @@ export class UserSpecialistEditProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.specialistService.getSpecialistById(3).subscribe(specialist => {
+
+    this.route.params.subscribe(p => {
+      this.specialistId = +p['id'];
+    })
+
+    this.specialistService.getSpecialistById(this.specialistId).subscribe(specialist => {
       this.specialist = specialist
       this.firstName.setValue(this.specialist.details.firstName)
       this.lastName.setValue(this.specialist.details.lastName)
