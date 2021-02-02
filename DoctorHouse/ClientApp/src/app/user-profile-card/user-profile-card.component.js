@@ -10,9 +10,11 @@ exports.UserProfileCardComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var UserProfileCardComponent = /** @class */ (function () {
-    function UserProfileCardComponent(customerService, sanitizer) {
+    function UserProfileCardComponent(customerService, sanitizer, route, router) {
         this.customerService = customerService;
         this.sanitizer = sanitizer;
+        this.route = route;
+        this.router = router;
         this.getUserForm = new forms_1.FormGroup({
             firstName: new forms_1.FormControl(),
             lastName: new forms_1.FormControl(),
@@ -89,13 +91,19 @@ var UserProfileCardComponent = /** @class */ (function () {
     };
     UserProfileCardComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.customerService.getCustomerById(1).subscribe(function (customer) {
+        this.route.params.subscribe(function (p) {
+            _this.customerId = +p['id'];
+        });
+        this.customerService.getCustomerById(this.customerId).subscribe(function (customer) {
             _this.customer = customer;
             _this.firstName.setValue(_this.customer.details.firstName);
             _this.lastName.setValue(_this.customer.details.lastName);
             _this.email.setValue(_this.customer.details.eMail);
             _this.phone.setValue(_this.customer.details.phoneNumber);
             _this.address.setValue(_this.customer.address);
+        }, function (err) {
+            if (err.status == 404)
+                _this.router.navigate(['/not-found']);
         });
     };
     UserProfileCardComponent = __decorate([

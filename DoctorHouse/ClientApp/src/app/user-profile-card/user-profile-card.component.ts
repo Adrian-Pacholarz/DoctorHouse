@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { CustomerService } from '../services/customer.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile-card',
@@ -10,7 +11,7 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
 })
 
 export class UserProfileCardComponent implements OnInit {
-
+  customerId;
   customer;
 
   getUserForm = new FormGroup({
@@ -75,19 +76,31 @@ export class UserProfileCardComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl(map);
   }
 
-  constructor(private customerService: CustomerService, private sanitizer: DomSanitizer ) {
+  constructor(
+    private customerService: CustomerService,
+    private sanitizer: DomSanitizer,
+    private route: ActivatedRoute,
+    private router: Router) {
     this.setDefaultValue();
   }
 
 
   ngOnInit(): void {
-    this.customerService.getCustomerById(1).subscribe(customer => { this.customer = customer
+
+    this.route.params.subscribe(p => {
+      this.customerId = +p['id'];
+    })
+
+    this.customerService.getCustomerById(this.customerId).subscribe(customer => { this.customer = customer
       this.firstName.setValue(this.customer.details.firstName)
       this.lastName.setValue(this.customer.details.lastName)
       this.email.setValue(this.customer.details.eMail)
       this.phone.setValue(this.customer.details.phoneNumber)
       this.address.setValue(this.customer.address)
 
+    }, err => {
+      if (err.status == 404)
+        this.router.navigate(['/not-found'])
     })
   }
 

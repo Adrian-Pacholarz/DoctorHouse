@@ -102,7 +102,6 @@ var AppModule = /** @class */ (function () {
                     { path: 'users/specialists/:id', component: user_specialist_profile_component_1.UserSpecialistProfileComponent },
                     { path: 'specialists-list', component: specialists_list_component_1.SpecialistsListComponent },
                     { path: 'fetch-data', component: fetch_data_component_1.FetchDataComponent },
-                    { path: 'users/specialists', component: get_users_component_1.GetUsersComponent },
                     { path: 'companies/:id', component: company_profile_component_1.CompanyProfileComponent }
                 ], { relativeLinkResolution: 'legacy' })
             ],

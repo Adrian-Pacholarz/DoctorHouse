@@ -10,8 +10,10 @@ exports.LeftColumnDetailsComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var LeftColumnDetailsComponent = /** @class */ (function () {
-    function LeftColumnDetailsComponent(customerService) {
+    function LeftColumnDetailsComponent(customerService, route, router) {
         this.customerService = customerService;
+        this.route = route;
+        this.router = router;
         this.getUserForm = new forms_1.FormGroup({
             firstName: new forms_1.FormControl(),
             lastName: new forms_1.FormControl(),
@@ -41,7 +43,10 @@ var LeftColumnDetailsComponent = /** @class */ (function () {
     });
     LeftColumnDetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.customerService.getCustomerById(1).subscribe(function (customer) {
+        this.route.params.subscribe(function (p) {
+            _this.customerId = +p['id'];
+        });
+        this.customerService.getCustomerById(this.customerId).subscribe(function (customer) {
             _this.customer = customer;
             _this.firstName.setValue(_this.customer.details.firstName);
             _this.lastName.setValue(_this.customer.details.lastName);

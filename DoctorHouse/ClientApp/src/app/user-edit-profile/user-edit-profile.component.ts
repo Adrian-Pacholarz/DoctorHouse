@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastyService } from 'ng2-toasty';
 import { AreaValidators } from '../common/validators/area.validators';
 import { PasswordValidators } from '../common/validators/password.validators';
@@ -12,7 +13,7 @@ import { CustomerService } from '../services/customer.service';
   styleUrls: ['./user-edit-profile.component.css']
 })
 export class UserEditProfileComponent implements OnInit {
-
+  customerId;
   customer;
 
   updateUser = new FormGroup({
@@ -56,7 +57,9 @@ export class UserEditProfileComponent implements OnInit {
 
   constructor(
     private customerService: CustomerService,
-    private toastyService: ToastyService) {
+    private toastyService: ToastyService,
+    private route: ActivatedRoute,
+    private router: Router) {
     this.setDefaultGoBackValue();
   }
 
@@ -78,7 +81,7 @@ export class UserEditProfileComponent implements OnInit {
         phoneNumber: +this.phone.value,
       }
     };
-    this.customerService.updateCustomer(1, updatedCustomer).subscribe(customer => {
+    this.customerService.updateCustomer(this.customerId, updatedCustomer).subscribe(customer => {
       this.toastyService.success({
         title: 'Success',
         msg: 'An account has been updated',
@@ -113,7 +116,12 @@ export class UserEditProfileComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.customerService.getCustomerById(1).subscribe(customer => {
+
+    this.route.params.subscribe(p => {
+      this.customerId = +p['id'];
+    })
+
+    this.customerService.getCustomerById(this.customerId).subscribe(customer => {
       this.customer = customer
       this.firstName.setValue(this.customer.details.firstName)
       this.lastName.setValue(this.customer.details.lastName)
