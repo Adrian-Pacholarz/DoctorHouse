@@ -3,6 +3,8 @@ import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms'
 import { CustomerService } from '../services/customer.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticateService } from '../services/authenticate.service';
+import { ToastyService } from 'ng2-toasty';
 
 @Component({
   selector: 'app-user-profile-card',
@@ -11,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 
 export class UserProfileCardComponent implements OnInit {
+  currentUser = this.authService.currentUser;
   customerId;
   customer;
 
@@ -55,9 +58,20 @@ export class UserProfileCardComponent implements OnInit {
     this.edit.setValue(false)
   }
 
-  clickEditProfile($event) {
-    this.edit.setValue(true)
-    console.log('button clicked');
+  clickEditProfile() {
+    if (this.currentUser.id == this.customerId) {
+      this.edit.setValue(true)
+      console.log('button clicked')
+    }
+    else {
+      this.toastyService.error({
+        title: 'Error',
+        msg: 'You are not authorised to edit this account',
+        theme: 'bootstrap',
+        showClose: true,
+        timeout: 5000
+      })
+      }
   }
 
   formatAddress(): SafeResourceUrl {
@@ -80,7 +94,9 @@ export class UserProfileCardComponent implements OnInit {
     private customerService: CustomerService,
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private authService: AuthenticateService,
+    private toastyService: ToastyService) {
     this.setDefaultValue();
   }
 

@@ -14,7 +14,7 @@
           <input formControlName="email" type="text" class="form-control" id="h6" readonly="readonly">
         </div>
       </div>
-      <div class="about">
+      <div class="about" *ngIf="currentUser.id == customerId">
         <h5 class="mb-2 text-primary">My appointments</h5>
         <p>
           <a href="#">

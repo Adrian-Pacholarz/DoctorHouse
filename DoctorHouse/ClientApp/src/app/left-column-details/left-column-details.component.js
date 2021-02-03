@@ -10,10 +10,12 @@ exports.LeftColumnDetailsComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var LeftColumnDetailsComponent = /** @class */ (function () {
-    function LeftColumnDetailsComponent(customerService, route, router) {
+    function LeftColumnDetailsComponent(customerService, route, router, authService) {
         this.customerService = customerService;
         this.route = route;
         this.router = router;
+        this.authService = authService;
+        this.currentUser = this.authService.currentUser;
         this.getUserForm = new forms_1.FormGroup({
             firstName: new forms_1.FormControl(),
             lastName: new forms_1.FormControl(),

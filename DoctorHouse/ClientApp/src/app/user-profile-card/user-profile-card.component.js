@@ -10,11 +10,14 @@ exports.UserProfileCardComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var UserProfileCardComponent = /** @class */ (function () {
-    function UserProfileCardComponent(customerService, sanitizer, route, router) {
+    function UserProfileCardComponent(customerService, sanitizer, route, router, authService, toastyService) {
         this.customerService = customerService;
         this.sanitizer = sanitizer;
         this.route = route;
         this.router = router;
+        this.authService = authService;
+        this.toastyService = toastyService;
+        this.currentUser = this.authService.currentUser;
         this.getUserForm = new forms_1.FormGroup({
             firstName: new forms_1.FormControl(),
             lastName: new forms_1.FormControl(),
@@ -72,9 +75,20 @@ var UserProfileCardComponent = /** @class */ (function () {
     UserProfileCardComponent.prototype.setDefaultValue = function () {
         this.edit.setValue(false);
     };
-    UserProfileCardComponent.prototype.clickEditProfile = function ($event) {
-        this.edit.setValue(true);
-        console.log('button clicked');
+    UserProfileCardComponent.prototype.clickEditProfile = function () {
+        if (this.currentUser.id == this.customerId) {
+            this.edit.setValue(true);
+            console.log('button clicked');
+        }
+        else {
+            this.toastyService.error({
+                title: 'Error',
+                msg: 'You are not authorised to edit this account',
+                theme: 'bootstrap',
+                showClose: true,
+                timeout: 5000
+            });
+        }
     };
     UserProfileCardComponent.prototype.formatAddress = function () {
         var addressDb = this.getUserForm.get('address').value.toLowerCase();

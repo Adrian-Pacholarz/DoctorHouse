@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticateService } from '../services/authenticate.service';
 import { CustomerService } from '../services/customer.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { CustomerService } from '../services/customer.service';
   styleUrls: ['./left-column-details.component.css']
 })
 export class LeftColumnDetailsComponent implements OnInit {
+  currentUser = this.authService.currentUser;
   customerId;
   customer;
 
@@ -37,7 +39,8 @@ export class LeftColumnDetailsComponent implements OnInit {
   constructor(
     private customerService: CustomerService,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private authService: AuthenticateService) {
 
   }
 

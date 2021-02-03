@@ -60,8 +60,8 @@
               </div>
 
             </form>
-            <form [formGroup]="editProfile" class="edit-profile">
-              <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off" hidden formControlName="edit" (click)="clickEditProfile($event)" value=false>
+            <form [formGroup]="editProfile" *ngIf="currentUser.id == customerId" class="edit-profile">
+              <input type="button" class="btn-check" id="btn-check" autocomplete="off" hidden formControlName="edit" (click)="clickEditProfile()" value=false>
               <label class="btn btn-primary" for="btn-check">Edit</label>
             </form>
 

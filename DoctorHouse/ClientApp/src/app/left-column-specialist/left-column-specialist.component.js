@@ -10,10 +10,12 @@ exports.LeftColumnSpecialistComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var LeftColumnSpecialistComponent = /** @class */ (function () {
-    function LeftColumnSpecialistComponent(specialistService, route, router) {
+    function LeftColumnSpecialistComponent(specialistService, route, router, authService) {
         this.specialistService = specialistService;
         this.route = route;
         this.router = router;
+        this.authService = authService;
+        this.currentUser = this.authService.currentUser;
         this.getUserForm = new forms_1.FormGroup({
             firstName: new forms_1.FormControl(),
             lastName: new forms_1.FormControl(),

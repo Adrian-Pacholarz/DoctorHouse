@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastyService } from 'ng2-toasty';
+import { AuthenticateService } from '../services/authenticate.service';
 import { SpecialistService } from '../services/specialist.service';
 
 @Component({
@@ -9,6 +11,7 @@ import { SpecialistService } from '../services/specialist.service';
   styleUrls: ['./user-specialist-profile-card.component.css']
 })
 export class UserSpecialistProfileCardComponent implements OnInit {
+  currentUser = this.authService.currentUser;
   specialistId;
   specialist;
 
@@ -58,14 +61,28 @@ export class UserSpecialistProfileCardComponent implements OnInit {
     this.edit.setValue(false)
   }
 
-  clickEditProfile($event) {
-    this.edit.setValue(true)
+  clickEditProfile() {
+    if (this.currentUser.id == this.specialistId) {
+      this.edit.setValue(true)
+      console.log('button clicked')
+    }
+    else {
+      this.toastyService.error({
+        title: 'Error',
+        msg: 'You are not authorised to edit this account',
+        theme: 'bootstrap',
+        showClose: true,
+        timeout: 5000
+      })
+    }
   }
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private specialistService: SpecialistService) {
+    private specialistService: SpecialistService,
+    private authService: AuthenticateService,
+    private toastyService: ToastyService){
     this.setDefaultValue();
 
   }

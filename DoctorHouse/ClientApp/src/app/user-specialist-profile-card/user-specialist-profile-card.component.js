@@ -10,10 +10,13 @@ exports.UserSpecialistProfileCardComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var UserSpecialistProfileCardComponent = /** @class */ (function () {
-    function UserSpecialistProfileCardComponent(route, router, specialistService) {
+    function UserSpecialistProfileCardComponent(route, router, specialistService, authService, toastyService) {
         this.route = route;
         this.router = router;
         this.specialistService = specialistService;
+        this.authService = authService;
+        this.toastyService = toastyService;
+        this.currentUser = this.authService.currentUser;
         this.getUserForm = new forms_1.FormGroup({
             firstName: new forms_1.FormControl(),
             lastName: new forms_1.FormControl(),
@@ -79,8 +82,20 @@ var UserSpecialistProfileCardComponent = /** @class */ (function () {
     UserSpecialistProfileCardComponent.prototype.setDefaultValue = function () {
         this.edit.setValue(false);
     };
-    UserSpecialistProfileCardComponent.prototype.clickEditProfile = function ($event) {
-        this.edit.setValue(true);
+    UserSpecialistProfileCardComponent.prototype.clickEditProfile = function () {
+        if (this.currentUser.id == this.specialistId) {
+            this.edit.setValue(true);
+            console.log('button clicked');
+        }
+        else {
+            this.toastyService.error({
+                title: 'Error',
+                msg: 'You are not authorised to edit this account',
+                theme: 'bootstrap',
+                showClose: true,
+                timeout: 5000
+            });
+        }
     };
     UserSpecialistProfileCardComponent.prototype.ngOnInit = function () {
         var _this = this;
