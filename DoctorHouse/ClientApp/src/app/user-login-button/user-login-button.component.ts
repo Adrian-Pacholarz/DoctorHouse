@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastyService } from 'ng2-toasty';
 import { AuthenticateService } from '../services/authenticate.service';
 
 @Component({
@@ -13,6 +14,13 @@ export class UserLoginButtonComponent implements OnInit {
   logout() {
     this.authService.logout();
     location.reload();
+    this.toastyService.info({
+      title: 'Information',
+      msg: 'You have been logged out',
+      theme: 'bootstrap',
+      showClose: true,
+      timeout: 5000
+    })
   }
 
   isLoggedIn() {
@@ -20,7 +28,8 @@ export class UserLoginButtonComponent implements OnInit {
   }
 
 
-  constructor(private authService: AuthenticateService) {}
+  constructor(private authService: AuthenticateService,
+    private toastyService: ToastyService) { }
 
   ngOnInit(): void {
   }

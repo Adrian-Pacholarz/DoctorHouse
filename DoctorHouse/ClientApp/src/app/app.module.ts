@@ -92,11 +92,11 @@ import { NotFoundComponent } from './not-found/not-found.component';
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'login', component: CarouselLoginComponent },
       { path: 'counter', component: CounterComponent },
-      { path: 'users/customers/:id', component: UserProfileComponent },
-      { path: 'users/specialists/:id', component: UserSpecialistProfileComponent },
-      { path: 'specialists-list', component: SpecialistsListComponent},
+      { path: 'users/customers/:id', component: UserProfileComponent, canActivate: [AuthGuard] },
+      { path: 'users/specialists/:id', component: UserSpecialistProfileComponent, canActivate: [AuthGuard] },
+      { path: 'specialists-list', component: SpecialistsListComponent, canActivate: [AuthGuard]},
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'companies/:id', component: CompanyProfileComponent },
+      { path: 'companies/:id', component: CompanyProfileComponent, canActivate: [AuthGuard] },
       { path: 'not-found', component: NotFoundComponent },
       { path: '**', redirectTo: 'not-found' }
 ], { relativeLinkResolution: 'legacy' })

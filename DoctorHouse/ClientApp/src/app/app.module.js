@@ -100,11 +100,11 @@ var AppModule = /** @class */ (function () {
                     { path: 'home', component: home_component_1.HomeComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'login', component: carousel_login_component_1.CarouselLoginComponent },
                     { path: 'counter', component: counter_component_1.CounterComponent },
-                    { path: 'users/customers/:id', component: user_profile_component_1.UserProfileComponent },
-                    { path: 'users/specialists/:id', component: user_specialist_profile_component_1.UserSpecialistProfileComponent },
-                    { path: 'specialists-list', component: specialists_list_component_1.SpecialistsListComponent },
+                    { path: 'users/customers/:id', component: user_profile_component_1.UserProfileComponent, canActivate: [auth_guard_service_1.AuthGuard] },
+                    { path: 'users/specialists/:id', component: user_specialist_profile_component_1.UserSpecialistProfileComponent, canActivate: [auth_guard_service_1.AuthGuard] },
+                    { path: 'specialists-list', component: specialists_list_component_1.SpecialistsListComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'fetch-data', component: fetch_data_component_1.FetchDataComponent },
-                    { path: 'companies/:id', component: company_profile_component_1.CompanyProfileComponent },
+                    { path: 'companies/:id', component: company_profile_component_1.CompanyProfileComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'not-found', component: not_found_component_1.NotFoundComponent },
                     { path: '**', redirectTo: 'not-found' }
                 ], { relativeLinkResolution: 'legacy' })

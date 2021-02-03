@@ -9,13 +9,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserLoginButtonComponent = void 0;
 var core_1 = require("@angular/core");
 var UserLoginButtonComponent = /** @class */ (function () {
-    function UserLoginButtonComponent(authService) {
+    function UserLoginButtonComponent(authService, toastyService) {
         this.authService = authService;
+        this.toastyService = toastyService;
         this.currentUser = this.authService.currentUser;
     }
     UserLoginButtonComponent.prototype.logout = function () {
         this.authService.logout();
         location.reload();
+        this.toastyService.info({
+            title: 'Information',
+            msg: 'You have been logged out',
+            theme: 'bootstrap',
+            showClose: true,
+            timeout: 5000
+        });
     };
     UserLoginButtonComponent.prototype.isLoggedIn = function () {
         return this.authService.isLoggedIn();
