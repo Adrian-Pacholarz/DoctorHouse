@@ -50,7 +50,7 @@ export class AuthenticateService {
       id : localStorage.getItem('id'),
       name : localStorage.getItem('name'),
       surname : localStorage.getItem('surname'),
-      role : localStorage.getItem('role')
+      role : localStorage.getItem('role').toLowerCase()
     }
 
     return currentUser;
