@@ -17,8 +17,16 @@
       <div *ngIf="currentUser.id == specialistId" class="about">
         <h5 class="mb-2 text-primary">My appointments</h5>
         <p>
-          <a href="#">
+          <a href="my-appointments">
             <i class="fas fa-calendar-check"></i><br />See my appointments
+          </a>
+        </p>
+      </div>
+      <div *ngIf="currentUser.role == 'customer'" class="about">
+        <h5 class="mb-2 text-primary">Appointment</h5>
+        <p>
+          <a href="">
+            <i class="fas fa-calendar-check"></i><br />Make an appointment
           </a>
         </p>
       </div>
