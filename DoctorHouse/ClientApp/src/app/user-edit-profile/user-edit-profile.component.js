@@ -11,9 +11,11 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var phone_validators_1 = require("../common/validators/phone.validators");
 var UserEditProfileComponent = /** @class */ (function () {
-    function UserEditProfileComponent(customerService, toastyService) {
+    function UserEditProfileComponent(customerService, toastyService, route, router) {
         this.customerService = customerService;
         this.toastyService = toastyService;
+        this.route = route;
+        this.router = router;
         this.updateUser = new forms_1.FormGroup({
             firstName: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(3)]),
             lastName: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(3)]),
@@ -85,7 +87,7 @@ var UserEditProfileComponent = /** @class */ (function () {
                 phoneNumber: +this.phone.value,
             }
         };
-        this.customerService.updateCustomer(1, updatedCustomer).subscribe(function (customer) {
+        this.customerService.updateCustomer(this.customerId, updatedCustomer).subscribe(function (customer) {
             _this.toastyService.success({
                 title: 'Success',
                 msg: 'An account has been updated',
@@ -116,7 +118,10 @@ var UserEditProfileComponent = /** @class */ (function () {
     };
     UserEditProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.customerService.getCustomerById(1).subscribe(function (customer) {
+        this.route.params.subscribe(function (p) {
+            _this.customerId = +p['id'];
+        });
+        this.customerService.getCustomerById(this.customerId).subscribe(function (customer) {
             _this.customer = customer;
             _this.firstName.setValue(_this.customer.details.firstName);
             _this.lastName.setValue(_this.customer.details.lastName);

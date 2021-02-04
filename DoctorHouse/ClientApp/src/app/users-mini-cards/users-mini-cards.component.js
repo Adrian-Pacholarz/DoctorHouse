@@ -10,9 +10,11 @@ exports.UsersMiniCardsComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var UsersMiniCardsComponent = /** @class */ (function () {
-    function UsersMiniCardsComponent(specialistService, companiesService) {
+    function UsersMiniCardsComponent(specialistService, companiesService, route, router) {
         this.specialistService = specialistService;
         this.companiesService = companiesService;
+        this.route = route;
+        this.router = router;
         this.getCompanyForm = new forms_1.FormGroup({
             specialists: new forms_1.FormControl(),
             fullName: new forms_1.FormControl(),
@@ -52,7 +54,10 @@ var UsersMiniCardsComponent = /** @class */ (function () {
     };
     UsersMiniCardsComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.companiesService.getCompanyById(1).subscribe(function (company) {
+        this.route.params.subscribe(function (p) {
+            _this.companyId = +p['id'];
+        });
+        this.companiesService.getCompanyById(this.companyId).subscribe(function (company) {
             _this.company = company;
             _this.specialists.setValue(_this.company.specialists);
             _this.fullName.setValue(_this.company.specialists.fullName);

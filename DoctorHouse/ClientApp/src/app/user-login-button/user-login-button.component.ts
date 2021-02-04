@@ -20,8 +20,7 @@ export class UserLoginButtonComponent implements OnInit {
   }
 
 
-  constructor(private authService: AuthenticateService) {
-    console.log(this.currentUser);}
+  constructor(private authService: AuthenticateService) {}
 
   ngOnInit(): void {
   }

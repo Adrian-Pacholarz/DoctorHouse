@@ -47,7 +47,10 @@ var authenticate_service_1 = require("./services/authenticate.service");
 var auth_guard_service_1 = require("./services/auth-guard.service");
 var left_column_details_component_1 = require("./left-column-details/left-column-details.component");
 var left_column_specialist_component_1 = require("./left-column-specialist/left-column-specialist.component");
+var specialists_list_component_1 = require("./specialists-list/specialists-list.component");
 var safe_pipe_1 = require("./safe.pipe");
+var not_found_component_1 = require("./not-found/not-found.component");
+var core_2 = require("@angular/core");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -83,7 +86,9 @@ var AppModule = /** @class */ (function () {
                 get_customer_component_1.GetCustomerComponent,
                 left_column_specialist_component_1.LeftColumnSpecialistComponent,
                 left_column_details_component_1.LeftColumnDetailsComponent,
-                safe_pipe_1.SafePipe
+                specialists_list_component_1.SpecialistsListComponent,
+                safe_pipe_1.SafePipe,
+                not_found_component_1.NotFoundComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -98,11 +103,11 @@ var AppModule = /** @class */ (function () {
                     { path: 'counter', component: counter_component_1.CounterComponent },
                     { path: 'users/customers/:id', component: user_profile_component_1.UserProfileComponent },
                     { path: 'users/specialists/:id', component: user_specialist_profile_component_1.UserSpecialistProfileComponent },
+                    { path: 'specialists-list', component: specialists_list_component_1.SpecialistsListComponent },
                     { path: 'fetch-data', component: fetch_data_component_1.FetchDataComponent },
-                    { path: 'users/customers/id/0', component: user_edit_profile_component_1.UserEditProfileComponent },
-                    { path: 'users/specialists/id/0', component: user_specialist_edit_profile_component_1.UserSpecialistEditProfileComponent },
-                    { path: 'users/specialists', component: get_users_component_1.GetUsersComponent },
-                    { path: 'companies/:id', component: company_profile_component_1.CompanyProfileComponent }
+                    { path: 'companies/:id', component: company_profile_component_1.CompanyProfileComponent },
+                    { path: 'not-found', component: not_found_component_1.NotFoundComponent },
+                    { path: '**', redirectTo: 'not-found' }
                 ], { relativeLinkResolution: 'legacy' })
             ],
             providers: [
@@ -112,6 +117,9 @@ var AppModule = /** @class */ (function () {
                 create_specialist_service_1.CreateSpecialistService,
                 companies_service_1.CompaniesService,
                 safe_pipe_1.SafePipe
+            ],
+            schemas: [
+                core_2.CUSTOM_ELEMENTS_SCHEMA
             ],
             bootstrap: [app_component_1.AppComponent]
         })

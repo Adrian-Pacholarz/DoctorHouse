@@ -37,11 +37,15 @@ import { CompaniesService } from './services/companies.service';
 import { GetCustomerComponent } from './get-customer/get-customer.component';
 import { AuthenticateService } from './services/authenticate.service';
 import { AuthGuard } from './services/auth-guard.service';
-
 import { LeftColumnDetailsComponent } from './left-column-details/left-column-details.component';
 import { LeftColumnSpecialistComponent } from './left-column-specialist/left-column-specialist.component';
 import { CustomerService } from './services/customer.service';
+import { SpecialistsListComponent } from './specialists-list/specialists-list.component';
 import { SafePipe } from './safe.pipe';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 
 
@@ -76,7 +80,9 @@ import { SafePipe } from './safe.pipe';
     GetCustomerComponent,
     LeftColumnSpecialistComponent,
     LeftColumnDetailsComponent,
-    SafePipe
+    SpecialistsListComponent,
+    SafePipe,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -90,12 +96,12 @@ import { SafePipe } from './safe.pipe';
     { path: 'login', component: CarouselLoginComponent },
       { path: 'counter', component: CounterComponent },
       { path: 'users/customers/:id', component: UserProfileComponent },
-      { path: 'users/specialists/:id', component: UserSpecialistProfileComponent},
+      { path: 'users/specialists/:id', component: UserSpecialistProfileComponent },
+      { path: 'specialists-list', component: SpecialistsListComponent},
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'users/customers/id/0', component: UserEditProfileComponent },
-      { path: 'users/specialists/id/0', component: UserSpecialistEditProfileComponent },
-      { path: 'users/specialists', component: GetUsersComponent },
-      {path: 'companies/:id', component: CompanyProfileComponent}
+      { path: 'companies/:id', component: CompanyProfileComponent },
+      { path: 'not-found', component: NotFoundComponent },
+      { path: '**', redirectTo: 'not-found' }
 ], { relativeLinkResolution: 'legacy' })
   ],
   providers: [
@@ -105,6 +111,9 @@ import { SafePipe } from './safe.pipe';
     CreateSpecialistService,
     CompaniesService,
     SafePipe
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ],
   bootstrap: [AppComponent]
 })

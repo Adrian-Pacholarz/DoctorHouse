@@ -12,7 +12,6 @@ var UserLoginButtonComponent = /** @class */ (function () {
     function UserLoginButtonComponent(authService) {
         this.authService = authService;
         this.currentUser = this.authService.currentUser;
-        console.log(this.currentUser);
     }
     UserLoginButtonComponent.prototype.logout = function () {
         this.authService.logout();

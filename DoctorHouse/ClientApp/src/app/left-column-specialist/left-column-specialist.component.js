@@ -10,8 +10,10 @@ exports.LeftColumnSpecialistComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var LeftColumnSpecialistComponent = /** @class */ (function () {
-    function LeftColumnSpecialistComponent(specialistService) {
+    function LeftColumnSpecialistComponent(specialistService, route, router) {
         this.specialistService = specialistService;
+        this.route = route;
+        this.router = router;
         this.getUserForm = new forms_1.FormGroup({
             firstName: new forms_1.FormControl(),
             lastName: new forms_1.FormControl(),
@@ -41,7 +43,10 @@ var LeftColumnSpecialistComponent = /** @class */ (function () {
     });
     LeftColumnSpecialistComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.specialistService.getSpecialistById(3).subscribe(function (specialist) {
+        this.route.params.subscribe(function (p) {
+            _this.specialistId = +p['id'];
+        });
+        this.specialistService.getSpecialistById(this.specialistId).subscribe(function (specialist) {
             _this.specialist = specialist;
             _this.firstName.setValue(_this.specialist.details.firstName);
             _this.lastName.setValue(_this.specialist.details.lastName);
