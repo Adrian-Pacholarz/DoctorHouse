@@ -50,6 +50,7 @@ var left_column_specialist_component_1 = require("./left-column-specialist/left-
 var specialists_list_component_1 = require("./specialists-list/specialists-list.component");
 var safe_pipe_1 = require("./safe.pipe");
 var not_found_component_1 = require("./not-found/not-found.component");
+var my_appointments_component_1 = require("./my-appointments/my-appointments.component");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -87,7 +88,8 @@ var AppModule = /** @class */ (function () {
                 left_column_details_component_1.LeftColumnDetailsComponent,
                 specialists_list_component_1.SpecialistsListComponent,
                 safe_pipe_1.SafePipe,
-                not_found_component_1.NotFoundComponent
+                not_found_component_1.NotFoundComponent,
+                my_appointments_component_1.MyAppointmentsComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -105,6 +107,7 @@ var AppModule = /** @class */ (function () {
                     { path: 'specialists-list', component: specialists_list_component_1.SpecialistsListComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'fetch-data', component: fetch_data_component_1.FetchDataComponent },
                     { path: 'companies/:id', component: company_profile_component_1.CompanyProfileComponent, canActivate: [auth_guard_service_1.AuthGuard] },
+                    { path: 'my-appointments', component: my_appointments_component_1.MyAppointmentsComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'not-found', component: not_found_component_1.NotFoundComponent },
                     { path: '**', redirectTo: 'not-found' }
                 ], { relativeLinkResolution: 'legacy' })

@@ -43,6 +43,7 @@ import { CustomerService } from './services/customer.service';
 import { SpecialistsListComponent } from './specialists-list/specialists-list.component';
 import { SafePipe } from './safe.pipe';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { MyAppointmentsComponent } from './my-appointments/my-appointments.component';
 
 
 
@@ -79,7 +80,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     LeftColumnDetailsComponent,
     SpecialistsListComponent,
     SafePipe,
-    NotFoundComponent
+    NotFoundComponent,
+    MyAppointmentsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -97,6 +99,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
       { path: 'specialists-list', component: SpecialistsListComponent, canActivate: [AuthGuard]},
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'companies/:id', component: CompanyProfileComponent, canActivate: [AuthGuard] },
+      { path: 'my-appointments', component: MyAppointmentsComponent, canActivate: [AuthGuard] },
       { path: 'not-found', component: NotFoundComponent },
       { path: '**', redirectTo: 'not-found' }
 ], { relativeLinkResolution: 'legacy' })

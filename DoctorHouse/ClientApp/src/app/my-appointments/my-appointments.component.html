@@ -1,0 +1,81 @@
+
+    <div *ngFor="let a of appointments" id="appointmentCard" class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12" >
+      <div class="card h-100">
+
+        <form [formGroup]="getAppointmentForm">
+          <div class="card-body">
+
+            <div class="row gutters">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <h6 class="mb-3 text-primary">Appointment Details</h6>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <label class="labels">Customer name</label>
+                <div class="form-group">
+                  <input type="text" class="form-control" readonly="readonly" value="{{a.customer.fullName}}">
+                </div><br />
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <label class="labels">Customer phone no.</label>
+                <div class="form-group">
+                  <input type="text" class="form-control" readonly="readonly" value="{{a.customer.phoneNumber}}">
+                </div><br />
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <label class="labels">Specialist name</label>
+                <div class="form-group">
+                  <input type="text" class="form-control" readonly="readonly" value="{{a.specialist.fullName}}">
+                </div><br />
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <label class="labels">Specialist phone no.</label>
+                <div class="form-group">
+                  <input type="text" class="form-control" readonly="readonly" value="{{a.specialist.phoneNumber}}">
+                </div><br />
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <label class="labels">Company name</label>
+                <div class="form-group">
+                  <input type="text" class="form-control" readonly="readonly" value="{{a.company.fullName}}">
+                </div><br />
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <label class="labels">Company phone no.</label>
+                <div class="form-group">
+                  <input type="text" class="form-control" readonly="readonly" value="{{a.company.phoneNumber}}">
+                </div><br />
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <label class="labels">Appointment date</label>
+                <div class="form-group">
+                  <input type="text" class="form-control" readonly="readonly" value="{{a.appointmentDate}}">
+                </div><br />
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <label class="labels">Status</label>
+                <div class="form-group">
+                  <input type="text" class="form-control" readonly="readonly" value="{{a.status}}">
+                </div><br />
+              </div>
+            </div>
+            <br />
+
+            <div class="row gutters">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <h6 class="mb-3 text-primary">Description</h6>
+                <div class="form-group">
+                  <textarea class="form-control" readonly="readonly">{{a.description}}</textarea>
+                </div>
+              </div>
+
+            </div>
+            <br />
+            <br />
+            <br />
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+
