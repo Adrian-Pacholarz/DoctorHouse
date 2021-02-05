@@ -51,6 +51,7 @@ var specialists_list_component_1 = require("./specialists-list/specialists-list.
 var safe_pipe_1 = require("./safe.pipe");
 var not_found_component_1 = require("./not-found/not-found.component");
 var my_appointments_component_1 = require("./my-appointments/my-appointments.component");
+var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -110,7 +111,8 @@ var AppModule = /** @class */ (function () {
                     { path: 'my-appointments', component: my_appointments_component_1.MyAppointmentsComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'not-found', component: not_found_component_1.NotFoundComponent },
                     { path: '**', redirectTo: 'not-found' }
-                ], { relativeLinkResolution: 'legacy' })
+                ], { relativeLinkResolution: 'legacy' }),
+                ng_bootstrap_1.NgbModule
             ],
             providers: [
                 authenticate_service_1.AuthenticateService,

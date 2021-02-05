@@ -1,4 +1,6 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+
+
 <form [formGroup]="getCompanyForm">
   <div class="container">
     <div class="row">
@@ -41,19 +43,13 @@
             </div><br /><br />
 
 
-                <h4><strong>Rating</strong></h4><br />
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <div class="form-group">
-                  <input formControlName="rating" type="text" class="form-control" readonly="readonly" id="details">
-                </div><br />
+            <h4><strong>Rating</strong></h4>
+            <ngb-rating [(rate)]="rating.value"></ngb-rating><br />
+            <pre>Current rating: <b>{{rating.value}}</b></pre><br />
 
           </div>
-          </div>
-          </div>
+        </div>
+      </div>
       <div class="col-lg-7">
         <div class="card">
           <div class="card-body info-card social-about">
@@ -64,7 +60,7 @@
           </div>
         </div>
         <div>
-          <input type="button" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"  value="Make an appointment" />
+          <input type="button" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" value="Make an appointment" />
         </div>
 
 

@@ -10,11 +10,12 @@ exports.CompanyProfileComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var CompanyProfileComponent = /** @class */ (function () {
-    function CompanyProfileComponent(companiesService, sanitizer, route, router) {
+    function CompanyProfileComponent(companiesService, sanitizer, route, router, starRating) {
         this.companiesService = companiesService;
         this.sanitizer = sanitizer;
         this.route = route;
         this.router = router;
+        this.starRating = starRating;
         this.getCompanyForm = new forms_1.FormGroup({
             companyName: new forms_1.FormControl(),
             address: new forms_1.FormControl(),
@@ -22,6 +23,7 @@ var CompanyProfileComponent = /** @class */ (function () {
             rating: new forms_1.FormControl(),
             description: new forms_1.FormControl()
         });
+        starRating.max = 5;
     }
     Object.defineProperty(CompanyProfileComponent.prototype, "companyName", {
         get: function () {

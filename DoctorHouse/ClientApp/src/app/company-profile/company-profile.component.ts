@@ -4,6 +4,12 @@ import { CompaniesService } from '../services/companies.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { SafePipe } from '../safe.pipe';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbRatingConfig, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
+
+
+
 
 @Component({
   selector: 'app-company-profile',
@@ -62,7 +68,11 @@ export class CompanyProfileComponent implements OnInit {
     private companiesService: CompaniesService,
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private starRating: NgbRatingConfig) {
+
+    starRating.max = 5;
+
   }
 
   ngOnInit(): void {

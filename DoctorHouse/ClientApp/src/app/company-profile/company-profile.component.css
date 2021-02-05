@@ -8,8 +8,19 @@ info-card, i {
   font-size: 1.4rem;
 }
 
+ngb-rating.d-inline-flex {
+  color: #97d3e1;
+  font-size: 1.8rem;
+}
+
 app-users-mini-cards {
   padding: 75px;
+}
+
+pre {
+  color: #6b97a4 !important;
+  font-size: 1.1rem;
+  font-family: inherit;
 }
 
 /*social */
@@ -422,3 +433,5 @@ a {
     background-color: #f8f9fa;
     color: #11234A;
   }
+
+

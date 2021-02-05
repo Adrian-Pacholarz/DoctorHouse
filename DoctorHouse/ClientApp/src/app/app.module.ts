@@ -44,6 +44,7 @@ import { SpecialistsListComponent } from './specialists-list/specialists-list.co
 import { SafePipe } from './safe.pipe';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { MyAppointmentsComponent } from './my-appointments/my-appointments.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -102,7 +103,8 @@ import { MyAppointmentsComponent } from './my-appointments/my-appointments.compo
       { path: 'my-appointments', component: MyAppointmentsComponent, canActivate: [AuthGuard] },
       { path: 'not-found', component: NotFoundComponent },
       { path: '**', redirectTo: 'not-found' }
-], { relativeLinkResolution: 'legacy' })
+], { relativeLinkResolution: 'legacy' }),
+    NgbModule
   ],
   providers: [
     AuthenticateService,
