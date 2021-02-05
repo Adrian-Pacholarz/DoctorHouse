@@ -33,8 +33,19 @@ pre {
 
 div.img {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
 }
+
+input.btn.btn-outline-info.btn-rounded.btn-block.my-4.waves-effect.z-depth-0 {
+  background-color: #11234A;
+}
+
+  input.btn.btn-outline-info.btn-rounded.btn-block.my-4.waves-effect.z-depth-0:hover, input.btn.btn-outline-info.btn-rounded.btn-block.my-4.waves-effect.z-depth-0:active {
+    color: #11234A;
+    background-color: #70FFFC;
+  }
+
+
+
 
 .card {
   margin-bottom: 35px;
