@@ -45,6 +45,7 @@ import { SafePipe } from './safe.pipe';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { MyAppointmentsComponent } from './my-appointments/my-appointments.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AppointmentReadComponent } from './appointment-read/appointment-read.component';
 
 
 
@@ -82,7 +83,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SpecialistsListComponent,
     SafePipe,
     NotFoundComponent,
-    MyAppointmentsComponent
+    MyAppointmentsComponent,
+    AppointmentReadComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -101,6 +103,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'companies/:id', component: CompanyProfileComponent, canActivate: [AuthGuard] },
       { path: 'my-appointments', component: MyAppointmentsComponent, canActivate: [AuthGuard] },
+      { path: 'appointments/:id', component: AppointmentReadComponent},
       { path: 'not-found', component: NotFoundComponent },
       { path: '**', redirectTo: 'not-found' }
 ], { relativeLinkResolution: 'legacy' }),

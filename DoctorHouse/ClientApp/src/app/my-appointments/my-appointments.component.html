@@ -9,13 +9,50 @@
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <h6 class="mb-3 text-primary">Appointment Details</h6>
               </div>
+
+
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <label class="labels">Status</label>
+                <div *ngIf="a.status === 'assigned'">
+                  <div class="progress" style="height: 35px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="25" aria-valuemin="25" aria-valuemax="100" style="width: 25%">
+                      <p id="status">{{a.status}}</p>
+                    </div>
+                    </div>
+                  </div>
+                <div *ngIf="a.status === 'work in progress'">
+                  <div class="progress" style="height: 35px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="25" aria-valuemax="100" style="width: 50%">
+                      <p id="status">{{a.status}}</p>
+                    </div>
+                    </div>
+                  </div>
+                <div *ngIf="a.status === 'pending'">
+                  <div class="progress" style="height: 35px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="25" aria-valuemax="100" style="width: 75%">
+                      <p id="status">{{a.status}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="a.status === 'resolved'">
+                  <div class="progress" style="height: 35px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="25" aria-valuemax="100" style="width: 100%">
+                      <p id="status">{{a.status}}</p>
+                    </div>
+                  </div>
+                </div>
+                </div>
+
+
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <br />  <br />
                 <label class="labels">Customer name</label>
                 <div class="form-group">
                   <input type="text" class="form-control" readonly="readonly" value="{{a.customer.fullName}}">
                 </div><br />
               </div>
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <br />  <br />
                 <label class="labels">Customer phone no.</label>
                 <div class="form-group">
                   <input type="text" class="form-control" readonly="readonly" value="{{a.customer.phoneNumber}}">
@@ -52,11 +89,12 @@
                 </div><br />
               </div>
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <label class="labels">Status</label>
+                <label class="labels">Appointment ID</label>
                 <div class="form-group">
-                  <input type="text" class="form-control" readonly="readonly" value="{{a.status}}">
+                  <input type="text" class="form-control" readonly="readonly" value="{{a.id}}">
                 </div><br />
               </div>
+
             </div>
             <br />
 
