@@ -37,11 +37,14 @@ div.img {
 
 input.btn.btn-outline-info.btn-rounded.btn-block.my-4.waves-effect.z-depth-0 {
   background-color: #11234A;
+  color: #97d3e1;
+  border-color: #97d3e1;
 }
 
   input.btn.btn-outline-info.btn-rounded.btn-block.my-4.waves-effect.z-depth-0:hover, input.btn.btn-outline-info.btn-rounded.btn-block.my-4.waves-effect.z-depth-0:active {
     color: #11234A;
-    background-color: #70FFFC;
+    background-color: #97d3e1;
+    border-color: #11234A;
   }
 
 
