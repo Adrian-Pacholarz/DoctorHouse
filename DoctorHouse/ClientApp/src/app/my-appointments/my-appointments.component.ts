@@ -26,11 +26,16 @@ export class MyAppointmentsComponent implements OnInit {
     companyPhoneNumber: new FormControl(),
     appointmentDate: new FormControl(),
     status: new FormControl(),
-    description: new FormControl()
+    description: new FormControl(),
+    customerAddress: new FormControl()
   });
 
   get customerFullName() {
     return this.getAppointmentForm.get('customerFullName')
+  }
+
+  get customerAddress() {
+    return this.getAppointmentForm.get('customerAddress')
   }
 
   get customerPhoneNumber() {
@@ -65,7 +70,21 @@ export class MyAppointmentsComponent implements OnInit {
     return this.getAppointmentForm.get('description')
   }
 
+  formatAddress(): SafeResourceUrl {
+    let addressDb = this.getAppointmentForm.get('customerAddress').value.toLowerCase();
+    let street = 'ul.';
+    let settlement = 'os.';
+    console.log(addressDb);
 
+    if (addressDb.includes(street) || addressDb.includes(settlement)) {
+      addressDb = addressDb.slice(3);
+    }
+
+    addressDb = addressDb.trim(' ');
+    addressDb = addressDb.replace(/\s/g, '+');
+    let map = 'https://www.google.com/maps/embed/v1/place?key=AIzaSyBlYuKgi1m3lnyfIHv2qkWf_MzpBBc2mr8&q=' + addressDb;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(map);
+  }
 
   constructor(
     private customerService: CustomerService,
@@ -83,11 +102,13 @@ export class MyAppointmentsComponent implements OnInit {
     this.customerService.getCustomerById(this.currentUser.id).subscribe(customer => {
       this.customer = customer
       this.appointments = this.customer.appointments
+      this.customerAddress.setValue(this.customer.address)
+
 
     }, err => {
       if (err.status == 404)
         this.router.navigate(['/not-found'])
     })
-  }
+    console.log(this.customerAddress)  }
 
 }

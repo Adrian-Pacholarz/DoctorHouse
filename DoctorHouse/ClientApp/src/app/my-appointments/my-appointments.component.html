@@ -18,15 +18,15 @@
                     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="25" aria-valuemin="25" aria-valuemax="100" style="width: 25%">
                       <p id="status">{{a.status}}</p>
                     </div>
-                    </div>
                   </div>
+                </div>
                 <div *ngIf="a.status === 'work in progress'">
                   <div class="progress" style="height: 35px;">
                     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="25" aria-valuemax="100" style="width: 50%">
                       <p id="status">{{a.status}}</p>
                     </div>
-                    </div>
                   </div>
+                </div>
                 <div *ngIf="a.status === 'pending'">
                   <div class="progress" style="height: 35px;">
                     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="25" aria-valuemax="100" style="width: 75%">
@@ -41,7 +41,7 @@
                     </div>
                   </div>
                 </div>
-                </div>
+              </div>
 
 
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -105,13 +105,28 @@
                   <textarea class="form-control" readonly="readonly">{{a.description}}</textarea>
                 </div>
               </div>
+            </div><br />
+            <br />
+            <br /><br />
+                  <div class="row gutters">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                      <h6 class="mb-3 text-primary">Customer address</h6>
+                      <input type="text" class="form-control" readonly="readonly" value={{customerAddress.value}}><br />
+                      <div class="map-box">
+                        <iframe [src]="formatAddress()" width="100%" height="250" frameborder="0" style="border:0" allowfullscreen=""></iframe>
+                      </div><br />
+                    </div><br /><br />
+                    <br />
+                    <br />
 
-            </div>
-            <br />
-            <br />
-            <br />
+                    <input type="button" class="btn-check" id="btn-check" autocomplete="off" hidden value=false><br />
+                    <label class="btn btn-primary" for="btn-check">Edit</label>
+
+                  </div>
+
           </div>
 
+          <br />
         </form>
 
       </div>

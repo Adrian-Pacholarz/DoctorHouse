@@ -27,12 +27,20 @@ var MyAppointmentsComponent = /** @class */ (function () {
             companyPhoneNumber: new forms_1.FormControl(),
             appointmentDate: new forms_1.FormControl(),
             status: new forms_1.FormControl(),
-            description: new forms_1.FormControl()
+            description: new forms_1.FormControl(),
+            customerAddress: new forms_1.FormControl()
         });
     }
     Object.defineProperty(MyAppointmentsComponent.prototype, "customerFullName", {
         get: function () {
             return this.getAppointmentForm.get('customerFullName');
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(MyAppointmentsComponent.prototype, "customerAddress", {
+        get: function () {
+            return this.getAppointmentForm.get('customerAddress');
         },
         enumerable: false,
         configurable: true
@@ -93,15 +101,30 @@ var MyAppointmentsComponent = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    MyAppointmentsComponent.prototype.formatAddress = function () {
+        var addressDb = this.getAppointmentForm.get('customerAddress').value.toLowerCase();
+        var street = 'ul.';
+        var settlement = 'os.';
+        console.log(addressDb);
+        if (addressDb.includes(street) || addressDb.includes(settlement)) {
+            addressDb = addressDb.slice(3);
+        }
+        addressDb = addressDb.trim(' ');
+        addressDb = addressDb.replace(/\s/g, '+');
+        var map = 'https://www.google.com/maps/embed/v1/place?key=AIzaSyBlYuKgi1m3lnyfIHv2qkWf_MzpBBc2mr8&q=' + addressDb;
+        return this.sanitizer.bypassSecurityTrustResourceUrl(map);
+    };
     MyAppointmentsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.customerService.getCustomerById(this.currentUser.id).subscribe(function (customer) {
             _this.customer = customer;
             _this.appointments = _this.customer.appointments;
+            _this.customerAddress.setValue(_this.customer.address);
         }, function (err) {
             if (err.status == 404)
                 _this.router.navigate(['/not-found']);
         });
+        console.log(this.customerAddress);
     };
     MyAppointmentsComponent = __decorate([
         core_1.Component({
