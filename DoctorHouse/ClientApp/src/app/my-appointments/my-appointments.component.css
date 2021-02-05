@@ -156,3 +156,40 @@ label.btn.btn-primary {
     font-weight: bold;
     background-color: #70FFFC;
   }
+
+#signup-text {
+  text-align: center;
+  margin-bottom: 0;
+  color: #97d3e1 !important;
+  font-size: 1.2rem;
+}
+
+#drawer-signup {
+  display: flex;
+  justify-content: center;
+}
+
+.user-type {
+  display: flex;
+  justify-content: center;
+  justify-content: space-evenly;
+}
+
+.navbar-toggle {
+  content: '^';
+  opacity: 0.6;
+  border-color: transparent;
+  background-color: transparent;
+  outline: 0;
+  transform: rotate(180deg);
+}
+
+  .navbar-toggle:hover {
+    opacity: 1;
+  }
+
+  .navbar-toggle::after {
+    content: '^';
+    font-size: 25px;
+    color: #70FFFC;
+  }

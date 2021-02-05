@@ -70,47 +70,52 @@
                   <input type="text" class="form-control" readonly="readonly" value="{{a.specialist.phoneNumber}}">
                 </div><br />
               </div>
-
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <label class="labels">Customer name</label>
-                <div class="form-group">
-                  <input type="text" class="form-control" readonly="readonly" value="{{a.customer.fullName}}">
-                </div><br />
-              </div>
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <label class="labels">Customer phone no.</label>
-                <div class="form-group">
-                  <input type="text" class="form-control" readonly="readonly" value="{{a.customer.phoneNumber}}">
-                </div><br />
-              </div>
-
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <label class="labels">Company name</label>
-                <div class="form-group">
-                  <input type="text" class="form-control" readonly="readonly" value="{{a.company.fullName}}">
-                </div><br />
-              </div>
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <label class="labels">Company phone no.</label>
-                <div class="form-group">
-                  <input type="text" class="form-control" readonly="readonly" value="{{a.company.phoneNumber}}">
-                </div><br />
-              </div>
-
-
             </div>
-            <br />
-
-            <div class="row gutters">
-              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                <h6 class="mb-3 text-primary">Description</h6>
-                <div class="form-group">
-                  <textarea class="form-control" readonly="readonly">{{a.description}}</textarea>
-                </div>
-              </div>
-            </div><br />
-            <br />
             <br /><br />
+            <p id="signup-text">More details</p><br />
+            <div class="navbar navbar-inverse navbar-fixed-top">
+              <div id="drawer-signup" class="container">
+                <div class="collapse navbar-collapse navHeaderCollapse">
+
+                  <div class="row gutters">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                      <label class="labels">Customer name</label>
+                      <div class="form-group">
+                        <input type="text" class="form-control" readonly="readonly" value="{{a.customer.fullName}}">
+                      </div><br />
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                      <label class="labels">Customer phone no.</label>
+                      <div class="form-group">
+                        <input type="text" class="form-control" readonly="readonly" value="{{a.customer.phoneNumber}}">
+                      </div><br />
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                      <label class="labels">Company name</label>
+                      <div class="form-group">
+                        <input type="text" class="form-control" readonly="readonly" value="{{a.company.fullName}}">
+                      </div><br />
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                      <label class="labels">Company phone no.</label>
+                      <div class="form-group">
+                        <input type="text" class="form-control" readonly="readonly" value="{{a.company.phoneNumber}}">
+                      </div><br />
+                    </div>
+                  </div><br />
+
+
+                  <div class="row gutters">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                      <h6 class="mb-3 text-primary">Description</h6>
+                      <div class="form-group">
+                        <textarea class="form-control" readonly="readonly">{{a.description}}</textarea>
+                      </div>
+                    </div>
+                  </div><br />
+                  <br />
+                  <br /><br />
                   <div class="row gutters">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                       <h6 class="mb-3 text-primary">Customer address</h6>
@@ -126,11 +131,14 @@
                     <label class="btn btn-primary" for="btn-check">Edit</label>
 
                   </div>
-
+                </div>
+                <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse"></button>
+              </div>
+            </div>
           </div>
 
-          <br />
-        </form>
+                <br />
+</form>
 
       </div>
     </div>
