@@ -183,6 +183,7 @@ label.btn.btn-primary {
   background-color: transparent;
   outline: 0;
   transform: rotate(180deg);
+  padding: 0;
 }
 
   .navbar-toggle:hover {
@@ -195,3 +196,12 @@ label.btn.btn-primary {
     color: #70FFFC;
   }
 
+
+.navbar {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+   padding: 0 !important;
+}
