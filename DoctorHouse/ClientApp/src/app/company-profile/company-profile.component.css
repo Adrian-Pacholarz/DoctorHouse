@@ -39,12 +39,17 @@ input.btn.btn-outline-info.btn-rounded.btn-block.my-4.waves-effect.z-depth-0 {
   background-color: #11234A;
   color: #97d3e1;
   border-color: #97d3e1;
+  font-size: 1.4rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
   input.btn.btn-outline-info.btn-rounded.btn-block.my-4.waves-effect.z-depth-0:hover, input.btn.btn-outline-info.btn-rounded.btn-block.my-4.waves-effect.z-depth-0:active {
     color: #11234A;
     background-color: #97d3e1;
     border-color: #11234A;
+    font-size: 1.4rem;
+    font-weight: 800;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
 
 
