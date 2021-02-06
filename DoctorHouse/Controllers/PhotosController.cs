@@ -20,16 +20,26 @@ namespace DoctorHouse.Controllers
         private readonly string[] ACCEPTED_FILE_TYPES = new[] {".jpg", ".jpeg", ".png" };
         private readonly IWebHostEnvironment host;
         private readonly IUserRepository repository;
+        private readonly IPhotoRepository photoRepository;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
 
-        public PhotosController(IWebHostEnvironment host, IUserRepository repository, IUnitOfWork unitOfWork, IMapper mapper)
+        public PhotosController(IWebHostEnvironment host, IUserRepository repository, IPhotoRepository photoRepository, IUnitOfWork unitOfWork, IMapper mapper)
         {
             this.host = host;
             this.repository = repository;
+            this.photoRepository = photoRepository;
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
+        [HttpGet]
+        public async Task<IEnumerable<PhotoResource>> GetPhotos(int userId)
+        {
+            var photos = await photoRepository.GetPhotos(userId);
+
+            return mapper.Map<IEnumerable<Photo>, IEnumerable<PhotoResource>>(photos);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Upload(int userId, IFormFile file)
         {

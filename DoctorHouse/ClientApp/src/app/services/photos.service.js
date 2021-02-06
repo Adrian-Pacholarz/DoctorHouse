@@ -12,6 +12,9 @@ var PhotosService = /** @class */ (function () {
     function PhotosService(http) {
         this.http = http;
     }
+    PhotosService.prototype.getPhotos = function (userId) {
+        return this.http.get("/api/users/" + userId + "/photos");
+    };
     PhotosService.prototype.upload = function (userId, photo) {
         var formData = new FormData();
         formData.append('file', photo);

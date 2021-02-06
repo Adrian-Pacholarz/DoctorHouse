@@ -11,6 +11,7 @@ import { PhotosService } from '../services/photos.service';
 export class MyPhotosComponent implements OnInit {
   @ViewChild('fileInput') fileInput: ElementRef;
   userId = this.authService.currentUser.id;
+  photos;
 
   constructor(
     private route: ActivatedRoute,
@@ -19,12 +20,16 @@ export class MyPhotosComponent implements OnInit {
     private photosService: PhotosService) { }
 
   ngOnInit(): void {
+    this.photosService.getPhotos(this.userId)
+      .subscribe(photos => this.photos = photos);
   }
 
   uploadPhoto() {
     var nativeElement: HTMLInputElement = this.fileInput.nativeElement
 
     this.photosService.upload(this.userId, nativeElement.files[0])
-      .subscribe(x => console.log(x));
+      .subscribe(photo => {
+        this.photos.push(photo);
+      });
   }
 }

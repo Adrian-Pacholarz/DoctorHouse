@@ -3,14 +3,7 @@
   <div class="card h-100">
 
       <div class="card-body">
-
-        <div class="row gutters">
-          
-          <div>
-
-          </div>
-
-        </div>
+        <img *ngFor="let photo of photos" src="/uploads/{{photo.fileName}}" class="img-thumbnail"/>
         <input type="file" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" (change)="uploadPhoto()" #fileInput>
       </div>
 

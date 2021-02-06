@@ -17,11 +17,17 @@ var MyPhotosComponent = /** @class */ (function () {
         this.userId = this.authService.currentUser.id;
     }
     MyPhotosComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.photosService.getPhotos(this.userId)
+            .subscribe(function (photos) { return _this.photos = photos; });
     };
     MyPhotosComponent.prototype.uploadPhoto = function () {
+        var _this = this;
         var nativeElement = this.fileInput.nativeElement;
         this.photosService.upload(this.userId, nativeElement.files[0])
-            .subscribe(function (x) { return console.log(x); });
+            .subscribe(function (photo) {
+            _this.photos.push(photo);
+        });
     };
     __decorate([
         core_1.ViewChild('fileInput')
