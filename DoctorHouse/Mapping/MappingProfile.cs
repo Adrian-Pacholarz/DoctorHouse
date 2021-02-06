@@ -17,6 +17,7 @@ namespace DoctorHouse.Mapping
             //DOMAIN TO API RESOURCES
             CreateMap<UserDetails, UserDetailsResource>();
             CreateMap<UserDetails, SaveUserDetailsResource>();
+            CreateMap<Photo, PhotoResource>();
 
             //Customer
             CreateMap<Customer, SaveCustomerResource>()
