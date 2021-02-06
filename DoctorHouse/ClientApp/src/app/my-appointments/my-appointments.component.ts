@@ -16,6 +16,7 @@ export class MyAppointmentsComponent implements OnInit {
   currentUser = this.authService.currentUser;
   customer;
   appointments;
+  isOpen: boolean = false;
 
   getAppointmentForm = new FormGroup({
     customerFullName: new FormControl(),
@@ -69,6 +70,7 @@ export class MyAppointmentsComponent implements OnInit {
   get description() {
     return this.getAppointmentForm.get('description')
   }
+
 
   formatAddress(): SafeResourceUrl {
     let addressDb = this.getAppointmentForm.get('customerAddress').value.toLowerCase();

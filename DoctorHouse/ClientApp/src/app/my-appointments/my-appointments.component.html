@@ -1,5 +1,5 @@
 
-    <div *ngFor="let a of appointments" id="appointmentCard" class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12" >
+    <div *ngFor="let a of appointments, let i = index;" id="appointmentCard" class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
       <div class="card h-100">
 
         <form [formGroup]="getAppointmentForm">
@@ -73,11 +73,15 @@
             </div>
 
           </div>
-          <p id="signup-text">More details</p><br />
-          <div class="navbar navbar-inverse navbar-fixed-top">
-            <div id="drawer-signup" class="container">
-              <div class="collapse navbar-collapse navHeaderCollapse">
+          <div class="panel-group" [attr.id]="'accordion_' + i">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <a data-toggle="collapse" [attr.data-parent]="'#accordion_' + i" [attr.href]="'#collapseOne_' + i">
+                  <p id="signup-text">More details</p><br />
+                </a>
+              </div>
 
+              <div [attr.id]="'collapseOne_' + i" class="panel-collapse collapse in">
                 <div class="row gutters">
                   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <label class="labels">Customer name</label>
@@ -131,12 +135,12 @@
                   <input type="button" class="btn-check" id="btn-check" autocomplete="off" hidden value=false><br />
                   <label class="btn btn-primary" for="btn-check">Edit</label>
 
+
                 </div>
               </div>
-              <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse"></button>
+              <br />
             </div>
           </div>
-          <br />
         </form>
 
       </div>

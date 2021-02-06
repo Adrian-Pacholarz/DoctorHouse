@@ -18,6 +18,7 @@ var MyAppointmentsComponent = /** @class */ (function () {
         this.authService = authService;
         this.toastyService = toastyService;
         this.currentUser = this.authService.currentUser;
+        this.isOpen = false;
         this.getAppointmentForm = new forms_1.FormGroup({
             customerFullName: new forms_1.FormControl(),
             customerPhoneNumber: new forms_1.FormControl(),
