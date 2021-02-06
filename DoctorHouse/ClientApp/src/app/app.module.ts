@@ -45,6 +45,8 @@ import { SafePipe } from './safe.pipe';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { MyAppointmentsComponent } from './my-appointments/my-appointments.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MyPhotosComponent } from './my-photos/my-photos.component';
+import { PhotosService } from './services/photos.service';
 
 
 
@@ -82,7 +84,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SpecialistsListComponent,
     SafePipe,
     NotFoundComponent,
-    MyAppointmentsComponent
+    MyAppointmentsComponent,
+    MyPhotosComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -101,6 +104,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'companies/:id', component: CompanyProfileComponent, canActivate: [AuthGuard] },
       { path: 'my-appointments', component: MyAppointmentsComponent, canActivate: [AuthGuard] },
+      { path: 'my-photos', component: MyPhotosComponent, canActivate: [AuthGuard]},
       { path: 'not-found', component: NotFoundComponent },
       { path: '**', redirectTo: 'not-found' }
 ], { relativeLinkResolution: 'legacy' }),
@@ -112,6 +116,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CreateCustomerService,
     CreateSpecialistService,
     CompaniesService,
+    PhotosService,
     SafePipe
   ],
   bootstrap: [AppComponent]
