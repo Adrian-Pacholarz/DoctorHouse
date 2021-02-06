@@ -197,11 +197,6 @@ label.btn.btn-primary {
   }
 
 
-.navbar {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-   padding: 0 !important;
-}
+  div.panel.panel-default {
+      padding: 20px;
+  }
