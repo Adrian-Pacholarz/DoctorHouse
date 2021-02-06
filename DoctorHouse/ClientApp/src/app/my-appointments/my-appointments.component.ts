@@ -5,6 +5,7 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticateService } from '../services/authenticate.service';
 import { ToastyService } from 'ng2-toasty';
+import { SpecialistService } from '../services/specialist.service';
 
 @Component({
   selector: 'app-my-appointments',
@@ -16,7 +17,9 @@ export class MyAppointmentsComponent implements OnInit {
   currentUser = this.authService.currentUser;
   customer;
   appointments;
-  isOpen: boolean = false;
+  specialist;
+  allCustomers;
+
 
   getAppointmentForm = new FormGroup({
     customerFullName: new FormControl(),
@@ -28,12 +31,23 @@ export class MyAppointmentsComponent implements OnInit {
     appointmentDate: new FormControl(),
     status: new FormControl(),
     description: new FormControl(),
-    customerAddress: new FormControl()
+    customerAddress: new FormControl(),
+    customers: new FormControl(),
+    specialistAppointments: new FormControl()
   });
 
   get customerFullName() {
     return this.getAppointmentForm.get('customerFullName')
   }
+
+  get specialistAppointments() {
+    return this.getAppointmentForm.get('specialistAppointments')
+  }
+
+  get customers() {
+    return this.getAppointmentForm.get('customers')
+  }
+
 
   get customerAddress() {
     return this.getAppointmentForm.get('customerAddress')
@@ -71,9 +85,15 @@ export class MyAppointmentsComponent implements OnInit {
     return this.getAppointmentForm.get('description')
   }
 
+  selectCustomer(customerId, customerDb) {
+    if (+customerDb === +customerId) {
+        return true;
+      }
+  }
 
-  formatAddress(): SafeResourceUrl {
-    let addressDb = this.getAppointmentForm.get('customerAddress').value.toLowerCase();
+
+  formatAddress(addressDb): SafeResourceUrl {
+    addressDb = addressDb.toString().toLowerCase();
     let street = 'ul.';
     let settlement = 'os.';
     console.log(addressDb);
@@ -94,7 +114,8 @@ export class MyAppointmentsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthenticateService,
-    private toastyService: ToastyService) {
+    private toastyService: ToastyService,
+    private specialistService: SpecialistService) {
   }
 
 
@@ -103,14 +124,28 @@ export class MyAppointmentsComponent implements OnInit {
 
     this.customerService.getCustomerById(this.currentUser.id).subscribe(customer => {
       this.customer = customer
-      this.appointments = this.customer.appointments
-      this.customerAddress.setValue(this.customer.address)
+      this.appointments = this.customer.appointments;
+      this.customerAddress.setValue(this.customer.address);
 
 
     }, err => {
       if (err.status == 404)
         this.router.navigate(['/not-found'])
     })
-    console.log(this.customerAddress)  }
+
+    this.customerService.getCustomers().subscribe(allCustomers => {
+      this.allCustomers = allCustomers;
+      //this.customers.setValue(this.allCustomers);
+    })
+
+    this.specialistService.getSpecialistById(4).subscribe(specialist => {
+      this.specialist = specialist;
+      this.specialistAppointments.setValue(this.specialist.appointments);
+      console.log(this.specialistAppointments.value)
+    })
+
+
+
+  }
 
 }

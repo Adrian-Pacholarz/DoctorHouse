@@ -121,23 +121,31 @@
                 </div><br />
                 <br />
                 <br /><br />
-                <div class="row gutters">
-                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <h6 class="mb-3 text-primary">Customer address</h6>
-                    <input type="text" class="form-control" readonly="readonly" value={{customerAddress.value}}><br />
-                    <div class="map-box">
-                      <iframe [src]="formatAddress()" width="100%" height="250" frameborder="0" style="border:0" allowfullscreen=""></iframe>
-                    </div><br />
-                  </div><br /><br />
-                  <br />
-                  <br />
+                      <div class="row gutters">
+                        <ng-container *ngFor="let customerDb of allCustomers">
+                          <ng-container *ngIf="selectCustomer(a.customer.id, customerDb.id)">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                              <h6 class="mb-3 text-primary">Customer address</h6>
 
-                  <input type="button" class="btn-check" id="btn-check" autocomplete="off" hidden value=false><br />
-                  <label class="btn btn-primary" for="btn-check">Edit</label>
+                              <input type="text" class="form-control" readonly="readonly" value={{customerDb.address}}><br />
+                              <div class="map-box">
+                                <iframe [src]="formatAddress(customerDb.address)" width="100%" height="250" frameborder="0" style="border:0" allowfullscreen=""></iframe>
+                              </div><br />
 
 
-                </div>
-              </div>
+                            </div><br /><br />
+                            <br />
+                            <br />
+
+                            <input type="button" class="btn-check" id="btn-check" autocomplete="off" hidden value=false><br />
+                            <label class="btn btn-primary" for="btn-check">Edit</label>
+
+
+                          </ng-container>
+                        </ng-container>
+                          </div>
+
+</div>
               <br />
             </div>
           </div>

@@ -10,15 +10,15 @@ exports.MyAppointmentsComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var MyAppointmentsComponent = /** @class */ (function () {
-    function MyAppointmentsComponent(customerService, sanitizer, route, router, authService, toastyService) {
+    function MyAppointmentsComponent(customerService, sanitizer, route, router, authService, toastyService, specialistService) {
         this.customerService = customerService;
         this.sanitizer = sanitizer;
         this.route = route;
         this.router = router;
         this.authService = authService;
         this.toastyService = toastyService;
+        this.specialistService = specialistService;
         this.currentUser = this.authService.currentUser;
-        this.isOpen = false;
         this.getAppointmentForm = new forms_1.FormGroup({
             customerFullName: new forms_1.FormControl(),
             customerPhoneNumber: new forms_1.FormControl(),
@@ -29,12 +29,28 @@ var MyAppointmentsComponent = /** @class */ (function () {
             appointmentDate: new forms_1.FormControl(),
             status: new forms_1.FormControl(),
             description: new forms_1.FormControl(),
-            customerAddress: new forms_1.FormControl()
+            customerAddress: new forms_1.FormControl(),
+            customers: new forms_1.FormControl(),
+            specialistAppointments: new forms_1.FormControl()
         });
     }
     Object.defineProperty(MyAppointmentsComponent.prototype, "customerFullName", {
         get: function () {
             return this.getAppointmentForm.get('customerFullName');
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(MyAppointmentsComponent.prototype, "specialistAppointments", {
+        get: function () {
+            return this.getAppointmentForm.get('specialistAppointments');
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(MyAppointmentsComponent.prototype, "customers", {
+        get: function () {
+            return this.getAppointmentForm.get('customers');
         },
         enumerable: false,
         configurable: true
@@ -102,8 +118,13 @@ var MyAppointmentsComponent = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    MyAppointmentsComponent.prototype.formatAddress = function () {
-        var addressDb = this.getAppointmentForm.get('customerAddress').value.toLowerCase();
+    MyAppointmentsComponent.prototype.selectCustomer = function (customerId, customerDb) {
+        if (+customerDb === +customerId) {
+            return true;
+        }
+    };
+    MyAppointmentsComponent.prototype.formatAddress = function (addressDb) {
+        addressDb = addressDb.toString().toLowerCase();
         var street = 'ul.';
         var settlement = 'os.';
         console.log(addressDb);
@@ -125,7 +146,15 @@ var MyAppointmentsComponent = /** @class */ (function () {
             if (err.status == 404)
                 _this.router.navigate(['/not-found']);
         });
-        console.log(this.customerAddress);
+        this.customerService.getCustomers().subscribe(function (allCustomers) {
+            _this.allCustomers = allCustomers;
+            //this.customers.setValue(this.allCustomers);
+        });
+        this.specialistService.getSpecialistById(4).subscribe(function (specialist) {
+            _this.specialist = specialist;
+            _this.specialistAppointments.setValue(_this.specialist.appointments);
+            console.log(_this.specialistAppointments.value);
+        });
     };
     MyAppointmentsComponent = __decorate([
         core_1.Component({
