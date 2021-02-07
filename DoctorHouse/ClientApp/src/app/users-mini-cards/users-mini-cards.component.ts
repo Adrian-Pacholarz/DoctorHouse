@@ -38,7 +38,7 @@ export class UsersMiniCardsComponent implements OnInit {
   selectSpecialists(specialist) {
 
     let companySpecialists = [];
-    for (let specialist of (this.getCompanyForm.get('specialists').value)) {
+    for (let specialist of this.specialists.value) {
       companySpecialists.push(+specialist.id)
     }
 

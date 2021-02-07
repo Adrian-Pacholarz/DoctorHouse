@@ -80,6 +80,7 @@ var CompanyProfileComponent = /** @class */ (function () {
         });
         this.companiesService.getCompanyById(this.companyId).subscribe(function (company) {
             _this.company = company;
+            _this.currentRating = +_this.company.rating;
             _this.companyName.setValue(_this.company.companyName);
             _this.rating.setValue(_this.company.rating);
             _this.address.setValue(_this.company.address);

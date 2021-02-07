@@ -7,10 +7,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbRatingConfig, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-
-
-
-
 @Component({
   selector: 'app-company-profile',
   templateUrl: './company-profile.component.html',
@@ -19,6 +15,8 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 export class CompanyProfileComponent implements OnInit {
   companyId;
   company;
+  currentRating;
+
 
   getCompanyForm = new FormGroup({
     companyName: new FormControl(),
@@ -72,7 +70,6 @@ export class CompanyProfileComponent implements OnInit {
     private starRating: NgbRatingConfig) {
 
     starRating.max = 5;
-
   }
 
   ngOnInit(): void {
@@ -84,6 +81,7 @@ export class CompanyProfileComponent implements OnInit {
 
     this.companiesService.getCompanyById(this.companyId).subscribe(company => {
       this.company = company
+      this.currentRating = +this.company.rating;
       this.companyName.setValue(this.company.companyName)
       this.rating.setValue(this.company.rating)
       this.address.setValue(this.company.address)
