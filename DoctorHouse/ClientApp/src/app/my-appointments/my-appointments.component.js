@@ -31,19 +31,11 @@ var MyAppointmentsComponent = /** @class */ (function () {
             description: new forms_1.FormControl(),
             customerAddress: new forms_1.FormControl(),
             customers: new forms_1.FormControl(),
-            specialistAppointments: new forms_1.FormControl()
         });
     }
     Object.defineProperty(MyAppointmentsComponent.prototype, "customerFullName", {
         get: function () {
             return this.getAppointmentForm.get('customerFullName');
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(MyAppointmentsComponent.prototype, "specialistAppointments", {
-        get: function () {
-            return this.getAppointmentForm.get('specialistAppointments');
         },
         enumerable: false,
         configurable: true
@@ -138,23 +130,31 @@ var MyAppointmentsComponent = /** @class */ (function () {
     };
     MyAppointmentsComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.customerService.getCustomerById(this.currentUser.id).subscribe(function (customer) {
-            _this.customer = customer;
-            _this.appointments = _this.customer.appointments;
-            _this.customerAddress.setValue(_this.customer.address);
-        }, function (err) {
-            if (err.status == 404)
-                _this.router.navigate(['/not-found']);
-        });
-        this.customerService.getCustomers().subscribe(function (allCustomers) {
-            _this.allCustomers = allCustomers;
-            //this.customers.setValue(this.allCustomers);
-        });
-        this.specialistService.getSpecialistById(4).subscribe(function (specialist) {
-            _this.specialist = specialist;
-            _this.specialistAppointments.setValue(_this.specialist.appointments);
-            console.log(_this.specialistAppointments.value);
-        });
+        if (this.currentUser.role === 'customer') {
+            this.customerService.getCustomerById(this.currentUser.id).subscribe(function (customer) {
+                _this.customer = customer;
+                _this.appointments = _this.customer.appointments;
+                _this.customerAddress.setValue(_this.customer.address);
+            }, function (err) {
+                if (err.status == 404)
+                    _this.router.navigate(['/not-found']);
+            });
+            this.customerService.getCustomers().subscribe(function (allCustomers) {
+                _this.allCustomers = allCustomers;
+            });
+        }
+        if (this.currentUser.role === 'specialist') {
+            this.specialistService.getSpecialistById(this.currentUser.id).subscribe(function (specialist) {
+                _this.specialist = specialist;
+                _this.appointments = _this.specialist.appointments;
+            }, function (err) {
+                if (err.status == 404)
+                    _this.router.navigate(['/not-found']);
+            });
+            this.customerService.getCustomers().subscribe(function (allCustomers) {
+                _this.allCustomers = allCustomers;
+            });
+        }
     };
     MyAppointmentsComponent = __decorate([
         core_1.Component({

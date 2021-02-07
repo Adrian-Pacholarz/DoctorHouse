@@ -33,15 +33,10 @@ export class MyAppointmentsComponent implements OnInit {
     description: new FormControl(),
     customerAddress: new FormControl(),
     customers: new FormControl(),
-    specialistAppointments: new FormControl()
   });
 
   get customerFullName() {
     return this.getAppointmentForm.get('customerFullName')
-  }
-
-  get specialistAppointments() {
-    return this.getAppointmentForm.get('specialistAppointments')
   }
 
   get customers() {
@@ -122,11 +117,11 @@ export class MyAppointmentsComponent implements OnInit {
   ngOnInit(): void {
 
 
-    this.customerService.getCustomerById(this.currentUser.id).subscribe(customer => {
+    if (this.currentUser.role === 'customer') {
+      this.customerService.getCustomerById(this.currentUser.id).subscribe(customer => {
       this.customer = customer
       this.appointments = this.customer.appointments;
       this.customerAddress.setValue(this.customer.address);
-
 
     }, err => {
       if (err.status == 404)
@@ -135,16 +130,23 @@ export class MyAppointmentsComponent implements OnInit {
 
     this.customerService.getCustomers().subscribe(allCustomers => {
       this.allCustomers = allCustomers;
-      //this.customers.setValue(this.allCustomers);
     })
+    }
 
-    this.specialistService.getSpecialistById(4).subscribe(specialist => {
+    if (this.currentUser.role === 'specialist') {
+      this.specialistService.getSpecialistById(this.currentUser.id).subscribe(specialist => {
       this.specialist = specialist;
-      this.specialistAppointments.setValue(this.specialist.appointments);
-      console.log(this.specialistAppointments.value)
-    })
+      this.appointments = this.specialist.appointments;
+      }, err => {
+        if (err.status == 404)
+          this.router.navigate(['/not-found'])
+      })
 
+      this.customerService.getCustomers().subscribe(allCustomers => {
+        this.allCustomers = allCustomers;
+      });
 
+    }
 
   }
 
