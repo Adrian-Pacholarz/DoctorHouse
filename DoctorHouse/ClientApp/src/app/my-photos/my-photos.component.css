@@ -1,0 +1,48 @@
+#photosCard {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#main-text {
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.card {
+  background: #11234a;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  border: 0;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+img {
+  margin: 5px 5px 5px 5px;
+  height: 200px;
+}
+
+.btn::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.btn {
+  color: #70FFFC;
+  border-color: #70FFFC;
+  width: 500px;
+}
+
+  .btn::before {
+    content: 'Upload new photo';
+    display: inline-block;
+  }
+
+  .btn:hover {
+    color: #11234A;
+    font-weight: bold;
+    background-color: #70FFFC;
+  }

@@ -46,6 +46,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { MyAppointmentsComponent } from './my-appointments/my-appointments.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppointmentReadComponent } from './appointment-read/appointment-read.component';
+import { MyPhotosComponent } from './my-photos/my-photos.component';
+import { PhotosService } from './services/photos.service';
 
 
 
@@ -83,6 +85,7 @@ import { AppointmentReadComponent } from './appointment-read/appointment-read.co
     SpecialistsListComponent,
     SafePipe,
     NotFoundComponent,
+    MyPhotosComponent
     MyAppointmentsComponent,
     AppointmentReadComponent
   ],
@@ -104,6 +107,7 @@ import { AppointmentReadComponent } from './appointment-read/appointment-read.co
       { path: 'companies/:id', component: CompanyProfileComponent, canActivate: [AuthGuard] },
       { path: 'my-appointments', component: MyAppointmentsComponent, canActivate: [AuthGuard] },
       { path: 'appointments/:id', component: AppointmentReadComponent},
+      { path: 'my-photos', component: MyPhotosComponent, canActivate: [AuthGuard]},
       { path: 'not-found', component: NotFoundComponent },
       { path: '**', redirectTo: 'not-found' }
 ], { relativeLinkResolution: 'legacy' }),
@@ -115,6 +119,7 @@ import { AppointmentReadComponent } from './appointment-read/appointment-read.co
     CreateCustomerService,
     CreateSpecialistService,
     CompaniesService,
+    PhotosService,
     SafePipe
   ],
   bootstrap: [AppComponent]

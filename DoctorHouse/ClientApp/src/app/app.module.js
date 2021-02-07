@@ -52,6 +52,8 @@ var safe_pipe_1 = require("./safe.pipe");
 var not_found_component_1 = require("./not-found/not-found.component");
 var my_appointments_component_1 = require("./my-appointments/my-appointments.component");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
+var my_photos_component_1 = require("./my-photos/my-photos.component");
+var photos_service_1 = require("./services/photos.service");
 var appointment_read_component_1 = require("./appointment-read/appointment-read.component");
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -92,6 +94,7 @@ var AppModule = /** @class */ (function () {
                 safe_pipe_1.SafePipe,
                 not_found_component_1.NotFoundComponent,
                 my_appointments_component_1.MyAppointmentsComponent,
+                my_photos_component_1.MyPhotosComponent
                 appointment_read_component_1.AppointmentReadComponent
             ],
             imports: [
@@ -112,6 +115,7 @@ var AppModule = /** @class */ (function () {
                     { path: 'companies/:id', component: company_profile_component_1.CompanyProfileComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'my-appointments', component: my_appointments_component_1.MyAppointmentsComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'appointments/:id', component: appointment_read_component_1.AppointmentReadComponent },
+                    { path: 'my-photos', component: my_photos_component_1.MyPhotosComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'not-found', component: not_found_component_1.NotFoundComponent },
                     { path: '**', redirectTo: 'not-found' }
                 ], { relativeLinkResolution: 'legacy' }),
@@ -123,6 +127,7 @@ var AppModule = /** @class */ (function () {
                 create_customer_service_1.CreateCustomerService,
                 create_specialist_service_1.CreateSpecialistService,
                 companies_service_1.CompaniesService,
+                photos_service_1.PhotosService,
                 safe_pipe_1.SafePipe
             ],
             bootstrap: [app_component_1.AppComponent]

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
@@ -18,5 +20,11 @@ namespace DoctorHouse.Core.Models
         public string Discriminator { get; set; }
         public bool IsAdmin { get; set; }
         public UserDetails Details { get; set; }
+        public ICollection<Photo> Photos { get; set; }
+
+        public User()
+        {
+            Photos = new Collection<Photo>();
+        }
     }
 }
