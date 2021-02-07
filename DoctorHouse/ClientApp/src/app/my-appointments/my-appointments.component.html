@@ -57,19 +57,35 @@
                   <input type="text" class="form-control" readonly="readonly" value="{{a.appointmentDate}}">
                 </div><br />
               </div>
+              <ng-container *ngIf="currentUser.role == 'customer'">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <label class="labels">Specialist name</label>
+                  <div class="form-group">
+                    <input type="text" class="form-control" readonly="readonly" value="{{a.specialist.fullName}}">
+                  </div><br />
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <label class="labels">Specialist phone no.</label>
+                  <div class="form-group">
+                    <input type="text" class="form-control" readonly="readonly" value="{{a.specialist.phoneNumber}}">
+                  </div><br />
+                </div>
+              </ng-container>
 
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <label class="labels">Specialist name</label>
-                <div class="form-group">
-                  <input type="text" class="form-control" readonly="readonly" value="{{a.specialist.fullName}}">
-                </div><br />
-              </div>
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <label class="labels">Specialist phone no.</label>
-                <div class="form-group">
-                  <input type="text" class="form-control" readonly="readonly" value="{{a.specialist.phoneNumber}}">
-                </div><br />
-              </div>
+              <ng-container *ngIf="currentUser.role == 'specialist'">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <label class="labels">Customer name</label>
+                  <div class="form-group">
+                    <input type="text" class="form-control" readonly="readonly" value="{{a.customer.fullName}}">
+                  </div><br />
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <label class="labels">Customer phone no.</label>
+                  <div class="form-group">
+                    <input type="text" class="form-control" readonly="readonly" value="{{a.customer.phoneNumber}}">
+                  </div><br />
+                </div>
+              </ng-container>
             </div>
 
           </div>
@@ -83,31 +99,48 @@
 
               <div [attr.id]="'collapseOne_' + i" class="panel-collapse collapse in">
                 <div class="row gutters">
-                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <label class="labels">Customer name</label>
-                    <div class="form-group">
-                      <input type="text" class="form-control" readonly="readonly" value="{{a.customer.fullName}}">
-                    </div><br />
-                  </div>
-                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <label class="labels">Customer phone no.</label>
-                    <div class="form-group">
-                      <input type="text" class="form-control" readonly="readonly" value="{{a.customer.phoneNumber}}">
-                    </div><br />
-                  </div>
+                  <ng-container *ngIf="currentUser.role == 'customer'">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                      <label class="labels">Customer name</label>
+                      <div class="form-group">
+                        <input type="text" class="form-control" readonly="readonly" value="{{a.customer.fullName}}">
+                      </div><br />
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                      <label class="labels">Customer phone no.</label>
+                      <div class="form-group">
+                        <input type="text" class="form-control" readonly="readonly" value="{{a.customer.phoneNumber}}">
+                      </div><br />
+                    </div>
+                  </ng-container>
 
-                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <label class="labels">Company name</label>
-                    <div class="form-group">
-                      <input type="text" class="form-control" readonly="readonly" value="{{a.company.fullName}}">
-                    </div><br />
-                  </div>
-                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <label class="labels">Company phone no.</label>
-                    <div class="form-group">
-                      <input type="text" class="form-control" readonly="readonly" value="{{a.company.phoneNumber}}">
-                    </div><br />
-                  </div>
+                  <ng-container *ngIf="currentUser.role == 'specialist'">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                      <label class="labels">Specialist name</label>
+                      <div class="form-group">
+                        <input type="text" class="form-control" readonly="readonly" value="{{a.specialist.fullName}}">
+                      </div><br />
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                      <label class="labels">Specialist phone no.</label>
+                      <div class="form-group">
+                        <input type="text" class="form-control" readonly="readonly" value="{{a.specialist.phoneNumber}}">
+                      </div><br />
+                    </div>
+                  </ng-container>
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                      <label class="labels">Company name</label>
+                      <div class="form-group">
+                        <input type="text" class="form-control" readonly="readonly" value="{{a.company.fullName}}">
+                      </div><br />
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                      <label class="labels">Company phone no.</label>
+                      <div class="form-group">
+                        <input type="text" class="form-control" readonly="readonly" value="{{a.company.phoneNumber}}">
+                      </div><br />
+                    </div>
                 </div><br />
 
 
