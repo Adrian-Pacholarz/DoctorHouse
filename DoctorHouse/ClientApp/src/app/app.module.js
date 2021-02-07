@@ -52,9 +52,9 @@ var safe_pipe_1 = require("./safe.pipe");
 var not_found_component_1 = require("./not-found/not-found.component");
 var my_appointments_component_1 = require("./my-appointments/my-appointments.component");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
+var appointment_read_component_1 = require("./appointment-read/appointment-read.component");
 var my_photos_component_1 = require("./my-photos/my-photos.component");
 var photos_service_1 = require("./services/photos.service");
-var appointment_read_component_1 = require("./appointment-read/appointment-read.component");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -93,8 +93,8 @@ var AppModule = /** @class */ (function () {
                 specialists_list_component_1.SpecialistsListComponent,
                 safe_pipe_1.SafePipe,
                 not_found_component_1.NotFoundComponent,
+                my_photos_component_1.MyPhotosComponent,
                 my_appointments_component_1.MyAppointmentsComponent,
-                my_photos_component_1.MyPhotosComponent
                 appointment_read_component_1.AppointmentReadComponent
             ],
             imports: [
@@ -114,9 +114,9 @@ var AppModule = /** @class */ (function () {
                     { path: 'fetch-data', component: fetch_data_component_1.FetchDataComponent },
                     { path: 'companies/:id', component: company_profile_component_1.CompanyProfileComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'my-appointments', component: my_appointments_component_1.MyAppointmentsComponent, canActivate: [auth_guard_service_1.AuthGuard] },
-                    { path: 'appointments/:id', component: appointment_read_component_1.AppointmentReadComponent },
+                    { path: 'appointments/:id', component: appointment_read_component_1.AppointmentReadComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'my-photos', component: my_photos_component_1.MyPhotosComponent, canActivate: [auth_guard_service_1.AuthGuard] },
-                    { path: 'not-found', component: not_found_component_1.NotFoundComponent },
+                    { path: 'not-found', component: not_found_component_1.NotFoundComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: '**', redirectTo: 'not-found' }
                 ], { relativeLinkResolution: 'legacy' }),
                 ng_bootstrap_1.NgbModule

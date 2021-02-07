@@ -85,7 +85,7 @@ import { PhotosService } from './services/photos.service';
     SpecialistsListComponent,
     SafePipe,
     NotFoundComponent,
-    MyPhotosComponent
+    MyPhotosComponent,
     MyAppointmentsComponent,
     AppointmentReadComponent
   ],
@@ -106,9 +106,9 @@ import { PhotosService } from './services/photos.service';
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'companies/:id', component: CompanyProfileComponent, canActivate: [AuthGuard] },
       { path: 'my-appointments', component: MyAppointmentsComponent, canActivate: [AuthGuard] },
-      { path: 'appointments/:id', component: AppointmentReadComponent},
+      { path: 'appointments/:id', component: AppointmentReadComponent, canActivate: [AuthGuard]},
       { path: 'my-photos', component: MyPhotosComponent, canActivate: [AuthGuard]},
-      { path: 'not-found', component: NotFoundComponent },
+      { path: 'not-found', component: NotFoundComponent, canActivate: [AuthGuard] },
       { path: '**', redirectTo: 'not-found' }
 ], { relativeLinkResolution: 'legacy' }),
     NgbModule
