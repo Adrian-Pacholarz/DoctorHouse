@@ -199,3 +199,6 @@ form .btn {
   background-color: #5bd3d7;
   box-shadow: 0 0 0 #5bd3d7;
 }
+
+html { height: 100%; }
+

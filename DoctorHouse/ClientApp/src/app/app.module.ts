@@ -46,6 +46,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { MyAppointmentsComponent } from './my-appointments/my-appointments.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppointmentReadComponent } from './appointment-read/appointment-read.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -107,7 +108,8 @@ import { AppointmentReadComponent } from './appointment-read/appointment-read.co
       { path: 'not-found', component: NotFoundComponent },
       { path: '**', redirectTo: 'not-found' }
 ], { relativeLinkResolution: 'legacy' }),
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthenticateService,
