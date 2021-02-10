@@ -40,6 +40,22 @@ namespace DoctorHouse.Controllers
             return mapper.Map<IEnumerable<Photo>, IEnumerable<PhotoResource>>(photos);
         }
 
+        [HttpPut]
+        public async Task<IActionResult> UpdateUserPhotos(int userId, [FromBody] IEnumerable<PhotoResource> photosToUpdate )
+        {
+            var user = await repository.GetUser(userId);
+            if (user == null)
+                return NotFound("User not found");
+
+            mapper.Map<IEnumerable<PhotoResource>, IEnumerable<Photo>>(photosToUpdate, user.Photos);
+            await unitOfWork.CompleteAsync();
+
+            var updatedPhotos = await photoRepository.GetPhotos(userId);
+
+            return Ok(mapper.Map<IEnumerable<Photo>, IEnumerable<PhotoResource>>(updatedPhotos));
+
+        }
+
         [HttpPost]
         public async Task<IActionResult> Upload(int userId, IFormFile file)
         {
@@ -66,7 +82,7 @@ namespace DoctorHouse.Controllers
                 await file.CopyToAsync(stream);
             }
 
-            var photo = new Photo { FileName = fileName };
+            var photo = new Photo { FileName = fileName, IsMain = false};
             user.Photos.Add(photo);
             await unitOfWork.CompleteAsync();
 

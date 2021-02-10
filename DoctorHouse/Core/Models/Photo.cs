@@ -13,5 +13,6 @@ namespace DoctorHouse.Core.Models
         [StringLength(255)]
         public string FileName { get; set; }
         public int UserId { get; set; }
+        public bool IsMain { get; set; }
     }
 }
