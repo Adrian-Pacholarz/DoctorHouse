@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MyPhotosComponent = void 0;
 var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
 var MyPhotosComponent = /** @class */ (function () {
     function MyPhotosComponent(route, router, authService, photosService) {
         this.route = route;
@@ -15,6 +16,9 @@ var MyPhotosComponent = /** @class */ (function () {
         this.authService = authService;
         this.photosService = photosService;
         this.userId = this.authService.currentUser.id;
+        this.chooseUserPhoto = new forms_1.FormGroup({
+            chosenPhoto: new forms_1.FormControl()
+        });
     }
     MyPhotosComponent.prototype.ngOnInit = function () {
         var _this = this;

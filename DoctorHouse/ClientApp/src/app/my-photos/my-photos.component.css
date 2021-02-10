@@ -46,3 +46,21 @@ img {
     font-weight: bold;
     background-color: #70FFFC;
   }
+
+/* HIDE RADIO */
+[type=radio] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+  /* IMAGE STYLES */
+  [type=radio] + img {
+    cursor: pointer;
+  }
+
+  /* CHECKED STYLES */
+  [type=radio]:checked + img {
+    box-shadow: 0px 0px 5px 5px #70FFFC;
+  }

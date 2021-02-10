@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticateService } from '../services/authenticate.service';
 import { PhotosService } from '../services/photos.service';
@@ -11,6 +12,9 @@ import { PhotosService } from '../services/photos.service';
 export class MyPhotosComponent implements OnInit {
   @ViewChild('fileInput') fileInput: ElementRef;
   userId = this.authService.currentUser.id;
+  chooseUserPhoto = new FormGroup({
+    chosenPhoto: new FormControl()
+  });
   photos;
 
   constructor(
