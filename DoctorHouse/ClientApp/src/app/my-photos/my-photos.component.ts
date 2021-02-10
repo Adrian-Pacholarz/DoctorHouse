@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastyService } from 'ng2-toasty';
 import { AuthenticateService } from '../services/authenticate.service';
 import { PhotosService } from '../services/photos.service';
 
@@ -21,11 +22,22 @@ export class MyPhotosComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthenticateService,
-    private photosService: PhotosService) { }
+    private photosService: PhotosService,
+    private toastyService: ToastyService) { }
 
   ngOnInit(): void {
     this.photosService.getPhotos(this.userId)
       .subscribe(photos => this.photos = photos);
+  }
+
+  submit() {
+    this.toastyService.success({
+      title: 'Success',
+      msg: 'Avatar updated succesfully',
+      theme: 'bootstrap',
+      showClose: true,
+      timeout: 5000
+    })
   }
 
   uploadPhoto() {

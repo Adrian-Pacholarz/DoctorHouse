@@ -9,7 +9,8 @@
           <img src="/uploads/{{photo.fileName}}" class="img-thumbnail" />
         </label>
       </form>
-        <input type="file" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" (change)="uploadPhoto()" #fileInput>
+      <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit" [disabled]="chooseUserPhoto.pristine" (click)="submit()">Save changes</button>
+      <input type="file" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" (change)="uploadPhoto()" #fileInput>
     </div>
 
 

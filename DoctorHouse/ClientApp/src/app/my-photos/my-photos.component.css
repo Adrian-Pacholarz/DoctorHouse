@@ -34,12 +34,14 @@ img {
   color: #70FFFC;
   border-color: #70FFFC;
   width: 500px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-  .btn::before {
-    content: 'Upload new photo';
-    display: inline-block;
-  }
+[type=file]::before {
+  content: 'Upload new photo';
+  display: inline-block;
+}
 
   .btn:hover {
     color: #11234A;

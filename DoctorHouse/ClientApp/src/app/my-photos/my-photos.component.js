@@ -10,11 +10,12 @@ exports.MyPhotosComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var MyPhotosComponent = /** @class */ (function () {
-    function MyPhotosComponent(route, router, authService, photosService) {
+    function MyPhotosComponent(route, router, authService, photosService, toastyService) {
         this.route = route;
         this.router = router;
         this.authService = authService;
         this.photosService = photosService;
+        this.toastyService = toastyService;
         this.userId = this.authService.currentUser.id;
         this.chooseUserPhoto = new forms_1.FormGroup({
             chosenPhoto: new forms_1.FormControl()
@@ -24,6 +25,15 @@ var MyPhotosComponent = /** @class */ (function () {
         var _this = this;
         this.photosService.getPhotos(this.userId)
             .subscribe(function (photos) { return _this.photos = photos; });
+    };
+    MyPhotosComponent.prototype.submit = function () {
+        this.toastyService.success({
+            title: 'Success',
+            msg: 'Avatar updated succesfully',
+            theme: 'bootstrap',
+            showClose: true,
+            timeout: 5000
+        });
     };
     MyPhotosComponent.prototype.uploadPhoto = function () {
         var _this = this;
