@@ -17,18 +17,32 @@ export class MyPhotosComponent implements OnInit {
     chosenPhoto: new FormControl()
   });
   photos;
+  defaultValue;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthenticateService,
     private photosService: PhotosService,
-    private toastyService: ToastyService) { }
+    private toastyService: ToastyService) {
+    
+  }
 
   ngOnInit(): void {
     this.photosService.getPhotos(this.userId)
-      .subscribe(photos => this.photos = photos);
+      .subscribe(photos => {
+        this.photos = photos,
+          this.getDefaultValue()
+          this.setDefaultValue()
+      });
+
   }
+
+  get chosenPhoto() {
+    return this.chooseUserPhoto.get('chosenPhoto');
+  }
+
+
 
   submit() {
     this.toastyService.success({
@@ -47,5 +61,19 @@ export class MyPhotosComponent implements OnInit {
       .subscribe(photo => {
         this.photos.push(photo);
       });
+  }
+
+  getDefaultValue() {
+    var self = this
+    this.photos.forEach(function (photo) {
+      if (photo.isMain) {
+        self.defaultValue = photo.fileName
+      }    
+    })
+  }
+
+  setDefaultValue() {
+      this.chooseUserPhoto.setValue({ chosenPhoto: this.defaultValue })
+
   }
 }

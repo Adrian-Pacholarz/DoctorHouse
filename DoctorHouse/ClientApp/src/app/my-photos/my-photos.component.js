@@ -24,8 +24,19 @@ var MyPhotosComponent = /** @class */ (function () {
     MyPhotosComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.photosService.getPhotos(this.userId)
-            .subscribe(function (photos) { return _this.photos = photos; });
+            .subscribe(function (photos) {
+            _this.photos = photos,
+                _this.getDefaultValue();
+            _this.setDefaultValue();
+        });
     };
+    Object.defineProperty(MyPhotosComponent.prototype, "chosenPhoto", {
+        get: function () {
+            return this.chooseUserPhoto.get('chosenPhoto');
+        },
+        enumerable: false,
+        configurable: true
+    });
     MyPhotosComponent.prototype.submit = function () {
         this.toastyService.success({
             title: 'Success',
@@ -42,6 +53,17 @@ var MyPhotosComponent = /** @class */ (function () {
             .subscribe(function (photo) {
             _this.photos.push(photo);
         });
+    };
+    MyPhotosComponent.prototype.getDefaultValue = function () {
+        var self = this;
+        this.photos.forEach(function (photo) {
+            if (photo.isMain) {
+                self.defaultValue = photo.fileName;
+            }
+        });
+    };
+    MyPhotosComponent.prototype.setDefaultValue = function () {
+        this.chooseUserPhoto.setValue({ chosenPhoto: this.defaultValue });
     };
     __decorate([
         core_1.ViewChild('fileInput')
