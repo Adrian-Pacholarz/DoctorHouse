@@ -7,10 +7,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PhotosService = void 0;
+var http_1 = require("@angular/common/http");
 var core_1 = require("@angular/core");
 var PhotosService = /** @class */ (function () {
     function PhotosService(http) {
         this.http = http;
+        this.httpPutOptions = {
+            headers: new http_1.HttpHeaders({ 'Content-Type': 'application/json' })
+        };
     }
     PhotosService.prototype.getPhotos = function (userId) {
         return this.http.get("/api/users/" + userId + "/photos");
@@ -19,6 +23,9 @@ var PhotosService = /** @class */ (function () {
         var formData = new FormData();
         formData.append('file', photo);
         return this.http.post("/api/users/" + userId + "/photos", formData);
+    };
+    PhotosService.prototype.updateUserPhotos = function (userId, photos) {
+        return this.http.put("/api/users/" + userId + "/photos", JSON.stringify(photos), this.httpPutOptions);
     };
     PhotosService = __decorate([
         core_1.Injectable({

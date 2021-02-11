@@ -38,12 +38,34 @@ var MyPhotosComponent = /** @class */ (function () {
         configurable: true
     });
     MyPhotosComponent.prototype.submit = function () {
-        this.toastyService.success({
-            title: 'Success',
-            msg: 'Avatar updated succesfully',
-            theme: 'bootstrap',
-            showClose: true,
-            timeout: 5000
+        var _this = this;
+        var updatedPhotos = this.photos;
+        updatedPhotos.forEach(function (photo) {
+            photo.isMain = false;
+        });
+        var self = this;
+        updatedPhotos.forEach(function (photo) {
+            if (photo.fileName == self.chosenPhoto.value)
+                photo.isMain = true;
+        });
+        this.photosService.updateUserPhotos(this.userId, updatedPhotos)
+            .subscribe(function (photos) {
+            _this.toastyService.success({
+                title: 'Success',
+                msg: 'Avatar updated succesfully',
+                theme: 'bootstrap',
+                showClose: true,
+                timeout: 5000
+            });
+            location.reload();
+        }, function (error) {
+            _this.toastyService.error({
+                title: 'Error',
+                msg: 'Avatar was not updated',
+                theme: 'bootstrap',
+                showClose: true,
+                timeout: 5000
+            });
         });
     };
     MyPhotosComponent.prototype.uploadPhoto = function () {

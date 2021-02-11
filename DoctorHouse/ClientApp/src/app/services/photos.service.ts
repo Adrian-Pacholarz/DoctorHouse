@@ -6,6 +6,10 @@ import { Injectable } from '@angular/core';
 })
 export class PhotosService {
 
+  private httpPutOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  }
+
   constructor(private http: HttpClient) { }
 
   getPhotos(userId) {
@@ -18,4 +22,9 @@ export class PhotosService {
 
     return this.http.post(`/api/users/${userId}/photos`, formData);
   }
+
+  updateUserPhotos(userId, photos) {
+    return this.http.put(`/api/users/${userId}/photos`, JSON.stringify(photos), this.httpPutOptions);
+  }
+
 }

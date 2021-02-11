@@ -45,13 +45,41 @@ export class MyPhotosComponent implements OnInit {
 
 
   submit() {
-    this.toastyService.success({
-      title: 'Success',
-      msg: 'Avatar updated succesfully',
-      theme: 'bootstrap',
-      showClose: true,
-      timeout: 5000
+
+    let updatedPhotos = this.photos;
+
+    updatedPhotos.forEach(function (photo) {
+      photo.isMain = false;
+    });
+
+    var self = this;
+    updatedPhotos.forEach(function (photo) {
+      if (photo.fileName == self.chosenPhoto.value)
+        photo.isMain = true;
     })
+
+    this.photosService.updateUserPhotos(this.userId, updatedPhotos)
+      .subscribe(photos => {
+        this.toastyService.success({
+          title: 'Success',
+          msg: 'Avatar updated succesfully',
+          theme: 'bootstrap',
+          showClose: true,
+          timeout: 5000
+        })
+        location.reload();
+      },
+        error => {
+          this.toastyService.error({
+            title: 'Error',
+            msg: 'Avatar was not updated',
+            theme: 'bootstrap',
+            showClose: true,
+            timeout: 5000
+          })
+        }  
+      )
+    
   }
 
   uploadPhoto() {

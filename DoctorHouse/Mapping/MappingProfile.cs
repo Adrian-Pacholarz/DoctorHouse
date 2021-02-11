@@ -242,9 +242,7 @@ namespace DoctorHouse.Mapping
 
             //Photos
             CreateMap<PhotoResource, Photo>()
-                .ForMember(p => p.UserId, opt => opt.Ignore())
-                .ForMember(p => p.Id, opt => opt.Ignore())
-                .ForMember(p => p.FileName, opt => opt.Ignore());
+                .ForMember(p => p.UserId, opt => opt.Ignore());
 
             //User
             CreateMap<UserResource, User>()
