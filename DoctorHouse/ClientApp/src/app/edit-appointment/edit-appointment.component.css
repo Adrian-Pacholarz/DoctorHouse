@@ -1,7 +1,8 @@
-#appointmentCard{
-    margin-left: auto;
-    margin-right: auto;
+#appointmentCard {
+  margin-left: auto;
+  margin-right: auto;
 }
+
 body {
   margin-top: 20px;
   color: #bcd0f7;
@@ -197,6 +198,6 @@ a.btn.btn-primary {
   }
 
 
-  div.panel.panel-default {
-      padding: 20px;
-  }
+div.panel.panel-default {
+  padding: 20px;
+}
