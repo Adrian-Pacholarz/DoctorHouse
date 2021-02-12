@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MyPhotosComponent = void 0;
+var http_1 = require("@angular/common/http");
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var MyPhotosComponent = /** @class */ (function () {
@@ -73,7 +74,28 @@ var MyPhotosComponent = /** @class */ (function () {
         var nativeElement = this.fileInput.nativeElement;
         this.photosService.upload(this.userId, nativeElement.files[0])
             .subscribe(function (photo) {
-            _this.photos.push(photo);
+            if (photo.type === http_1.HttpEventType.UploadProgress) {
+                var percentDone = Math.round(100 * photo.loaded / photo.total);
+            }
+            if (photo.type === http_1.HttpEventType.Response) {
+                _this.photos.push(photo.body);
+                _this.toastyService.success({
+                    title: 'Success',
+                    msg: 'Photo uploaded succesfully',
+                    theme: 'bootstrap',
+                    showClose: true,
+                    timeout: 5000
+                });
+            }
+        }, function (error) {
+            ;
+            _this.toastyService.error({
+                title: 'Error',
+                msg: error.error,
+                theme: 'bootstrap',
+                showClose: true,
+                timeout: 5000
+            });
         });
     };
     MyPhotosComponent.prototype.getDefaultValue = function () {

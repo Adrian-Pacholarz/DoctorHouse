@@ -1,3 +1,4 @@
+import { HttpEventType } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -87,8 +88,31 @@ export class MyPhotosComponent implements OnInit {
 
     this.photosService.upload(this.userId, nativeElement.files[0])
       .subscribe(photo => {
-        this.photos.push(photo);
-      });
+        if (photo.type === HttpEventType.UploadProgress) {
+          const percentDone = Math.round(100 * photo.loaded / photo.total);
+        }
+        if (photo.type === HttpEventType.Response) {
+          this.photos.push(photo.body);
+          this.toastyService.success({
+            title: 'Success',
+            msg: 'Photo uploaded succesfully',
+            theme: 'bootstrap',
+            showClose: true,
+            timeout: 5000
+          })
+        }
+               
+      },
+        error => {;
+          this.toastyService.error({
+            title: 'Error',
+            msg: error.error,
+            theme: 'bootstrap',
+            showClose: true,
+            timeout: 5000
+          })
+        }
+    );
   }
 
   getDefaultValue() {

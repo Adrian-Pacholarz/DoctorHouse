@@ -22,7 +22,7 @@ var PhotosService = /** @class */ (function () {
     PhotosService.prototype.upload = function (userId, photo) {
         var formData = new FormData();
         formData.append('file', photo);
-        return this.http.post("/api/users/" + userId + "/photos", formData);
+        return this.http.post("/api/users/" + userId + "/photos", formData, { reportProgress: true, observe: "events" });
     };
     PhotosService.prototype.updateUserPhotos = function (userId, photos) {
         return this.http.put("/api/users/" + userId + "/photos", JSON.stringify(photos), this.httpPutOptions);

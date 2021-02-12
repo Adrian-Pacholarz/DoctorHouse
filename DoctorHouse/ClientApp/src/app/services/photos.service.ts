@@ -20,7 +20,7 @@ export class PhotosService {
     var formData = new FormData();
     formData.append('file', photo);
 
-    return this.http.post(`/api/users/${userId}/photos`, formData);
+    return this.http.post(`/api/users/${userId}/photos`, formData, {reportProgress: true, observe: "events"});
   }
 
   updateUserPhotos(userId, photos) {
