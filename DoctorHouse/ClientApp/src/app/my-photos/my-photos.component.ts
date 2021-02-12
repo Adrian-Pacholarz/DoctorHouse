@@ -84,9 +84,11 @@ export class MyPhotosComponent implements OnInit {
   }
 
   uploadPhoto() {
-    var nativeElement: HTMLInputElement = this.fileInput.nativeElement
+    var nativeElement: HTMLInputElement = this.fileInput.nativeElement;
+    var file = nativeElement.files[0];
+    nativeElement.value = '';
 
-    this.photosService.upload(this.userId, nativeElement.files[0])
+    this.photosService.upload(this.userId, file)
       .subscribe(photo => {
         if (photo.type === HttpEventType.UploadProgress) {
           const percentDone = Math.round(100 * photo.loaded / photo.total);
@@ -103,7 +105,7 @@ export class MyPhotosComponent implements OnInit {
         }
                
       },
-        error => {;
+        error => {
           this.toastyService.error({
             title: 'Error',
             msg: error.error,

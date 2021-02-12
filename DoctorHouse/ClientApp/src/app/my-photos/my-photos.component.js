@@ -72,7 +72,9 @@ var MyPhotosComponent = /** @class */ (function () {
     MyPhotosComponent.prototype.uploadPhoto = function () {
         var _this = this;
         var nativeElement = this.fileInput.nativeElement;
-        this.photosService.upload(this.userId, nativeElement.files[0])
+        var file = nativeElement.files[0];
+        nativeElement.value = '';
+        this.photosService.upload(this.userId, file)
             .subscribe(function (photo) {
             if (photo.type === http_1.HttpEventType.UploadProgress) {
                 var percentDone = Math.round(100 * photo.loaded / photo.total);
@@ -88,7 +90,6 @@ var MyPhotosComponent = /** @class */ (function () {
                 });
             }
         }, function (error) {
-            ;
             _this.toastyService.error({
                 title: 'Error',
                 msg: error.error,
