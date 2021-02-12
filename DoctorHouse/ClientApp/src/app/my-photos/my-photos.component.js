@@ -78,6 +78,7 @@ var MyPhotosComponent = /** @class */ (function () {
             .subscribe(function (photo) {
             if (photo.type === http_1.HttpEventType.UploadProgress) {
                 var percentDone = Math.round(100 * photo.loaded / photo.total);
+                _this.progress = percentDone;
             }
             if (photo.type === http_1.HttpEventType.Response) {
                 _this.photos.push(photo.body);

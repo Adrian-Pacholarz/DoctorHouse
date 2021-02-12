@@ -19,6 +19,7 @@ export class MyPhotosComponent implements OnInit {
   });
   photos;
   defaultValue;
+  progress;
 
   constructor(
     private route: ActivatedRoute,
@@ -92,6 +93,7 @@ export class MyPhotosComponent implements OnInit {
       .subscribe(photo => {
         if (photo.type === HttpEventType.UploadProgress) {
           const percentDone = Math.round(100 * photo.loaded / photo.total);
+          this.progress = percentDone;
         }
         if (photo.type === HttpEventType.Response) {
           this.photos.push(photo.body);
@@ -113,7 +115,8 @@ export class MyPhotosComponent implements OnInit {
             showClose: true,
             timeout: 5000
           })
-        }
+        },
+        () => { this.progress = null; }
     );
   }
 
