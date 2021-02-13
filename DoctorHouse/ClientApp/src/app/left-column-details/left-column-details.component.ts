@@ -3,6 +3,7 @@ import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticateService } from '../services/authenticate.service';
 import { CustomerService } from '../services/customer.service';
+import { PhotosService } from '../services/photos.service';
 
 @Component({
   selector: 'app-left-column-details',
@@ -13,6 +14,7 @@ export class LeftColumnDetailsComponent implements OnInit {
   currentUser = this.authService.currentUser;
   customerId;
   customer;
+  userPhoto;
 
 
   getUserForm = new FormGroup({
@@ -40,6 +42,7 @@ export class LeftColumnDetailsComponent implements OnInit {
     private customerService: CustomerService,
     private route: ActivatedRoute,
     private router: Router,
+    private photoService: PhotosService,
     private authService: AuthenticateService) {
 
   }
@@ -50,6 +53,11 @@ export class LeftColumnDetailsComponent implements OnInit {
     this.route.params.subscribe(p => {
       this.customerId = +p['id'];
     })
+
+    this.photoService.getMainPhoto(this.customerId)
+      .subscribe(photo => {
+        this.userPhoto = photo
+      })
 
     this.customerService.getCustomerById(this.customerId).subscribe(customer => {
       this.customer = customer

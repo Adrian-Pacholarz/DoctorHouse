@@ -3,6 +3,7 @@ import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticateService } from '../services/authenticate.service';
 import { SpecialistService } from '../services/specialist.service';
+import { PhotosService } from '../services/photos.service';
 
 @Component({
   selector: 'app-left-column-specialist',
@@ -13,6 +14,7 @@ export class LeftColumnSpecialistComponent implements OnInit {
   currentUser = this.authService.currentUser;
   specialistId;
   specialist;
+  userPhoto;
 
   getUserForm = new FormGroup({
     firstName: new FormControl(),
@@ -37,6 +39,7 @@ export class LeftColumnSpecialistComponent implements OnInit {
     private specialistService: SpecialistService,
     private route: ActivatedRoute,
     private router: Router,
+    private photoService: PhotosService,
     private authService: AuthenticateService) {
 
   }
@@ -47,6 +50,11 @@ export class LeftColumnSpecialistComponent implements OnInit {
     this.route.params.subscribe(p => {
       this.specialistId = +p['id'];
     })
+
+    this.photoService.getMainPhoto(this.specialistId)
+      .subscribe(photo => {
+        this.userPhoto = photo
+      })
 
     this.specialistService.getSpecialistById(this.specialistId).subscribe(specialist => {
       this.specialist = specialist

@@ -9,8 +9,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserLoginButtonComponent = void 0;
 var core_1 = require("@angular/core");
 var UserLoginButtonComponent = /** @class */ (function () {
-    function UserLoginButtonComponent(authService, toastyService) {
+    function UserLoginButtonComponent(authService, photoService, toastyService) {
         this.authService = authService;
+        this.photoService = photoService;
         this.toastyService = toastyService;
         this.currentUser = this.authService.currentUser;
     }
@@ -29,6 +30,11 @@ var UserLoginButtonComponent = /** @class */ (function () {
         return this.authService.isLoggedIn();
     };
     UserLoginButtonComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.photoService.getMainPhoto(this.currentUser.id)
+            .subscribe(function (photo) {
+            _this.userPhoto = photo;
+        });
     };
     UserLoginButtonComponent = __decorate([
         core_1.Component({
