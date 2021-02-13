@@ -40,7 +40,9 @@ namespace DoctorHouse.Controllers
             return mapper.Map<IEnumerable<Photo>, IEnumerable<PhotoResource>>(photos);
         }
 
-        [HttpGet("/main")]
+        
+        [Route("main")]
+        [HttpGet]
         public async Task<PhotoResource> GetMainPhoto(int userId)
         {
             var photo = await photoRepository.GetMainPhoto(userId);
