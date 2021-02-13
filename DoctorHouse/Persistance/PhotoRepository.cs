@@ -16,6 +16,15 @@ namespace DoctorHouse.Persistance
         {
             this.context = context;
         }
+
+        public async Task<Photo> GetMainPhoto(int userId)
+        {
+            return await context.Photos
+                .Where(p => p.UserId == userId)
+                .FirstOrDefaultAsync(p => p.IsMain == true);
+                
+        }
+
         public async Task<IEnumerable<Photo>> GetPhotos(int userId)
         {
             return await context.Photos

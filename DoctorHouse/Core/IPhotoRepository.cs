@@ -9,5 +9,7 @@ namespace DoctorHouse.Core
     public interface IPhotoRepository
     {
         Task<IEnumerable<Photo>> GetPhotos(int userId);
+
+        Task<Photo> GetMainPhoto(int userId);
     }
 }
