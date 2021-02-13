@@ -7,6 +7,10 @@ import { AuthenticateService } from '../services/authenticate.service';
 import { ToastyService } from 'ng2-toasty';
 import { SpecialistService } from '../services/specialist.service';
 import { AppointmentService } from '../services/appointment.service';
+import { jqxGridModule } from 'jqwidgets-ng/jqxgrid';
+import { jqxDateTimeInputModule } from 'jqwidgets-ng/jqxdatetimeinput';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-edit-appointment',

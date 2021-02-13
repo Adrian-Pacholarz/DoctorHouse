@@ -55,6 +55,9 @@ var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var appointment_read_component_1 = require("./appointment-read/appointment-read.component");
 var animations_1 = require("@angular/platform-browser/animations");
 var edit_appointment_component_1 = require("./edit-appointment/edit-appointment.component");
+var jqxgrid_1 = require("jqwidgets-ng/jqxgrid");
+var jqxdatetimeinput_1 = require("jqwidgets-ng/jqxdatetimeinput");
+var common_1 = require("@angular/common");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -119,7 +122,9 @@ var AppModule = /** @class */ (function () {
                     { path: '**', redirectTo: 'not-found' }
                 ], { relativeLinkResolution: 'legacy' }),
                 ng_bootstrap_1.NgbModule,
-                animations_1.BrowserAnimationsModule
+                animations_1.BrowserAnimationsModule,
+                jqxgrid_1.jqxGridModule,
+                common_1.CommonModule, jqxdatetimeinput_1.jqxDateTimeInputModule
             ],
             providers: [
                 authenticate_service_1.AuthenticateService,
@@ -127,7 +132,9 @@ var AppModule = /** @class */ (function () {
                 create_customer_service_1.CreateCustomerService,
                 create_specialist_service_1.CreateSpecialistService,
                 companies_service_1.CompaniesService,
-                safe_pipe_1.SafePipe
+                safe_pipe_1.SafePipe,
+                jqxgrid_1.jqxGridModule,
+                common_1.CommonModule, jqxdatetimeinput_1.jqxDateTimeInputModule
             ],
             bootstrap: [app_component_1.AppComponent]
         })

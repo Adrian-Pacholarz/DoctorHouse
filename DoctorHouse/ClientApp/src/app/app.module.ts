@@ -48,7 +48,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppointmentReadComponent } from './appointment-read/appointment-read.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditAppointmentComponent } from './edit-appointment/edit-appointment.component';
-
+import { jqxGridModule } from 'jqwidgets-ng/jqxgrid';
+import { jqxDateTimeInputModule } from 'jqwidgets-ng/jqxdatetimeinput';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
@@ -111,7 +113,9 @@ import { EditAppointmentComponent } from './edit-appointment/edit-appointment.co
       { path: '**', redirectTo: 'not-found' }
 ], { relativeLinkResolution: 'legacy' }),
     NgbModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    jqxGridModule,
+    CommonModule, jqxDateTimeInputModule
   ],
   providers: [
     AuthenticateService,
@@ -119,7 +123,9 @@ import { EditAppointmentComponent } from './edit-appointment/edit-appointment.co
     CreateCustomerService,
     CreateSpecialistService,
     CompaniesService,
-    SafePipe
+    SafePipe,
+    jqxGridModule,
+    CommonModule, jqxDateTimeInputModule
   ],
   bootstrap: [AppComponent]
 })
