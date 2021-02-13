@@ -16,6 +16,10 @@ export class PhotosService {
     return this.http.get(`/api/users/${userId}/photos`);
   }
 
+  getMainPhoto(userId) {
+    return this.http.get(`/api/users/${userId}/photos/main`);
+  }
+
   upload(userId, photo) {
     var formData = new FormData();
     formData.append('file', photo);

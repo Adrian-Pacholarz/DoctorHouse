@@ -15,7 +15,10 @@
 <ul class="navbar-nav mx-auto dropleft">
 
   <li class="nav-item dropdown megamenu">
-    <a id="megamneu" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle font-weight-bold text-uppercase">      <img src="../../assets/images/user1.png" style="width: 40px; height: 40px;" /></a>
+    <a id="megamneu" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle font-weight-bold text-uppercase">
+      <img src="../../assets/images/user1.png" style="width: 40px; height: 40px;" *ngIf="!userPhoto" />
+      <img src="/uploads/{{userPhoto.fileName}}" style="width: 40px; height: 40px;" class="rounded-circle" *ngIf="userPhoto" />
+    </a>
     <div aria-labelledby="megamneu" class="dropdown-menu border-0 p-0 m-0">
       <div class="container">
         <div class="row bg-white rounded-0 m-0 shadow-sm">

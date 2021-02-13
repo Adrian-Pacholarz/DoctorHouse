@@ -98,7 +98,7 @@ var MyPhotosComponent = /** @class */ (function () {
                 showClose: true,
                 timeout: 5000
             });
-        });
+        }, function () { _this.progress = null; });
     };
     MyPhotosComponent.prototype.getDefaultValue = function () {
         var self = this;
