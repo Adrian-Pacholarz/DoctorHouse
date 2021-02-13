@@ -10,10 +10,11 @@ exports.LeftColumnDetailsComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var LeftColumnDetailsComponent = /** @class */ (function () {
-    function LeftColumnDetailsComponent(customerService, route, router, authService) {
+    function LeftColumnDetailsComponent(customerService, route, router, photoService, authService) {
         this.customerService = customerService;
         this.route = route;
         this.router = router;
+        this.photoService = photoService;
         this.authService = authService;
         this.currentUser = this.authService.currentUser;
         this.getUserForm = new forms_1.FormGroup({
@@ -47,6 +48,10 @@ var LeftColumnDetailsComponent = /** @class */ (function () {
         var _this = this;
         this.route.params.subscribe(function (p) {
             _this.customerId = +p['id'];
+        });
+        this.photoService.getMainPhoto(this.customerId)
+            .subscribe(function (photo) {
+            _this.userPhoto = photo;
         });
         this.customerService.getCustomerById(this.customerId).subscribe(function (customer) {
             _this.customer = customer;
