@@ -145,6 +145,9 @@ var EditAppointmentComponent = /** @class */ (function () {
         var map = 'https://www.google.com/maps/embed/v1/place?key=AIzaSyBlYuKgi1m3lnyfIHv2qkWf_MzpBBc2mr8&q=' + addressDb;
         return this.sanitizer.bypassSecurityTrustResourceUrl(map);
     };
+    EditAppointmentComponent.prototype.update = function () {
+        console.log('button clicked');
+    };
     EditAppointmentComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.params.subscribe(function (p) {
@@ -152,7 +155,6 @@ var EditAppointmentComponent = /** @class */ (function () {
         });
         this.appointmentService.getAppointmentsById(this.appointmentId).subscribe(function (appointment) {
             _this.appointment = appointment;
-            var moment = require('moment');
             _this.customerFullName.setValue(_this.appointment.customer.fullName);
             _this.customerId.setValue(_this.appointment.customer.id);
             _this.customerPhoneNumber.setValue(_this.appointment.customer.phoneNumber);
@@ -164,10 +166,6 @@ var EditAppointmentComponent = /** @class */ (function () {
             _this.description.setValue(_this.appointment.description);
             _this.appointmentDate.setValue(new Date(_this.appointment.appointmentDate));
             _this.status.setValue(_this.appointment.status);
-            console.log('API ' + _this.appointment.appointmentDate);
-            console.log('FORM ' + _this.appointmentDate.value);
-            console.log(Date.parse(_this.appointment.appointmentDate));
-            //console.log((new Date(this.appointment.appointmentDate)));
         });
         this.customerService.getCustomers().subscribe(function (allCustomers) {
             _this.allCustomers = allCustomers;

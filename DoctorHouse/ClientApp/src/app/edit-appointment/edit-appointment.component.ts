@@ -123,6 +123,10 @@ export class EditAppointmentComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl(map);
   }
 
+  update() {
+    console.log('button clicked');
+  }
+
   constructor(
     private appointmentService: AppointmentService,
     private customerService: CustomerService,
@@ -143,7 +147,6 @@ export class EditAppointmentComponent implements OnInit {
 
     this.appointmentService.getAppointmentsById(this.appointmentId).subscribe(appointment => {
       this.appointment = appointment;
-      let moment = require('moment');
       this.customerFullName.setValue(this.appointment.customer.fullName);
       this.customerId.setValue(this.appointment.customer.id);
       this.customerPhoneNumber.setValue(this.appointment.customer.phoneNumber);
@@ -155,12 +158,6 @@ export class EditAppointmentComponent implements OnInit {
       this.description.setValue(this.appointment.description);
       this.appointmentDate.setValue(new Date(this.appointment.appointmentDate));
       this.status.setValue(this.appointment.status);
-
-      console.log('API ' + this.appointment.appointmentDate);
-      console.log('FORM ' + this.appointmentDate.value);
-      console.log(Date.parse(this.appointment.appointmentDate));
-      //console.log((new Date(this.appointment.appointmentDate)));
-
     })
 
 

@@ -69,7 +69,7 @@
             <br />  <br />
             <label class="labels">Appointment date</label>
             <div class="form-group">
-              <jqxDateTimeInput class="form-control" formControlName="appointmentDate" [theme]="'custom-scheme'" [formatString]="'MMMM d, yyyy HH:mm'" [showTimeButton]="true" [width]="'95%'" [height]="39">
+              <jqxDateTimeInput class="form-control" formControlName="appointmentDate" [theme]="'custom-scheme'" [formatString]="'dddd, dd/MM/yyyy HH:mm'" [showTimeButton]="true" [width]="'95%'" [height]="39">
               </jqxDateTimeInput>
 
             </div>
@@ -193,7 +193,7 @@
           <br />
           <br />
 
-          <input type="button" class="btn-check" id="btn-check" autocomplete="off" hidden value=false><br />
+          <input type="button" class="btn-check" id="btn-check" autocomplete="off" hidden value=false [disabled]="getAppointmentForm" (click)="update()"><br />
           <a href="/my-appointments" class="btn btn-primary" for="btn-check">Save</a>
 
           <input type="button" class="btn-check" id="btn-check" autocomplete="off" hidden value=false><br />
