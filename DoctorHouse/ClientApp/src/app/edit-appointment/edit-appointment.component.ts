@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { Validators, FormControl, FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { CustomerService } from '../services/customer.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,6 +10,7 @@ import { AppointmentService } from '../services/appointment.service';
 import { jqxGridModule } from 'jqwidgets-ng/jqxgrid';
 import { jqxDateTimeInputModule } from 'jqwidgets-ng/jqxdatetimeinput';
 import { CommonModule } from '@angular/common';
+import { ViewChild, AfterViewInit } from "@angular/core";
 
 
 @Component({
@@ -104,6 +105,8 @@ export class EditAppointmentComponent implements OnInit {
   }
 
 
+
+
   formatAddress(addressDb): SafeResourceUrl {
     addressDb = addressDb.toString().toLowerCase();
     let street = 'ul.';
@@ -131,6 +134,7 @@ export class EditAppointmentComponent implements OnInit {
     private specialistService: SpecialistService) {
   }
 
+
   ngOnInit(): void {
 
     this.route.params.subscribe(p => {
@@ -139,6 +143,7 @@ export class EditAppointmentComponent implements OnInit {
 
     this.appointmentService.getAppointmentsById(this.appointmentId).subscribe(appointment => {
       this.appointment = appointment;
+      let moment = require('moment');
       this.customerFullName.setValue(this.appointment.customer.fullName);
       this.customerId.setValue(this.appointment.customer.id);
       this.customerPhoneNumber.setValue(this.appointment.customer.phoneNumber);
@@ -148,8 +153,14 @@ export class EditAppointmentComponent implements OnInit {
       this.companyFullName.setValue(this.appointment.company.fullName);
       this.companyPhoneNumber.setValue(this.appointment.company.phoneNumber);
       this.description.setValue(this.appointment.description);
-      this.appointmentDate.setValue(this.appointment.appointmentDate);
+      this.appointmentDate.setValue(new Date(this.appointment.appointmentDate));
       this.status.setValue(this.appointment.status);
+
+      console.log('API ' + this.appointment.appointmentDate);
+      console.log('FORM ' + this.appointmentDate.value);
+      console.log(Date.parse(this.appointment.appointmentDate));
+      //console.log((new Date(this.appointment.appointmentDate)));
+
     })
 
 

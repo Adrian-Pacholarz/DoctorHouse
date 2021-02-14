@@ -68,45 +68,45 @@
           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
             <br />  <br />
             <label class="labels">Appointment date</label>
+            <div class="form-group">
+              <jqxDateTimeInput class="form-control" formControlName="appointmentDate" [theme]="'custom-scheme'" [formatString]="'MMMM d, yyyy HH:mm'" [showTimeButton]="true" [width]="'95%'" [height]="39">
+              </jqxDateTimeInput>
 
-              <div id='jqxdatetimeinput'>
-                <jqxDateTimeInput [theme]="'custom-scheme'" [formatString]="'dd/mm/yyyy HH:MM'" [showTimeButton]="true" [width]="'95%'" [height]="39">
-                </jqxDateTimeInput>
-                <!--<input type="text" class="form-control" readonly="readonly" value="{{appointmentDate | date: 'EEEE, dd/mm/yyyy HH:MM'}}">-->
+            </div>
+          </div>
+            <br />
+
+            <ng-container *ngIf="currentUser.role == 'customer'">
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                6
+                <label class="labels">Specialist name</label>
+                <div class="form-group">
+                  <input type="text" class="form-control" readonly="readonly" formControlName="specialistFullName">
+                </div><br />
               </div>
-            </div><br />
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <label class="labels">Specialist phone no.</label>
+                <div class="form-group">
+                  <input type="text" class="form-control" readonly="readonly" formControlName="specialistPhoneNumber">
+                </div><br />
+              </div>
+            </ng-container>
 
-          <ng-container *ngIf="currentUser.role == 'customer'">
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              6
-              <label class="labels">Specialist name</label>
-              <div class="form-group">
-                <input type="text" class="form-control" readonly="readonly" formControlName="specialistFullName">
-              </div><br />
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <label class="labels">Specialist phone no.</label>
-              <div class="form-group">
-                <input type="text" class="form-control" readonly="readonly" formControlName="specialistPhoneNumber">
-              </div><br />
-            </div>
-          </ng-container>
-
-          <ng-container *ngIf="currentUser.role == 'specialist'">
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <label class="labels">Customer name</label>
-              <div class="form-group">
-                <input type="text" class="form-control" readonly="readonly" formControlName="customerFullName">
-              </div><br />
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <label class="labels">Customer phone no.</label>
-              <div class="form-group">
-                <input type="text" class="form-control" readonly="readonly" formControlName="customerPhoneNumber">
-              </div><br />
-            </div>
-          </ng-container>
-        </div>
+            <ng-container *ngIf="currentUser.role == 'specialist'">
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <label class="labels">Customer name</label>
+                <div class="form-group">
+                  <input type="text" class="form-control" readonly="readonly" formControlName="customerFullName">
+                </div><br />
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <label class="labels">Customer phone no.</label>
+                <div class="form-group">
+                  <input type="text" class="form-control" readonly="readonly" formControlName="customerPhoneNumber">
+                </div><br />
+              </div>
+            </ng-container>
+          </div>
 
 
 
@@ -136,7 +136,7 @@
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <label class="labels">Specialist phone no.</label>
               <div class="form-group">
-                <input type="text" class="form-control" readonly="readonly" formControlName="customerPhoneNumber">
+                <input type="text" class="form-control" readonly="readonly" formControlName="specialistPhoneNumber">
               </div><br />
             </div>
           </ng-container>

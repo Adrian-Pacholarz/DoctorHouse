@@ -38,7 +38,7 @@
               "node_modules/jqwidgets-ng/jqwidgets/jqxcore.js",
               "node_modules/jqwidgets-ng/jqwidgets/jqxdatetimeinput.js",
               "node_modules/jqwidgets-ng/jqwidgets/jqxcalendar.js",
-              "node_modules/jqwidgets/globalization/globalize.js"
+              "node_modules/jqwidgets-ng/jqwidgets/globalization/globalize.js"
             ]
           },
           "configurations": {
