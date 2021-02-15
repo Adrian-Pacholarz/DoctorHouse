@@ -72,7 +72,7 @@
             <div class="form-group">
               <input class="form-control" formControlName="appointmentDate" type="text" [daysDisabled]="[6,0]"
                      bsDatepicker
-                     [bsConfig]="{ isAnimated: true, containerClass:'theme-blue', dateInputFormat: 'dddd, DD/MM/YYYY HH:mm', returnFocusToInput: true  }">
+                     [bsConfig]="{ isAnimated: true, containerClass:'theme-blue', dateInputFormat: 'dddd, DD/MM/YYYY HH:mm', returnFocusToInput: true, showWeekNumbers: false, showTodayButton: true, todayPosition: 'center' }">
 
             </div>
 

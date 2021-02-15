@@ -10,7 +10,7 @@ exports.EditAppointmentComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var EditAppointmentComponent = /** @class */ (function () {
-    function EditAppointmentComponent(appointmentService, customerService, sanitizer, route, router, authService, toastyService, specialistService) {
+    function EditAppointmentComponent(appointmentService, customerService, sanitizer, route, router, authService, toastyService, specialistService, localeService) {
         this.appointmentService = appointmentService;
         this.customerService = customerService;
         this.sanitizer = sanitizer;
@@ -19,7 +19,9 @@ var EditAppointmentComponent = /** @class */ (function () {
         this.authService = authService;
         this.toastyService = toastyService;
         this.specialistService = specialistService;
+        this.localeService = localeService;
         this.currentUser = this.authService.currentUser;
+        this.locale = 'engb';
         this.getAppointmentForm = new forms_1.FormGroup({
             customerFullName: new forms_1.FormControl(),
             customerPhoneNumber: new forms_1.FormControl(),
@@ -170,6 +172,7 @@ var EditAppointmentComponent = /** @class */ (function () {
         this.customerService.getCustomers().subscribe(function (allCustomers) {
             _this.allCustomers = allCustomers;
         });
+        this.localeService.use(this.locale);
     };
     EditAppointmentComponent = __decorate([
         core_1.Component({

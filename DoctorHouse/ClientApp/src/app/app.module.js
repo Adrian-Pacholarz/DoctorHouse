@@ -59,6 +59,9 @@ var jqxgrid_1 = require("jqwidgets-ng/jqxgrid");
 var jqxdatetimeinput_1 = require("jqwidgets-ng/jqxdatetimeinput");
 var common_1 = require("@angular/common");
 var datepicker_1 = require("ngx-bootstrap/datepicker");
+var chronos_1 = require("ngx-bootstrap/chronos");
+var locale_1 = require("ngx-bootstrap/locale");
+chronos_1.defineLocale('engb', locale_1.enGbLocale);
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }

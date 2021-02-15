@@ -12,6 +12,7 @@ import { jqxDateTimeInputModule } from 'jqwidgets-ng/jqxdatetimeinput';
 import { CommonModule } from '@angular/common';
 import { ViewChild, AfterViewInit } from "@angular/core";
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { listLocales } from 'ngx-bootstrap/chronos';
 
 
 
@@ -26,6 +27,7 @@ export class EditAppointmentComponent implements OnInit {
   appointmentId;
   appointment;
   allCustomers;
+  locale = 'engb';
 
   getAppointmentForm = new FormGroup({
     customerFullName: new FormControl(),
@@ -137,7 +139,8 @@ export class EditAppointmentComponent implements OnInit {
     private router: Router,
     private authService: AuthenticateService,
     private toastyService: ToastyService,
-    private specialistService: SpecialistService) {
+    private specialistService: SpecialistService,
+    private localeService: BsLocaleService) {
   }
 
 
@@ -166,6 +169,8 @@ export class EditAppointmentComponent implements OnInit {
       this.customerService.getCustomers().subscribe(allCustomers => {
         this.allCustomers = allCustomers;
       });
+
+    this.localeService.use(this.locale);
 
     }
 

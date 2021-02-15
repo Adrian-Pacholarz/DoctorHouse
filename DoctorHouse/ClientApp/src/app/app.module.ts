@@ -53,8 +53,9 @@ import { jqxDateTimeInputModule } from 'jqwidgets-ng/jqxdatetimeinput';
 import { CommonModule } from '@angular/common';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
-import { listLocales } from 'ngx-bootstrap/chronos';
-import { deLocale } from 'ngx-bootstrap/locale';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { enGbLocale } from 'ngx-bootstrap/locale';
+defineLocale('engb', enGbLocale);
 
 @NgModule({
   declarations: [
@@ -131,6 +132,7 @@ import { deLocale } from 'ngx-bootstrap/locale';
     jqxGridModule,
     CommonModule, jqxDateTimeInputModule,
     BsDatepickerModule
+
   ],
   bootstrap: [AppComponent]
 })

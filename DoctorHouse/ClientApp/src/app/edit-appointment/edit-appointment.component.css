@@ -1,23 +1,9 @@
-@import 'jqwidgets-ng/jqwidgets/styles/jqx.base.css';
-@import 'jqwidgets-ng/jqwidgets/styles/jqx.metrodark.css';
-@import 'jqwidgets-ng/jqwidgets/styles/jqx.dark.css';
-@import 'jqwidgets-ng/jqwidgets/styles/custom-scheme.css';
 
-button.calendar {
-  width: 2.75rem;
-  background-image: url('../../assets/images/calendar-light-blue.png') !important;
-  background-repeat: no-repeat;
-  background-size: 23px;
-  background-position: center;
+
+.custom-today-class {
+  background-color: blue;
+  color: white;
 }
-
-  button.calendar:active, button.calendar:hover {
-    width: 2.75rem;
-    background-image: url('../../assets/images/calendar-dark-blue.png') !important;
-    background-repeat: no-repeat;
-    background-size: 23px;
-    background-position: center;
-  }
 
   #appointmentCard {
     margin-left: auto;
