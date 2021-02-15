@@ -72,10 +72,19 @@
             <div class="form-group">
               <input class="form-control" formControlName="appointmentDate" type="text" [daysDisabled]="[6,0]"
                      bsDatepicker
-                     [bsConfig]="{ isAnimated: true, containerClass:'theme-blue', dateInputFormat: 'dddd, DD/MM/YYYY HH:mm', returnFocusToInput: true, showWeekNumbers: false, showTodayButton: true, todayPosition: 'center' }">
-
+                     [bsConfig]="{ isAnimated: true, containerClass:'theme-blue',
+                     dateInputFormat: 'dddd, DD/MM/YYYY HH:mm', returnFocusToInput: true,
+                     showWeekNumbers: false, showTodayButton: true, todayPosition: 'center', customTodayClass: 'custom-today-class' }">
+              <br />
+              <p class="labels">Pick appointment hour:</p>
+              <button type="button" class="btn btn-primary" id="#eight">
+                8:00
+              </button>
+              <button type="button" class="btn btn-primary" id="#twelve">
+                12:00
+              </button><br />
             </div>
-
+            <br />
           </div>
           <br />
 
@@ -222,6 +231,20 @@
 
 <script type="text/javascript">
   $(document).ready(function () {
-    $("#jqxdatetimeinput").jqxDateTimeInput({ theme: "custom-scheme" });
+    $("#eight").click(function () {
+      if ($('#twelve').prop("disabled")) {
+        $('#twelve').attr("disabled", false);
+      } else {
+        $('#twelve').attr("disabled", true);
+      }
+    });
+
+    $("#formButton2").click(function () {
+      if ($('#eight').prop("disabled")) {
+        $('#eight').attr("disabled", false);
+      } else {
+        $('#eight').attr("disabled", true);
+      }
+    });
   });
 </script>

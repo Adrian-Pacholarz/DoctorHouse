@@ -42,7 +42,8 @@ export class EditAppointmentComponent implements OnInit {
     customerAddress: new FormControl(),
     customers: new FormControl(),
     customerId: new FormControl(),
-    specialistId: new FormControl()
+    specialistId: new FormControl(),
+
 
   });
 
@@ -140,7 +141,8 @@ export class EditAppointmentComponent implements OnInit {
     private authService: AuthenticateService,
     private toastyService: ToastyService,
     private specialistService: SpecialistService,
-    private localeService: BsLocaleService) {
+    private localeService: BsLocaleService,
+    private formBuilder: FormBuilder) {
   }
 
 

@@ -10,7 +10,7 @@ exports.EditAppointmentComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var EditAppointmentComponent = /** @class */ (function () {
-    function EditAppointmentComponent(appointmentService, customerService, sanitizer, route, router, authService, toastyService, specialistService, localeService) {
+    function EditAppointmentComponent(appointmentService, customerService, sanitizer, route, router, authService, toastyService, specialistService, localeService, formBuilder) {
         this.appointmentService = appointmentService;
         this.customerService = customerService;
         this.sanitizer = sanitizer;
@@ -20,6 +20,7 @@ var EditAppointmentComponent = /** @class */ (function () {
         this.toastyService = toastyService;
         this.specialistService = specialistService;
         this.localeService = localeService;
+        this.formBuilder = formBuilder;
         this.currentUser = this.authService.currentUser;
         this.locale = 'engb';
         this.getAppointmentForm = new forms_1.FormGroup({
@@ -35,7 +36,7 @@ var EditAppointmentComponent = /** @class */ (function () {
             customerAddress: new forms_1.FormControl(),
             customers: new forms_1.FormControl(),
             customerId: new forms_1.FormControl(),
-            specialistId: new forms_1.FormControl()
+            specialistId: new forms_1.FormControl(),
         });
     }
     Object.defineProperty(EditAppointmentComponent.prototype, "customerFullName", {
