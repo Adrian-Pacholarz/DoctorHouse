@@ -3,12 +3,26 @@
 @import 'jqwidgets-ng/jqwidgets/styles/jqx.dark.css';
 @import 'jqwidgets-ng/jqwidgets/styles/custom-scheme.css';
 
-
-
-#appointmentCard {
-  margin-left: auto;
-  margin-right: auto;
+button.calendar {
+  width: 2.75rem;
+  background-image: url('../../assets/images/calendar-light-blue.png') !important;
+  background-repeat: no-repeat;
+  background-size: 23px;
+  background-position: center;
 }
+
+  button.calendar:active, button.calendar:hover {
+    width: 2.75rem;
+    background-image: url('../../assets/images/calendar-dark-blue.png') !important;
+    background-repeat: no-repeat;
+    background-size: 23px;
+    background-position: center;
+  }
+
+  #appointmentCard {
+    margin-left: auto;
+    margin-right: auto;
+  }
 
 body {
   margin-top: 20px;
