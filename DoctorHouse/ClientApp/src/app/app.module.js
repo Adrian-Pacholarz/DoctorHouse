@@ -58,6 +58,7 @@ var edit_appointment_component_1 = require("./edit-appointment/edit-appointment.
 var jqxgrid_1 = require("jqwidgets-ng/jqxgrid");
 var jqxdatetimeinput_1 = require("jqwidgets-ng/jqxdatetimeinput");
 var common_1 = require("@angular/common");
+var datepicker_1 = require("ngx-bootstrap/datepicker");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -124,7 +125,8 @@ var AppModule = /** @class */ (function () {
                 ng_bootstrap_1.NgbModule,
                 animations_1.BrowserAnimationsModule,
                 jqxgrid_1.jqxGridModule,
-                common_1.CommonModule, jqxdatetimeinput_1.jqxDateTimeInputModule
+                common_1.CommonModule, jqxdatetimeinput_1.jqxDateTimeInputModule,
+                datepicker_1.BsDatepickerModule.forRoot()
             ],
             providers: [
                 authenticate_service_1.AuthenticateService,
@@ -134,7 +136,8 @@ var AppModule = /** @class */ (function () {
                 companies_service_1.CompaniesService,
                 safe_pipe_1.SafePipe,
                 jqxgrid_1.jqxGridModule,
-                common_1.CommonModule, jqxdatetimeinput_1.jqxDateTimeInputModule
+                common_1.CommonModule, jqxdatetimeinput_1.jqxDateTimeInputModule,
+                datepicker_1.BsDatepickerModule
             ],
             bootstrap: [app_component_1.AppComponent]
         })

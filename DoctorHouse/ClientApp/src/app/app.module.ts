@@ -51,7 +51,10 @@ import { EditAppointmentComponent } from './edit-appointment/edit-appointment.co
 import { jqxGridModule } from 'jqwidgets-ng/jqxgrid';
 import { jqxDateTimeInputModule } from 'jqwidgets-ng/jqxdatetimeinput';
 import { CommonModule } from '@angular/common';
-
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { listLocales } from 'ngx-bootstrap/chronos';
+import { deLocale } from 'ngx-bootstrap/locale';
 
 @NgModule({
   declarations: [
@@ -115,7 +118,8 @@ import { CommonModule } from '@angular/common';
     NgbModule,
     BrowserAnimationsModule,
     jqxGridModule,
-    CommonModule, jqxDateTimeInputModule
+    CommonModule, jqxDateTimeInputModule,
+    BsDatepickerModule.forRoot()
   ],
   providers: [
     AuthenticateService,
@@ -125,7 +129,8 @@ import { CommonModule } from '@angular/common';
     CompaniesService,
     SafePipe,
     jqxGridModule,
-    CommonModule, jqxDateTimeInputModule
+    CommonModule, jqxDateTimeInputModule,
+    BsDatepickerModule
   ],
   bootstrap: [AppComponent]
 })

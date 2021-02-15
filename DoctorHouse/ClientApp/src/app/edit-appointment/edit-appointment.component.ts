@@ -11,6 +11,8 @@ import { jqxGridModule } from 'jqwidgets-ng/jqxgrid';
 import { jqxDateTimeInputModule } from 'jqwidgets-ng/jqxdatetimeinput';
 import { CommonModule } from '@angular/common';
 import { ViewChild, AfterViewInit } from "@angular/core";
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+
 
 
 @Component({

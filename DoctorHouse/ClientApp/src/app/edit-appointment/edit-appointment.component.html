@@ -1,4 +1,4 @@
-
+<link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
 <div id="appointmentCard" class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
   <div class="card h-100">
 
@@ -69,50 +69,55 @@
             <br />  <br />
             <label class="labels">Appointment date</label>
 
+            <div class="form-group">
+              <input class="form-control" formControlName="appointmentDate" type="text" [daysDisabled]="[6,0]"
+                     bsDatepicker
+                     [bsConfig]="{ isAnimated: true, containerClass:'theme-blue', dateInputFormat: 'dddd, DD/MM/YYYY HH:mm', returnFocusToInput: true  }">
+
+            </div>
+
+          </div>
+          <br />
+
+          <!--<div class="input-group">
+            <input class="form-control" formControlName="appointmentDate"
+                   name="dp" ngbDatepicker #d="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+            </div>
+          </div>-->
+
+          <ng-container *ngIf="currentUser.role == 'customer'">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              6
+              <label class="labels">Specialist name</label>
               <div class="form-group">
-                <div class="input-group">
-                  <input class="form-control" formControlName="appointmentDate"
-                         name="dp" ngbDatepicker #d="ngbDatepicker">
-                  <div class="input-group-append">
-                    <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
-                  </div>
-                </div>
-              </div>
+                <input type="text" class="form-control" readonly="readonly" formControlName="specialistFullName">
+              </div><br />
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              <label class="labels">Specialist phone no.</label>
+              <div class="form-group">
+                <input type="text" class="form-control" readonly="readonly" formControlName="specialistPhoneNumber">
+              </div><br />
+            </div>
+          </ng-container>
 
-          </div>
-            <br />
-
-            <ng-container *ngIf="currentUser.role == 'customer'">
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                6
-                <label class="labels">Specialist name</label>
-                <div class="form-group">
-                  <input type="text" class="form-control" readonly="readonly" formControlName="specialistFullName">
-                </div><br />
-              </div>
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <label class="labels">Specialist phone no.</label>
-                <div class="form-group">
-                  <input type="text" class="form-control" readonly="readonly" formControlName="specialistPhoneNumber">
-                </div><br />
-              </div>
-            </ng-container>
-
-            <ng-container *ngIf="currentUser.role == 'specialist'">
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <label class="labels">Customer name</label>
-                <div class="form-group">
-                  <input type="text" class="form-control" readonly="readonly" formControlName="customerFullName">
-                </div><br />
-              </div>
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <label class="labels">Customer phone no.</label>
-                <div class="form-group">
-                  <input type="text" class="form-control" readonly="readonly" formControlName="customerPhoneNumber">
-                </div><br />
-              </div>
-            </ng-container>
-          </div>
+          <ng-container *ngIf="currentUser.role == 'specialist'">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              <label class="labels">Customer name</label>
+              <div class="form-group">
+                <input type="text" class="form-control" readonly="readonly" formControlName="customerFullName">
+              </div><br />
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              <label class="labels">Customer phone no.</label>
+              <div class="form-group">
+                <input type="text" class="form-control" readonly="readonly" formControlName="customerPhoneNumber">
+              </div><br />
+            </div>
+          </ng-container>
+        </div>
 
 
 
