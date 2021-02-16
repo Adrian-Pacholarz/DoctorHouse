@@ -25,6 +25,7 @@ var EditAppointmentComponent = /** @class */ (function () {
         this.currentUser = this.authService.currentUser;
         this.locale = 'engb';
         this.disabledDates = [];
+        this.isDisabled = true;
         this.getAppointmentForm = new forms_1.FormGroup({
             customerFullName: new forms_1.FormControl(),
             customerPhoneNumber: new forms_1.FormControl(),
@@ -179,19 +180,16 @@ var EditAppointmentComponent = /** @class */ (function () {
                 for (var _i = 0, _a = _this.specialistAppointments; _i < _a.length; _i++) {
                     var appointment_1 = _a[_i];
                     var slicedDate = (appointment_1.appointmentDate).slice(0, 10);
-                    if (!hoursOfAppointments.containsKey(slicedDate)) {
-                        hoursOfAppointments.add(slicedDate, 1);
-                    }
-                    else if (hoursOfAppointments.containsKey(slicedDate)) {
-                        hoursOfAppointments.add(slicedDate, 2);
-                        _this.disabledDates.push(new Date(appointment_1.appointmentDate));
+                    if ((appointment_1.status !== 'resolved')) {
+                        if (!hoursOfAppointments.containsKey(slicedDate)) {
+                            hoursOfAppointments.add(slicedDate, 1);
+                        }
+                        else if (hoursOfAppointments.containsKey(slicedDate)) {
+                            hoursOfAppointments.add(slicedDate, 2);
+                            _this.disabledDates.push(new Date(appointment_1.appointmentDate));
+                        }
                     }
                 }
-                console.log(hoursOfAppointments);
-                //for (let appointment of this.specialistAppointments) {
-                //  this.disabledDates.push(new Date(appointment.appointmentDate));
-                //}
-                console.log(_this.disabledDates);
             });
         });
         this.customerService.getCustomers().subscribe(function (allCustomers) {

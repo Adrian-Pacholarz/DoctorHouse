@@ -32,6 +32,7 @@ export class EditAppointmentComponent implements OnInit {
   disabledDates = [];
   specialist;
   specialistAppointments;
+  isDisabled = true;
 
   getAppointmentForm = new FormGroup({
     customerFullName: new FormControl(),
@@ -178,21 +179,18 @@ export class EditAppointmentComponent implements OnInit {
 
           for (let appointment of this.specialistAppointments) {
             let slicedDate = (appointment.appointmentDate).slice(0, 10)
-            if (!hoursOfAppointments.containsKey(slicedDate)) {
-              hoursOfAppointments.add(slicedDate, 1);
-            }
-            else if (hoursOfAppointments.containsKey(slicedDate)) {
-              hoursOfAppointments.add(slicedDate, 2);
-              this.disabledDates.push(new Date(appointment.appointmentDate));
-            }
+
+            if ((appointment.status !== 'resolved')) {
+              if (!hoursOfAppointments.containsKey(slicedDate)) {
+                hoursOfAppointments.add(slicedDate, 1);
+              }
+
+              else if (hoursOfAppointments.containsKey(slicedDate)) {
+                hoursOfAppointments.add(slicedDate, 2);
+                this.disabledDates.push(new Date(appointment.appointmentDate));
+              }
           }
-          console.log(hoursOfAppointments);
-
-          //for (let appointment of this.specialistAppointments) {
-          //  this.disabledDates.push(new Date(appointment.appointmentDate));
-          //}
-
-          console.log(this.disabledDates);
+          }
         });
 
     });

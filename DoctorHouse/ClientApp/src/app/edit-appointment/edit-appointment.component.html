@@ -65,26 +65,48 @@
 
           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
             <br />  <br />
-            <label class="labels">Appointment date</label>
 
-            <div class="form-group">
-              <input class="form-control" formControlName="appointmentDate" type="text" [daysDisabled]="[6,0]" [datesDisabled]="disabledDates"
-                     bsDatepicker
-                     [bsConfig]="{ isAnimated: true, containerClass:'theme-blue',
+            <label class="labels">Appointment date</label>
+            <ng-container *ngIf="status.value !== 'resolved'">
+              <div class="form-group">
+                <input class="form-control" formControlName="appointmentDate" type="text" [daysDisabled]="[6,0]" [datesDisabled]="disabledDates"
+                       bsDatepicker
+                       [bsConfig]="{ isAnimated: true, containerClass:'theme-blue',
                      dateInputFormat: 'dddd, DD/MM/YYYY HH:mm', returnFocusToInput: true,
                      showWeekNumbers: false, showTodayButton: true, todayPosition: 'center', customTodayClass: 'custom-today-class' }">
-              <br />
-              <p class="labels">Pick appointment hour:</p>
+                <br />
+                <p class="labels">Pick appointment hour:</p>
+                <div class="form-group">
+                  <select formControlName="appointmentDate" class="form-control" id="appointmentDate">
+                    <option selected disabled hidden value="{{appointmentDate.value}}">{{appointmentDate.value | date: 'HH:mm'}}</option>
+                    <option value="0001-01-01T08:00:00">8:00</option>
+                    <option value="0001-01-01T12:00:00">12:00</option>
+                  </select>
+                </div>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="status.value === 'resolved'">
               <div class="form-group">
-                <select formControlName="appointmentDate" class="form-control" id="appointmentDate">
-                  <option selected disabled hidden value="{{appointmentDate.value}}">{{appointmentDate.value | date: 'HH:mm'}}</option>
-                  <option value="0001-01-01T08:00:00">8:00</option>
-                  <option value="0001-01-01T12:00:00">12:00</option>
-                </select>
+                <input class="form-control" formControlName="appointmentDate" type="text" [daysDisabled]="[6,0]" [datesDisabled]="disabledDates"
+                       [isDisabled]="isDisabled"
+                       bsDatepicker
+                       [bsConfig]="{ isAnimated: true, containerClass:'theme-blue',
+                     dateInputFormat: 'dddd, DD/MM/YYYY HH:mm', returnFocusToInput: true,
+                     showWeekNumbers: false, customTodayClass: 'custom-today-class' }">
+                <br />
+                <p class="labels">Pick appointment hour:</p>
+                <div class="form-group">
+                  <select disabled formControlName="appointmentDate" class="form-control" id="appointmentDate">
+                    <option selected disabled hidden value="{{appointmentDate.value}}">{{appointmentDate.value | date: 'HH:mm'}}</option>
+                    <option disabled value="0001-01-01T08:00:00">8:00</option>
+                    <option disabled value="0001-01-01T12:00:00">12:00</option>
+                  </select>
+                </div>
               </div>
-              </div>
-              <br />
-            </div>
+            </ng-container>
+            <br />
+          </div>
           <br />
 
 
