@@ -173,6 +173,7 @@ export class EditAppointmentComponent implements OnInit {
         this.specialistAppointments = this.specialist.appointments;
         console.log(this.specialistAppointments);
         for (let appointment of this.specialistAppointments) {
+          console.log(appointment.appointmentDate);
           this.disabledDates.push(new Date(appointment.appointmentDate));
         }
 

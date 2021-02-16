@@ -176,6 +176,7 @@ var EditAppointmentComponent = /** @class */ (function () {
                 console.log(_this.specialistAppointments);
                 for (var _i = 0, _a = _this.specialistAppointments; _i < _a.length; _i++) {
                     var appointment_1 = _a[_i];
+                    console.log(appointment_1.appointmentDate);
                     _this.disabledDates.push(new Date(appointment_1.appointmentDate));
                 }
                 console.log(_this.disabledDates);
