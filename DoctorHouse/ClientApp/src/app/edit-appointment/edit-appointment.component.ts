@@ -43,7 +43,7 @@ export class EditAppointmentComponent implements OnInit {
     companyPhoneNumber: new FormControl(),
     appointmentDate: new FormControl(),
     status: new FormControl(),
-    description: new FormControl(),
+    description: new FormControl('', [Validators.required, Validators.minLength(10)]),
     customerAddress: new FormControl(),
     customers: new FormControl(),
     customerId: new FormControl(),
