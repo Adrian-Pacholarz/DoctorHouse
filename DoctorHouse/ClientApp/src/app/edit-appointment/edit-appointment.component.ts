@@ -166,6 +166,7 @@ export class EditAppointmentComponent implements OnInit {
       this.description.setValue(this.appointment.description);
       this.appointmentDate.setValue(new Date(this.appointment.appointmentDate));
       this.status.setValue(this.appointment.status);
+      console.log(this.appointmentDate);
     })
 
 

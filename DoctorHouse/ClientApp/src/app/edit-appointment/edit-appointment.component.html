@@ -12,8 +12,6 @@
 
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <label class="labels">Status</label>
-            <div class="form-control" hidden>
-              <input type="text" formControlName="status" hidden />
               <div *ngIf="status.value === 'assigned'">
                 <div class="progress" style="height: 35px;">
                   <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="25" aria-valuemin="25" aria-valuemax="100" style="width: 25%">
@@ -21,7 +19,6 @@
                   </div>
                 </div>
               </div>
-            </div>
             <div *ngIf="status.value === 'work in progress'">
               <div class="progress" style="height: 35px;">
                 <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="25" aria-valuemax="100" style="width: 50%">
@@ -46,7 +43,8 @@
             <ng-container *ngIf="currentUser.role == 'specialist'">
               <label class="labels">Change status</label>
               <div class="form-group">
-                <select formControlName="status" class="form-control" id="status" placeholder="{{status.value}}">
+                <select formControlName="status" class="form-control" id="status">
+                  <option selected disabled hidden value="{{status.value}}">{{status.value}}</option>
                   <option value="assigned">Assigned</option>
                   <option value="work in progress">Work in progress</option>
                   <option value="pending">Pending</option>
@@ -80,8 +78,8 @@
               <div class="form-group">
                 <select formControlName="appointmentDate" class="form-control" id="appointmentDate">
                   <option selected disabled hidden value="{{appointmentDate.value}}">{{appointmentDate.value | date: 'HH:mm'}}</option>
-                  <option value="">8:00</option>
-                  <option value="">12:00</option>
+                  <option value="0001-01-01T08:00:00">8:00</option>
+                  <option value="0001-01-01T12:00:00">12:00</option>
                 </select>
               </div>
               </div>
@@ -224,24 +222,4 @@
   </div>
 </div>
 
-<!--<script type="text/javascript">
-  $(document).ready(function () {
-    $("#eight").click(function () {
-      if ($('#twelve').prop("disabled")) {
-        $('#twelve').attr("disabled", false);
-      } else {
-        $('#twelve').attr("disabled", true);
-      }
-    });
 
-    $("#twelve").click(function () {
-      if ($('#eight').prop("disabled")) {
-        $('#eight').attr("disabled", false);
-      } else {
-        $('#eight').attr("disabled", true);
-      }
-    });-->
-
-
-  <!--});
-</script>-->

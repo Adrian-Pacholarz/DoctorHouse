@@ -169,6 +169,7 @@ var EditAppointmentComponent = /** @class */ (function () {
             _this.description.setValue(_this.appointment.description);
             _this.appointmentDate.setValue(new Date(_this.appointment.appointmentDate));
             _this.status.setValue(_this.appointment.status);
+            console.log(_this.appointmentDate);
         });
         this.customerService.getCustomers().subscribe(function (allCustomers) {
             _this.allCustomers = allCustomers;
