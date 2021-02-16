@@ -55,6 +55,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { enGbLocale } from 'ngx-bootstrap/locale';
+import { Dictionary } from '../app/interfaces/Dictionary';
 defineLocale('engb', enGbLocale);
 
 @NgModule({

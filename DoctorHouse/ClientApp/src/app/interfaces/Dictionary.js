@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Dictionary = void 0;
 var Dictionary = /** @class */ (function () {
     function Dictionary() {
         this.items = {};
@@ -46,5 +47,5 @@ var Dictionary = /** @class */ (function () {
     };
     return Dictionary;
 }());
-exports.default = Dictionary;
+exports.Dictionary = Dictionary;
 //# sourceMappingURL=Dictionary.js.map

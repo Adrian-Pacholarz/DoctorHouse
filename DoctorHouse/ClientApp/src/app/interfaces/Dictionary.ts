@@ -1,7 +1,7 @@
 import { IKeyCollection } from '../interfaces/IKeyCollection';
 
 
-export default class Dictionary<T> implements IKeyCollection<T> {
+export class Dictionary<T> implements IKeyCollection<T> {
   private items: { [index: string]: T } = {};
   private count: number = 0;
 

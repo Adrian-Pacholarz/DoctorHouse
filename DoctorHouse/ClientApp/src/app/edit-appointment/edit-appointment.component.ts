@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { ViewChild, AfterViewInit } from "@angular/core";
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { listLocales } from 'ngx-bootstrap/chronos';
+import { Dictionary } from '../interfaces/Dictionary';
 
 
 
@@ -168,18 +169,33 @@ export class EditAppointmentComponent implements OnInit {
       this.appointmentDate.setValue(new Date(this.appointment.appointmentDate));
       this.status.setValue(this.appointment.status);
 
-      this.specialistService.getSpecialistById(this.getAppointmentForm.get('specialistId').value).subscribe(specialist => {
-        this.specialist = specialist;
-        this.specialistAppointments = this.specialist.appointments;
-        console.log(this.specialistAppointments);
-        for (let appointment of this.specialistAppointments) {
-          console.log(appointment.appointmentDate);
-          this.disabledDates.push(new Date(appointment.appointmentDate));
-        }
+      this.specialistService.getSpecialistById(this.getAppointmentForm.get('specialistId').value)
+        .subscribe(specialist => {
+          this.specialist = specialist;
+          this.specialistAppointments = this.specialist.appointments;
 
-        console.log(this.disabledDates);
-      });
-    })
+          let hoursOfAppointments = new Dictionary<any>();
+
+          for (let appointment of this.specialistAppointments) {
+            let slicedDate = (appointment.appointmentDate).slice(0, 10)
+            if (!hoursOfAppointments.containsKey(slicedDate)) {
+              hoursOfAppointments.add(slicedDate, 1);
+            }
+            else if (hoursOfAppointments.containsKey(slicedDate)) {
+              hoursOfAppointments.add(slicedDate, 2);
+              this.disabledDates.push(new Date(appointment.appointmentDate));
+            }
+          }
+          console.log(hoursOfAppointments);
+
+          //for (let appointment of this.specialistAppointments) {
+          //  this.disabledDates.push(new Date(appointment.appointmentDate));
+          //}
+
+          console.log(this.disabledDates);
+        });
+
+    });
 
 
       this.customerService.getCustomers().subscribe(allCustomers => {

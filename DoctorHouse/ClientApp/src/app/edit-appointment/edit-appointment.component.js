@@ -9,6 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EditAppointmentComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var Dictionary_1 = require("../interfaces/Dictionary");
 var EditAppointmentComponent = /** @class */ (function () {
     function EditAppointmentComponent(appointmentService, customerService, sanitizer, route, router, authService, toastyService, specialistService, localeService, formBuilder) {
         this.appointmentService = appointmentService;
@@ -170,15 +171,26 @@ var EditAppointmentComponent = /** @class */ (function () {
             _this.description.setValue(_this.appointment.description);
             _this.appointmentDate.setValue(new Date(_this.appointment.appointmentDate));
             _this.status.setValue(_this.appointment.status);
-            _this.specialistService.getSpecialistById(_this.getAppointmentForm.get('specialistId').value).subscribe(function (specialist) {
+            _this.specialistService.getSpecialistById(_this.getAppointmentForm.get('specialistId').value)
+                .subscribe(function (specialist) {
                 _this.specialist = specialist;
                 _this.specialistAppointments = _this.specialist.appointments;
-                console.log(_this.specialistAppointments);
+                var hoursOfAppointments = new Dictionary_1.Dictionary();
                 for (var _i = 0, _a = _this.specialistAppointments; _i < _a.length; _i++) {
                     var appointment_1 = _a[_i];
-                    console.log(appointment_1.appointmentDate);
-                    _this.disabledDates.push(new Date(appointment_1.appointmentDate));
+                    var slicedDate = (appointment_1.appointmentDate).slice(0, 10);
+                    if (!hoursOfAppointments.containsKey(slicedDate)) {
+                        hoursOfAppointments.add(slicedDate, 1);
+                    }
+                    else if (hoursOfAppointments.containsKey(slicedDate)) {
+                        hoursOfAppointments.add(slicedDate, 2);
+                        _this.disabledDates.push(new Date(appointment_1.appointmentDate));
+                    }
                 }
+                console.log(hoursOfAppointments);
+                //for (let appointment of this.specialistAppointments) {
+                //  this.disabledDates.push(new Date(appointment.appointmentDate));
+                //}
                 console.log(_this.disabledDates);
             });
         });
