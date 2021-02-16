@@ -28,6 +28,9 @@ export class EditAppointmentComponent implements OnInit {
   appointment;
   allCustomers;
   locale = 'engb';
+  disabledDates = [];
+  specialist;
+  specialistAppointments;
 
   getAppointmentForm = new FormGroup({
     customerFullName: new FormControl(),
@@ -110,8 +113,6 @@ export class EditAppointmentComponent implements OnInit {
   }
 
 
-
-
   formatAddress(addressDb): SafeResourceUrl {
     addressDb = addressDb.toString().toLowerCase();
     let street = 'ul.';
@@ -166,7 +167,17 @@ export class EditAppointmentComponent implements OnInit {
       this.description.setValue(this.appointment.description);
       this.appointmentDate.setValue(new Date(this.appointment.appointmentDate));
       this.status.setValue(this.appointment.status);
-      console.log(this.appointmentDate);
+
+      this.specialistService.getSpecialistById(this.getAppointmentForm.get('specialistId').value).subscribe(specialist => {
+        this.specialist = specialist;
+        this.specialistAppointments = this.specialist.appointments;
+        console.log(this.specialistAppointments);
+        for (let appointment of this.specialistAppointments) {
+          this.disabledDates.push(new Date(appointment.appointmentDate));
+        }
+
+        console.log(this.disabledDates);
+      });
     })
 
 

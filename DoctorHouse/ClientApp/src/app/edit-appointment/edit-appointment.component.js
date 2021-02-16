@@ -23,6 +23,7 @@ var EditAppointmentComponent = /** @class */ (function () {
         this.formBuilder = formBuilder;
         this.currentUser = this.authService.currentUser;
         this.locale = 'engb';
+        this.disabledDates = [];
         this.getAppointmentForm = new forms_1.FormGroup({
             customerFullName: new forms_1.FormControl(),
             customerPhoneNumber: new forms_1.FormControl(),
@@ -169,7 +170,16 @@ var EditAppointmentComponent = /** @class */ (function () {
             _this.description.setValue(_this.appointment.description);
             _this.appointmentDate.setValue(new Date(_this.appointment.appointmentDate));
             _this.status.setValue(_this.appointment.status);
-            console.log(_this.appointmentDate);
+            _this.specialistService.getSpecialistById(_this.getAppointmentForm.get('specialistId').value).subscribe(function (specialist) {
+                _this.specialist = specialist;
+                _this.specialistAppointments = _this.specialist.appointments;
+                console.log(_this.specialistAppointments);
+                for (var _i = 0, _a = _this.specialistAppointments; _i < _a.length; _i++) {
+                    var appointment_1 = _a[_i];
+                    _this.disabledDates.push(new Date(appointment_1.appointmentDate));
+                }
+                console.log(_this.disabledDates);
+            });
         });
         this.customerService.getCustomers().subscribe(function (allCustomers) {
             _this.allCustomers = allCustomers;

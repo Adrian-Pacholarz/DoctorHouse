@@ -68,7 +68,7 @@
             <label class="labels">Appointment date</label>
 
             <div class="form-group">
-              <input class="form-control" formControlName="appointmentDate" type="text" [daysDisabled]="[6,0]"
+              <input class="form-control" formControlName="appointmentDate" type="text" [daysDisabled]="[6,0]" [datesDisabled]="disabledDates"
                      bsDatepicker
                      [bsConfig]="{ isAnimated: true, containerClass:'theme-blue',
                      dateInputFormat: 'dddd, DD/MM/YYYY HH:mm', returnFocusToInput: true,
@@ -174,7 +174,7 @@
 
 
             <h6 class="mb-3 text-primary">Description</h6>
-            <div class="form-group" *ngIf="currentUser.role == 'customer'">
+            <div class="form-group" *ngIf="currentUser.role == 'specialist'">
               <textarea formControlName="description" class="form-control"></textarea>
             </div>
             <div class="form-group" *ngIf="currentUser.role == 'specialist'">
