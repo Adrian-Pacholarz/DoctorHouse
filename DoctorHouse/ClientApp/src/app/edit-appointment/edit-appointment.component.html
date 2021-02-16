@@ -77,24 +77,19 @@
                      showWeekNumbers: false, showTodayButton: true, todayPosition: 'center', customTodayClass: 'custom-today-class' }">
               <br />
               <p class="labels">Pick appointment hour:</p>
-              <button type="button" class="btn btn-primary" id="#eight">
-                8:00
-              </button>
-              <button type="button" class="btn btn-primary" id="#twelve">
-                12:00
-              </button><br />
+              <div class="form-group">
+                <select formControlName="appointmentDate" class="form-control" id="appointmentDate">
+                  <option selected disabled hidden value="{{appointmentDate.value}}">{{appointmentDate.value | date: 'HH:mm'}}</option>
+                  <option value="">8:00</option>
+                  <option value="">12:00</option>
+                </select>
+              </div>
+              </div>
+              <br />
             </div>
-            <br />
-          </div>
           <br />
 
-          <!--<div class="input-group">
-            <input class="form-control" formControlName="appointmentDate"
-                   name="dp" ngbDatepicker #d="ngbDatepicker">
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
-            </div>
-          </div>-->
+
 
           <ng-container *ngIf="currentUser.role == 'customer'">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -229,7 +224,7 @@
   </div>
 </div>
 
-<script type="text/javascript">
+<!--<script type="text/javascript">
   $(document).ready(function () {
     $("#eight").click(function () {
       if ($('#twelve').prop("disabled")) {
@@ -239,12 +234,14 @@
       }
     });
 
-    $("#formButton2").click(function () {
+    $("#twelve").click(function () {
       if ($('#eight').prop("disabled")) {
         $('#eight').attr("disabled", false);
       } else {
         $('#eight').attr("disabled", true);
       }
-    });
-  });
-</script>
+    });-->
+
+
+  <!--});
+</script>-->
