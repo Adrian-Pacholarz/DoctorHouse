@@ -122,6 +122,17 @@ export class EditAppointmentComponent implements OnInit {
     }
   }
 
+  checkIf8() {
+    if ((this.appointmentHour.value) === "8:00") {
+      return true;
+    }
+  }
+
+  checkIf12() {
+    if ((this.appointmentHour.value) === "12:00") {
+      return true;
+    }
+  }
 
   formatAddress(addressDb): SafeResourceUrl {
     addressDb = addressDb.toString().toLowerCase();
@@ -141,12 +152,11 @@ export class EditAppointmentComponent implements OnInit {
 
   update() {
 
-    let hour;
     let date = new Date(this.appointmentDate.value);
     let slicedDate = date.toISOString().slice(0, 10);
-    let stringDate = slicedDate + " 08:00:00.0000000";
-    console.log(stringDate);
+    let stringDate = slicedDate + this.appointmentHour.value;
     let localDate = new Date(stringDate);
+
     let updatedAppointment = {
       appointmentDate: localDate,
     status: this.status.value,
@@ -225,7 +235,9 @@ export class EditAppointmentComponent implements OnInit {
       this.appointmentDate.setValue(new Date(this.appointment.appointmentDate));
       this.status.setValue(this.appointment.status);
       this.companyId.setValue(this.appointment.company.id);
+      this.appointmentHour.setValue((this.appointmentDate.value).getHours() + ":00");
 
+      console.log(this.appointmentHour.value)
 
       this.specialistService.getSpecialistById(this.getAppointmentForm.get('specialistId').value)
         .subscribe(specialist => {

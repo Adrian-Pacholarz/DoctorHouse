@@ -154,6 +154,16 @@ var EditAppointmentComponent = /** @class */ (function () {
             return true;
         }
     };
+    EditAppointmentComponent.prototype.checkIf8 = function () {
+        if ((this.appointmentHour.value) === "8:00") {
+            return true;
+        }
+    };
+    EditAppointmentComponent.prototype.checkIf12 = function () {
+        if ((this.appointmentHour.value) === "12:00") {
+            return true;
+        }
+    };
     EditAppointmentComponent.prototype.formatAddress = function (addressDb) {
         addressDb = addressDb.toString().toLowerCase();
         var street = 'ul.';
@@ -169,10 +179,12 @@ var EditAppointmentComponent = /** @class */ (function () {
     };
     EditAppointmentComponent.prototype.update = function () {
         var _this = this;
-        var hour;
-        var dateString = (new Date(this.appointmentDate.value).toISOString()).slice(0, 10);
+        var date = new Date(this.appointmentDate.value);
+        var slicedDate = date.toISOString().slice(0, 10);
+        var stringDate = slicedDate + this.appointmentHour.value;
+        var localDate = new Date(stringDate);
         var updatedAppointment = {
-            appointmentDate: this.appointmentDate.value,
+            appointmentDate: localDate,
             status: this.status.value,
             description: this.description.value,
             customerId: this.customerId.value,
@@ -227,6 +239,8 @@ var EditAppointmentComponent = /** @class */ (function () {
             _this.appointmentDate.setValue(new Date(_this.appointment.appointmentDate));
             _this.status.setValue(_this.appointment.status);
             _this.companyId.setValue(_this.appointment.company.id);
+            _this.appointmentHour.setValue((_this.appointmentDate.value).getHours() + ":00");
+            console.log(_this.appointmentHour.value);
             _this.specialistService.getSpecialistById(_this.getAppointmentForm.get('specialistId').value)
                 .subscribe(function (specialist) {
                 _this.specialist = specialist;
