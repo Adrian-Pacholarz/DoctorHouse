@@ -34,6 +34,7 @@ export class EditAppointmentComponent implements OnInit {
   specialistAppointments;
   isDisabled = true;
 
+
   getAppointmentForm = new FormGroup({
     customerFullName: new FormControl(),
     customerPhoneNumber: new FormControl(),
@@ -48,14 +49,21 @@ export class EditAppointmentComponent implements OnInit {
     customers: new FormControl(),
     customerId: new FormControl(),
     specialistId: new FormControl(),
-
-
+    companyId: new FormControl(),
+    appointmentHour: new FormControl()
   });
 
   get customerFullName() {
     return this.getAppointmentForm.get('customerFullName')
   }
 
+  get appointmentHour() {
+    return this.getAppointmentForm.get('appointmentHour')
+  }
+
+  get companyId() {
+    return this.getAppointmentForm.get('companyId')
+  }
 
   get customerId() {
     return this.getAppointmentForm.get('customerId')
@@ -132,9 +140,56 @@ export class EditAppointmentComponent implements OnInit {
   }
 
   update() {
-    console.log('button clicked');
-  }
 
+    let hour;
+    let date = new Date(this.appointmentDate.value);
+    let slicedDate = date.toISOString().slice(0, 10);
+    let stringDate = slicedDate + " 08:00:00.0000000";
+    console.log(stringDate);
+    let localDate = new Date(stringDate);
+    let updatedAppointment = {
+      appointmentDate: localDate,
+    status: this.status.value,
+    description: this.description.value,
+      customerId: this.customerId.value,
+      specialistId: this.specialistId.value,
+      companyId: this.companyId.value
+    };
+
+
+    this.appointmentService.updateAppointment(this.appointmentId, updatedAppointment).subscribe(specialist => {
+      this.toastyService.success({
+        title: 'Success',
+        msg: 'An account has been updated',
+        theme: 'bootstrap',
+        showClose: true,
+        timeout: 5000
+      })
+
+      location.reload();
+
+    },
+      (error: Response) => {
+        if (error.status === 500)
+          this.toastyService.error({
+            title: 'Error',
+            msg: 'Wrong data provided',
+            theme: 'bootstrap',
+            showClose: true,
+            timeout: 5000
+          })
+
+        else {
+          this.toastyService.error({
+            title: 'Error',
+            msg: 'An error occured and account was not updated',
+            theme: 'bootstrap',
+            showClose: true,
+            timeout: 5000
+          })
+        }
+      });
+  }
 
   constructor(
     private appointmentService: AppointmentService,
@@ -169,11 +224,14 @@ export class EditAppointmentComponent implements OnInit {
       this.description.setValue(this.appointment.description);
       this.appointmentDate.setValue(new Date(this.appointment.appointmentDate));
       this.status.setValue(this.appointment.status);
+      this.companyId.setValue(this.appointment.company.id);
+
 
       this.specialistService.getSpecialistById(this.getAppointmentForm.get('specialistId').value)
         .subscribe(specialist => {
           this.specialist = specialist;
           this.specialistAppointments = this.specialist.appointments;
+
 
           let hoursOfAppointments = new Dictionary<any>();
 

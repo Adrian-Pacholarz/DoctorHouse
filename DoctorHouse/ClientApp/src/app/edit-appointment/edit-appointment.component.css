@@ -11,6 +11,29 @@
   align-items: center;
 }
 
+label.btn.btn-primary {
+  color: #70FFFC;
+  border-color: #70FFFC;
+  background-color: transparent;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  width: 95%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+}
+
+  label.btn.btn-primary:hover {
+    color: #11234A;
+    font-weight: bold;
+    background-color: #70FFFC;
+  }
+
+.btn-outline-info {
+  color: #70FFFC;
+  border-color: #70FFFC;
+}
+
 .form-error {
   font-size: small;
   text-align: center;
@@ -174,7 +197,7 @@ img {
   border-radius: 2px;
 }
 
-a.btn.btn-primary {
+a.btn.btn-primary, .btn-outline-info {
   color: #70FFFC;
   border-color: #70FFFC;
   background-color: transparent;
@@ -186,7 +209,7 @@ a.btn.btn-primary {
   margin-right: 2.5%;
 }
 
-  a.btn.btn-primary:hover {
+  a.btn.btn-primary:hover, .btn-outline-info:hover {
     color: #11234A;
     font-weight: bold;
     background-color: #70FFFC;

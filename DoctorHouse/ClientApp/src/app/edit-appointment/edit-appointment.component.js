@@ -40,11 +40,27 @@ var EditAppointmentComponent = /** @class */ (function () {
             customers: new forms_1.FormControl(),
             customerId: new forms_1.FormControl(),
             specialistId: new forms_1.FormControl(),
+            companyId: new forms_1.FormControl(),
+            appointmentHour: new forms_1.FormControl()
         });
     }
     Object.defineProperty(EditAppointmentComponent.prototype, "customerFullName", {
         get: function () {
             return this.getAppointmentForm.get('customerFullName');
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(EditAppointmentComponent.prototype, "appointmentHour", {
+        get: function () {
+            return this.getAppointmentForm.get('appointmentHour');
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(EditAppointmentComponent.prototype, "companyId", {
+        get: function () {
+            return this.getAppointmentForm.get('companyId');
         },
         enumerable: false,
         configurable: true
@@ -152,7 +168,45 @@ var EditAppointmentComponent = /** @class */ (function () {
         return this.sanitizer.bypassSecurityTrustResourceUrl(map);
     };
     EditAppointmentComponent.prototype.update = function () {
-        console.log('button clicked');
+        var _this = this;
+        var hour;
+        var dateString = (new Date(this.appointmentDate.value).toISOString()).slice(0, 10);
+        var updatedAppointment = {
+            appointmentDate: this.appointmentDate.value,
+            status: this.status.value,
+            description: this.description.value,
+            customerId: this.customerId.value,
+            specialistId: this.specialistId.value,
+            companyId: this.companyId.value
+        };
+        this.appointmentService.updateAppointment(this.appointmentId, updatedAppointment).subscribe(function (specialist) {
+            _this.toastyService.success({
+                title: 'Success',
+                msg: 'An account has been updated',
+                theme: 'bootstrap',
+                showClose: true,
+                timeout: 5000
+            });
+            location.reload();
+        }, function (error) {
+            if (error.status === 500)
+                _this.toastyService.error({
+                    title: 'Error',
+                    msg: 'Wrong data provided',
+                    theme: 'bootstrap',
+                    showClose: true,
+                    timeout: 5000
+                });
+            else {
+                _this.toastyService.error({
+                    title: 'Error',
+                    msg: 'An error occured and account was not updated',
+                    theme: 'bootstrap',
+                    showClose: true,
+                    timeout: 5000
+                });
+            }
+        });
     };
     EditAppointmentComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -172,6 +226,7 @@ var EditAppointmentComponent = /** @class */ (function () {
             _this.description.setValue(_this.appointment.description);
             _this.appointmentDate.setValue(new Date(_this.appointment.appointmentDate));
             _this.status.setValue(_this.appointment.status);
+            _this.companyId.setValue(_this.appointment.company.id);
             _this.specialistService.getSpecialistById(_this.getAppointmentForm.get('specialistId').value)
                 .subscribe(function (specialist) {
                 _this.specialist = specialist;

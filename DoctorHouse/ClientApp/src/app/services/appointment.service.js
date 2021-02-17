@@ -23,6 +23,9 @@ var AppointmentService = /** @class */ (function () {
     AppointmentService.prototype.getAppointmentsById = function (id) {
         return this.http.get(this.url + '/' + id);
     };
+    AppointmentService.prototype.updateAppointment = function (id, appointment) {
+        return this.http.put(this.url + '/' + id, JSON.stringify(appointment), this.httpOptions);
+    };
     AppointmentService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

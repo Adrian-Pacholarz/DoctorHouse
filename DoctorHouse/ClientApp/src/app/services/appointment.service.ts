@@ -21,4 +21,8 @@ export class AppointmentService {
   getAppointmentsById(id) {
     return this.http.get(this.url + '/' + id)
   }
+
+  updateAppointment(id, appointment) {
+    return this.http.put(this.url + '/' + id, JSON.stringify(appointment), this.httpOptions);
+  }
 }
