@@ -30,6 +30,7 @@ export class CreateAppointmentComponent implements OnInit {
   specialists;
   specialist;
   specialistAppointments;
+  allCompanies;
   isDisabled = true;
   locale = 'engb';
   disabledDates = [];
@@ -43,6 +44,7 @@ export class CreateAppointmentComponent implements OnInit {
     specialistPhoneNumber: new FormControl(),
     specialistId: new FormControl(),
 
+    companies: new FormControl(),
     companyFullName: new FormControl(),
     companyPhoneNumber: new FormControl(),
     companyId: new FormControl(),
@@ -55,6 +57,10 @@ export class CreateAppointmentComponent implements OnInit {
 
   get customerFullName() {
     return this.getAppointmentForm.get('customerFullName')
+  }
+
+  get companies() {
+    return this.getAppointmentForm.get('companies')
   }
 
   get appointmentHour() {
@@ -225,6 +231,38 @@ export class CreateAppointmentComponent implements OnInit {
           this.router.navigate(['/not-found'])
       });
 
+    this.specialistService.getSpecialistById(this.filter).subscribe(specialist => {
+      this.specialist = specialist;
+      this.specialistFullName.setValue(this.specialist.details.firstName + " " + this.specialist.details.lastName);
+      this.specialistPhoneNumber.setValue(this.specialist.details.phoneNumber);
+
+      this.allCompanies = this.specialist.companies;
+      this.specialistCompanies.setValue(this.specialist.companies)
+      console.log(this.allCompanies);
+      //this.companyFullName.setValue(this.specialist.companies.fullName);
+      //this.companyPhoneNumber.setValue(this.specialist.companies.phoneNumber);
+      //this.companyId.setValue(this.specialist.companies.id);
+      this.specialistAppointments = this.specialist.appointments;
+
+      let hoursOfAppointments = new Dictionary<any>();
+
+      for (let appointment of this.specialistAppointments) {
+        let slicedDate = (appointment.appointmentDate).slice(0, 10)
+
+        if ((appointment.status !== 'resolved')) {
+          if (!hoursOfAppointments.containsKey(slicedDate)) {
+            hoursOfAppointments.add(slicedDate, 1);
+          }
+
+          else if (hoursOfAppointments.containsKey(slicedDate)) {
+            hoursOfAppointments.add(slicedDate, 2);
+            this.disabledDates.push(new Date(appointment.appointmentDate));
+          }
+        }
+      }
+    }
+    )
+
     this.localeService.use(this.locale);
 
   }
@@ -233,7 +271,7 @@ export class CreateAppointmentComponent implements OnInit {
     var specialists = this.allSpecialists;
 
     if (this.filter)
-      specialists = specialists.filter(s => s.Id == this.filter);
+      specialists = specialists.filter(s => s.id == this.filter);
 
     this.specialists = specialists;
   }

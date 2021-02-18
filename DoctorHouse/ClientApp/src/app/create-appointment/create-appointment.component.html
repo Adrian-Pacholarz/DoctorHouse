@@ -90,8 +90,17 @@
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <label class="labels">Company name</label>
               <div class="form-group">
+                <select formControlName="companies" class="form-control" id="companies" placeholder="Companies">
+                  <option *ngFor="let c of allCompanies">{{c.fullName}}</option>
+                </select>
+                <div *ngIf="companies.touched && companies.invalid" class="form-error">
+                  <div *ngIf="companies.errors.required">One company must be selected</div>
+                </div>
+              </div>
+
+              <!--<div class="form-group">
                 <input type="text" class="form-control" readonly="readonly" formControlName="companyFullName">
-              </div><br />
+              </div><br />-->
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <label class="labels">Company phone no.</label>

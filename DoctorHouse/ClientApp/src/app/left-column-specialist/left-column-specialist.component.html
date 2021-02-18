@@ -26,7 +26,7 @@
       <div *ngIf="currentUser.role == 'customer'" class="about">
         <h5 class="mb-2 text-primary">Appointment</h5>
         <p>
-          <a href="">
+          <a [routerLink]="['/new-appointment']" [queryParams]="{filter: specialistId }">
             <i class="fas fa-calendar-check"></i><br />Make an appointment
           </a>
         </p>
