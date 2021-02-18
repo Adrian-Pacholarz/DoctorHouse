@@ -60,6 +60,7 @@ defineLocale('engb', enGbLocale);
 import { MyPhotosComponent } from './my-photos/my-photos.component';
 import { PhotosService } from './services/photos.service';
 import { CompaniesComponent } from './companies/companies.component';
+import { CreateAppointmentComponent } from './create-appointment/create-appointment.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import { CompaniesComponent } from './companies/companies.component';
     MyAppointmentsComponent,
     AppointmentReadComponent,
     CompaniesComponent,
-    EditAppointmentComponent
+    EditAppointmentComponent,
+    CreateAppointmentComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
