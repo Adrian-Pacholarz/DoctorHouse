@@ -48,6 +48,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppointmentReadComponent } from './appointment-read/appointment-read.component';
 import { MyPhotosComponent } from './my-photos/my-photos.component';
 import { PhotosService } from './services/photos.service';
+import { CompaniesComponent } from './companies/companies.component';
 
 
 
@@ -87,7 +88,8 @@ import { PhotosService } from './services/photos.service';
     NotFoundComponent,
     MyPhotosComponent,
     MyAppointmentsComponent,
-    AppointmentReadComponent
+    AppointmentReadComponent,
+    CompaniesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -104,6 +106,7 @@ import { PhotosService } from './services/photos.service';
       { path: 'users/specialists/:id', component: UserSpecialistProfileComponent, canActivate: [AuthGuard] },
       { path: 'specialists-list', component: SpecialistsListComponent, canActivate: [AuthGuard]},
       { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'companies', component: CompaniesComponent, canActivate: [AuthGuard] },
       { path: 'companies/:id', component: CompanyProfileComponent, canActivate: [AuthGuard] },
       { path: 'my-appointments', component: MyAppointmentsComponent, canActivate: [AuthGuard] },
       { path: 'appointments/:id', component: AppointmentReadComponent, canActivate: [AuthGuard]},

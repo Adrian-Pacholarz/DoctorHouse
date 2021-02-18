@@ -55,6 +55,7 @@ var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var appointment_read_component_1 = require("./appointment-read/appointment-read.component");
 var my_photos_component_1 = require("./my-photos/my-photos.component");
 var photos_service_1 = require("./services/photos.service");
+var companies_component_1 = require("./companies/companies.component");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -95,7 +96,8 @@ var AppModule = /** @class */ (function () {
                 not_found_component_1.NotFoundComponent,
                 my_photos_component_1.MyPhotosComponent,
                 my_appointments_component_1.MyAppointmentsComponent,
-                appointment_read_component_1.AppointmentReadComponent
+                appointment_read_component_1.AppointmentReadComponent,
+                companies_component_1.CompaniesComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -112,6 +114,7 @@ var AppModule = /** @class */ (function () {
                     { path: 'users/specialists/:id', component: user_specialist_profile_component_1.UserSpecialistProfileComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'specialists-list', component: specialists_list_component_1.SpecialistsListComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'fetch-data', component: fetch_data_component_1.FetchDataComponent },
+                    { path: 'companies', component: companies_component_1.CompaniesComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'companies/:id', component: company_profile_component_1.CompanyProfileComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'my-appointments', component: my_appointments_component_1.MyAppointmentsComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'appointments/:id', component: appointment_read_component_1.AppointmentReadComponent, canActivate: [auth_guard_service_1.AuthGuard] },
