@@ -109,8 +109,7 @@ namespace DoctorHouse.Controllers
 
             if (!specialists.Contains(appointmentResource.SpecialistId) ||
                 !customers.Contains(appointmentResource.CustomerId) ||
-                !companies.Contains(appointmentResource.CompanyId) ||
-                dates.Contains(appointmentResource.AppointmentDate))
+                !companies.Contains(appointmentResource.CompanyId))
             {
                 return BadRequest("Wrong type of data provided");
             }

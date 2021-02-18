@@ -26,7 +26,6 @@ var EditAppointmentComponent = /** @class */ (function () {
         this.locale = 'engb';
         this.disabledDates = [];
         this.isDisabled = true;
-        this.minDate = new Date();
         this.getAppointmentForm = new forms_1.FormGroup({
             customerFullName: new forms_1.FormControl(),
             customerPhoneNumber: new forms_1.FormControl(),
@@ -156,12 +155,12 @@ var EditAppointmentComponent = /** @class */ (function () {
         }
     };
     EditAppointmentComponent.prototype.checkIf8 = function () {
-        if ((this.appointmentHour.value) === "8:00") {
+        if ((this.getAppointmentForm.get('appointmentHour').value) === "8:00") {
             return true;
         }
     };
     EditAppointmentComponent.prototype.checkIf12 = function () {
-        if ((this.appointmentHour.value) === "12:00") {
+        if ((this.getAppointmentForm.get('appointmentHour').value) === "12:00") {
             return true;
         }
     };

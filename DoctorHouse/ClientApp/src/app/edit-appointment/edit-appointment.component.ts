@@ -33,7 +33,6 @@ export class EditAppointmentComponent implements OnInit {
   specialist;
   specialistAppointments;
   isDisabled = true;
-  minDate = new Date();
 
 
   getAppointmentForm = new FormGroup({
@@ -124,13 +123,13 @@ export class EditAppointmentComponent implements OnInit {
   }
 
   checkIf8() {
-    if ((this.appointmentHour.value) === "8:00") {
+    if ((this.getAppointmentForm.get('appointmentHour').value) === "8:00") {
       return true;
     }
   }
 
   checkIf12() {
-    if ((this.appointmentHour.value) === "12:00") {
+    if ((this.getAppointmentForm.get('appointmentHour').value) === "12:00") {
       return true;
     }
   }

@@ -69,7 +69,6 @@
             <ng-container *ngIf="status.value !== 'resolved'">
               <div class="form-group">
                 <input class="form-control" formControlName="appointmentDate" type="text" [daysDisabled]="[6,0]" [datesDisabled]="disabledDates"
-                       [minDate]="minDate"
                        bsDatepicker
                        [bsConfig]="{ isAnimated: true, containerClass:'theme-blue',
                      dateInputFormat: 'dddd, DD/MM/YYYY', returnFocusToInput: true,
