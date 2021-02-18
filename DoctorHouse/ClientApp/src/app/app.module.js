@@ -65,6 +65,7 @@ chronos_1.defineLocale('engb', locale_1.enGbLocale);
 var my_photos_component_1 = require("./my-photos/my-photos.component");
 var photos_service_1 = require("./services/photos.service");
 var companies_component_1 = require("./companies/companies.component");
+var create_appointment_component_1 = require("./create-appointment/create-appointment.component");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -107,7 +108,8 @@ var AppModule = /** @class */ (function () {
                 my_appointments_component_1.MyAppointmentsComponent,
                 appointment_read_component_1.AppointmentReadComponent,
                 companies_component_1.CompaniesComponent,
-                edit_appointment_component_1.EditAppointmentComponent
+                edit_appointment_component_1.EditAppointmentComponent,
+                create_appointment_component_1.CreateAppointmentComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -130,6 +132,7 @@ var AppModule = /** @class */ (function () {
                     { path: 'appointments/:id', component: edit_appointment_component_1.EditAppointmentComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'my-photos', component: my_photos_component_1.MyPhotosComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'not-found', component: not_found_component_1.NotFoundComponent, canActivate: [auth_guard_service_1.AuthGuard] },
+                    { path: 'new-appointment', component: create_appointment_component_1.CreateAppointmentComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: '**', redirectTo: 'not-found' }
                 ], { relativeLinkResolution: 'legacy' }),
                 ng_bootstrap_1.NgbModule,

@@ -1,4 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { Validators, FormControl, FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { CustomerService } from '../services/customer.service';
+import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticateService } from '../services/authenticate.service';
+import { ToastyService } from 'ng2-toasty';
+import { SpecialistService } from '../services/specialist.service';
+import { AppointmentService } from '../services/appointment.service';
+import { jqxGridModule } from 'jqwidgets-ng/jqxgrid';
+import { jqxDateTimeInputModule } from 'jqwidgets-ng/jqxdatetimeinput';
+import { CommonModule } from '@angular/common';
+import { ViewChild, AfterViewInit } from "@angular/core";
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { listLocales } from 'ngx-bootstrap/chronos';
+import { Dictionary } from '../interfaces/Dictionary';
 
 @Component({
   selector: 'app-create-appointment',
@@ -7,9 +22,219 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateAppointmentComponent implements OnInit {
 
-  constructor() { }
+  filter: string;
+  currentUser = this.authService.currentUser;
+  customerId;
+  customer;
+  allSpecialists;
+  specialists;
+  specialist;
+  specialistAppointments;
+  isDisabled = true;
+  locale = 'engb';
+  disabledDates = [];
 
-  ngOnInit(): void {
+  getAppointmentForm = new FormGroup({
+    customerFullName: new FormControl(),
+    customerPhoneNumber: new FormControl(),
+    customerAddress: new FormControl(),
+
+    specialistFullName: new FormControl(),
+    specialistPhoneNumber: new FormControl(),
+    specialistId: new FormControl(),
+
+    companyFullName: new FormControl(),
+    companyPhoneNumber: new FormControl(),
+    companyId: new FormControl(),
+
+    appointmentDate: new FormControl('', Validators.required),
+    appointmentHour: new FormControl('', Validators.required),
+
+    description: new FormControl('', [Validators.required, Validators.minLength(10)])
+  });
+
+  get customerFullName() {
+    return this.getAppointmentForm.get('customerFullName')
   }
 
+  get appointmentHour() {
+    return this.getAppointmentForm.get('appointmentHour')
+  }
+
+  get companyId() {
+    return this.getAppointmentForm.get('companyId')
+  }
+
+  get specialistId() {
+    return this.getAppointmentForm.get('specialistId')
+  }
+
+  get customerAddress() {
+    return this.getAppointmentForm.get('customerAddress')
+  }
+
+  get customerPhoneNumber() {
+    return this.getAppointmentForm.get('customerPhoneNumber')
+  }
+
+  get specialistFullName() {
+    return this.getAppointmentForm.get('specialistFullName')
+  }
+
+  get specialistPhoneNumber() {
+    return this.getAppointmentForm.get('specialistPhoneNumber')
+  }
+
+  get companyFullName() {
+    return this.getAppointmentForm.get('companyFullName')
+  }
+
+  get companyPhoneNumber() {
+    return this.getAppointmentForm.get('companyPhoneNumber')
+  }
+
+  get appointmentDate() {
+    return this.getAppointmentForm.get('appointmentDate')
+  }
+
+  get description() {
+    return this.getAppointmentForm.get('description')
+  }
+
+
+  checkIf8() {
+    if ((this.getAppointmentForm.get('appointmentHour').value) === "8:00") {
+      return true;
+    }
+  }
+
+  checkIf12() {
+    if ((this.getAppointmentForm.get('appointmentHour').value) === "12:00") {
+      return true;
+    }
+  }
+
+  formatAddress(): SafeResourceUrl {
+    let addressDb = this.getAppointmentForm.get('customerAddress').value.toString().toLowerCase();
+    let street = 'ul.';
+    let settlement = 'os.';
+
+    if (addressDb.includes(street) || addressDb.includes(settlement)) {
+      addressDb = addressDb.slice(3);
+    }
+
+    addressDb = addressDb.trim(' ');
+    addressDb = addressDb.replace(/\s/g, '+');
+    let map = 'https://www.google.com/maps/embed/v1/place?key=AIzaSyBlYuKgi1m3lnyfIHv2qkWf_MzpBBc2mr8&q=' + addressDb;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(map);
+  }
+
+  create() {
+    let hour;
+
+    if (this.appointmentHour.value === '8:00') {
+      hour = " 09:00:00.0000000";
+    }
+    else if (this.appointmentHour.value === '12:00') {
+      hour = " 13:00:00.0000000";
+    }
+
+    let date = new Date(this.appointmentDate.value);
+    let slicedDate = date.toISOString().slice(0, 10);
+    let stringDate = slicedDate + hour;
+    let localDate = new Date(stringDate)
+
+    let updatedAppointment = {
+      appointmentDate: localDate,
+      status: 'assigned',
+      description: this.description.value,
+      customerId: this.customerId.value,
+      specialistId: this.specialistId.value,
+      companyId: this.companyId.value
+    };
+
+
+    this.appointmentService.updateAppointment(this.appointmentId, updatedAppointment).subscribe(specialist => {
+      this.toastyService.success({
+        title: 'Success',
+        msg: 'An account has been updated',
+        theme: 'bootstrap',
+        showClose: true,
+        timeout: 5000
+      })
+
+      location.reload();
+
+    },
+      (error: Response) => {
+        if (error.status === 500)
+          this.toastyService.error({
+            title: 'Error',
+            msg: 'Wrong data provided',
+            theme: 'bootstrap',
+            showClose: true,
+            timeout: 5000
+          })
+
+        else {
+          this.toastyService.error({
+            title: 'Error',
+            msg: 'An error occured and account was not updated',
+            theme: 'bootstrap',
+            showClose: true,
+            timeout: 5000
+          })
+        }
+      });
+  }
+
+  constructor(
+    private appointmentService: AppointmentService,
+    private customerService: CustomerService,
+    private sanitizer: DomSanitizer,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthenticateService,
+    private toastyService: ToastyService,
+    private specialistService: SpecialistService,
+    private localeService: BsLocaleService) {
+  }
+
+
+  ngOnInit(): void {
+
+    this.route.queryParams
+      .subscribe(params => {
+        this.filter = params.filter
+      })
+
+    this.customerService.getCustomerById(this.currentUser.id).subscribe(customer => {
+      this.customer = customer;
+      this.customerFullName.setValue(this.customer.details.firstName + " " + this.customer.details.lastName);
+      this.customerPhoneNumber.setValue(this.customer.details.phoneNumber);
+      this.customerAddress.setValue(this.customer.address);
+      //this.appointmentHour.setValue((this.appointmentDate.value).getHours() + ":00");
+    })
+
+    this.specialistService.getSpecialists()
+      .subscribe(allSpecialists => {
+        this.allSpecialists = allSpecialists
+        this.onFilterChange()
+        console.log(this.specialists)
+        if (!this.specialists.length)
+          this.router.navigate(['/not-found'])
+      });
+
+    this.localeService.use(this.locale);
+
+  }
+
+  onFilterChange() {
+    var specialists = this.allSpecialists;
+
+    if (this.filter)
+      specialists = specialists.filter(s => s.Id == this.filter);
+
+    this.specialists = specialists;
+  }
 }

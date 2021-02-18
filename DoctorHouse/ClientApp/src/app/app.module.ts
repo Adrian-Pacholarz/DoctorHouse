@@ -124,7 +124,9 @@ import { CreateAppointmentComponent } from './create-appointment/create-appointm
       { path: 'appointments/:id', component: EditAppointmentComponent, canActivate: [AuthGuard]},
       { path: 'my-photos', component: MyPhotosComponent, canActivate: [AuthGuard]},
       { path: 'not-found', component: NotFoundComponent, canActivate: [AuthGuard] },
+      { path: 'new-appointment', component: CreateAppointmentComponent, canActivate: [AuthGuard] },
       { path: '**', redirectTo: 'not-found' }
+
 ], { relativeLinkResolution: 'legacy' }),
     NgbModule,
     BrowserAnimationsModule,
