@@ -1,4 +1,5 @@
 ﻿using DoctorHouse.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,6 +15,7 @@ namespace DoctorHouse.Core
         Task<List<int>> GetListOfCustomersIds();
         Task<List<int>> GetListOfSpecialistsIds();
         Task<List<int>> GetListOfSpecialistsIds(int companyId);
+        Task<List<DateTime>> GetListOfAppointmentDates();
         void Remove(Appointment appointment);
     }
 }

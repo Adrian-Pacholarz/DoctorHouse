@@ -59,14 +59,16 @@ namespace DoctorHouse.Controllers
             var specialists = await repository.GetListOfSpecialistsIds();
             var customers = await repository.GetListOfCustomersIds();
             var companies = await repository.GetListOfCompaniesIds();
+            var dates = await repository.GetListOfAppointmentDates();
 
             if (!specialists.Contains(appointmentResource.SpecialistId) ||
                 !customers.Contains(appointmentResource.CustomerId) ||
-                !companies.Contains(appointmentResource.CompanyId))
+                !companies.Contains(appointmentResource.CompanyId) ||
+                dates.Contains(appointmentResource.AppointmentDate))
             {
                 return BadRequest("Wrong type of data provided");
             }
-          
+
             var specialistsInCompany = await repository.GetListOfSpecialistsIds(appointmentResource.CompanyId);
             if (!specialistsInCompany.Contains(appointmentResource.SpecialistId))
             {
@@ -103,10 +105,12 @@ namespace DoctorHouse.Controllers
             var specialists = await repository.GetListOfSpecialistsIds();
             var customers = await repository.GetListOfCustomersIds();
             var companies = await repository.GetListOfCompaniesIds();
+            var dates = await repository.GetListOfAppointmentDates();
 
             if (!specialists.Contains(appointmentResource.SpecialistId) ||
                 !customers.Contains(appointmentResource.CustomerId) ||
-                !companies.Contains(appointmentResource.CompanyId))
+                !companies.Contains(appointmentResource.CompanyId) ||
+                dates.Contains(appointmentResource.AppointmentDate))
             {
                 return BadRequest("Wrong type of data provided");
             }
