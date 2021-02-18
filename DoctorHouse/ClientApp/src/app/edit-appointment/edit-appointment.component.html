@@ -74,13 +74,16 @@
                      dateInputFormat: 'dddd, DD/MM/YYYY, HH:mm', returnFocusToInput: true,
                      showWeekNumbers: false, showTodayButton: true, todayPosition: 'center', customTodayClass: 'custom-today-class' }">
                 <br />
-                <p class="labels">Pick appointment hour:</p>
-                <div class="form-group">
-                  <select formControlName="appointmentHour" class="form-control" id="appointmentHour">
-                    <option [selected]="checkIf8()" value=" 09:00:00.0000000">8:00</option>
-                    <option [selected]="checkIf12()" value=" 13:00:00.0000000">12:00</option>
-                  </select>
-                </div>
+
+
+                  <p class="labels">Pick appointment hour:</p>
+                  <div class="form-group">
+                    <select formControlName="appointmentHour" class="form-control" id="appointmentHour">
+                      <option value="8:00" [selected]="checkIf8()">8:00</option>
+                      <option value="12:00" [selected]="checkIf12()">12:00</option>
+                    </select>
+                  </div>
+
               </div>
             </ng-container>
 
@@ -93,14 +96,7 @@
                      dateInputFormat: 'dddd, DD/MM/YYYY HH:mm', returnFocusToInput: true,
                      showWeekNumbers: false, customTodayClass: 'custom-today-class' }">
                 <br />
-                <p class="labels">Pick appointment hour:</p>
-                <div class="form-group">
-                  <select disabled formControlName="appointmentDate" class="form-control" id="appointmentDate">
-                    <option selected disabled hidden value="{{appointmentDate.value}}">{{appointmentDate.value | date: 'HH:mm'}}</option>
-                    <option disabled>8:00</option>
-                    <option disabled>12:00</option>
-                  </select>
-                </div>
+
               </div>
             </ng-container>
             <br />

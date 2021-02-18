@@ -152,15 +152,25 @@ export class EditAppointmentComponent implements OnInit {
 
   update() {
 
+
+    let hour;
+
+    if (this.appointmentHour.value === '8:00') {
+      hour = " 09:00:00.0000000";
+    }
+    else if (this.appointmentHour.value === '12:00') {
+      hour = " 13:00:00.0000000";
+    }
+
     let date = new Date(this.appointmentDate.value);
     let slicedDate = date.toISOString().slice(0, 10);
-    let stringDate = slicedDate + this.appointmentHour.value;
-    let localDate = new Date(stringDate);
+    let stringDate = slicedDate + hour;
+    let localDate = new Date(stringDate)
 
     let updatedAppointment = {
       appointmentDate: localDate,
-    status: this.status.value,
-    description: this.description.value,
+      status: this.status.value,
+      description: this.description.value,
       customerId: this.customerId.value,
       specialistId: this.specialistId.value,
       companyId: this.companyId.value
@@ -236,8 +246,6 @@ export class EditAppointmentComponent implements OnInit {
       this.status.setValue(this.appointment.status);
       this.companyId.setValue(this.appointment.company.id);
       this.appointmentHour.setValue((this.appointmentDate.value).getHours() + ":00");
-
-      console.log(this.appointmentHour.value)
 
       this.specialistService.getSpecialistById(this.getAppointmentForm.get('specialistId').value)
         .subscribe(specialist => {

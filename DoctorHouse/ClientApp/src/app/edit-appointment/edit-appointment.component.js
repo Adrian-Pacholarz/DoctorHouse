@@ -179,9 +179,16 @@ var EditAppointmentComponent = /** @class */ (function () {
     };
     EditAppointmentComponent.prototype.update = function () {
         var _this = this;
+        var hour;
+        if (this.appointmentHour.value === '8:00') {
+            hour = " 09:00:00.0000000";
+        }
+        else if (this.appointmentHour.value === '12:00') {
+            hour = " 13:00:00.0000000";
+        }
         var date = new Date(this.appointmentDate.value);
         var slicedDate = date.toISOString().slice(0, 10);
-        var stringDate = slicedDate + this.appointmentHour.value;
+        var stringDate = slicedDate + hour;
         var localDate = new Date(stringDate);
         var updatedAppointment = {
             appointmentDate: localDate,
@@ -240,7 +247,6 @@ var EditAppointmentComponent = /** @class */ (function () {
             _this.status.setValue(_this.appointment.status);
             _this.companyId.setValue(_this.appointment.company.id);
             _this.appointmentHour.setValue((_this.appointmentDate.value).getHours() + ":00");
-            console.log(_this.appointmentHour.value);
             _this.specialistService.getSpecialistById(_this.getAppointmentForm.get('specialistId').value)
                 .subscribe(function (specialist) {
                 _this.specialist = specialist;
