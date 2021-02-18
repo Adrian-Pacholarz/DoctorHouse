@@ -91,21 +91,17 @@
               <label class="labels">Company name</label>
               <div class="form-group">
                 <select formControlName="companies" class="form-control" id="companies" placeholder="Companies">
-                  <option *ngFor="let c of allCompanies">{{c.fullName}}</option>
+                  <option *ngFor="let c of allCompanies" value="{{c.id}}">{{c.fullName}}</option>
                 </select>
                 <div *ngIf="companies.touched && companies.invalid" class="form-error">
                   <div *ngIf="companies.errors.required">One company must be selected</div>
                 </div>
               </div>
-
-              <!--<div class="form-group">
-                <input type="text" class="form-control" readonly="readonly" formControlName="companyFullName">
-              </div><br />-->
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <label class="labels">Company phone no.</label>
               <div class="form-group">
-                <input type="text" class="form-control" readonly="readonly" formControlName="companyPhoneNumber">
+                <input type="text" class="form-control" readonly="readonly" value="companyPhone">
               </div><br />
             </div>
           </div><br />
@@ -116,7 +112,7 @@
 
               <h6 class="mb-3 text-primary">Description</h6>
               <div class="form-group">
-                <textarea formControlName="description" class="form-control" placeholder="Describe your issue here. Description should be at leas 10 character long."></textarea>
+                <textarea formControlName="description" class="form-control" placeholder="Describe your issue here. Description should be at least 10 character long."></textarea>
                 <div *ngIf="description.touched && description.invalid" class="textbox-error">
                   <div *ngIf="description.errors.required">Description is required</div>
                   <div *ngIf="description.errors.minlength">Description should be minimum {{description.errors.minlength.requiredLength}} characters</div>

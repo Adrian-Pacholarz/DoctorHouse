@@ -27,6 +27,6 @@ export class AppointmentService {
   }
 
   createAppointment(appointment) {
-    return this.http.post(this.url, JSON.stringify(appointment), this.httpOptions);
+    return this.http.post(this.url + '/', JSON.stringify(appointment), this.httpOptions);
   }
 }

@@ -34,6 +34,7 @@ export class CreateAppointmentComponent implements OnInit {
   isDisabled = true;
   locale = 'engb';
   disabledDates = [];
+  companyPhone;
 
   getAppointmentForm = new FormGroup({
     customerFullName: new FormControl(),
@@ -120,6 +121,17 @@ export class CreateAppointmentComponent implements OnInit {
     }
   }
 
+  checkPhoneNum() {
+    let id = (this.getAppointmentForm.get('companies')).value
+    for (let company of this.allCompanies.values) {
+        if (+company.id === +id) {
+        return company.phoneNumber.value;
+      }
+    }
+  }
+
+
+
   formatAddress(): SafeResourceUrl {
     let addressDb = this.getAppointmentForm.get('customerAddress').value.toString().toLowerCase();
     let street = 'ul.';
@@ -150,20 +162,20 @@ export class CreateAppointmentComponent implements OnInit {
     let stringDate = slicedDate + hour;
     let localDate = new Date(stringDate)
 
-    let updatedAppointment = {
+    let newAppointment = {
       appointmentDate: localDate,
       status: 'assigned',
       description: this.description.value,
-      customerId: this.customerId.value,
-      specialistId: this.specialistId.value,
-      companyId: this.companyId.value
+      customerId: +this.customerId,
+      specialistId: +this.specialistId.value,
+      companyId: +this.companies.value,
     };
 
 
-    this.appointmentService.updateAppointment(this.appointmentId, updatedAppointment).subscribe(specialist => {
+    this.appointmentService.createAppointment(newAppointment).subscribe(appointment => {
       this.toastyService.success({
         title: 'Success',
-        msg: 'An account has been updated',
+        msg: 'Appointment has been created',
         theme: 'bootstrap',
         showClose: true,
         timeout: 5000
@@ -185,7 +197,7 @@ export class CreateAppointmentComponent implements OnInit {
         else {
           this.toastyService.error({
             title: 'Error',
-            msg: 'An error occured and account was not updated',
+            msg: 'An error occured and appointment was not created',
             theme: 'bootstrap',
             showClose: true,
             timeout: 5000
@@ -209,6 +221,8 @@ export class CreateAppointmentComponent implements OnInit {
 
   ngOnInit(): void {
 
+
+
     this.route.queryParams
       .subscribe(params => {
         this.filter = params.filter
@@ -216,32 +230,31 @@ export class CreateAppointmentComponent implements OnInit {
 
     this.customerService.getCustomerById(this.currentUser.id).subscribe(customer => {
       this.customer = customer;
+      this.customerId = this.currentUser.id;
       this.customerFullName.setValue(this.customer.details.firstName + " " + this.customer.details.lastName);
       this.customerPhoneNumber.setValue(this.customer.details.phoneNumber);
       this.customerAddress.setValue(this.customer.address);
-      //this.appointmentHour.setValue((this.appointmentDate.value).getHours() + ":00");
+
     })
 
     this.specialistService.getSpecialists()
       .subscribe(allSpecialists => {
         this.allSpecialists = allSpecialists
         this.onFilterChange()
-        console.log(this.specialists)
         if (!this.specialists.length)
           this.router.navigate(['/not-found'])
       });
 
     this.specialistService.getSpecialistById(this.filter).subscribe(specialist => {
       this.specialist = specialist;
+      this.specialistId.setValue(this.filter);
       this.specialistFullName.setValue(this.specialist.details.firstName + " " + this.specialist.details.lastName);
       this.specialistPhoneNumber.setValue(this.specialist.details.phoneNumber);
-
       this.allCompanies = this.specialist.companies;
-      this.specialistCompanies.setValue(this.specialist.companies)
-      console.log(this.allCompanies);
-      //this.companyFullName.setValue(this.specialist.companies.fullName);
-      //this.companyPhoneNumber.setValue(this.specialist.companies.phoneNumber);
-      //this.companyId.setValue(this.specialist.companies.id);
+      this.companies.setValue((this.getAppointmentForm.get('companies')).value);
+      this.companyPhone.setValue(this.checkPhoneNum());
+      console.log(this.companyPhone);
+      this.appointmentHour.setValue((this.appointmentDate.value).getHour() + ":00");
       this.specialistAppointments = this.specialist.appointments;
 
       let hoursOfAppointments = new Dictionary<any>();

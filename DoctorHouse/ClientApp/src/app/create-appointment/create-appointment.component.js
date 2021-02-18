@@ -22,30 +22,35 @@ var CreateAppointmentComponent = /** @class */ (function () {
         this.specialistService = specialistService;
         this.localeService = localeService;
         this.currentUser = this.authService.currentUser;
+        this.isDisabled = true;
         this.locale = 'engb';
         this.disabledDates = [];
-        this.isDisabled = true;
         this.getAppointmentForm = new forms_1.FormGroup({
             customerFullName: new forms_1.FormControl(),
             customerPhoneNumber: new forms_1.FormControl(),
+            customerAddress: new forms_1.FormControl(),
             specialistFullName: new forms_1.FormControl(),
             specialistPhoneNumber: new forms_1.FormControl(),
+            specialistId: new forms_1.FormControl(),
+            companies: new forms_1.FormControl(),
             companyFullName: new forms_1.FormControl(),
             companyPhoneNumber: new forms_1.FormControl(),
-            appointmentDate: new forms_1.FormControl(),
-            status: new forms_1.FormControl(),
-            description: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(10)]),
-            customerAddress: new forms_1.FormControl(),
-            customers: new forms_1.FormControl(),
-            customerId: new forms_1.FormControl(),
-            specialistId: new forms_1.FormControl(),
             companyId: new forms_1.FormControl(),
-            appointmentHour: new forms_1.FormControl()
+            appointmentDate: new forms_1.FormControl('', forms_1.Validators.required),
+            appointmentHour: new forms_1.FormControl('', forms_1.Validators.required),
+            description: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(10)])
         });
     }
     Object.defineProperty(CreateAppointmentComponent.prototype, "customerFullName", {
         get: function () {
             return this.getAppointmentForm.get('customerFullName');
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(CreateAppointmentComponent.prototype, "companies", {
+        get: function () {
+            return this.getAppointmentForm.get('companies');
         },
         enumerable: false,
         configurable: true
@@ -64,23 +69,9 @@ var CreateAppointmentComponent = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(CreateAppointmentComponent.prototype, "customerId", {
-        get: function () {
-            return this.getAppointmentForm.get('customerId');
-        },
-        enumerable: false,
-        configurable: true
-    });
     Object.defineProperty(CreateAppointmentComponent.prototype, "specialistId", {
         get: function () {
             return this.getAppointmentForm.get('specialistId');
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(CreateAppointmentComponent.prototype, "customers", {
-        get: function () {
-            return this.getAppointmentForm.get('customers');
         },
         enumerable: false,
         configurable: true
@@ -134,13 +125,6 @@ var CreateAppointmentComponent = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(CreateAppointmentComponent.prototype, "status", {
-        get: function () {
-            return this.getAppointmentForm.get('status');
-        },
-        enumerable: false,
-        configurable: true
-    });
     Object.defineProperty(CreateAppointmentComponent.prototype, "description", {
         get: function () {
             return this.getAppointmentForm.get('description');
@@ -148,11 +132,6 @@ var CreateAppointmentComponent = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    CreateAppointmentComponent.prototype.selectCustomer = function (customerId, customerDb) {
-        if (+customerDb === +customerId) {
-            return true;
-        }
-    };
     CreateAppointmentComponent.prototype.checkIf8 = function () {
         if ((this.getAppointmentForm.get('appointmentHour').value) === "8:00") {
             return true;
@@ -163,11 +142,19 @@ var CreateAppointmentComponent = /** @class */ (function () {
             return true;
         }
     };
-    CreateAppointmentComponent.prototype.formatAddress = function (addressDb) {
-        addressDb = addressDb.toString().toLowerCase();
+    CreateAppointmentComponent.prototype.checkPhoneNum = function () {
+        var id = (this.getAppointmentForm.get('companies')).value;
+        for (var _i = 0, _a = this.allCompanies.values; _i < _a.length; _i++) {
+            var company = _a[_i];
+            if (+company.id === +id) {
+                return company.phoneNumber.value;
+            }
+        }
+    };
+    CreateAppointmentComponent.prototype.formatAddress = function () {
+        var addressDb = this.getAppointmentForm.get('customerAddress').value.toString().toLowerCase();
         var street = 'ul.';
         var settlement = 'os.';
-        console.log(addressDb);
         if (addressDb.includes(street) || addressDb.includes(settlement)) {
             addressDb = addressDb.slice(3);
         }
@@ -176,7 +163,7 @@ var CreateAppointmentComponent = /** @class */ (function () {
         var map = 'https://www.google.com/maps/embed/v1/place?key=AIzaSyBlYuKgi1m3lnyfIHv2qkWf_MzpBBc2mr8&q=' + addressDb;
         return this.sanitizer.bypassSecurityTrustResourceUrl(map);
     };
-    CreateAppointmentComponent.prototype.update = function () {
+    CreateAppointmentComponent.prototype.create = function () {
         var _this = this;
         var hour;
         if (this.appointmentHour.value === '8:00') {
@@ -189,18 +176,18 @@ var CreateAppointmentComponent = /** @class */ (function () {
         var slicedDate = date.toISOString().slice(0, 10);
         var stringDate = slicedDate + hour;
         var localDate = new Date(stringDate);
-        var updatedAppointment = {
+        var newAppointment = {
             appointmentDate: localDate,
-            status: this.status.value,
+            status: 'assigned',
             description: this.description.value,
-            customerId: this.customerId.value,
-            specialistId: this.specialistId.value,
-            companyId: this.companyId.value
+            customerId: +this.customerId,
+            specialistId: +this.specialistId.value,
+            companyId: +this.companies.value,
         };
-        this.appointmentService.updateAppointment(this.appointmentId, updatedAppointment).subscribe(function (specialist) {
+        this.appointmentService.createAppointment(newAppointment).subscribe(function (appointment) {
             _this.toastyService.success({
                 title: 'Success',
-                msg: 'An account has been updated',
+                msg: 'Appointment has been created',
                 theme: 'bootstrap',
                 showClose: true,
                 timeout: 5000
@@ -218,7 +205,7 @@ var CreateAppointmentComponent = /** @class */ (function () {
             else {
                 _this.toastyService.error({
                     title: 'Error',
-                    msg: 'An error occured and account was not updated',
+                    msg: 'An error occured and appointment was not created',
                     theme: 'bootstrap',
                     showClose: true,
                     timeout: 5000
@@ -228,48 +215,58 @@ var CreateAppointmentComponent = /** @class */ (function () {
     };
     CreateAppointmentComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.route.params.subscribe(function (p) {
-            _this.appointmentId = +p['id'];
+        this.route.queryParams
+            .subscribe(function (params) {
+            _this.filter = params.filter;
         });
-        this.appointmentService.getAppointmentsById(this.appointmentId).subscribe(function (appointment) {
-            _this.appointment = appointment;
-            _this.customerFullName.setValue(_this.appointment.customer.fullName);
-            _this.customerId.setValue(_this.appointment.customer.id);
-            _this.customerPhoneNumber.setValue(_this.appointment.customer.phoneNumber);
-            _this.specialistFullName.setValue(_this.appointment.specialist.fullName);
-            _this.specialistId.setValue(_this.appointment.specialist.id);
-            _this.specialistPhoneNumber.setValue(_this.appointment.specialist.phoneNumber);
-            _this.companyFullName.setValue(_this.appointment.company.fullName);
-            _this.companyPhoneNumber.setValue(_this.appointment.company.phoneNumber);
-            _this.description.setValue(_this.appointment.description);
-            _this.appointmentDate.setValue(new Date(_this.appointment.appointmentDate));
-            _this.status.setValue(_this.appointment.status);
-            _this.companyId.setValue(_this.appointment.company.id);
-            _this.appointmentHour.setValue((_this.appointmentDate.value).getHours() + ":00");
-            _this.specialistService.getSpecialistById(_this.getAppointmentForm.get('specialistId').value)
-                .subscribe(function (specialist) {
-                _this.specialist = specialist;
-                _this.specialistAppointments = _this.specialist.appointments;
-                var hoursOfAppointments = new Dictionary_1.Dictionary();
-                for (var _i = 0, _a = _this.specialistAppointments; _i < _a.length; _i++) {
-                    var appointment_1 = _a[_i];
-                    var slicedDate = (appointment_1.appointmentDate).slice(0, 10);
-                    if ((appointment_1.status !== 'resolved')) {
-                        if (!hoursOfAppointments.containsKey(slicedDate)) {
-                            hoursOfAppointments.add(slicedDate, 1);
-                        }
-                        else if (hoursOfAppointments.containsKey(slicedDate)) {
-                            hoursOfAppointments.add(slicedDate, 2);
-                            _this.disabledDates.push(new Date(appointment_1.appointmentDate));
-                        }
+        this.customerService.getCustomerById(this.currentUser.id).subscribe(function (customer) {
+            _this.customer = customer;
+            _this.customerId = _this.currentUser.id;
+            _this.customerFullName.setValue(_this.customer.details.firstName + " " + _this.customer.details.lastName);
+            _this.customerPhoneNumber.setValue(_this.customer.details.phoneNumber);
+            _this.customerAddress.setValue(_this.customer.address);
+        });
+        this.specialistService.getSpecialists()
+            .subscribe(function (allSpecialists) {
+            _this.allSpecialists = allSpecialists;
+            _this.onFilterChange();
+            if (!_this.specialists.length)
+                _this.router.navigate(['/not-found']);
+        });
+        this.specialistService.getSpecialistById(this.filter).subscribe(function (specialist) {
+            _this.specialist = specialist;
+            _this.specialistId.setValue(_this.filter);
+            _this.specialistFullName.setValue(_this.specialist.details.firstName + " " + _this.specialist.details.lastName);
+            _this.specialistPhoneNumber.setValue(_this.specialist.details.phoneNumber);
+            _this.allCompanies = _this.specialist.companies;
+            _this.companies.setValue((_this.getAppointmentForm.get('companies')).value);
+            _this.companyPhone.setValue(_this.checkPhoneNum());
+            console.log(_this.companyPhone);
+            _this.appointmentHour.setValue((_this.appointmentDate.value).getHour() + ":00");
+            _this.specialistAppointments = _this.specialist.appointments;
+            var hoursOfAppointments = new Dictionary_1.Dictionary();
+            for (var _i = 0, _a = _this.specialistAppointments; _i < _a.length; _i++) {
+                var appointment = _a[_i];
+                var slicedDate = (appointment.appointmentDate).slice(0, 10);
+                if ((appointment.status !== 'resolved')) {
+                    if (!hoursOfAppointments.containsKey(slicedDate)) {
+                        hoursOfAppointments.add(slicedDate, 1);
+                    }
+                    else if (hoursOfAppointments.containsKey(slicedDate)) {
+                        hoursOfAppointments.add(slicedDate, 2);
+                        _this.disabledDates.push(new Date(appointment.appointmentDate));
                     }
                 }
-            });
-        });
-        this.customerService.getCustomers().subscribe(function (allCustomers) {
-            _this.allCustomers = allCustomers;
+            }
         });
         this.localeService.use(this.locale);
+    };
+    CreateAppointmentComponent.prototype.onFilterChange = function () {
+        var _this = this;
+        var specialists = this.allSpecialists;
+        if (this.filter)
+            specialists = specialists.filter(function (s) { return s.id == _this.filter; });
+        this.specialists = specialists;
     };
     CreateAppointmentComponent = __decorate([
         core_1.Component({
