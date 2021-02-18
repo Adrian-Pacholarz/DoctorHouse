@@ -49,6 +49,8 @@ import { AppointmentReadComponent } from './appointment-read/appointment-read.co
 import { MyPhotosComponent } from './my-photos/my-photos.component';
 import { PhotosService } from './services/photos.service';
 import { CompaniesComponent } from './companies/companies.component';
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
 
 
 
@@ -89,7 +91,9 @@ import { CompaniesComponent } from './companies/companies.component';
     MyPhotosComponent,
     MyAppointmentsComponent,
     AppointmentReadComponent,
-    CompaniesComponent
+    CompaniesComponent,
+    AboutComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -110,7 +114,9 @@ import { CompaniesComponent } from './companies/companies.component';
       { path: 'companies/:id', component: CompanyProfileComponent, canActivate: [AuthGuard] },
       { path: 'my-appointments', component: MyAppointmentsComponent, canActivate: [AuthGuard] },
       { path: 'appointments/:id', component: AppointmentReadComponent, canActivate: [AuthGuard]},
-      { path: 'my-photos', component: MyPhotosComponent, canActivate: [AuthGuard]},
+      { path: 'my-photos', component: MyPhotosComponent, canActivate: [AuthGuard] },
+      { path: 'about', component: AboutComponent, canActivate: [AuthGuard] },
+      { path: 'contact', component: ContactComponent},
       { path: 'not-found', component: NotFoundComponent, canActivate: [AuthGuard] },
       { path: '**', redirectTo: 'not-found' }
 ], { relativeLinkResolution: 'legacy' }),
