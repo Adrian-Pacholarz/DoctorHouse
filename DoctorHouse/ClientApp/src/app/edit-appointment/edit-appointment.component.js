@@ -26,6 +26,7 @@ var EditAppointmentComponent = /** @class */ (function () {
         this.locale = 'engb';
         this.disabledDates = [];
         this.isDisabled = true;
+        this.minDate = new Date();
         this.getAppointmentForm = new forms_1.FormGroup({
             customerFullName: new forms_1.FormControl(),
             customerPhoneNumber: new forms_1.FormControl(),

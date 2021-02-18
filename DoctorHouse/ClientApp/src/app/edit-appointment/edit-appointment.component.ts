@@ -33,6 +33,7 @@ export class EditAppointmentComponent implements OnInit {
   specialist;
   specialistAppointments;
   isDisabled = true;
+  minDate = new Date();
 
 
   getAppointmentForm = new FormGroup({
