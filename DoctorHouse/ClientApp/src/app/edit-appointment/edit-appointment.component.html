@@ -190,17 +190,20 @@
 
 
             <h6 class="mb-3 text-primary">Description</h6>
-            <div class="form-group" *ngIf="currentUser.role == 'specialist'">
+            <div class="form-group" *ngIf="currentUser.role == 'customer'">
               <textarea formControlName="description" class="form-control"></textarea>
               <div *ngIf="description.touched && description.invalid" class="textbox-error">
                 <div *ngIf="description.errors.required">Description is required</div>
                 <div *ngIf="description.errors.minlength">Description should be minimum {{description.errors.minlength.requiredLength}} characters</div>
-                </div>
-              </div>
-              <div class="form-group" *ngIf="currentUser.role == 'customer'">
-                <textarea formControlName="description" class="form-control" readonly="readonly"></textarea>
               </div>
             </div>
+            <div class="form-group" *ngIf="currentUser.role == 'specialist'">
+              <textarea formControlName="description" class="form-control" readonly="readonly"></textarea>
+            </div>
+            <div class="form-group" *ngIf="status.value === 'resolved'">
+              <textarea formControlName="description" class="form-control" readonly="readonly"></textarea>
+            </div>
+          </div>
         </div><br />
         <br />
         <br /><br />
@@ -225,15 +228,15 @@
                 </div><br /><br />
                 <br />
                 <br />
+                <ng-container *ngIf="status.value !== 'resolved'">
+                  <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" id="save" type="submit" [disabled]="getAppointmentForm.invalid" (click)="update()">Save</button>
+                </ng-container>
+                  <input type="button" class="btn-check" id="btn-check" autocomplete="off" hidden value=false><br />
+                  <a href="/my-appointments" class="btn btn-primary" for="btn-check">Cancel</a>
 
-                <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" id="save" type="submit" [disabled]="getAppointmentForm.invalid" (click)="update()">Save</button>
-
-                <input type="button" class="btn-check" id="btn-check" autocomplete="off" hidden value=false><br />
-                <a href="/my-appointments" class="btn btn-primary" for="btn-check">Cancel</a>
+                </div>
 
               </div>
-
-      </div>
       <br />
 
     </form>
