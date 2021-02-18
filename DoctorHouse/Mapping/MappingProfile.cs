@@ -17,6 +17,7 @@ namespace DoctorHouse.Mapping
             //DOMAIN TO API RESOURCES
             CreateMap<UserDetails, UserDetailsResource>();
             CreateMap<UserDetails, SaveUserDetailsResource>();
+            CreateMap<Photo, PhotoResource>();
 
             //Customer
             CreateMap<Customer, SaveCustomerResource>()
@@ -239,6 +240,9 @@ namespace DoctorHouse.Mapping
 
           }); //many-to-many relationship
 
+            //Photos
+            CreateMap<PhotoResource, Photo>()
+                .ForMember(p => p.UserId, opt => opt.Ignore());
 
             //User
             CreateMap<UserResource, User>()
@@ -247,6 +251,8 @@ namespace DoctorHouse.Mapping
                 .ForMember(u => u.Password, opt => opt.MapFrom(ur => ur.Password))
                 .ForMember(u => u.IsAdmin, opt => opt.MapFrom(ur => ur.IsAdmin))
                 .ForMember(u => u.Details, opt => opt.MapFrom(ur => ur.Details));
+
+
 
             //JSONPatchDoc
             CreateMap<JsonPatchDocument<SaveCustomerResource>, JsonPatchDocument<Customer>>();

@@ -1,4 +1,71 @@
-<div class="album py-5">
+<div *ngIf="!specialistsVisible" class="album py-5">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-4">
+        <a [routerLink]="['/companies']">
+          <div class="card mb-4 box-shadow">
+            <br />
+            <img class="card-img-top" img src="../../assets/images/companies.png" alt="Card image cap" style="width: 100px; height: 100px;">
+            <div class="card-body">
+
+              <p class="card-text"><b>DOCTOR HOUSE COMPANIES</b></p>
+              <div class="d-flex justify-content-between align-items-center">
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div *ngIf="currentUser.role == 'specialist'" class="col-md-4">
+        <a [routerLink]="['/my-scheduler']">
+          <div class="card mb-4 box-shadow">
+            <br />
+            <img class="card-img-top" img src="../../assets/images/scheduler.png" alt="Card image cap" style="width: 100px; height: 100px;">
+            <div class="card-body">
+
+              <p class="card-text"><b>MY SCHEDULER</b></p>
+              <div class="d-flex justify-content-between align-items-center">
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div *ngIf="currentUser.role == 'customer'" class="col-md-4">
+        <div class="card mb-4 box-shadow" (click)="showSpecialists()">
+          <br />
+          <img class="card-img-top" img src="../../assets/images/specialists.png" alt="Card image cap" style="width: 100px; height: 100px;">
+          <div class="card-body">
+
+            <p class="card-text"><b>DOCTOR HOUSE SPECIALISTS</b></p>
+            <div class="d-flex justify-content-between align-items-center">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <a [routerLink]="['/my-appointments']">
+          <div class="card mb-4 box-shadow">
+            <br />
+            <img class="card-img-top" img src="../../assets/images/appointments.png" alt="Card image cap" style="width: 100px; height: 100px;">
+            <div class="card-body">
+
+              <p class="card-text"><b>MY APPOINTMENTS</b></p>
+              <div class="d-flex justify-content-between align-items-center">
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="specialistsVisible" class="album py-5">
   <div class="container">
     <div class="row">
 

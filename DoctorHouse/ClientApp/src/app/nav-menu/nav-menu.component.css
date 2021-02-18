@@ -89,3 +89,11 @@ div.dropdown-menu.border-0.p-0.m-0.show {
 .shadow-sm {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
 }
+
+#nav-background {
+  background: url(../../assets/images/menu5.jfif);
+  background-repeat: no-repeat;
+  background-size: 240px 270px;
+  max-width:240px;
+  margin-left: auto;
+}

@@ -116,6 +116,31 @@ namespace DoctorHouse.Migrations
                         });
                 });
 
+            modelBuilder.Entity("DoctorHouse.Core.Models.Photo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<bool>("IsMain")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Photos");
+                });
+
             modelBuilder.Entity("DoctorHouse.Core.Models.SpecialistCompanies", b =>
                 {
                     b.Property<int>("SpecialistId")
@@ -224,7 +249,7 @@ namespace DoctorHouse.Migrations
                         new
                         {
                             Id = 1,
-                            DateOfRegistration = new DateTime(2021, 1, 19, 18, 45, 27, 251, DateTimeKind.Local).AddTicks(6694),
+                            DateOfRegistration = new DateTime(2021, 2, 11, 0, 26, 59, 605, DateTimeKind.Local).AddTicks(8213),
                             EMail = "pipi@pip.pi",
                             FirstName = "Pipek",
                             LastName = "Pipowski",
@@ -234,7 +259,7 @@ namespace DoctorHouse.Migrations
                         new
                         {
                             Id = 2,
-                            DateOfRegistration = new DateTime(2021, 1, 19, 18, 45, 27, 258, DateTimeKind.Local).AddTicks(8069),
+                            DateOfRegistration = new DateTime(2021, 2, 11, 0, 26, 59, 610, DateTimeKind.Local).AddTicks(8680),
                             EMail = "piri666@pip.pir",
                             FirstName = "Pirek",
                             LastName = "Pir",
@@ -244,7 +269,7 @@ namespace DoctorHouse.Migrations
                         new
                         {
                             Id = 3,
-                            DateOfRegistration = new DateTime(2021, 1, 19, 18, 45, 27, 260, DateTimeKind.Local).AddTicks(4854),
+                            DateOfRegistration = new DateTime(2021, 2, 11, 0, 26, 59, 612, DateTimeKind.Local).AddTicks(5885),
                             EMail = "jank@gmail0.com",
                             FirstName = "Jan",
                             LastName = "Kowalski",
@@ -254,7 +279,7 @@ namespace DoctorHouse.Migrations
                         new
                         {
                             Id = 4,
-                            DateOfRegistration = new DateTime(2021, 1, 19, 18, 45, 27, 260, DateTimeKind.Local).AddTicks(4924),
+                            DateOfRegistration = new DateTime(2021, 2, 11, 0, 26, 59, 612, DateTimeKind.Local).AddTicks(5960),
                             EMail = "alojzyKA@gmail.pl",
                             FirstName = "Alojzy",
                             LastName = "Kwiatek",
@@ -264,7 +289,7 @@ namespace DoctorHouse.Migrations
                         new
                         {
                             Id = 5,
-                            DateOfRegistration = new DateTime(2021, 1, 19, 18, 45, 27, 260, DateTimeKind.Local).AddTicks(4930),
+                            DateOfRegistration = new DateTime(2021, 2, 11, 0, 26, 59, 612, DateTimeKind.Local).AddTicks(5966),
                             EMail = "halinka@onet.com",
                             FirstName = "Halina",
                             LastName = "Kluczkowska",
@@ -366,6 +391,15 @@ namespace DoctorHouse.Migrations
                     b.Navigation("Specialist");
                 });
 
+            modelBuilder.Entity("DoctorHouse.Core.Models.Photo", b =>
+                {
+                    b.HasOne("DoctorHouse.Core.Models.User", null)
+                        .WithMany("Photos")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("DoctorHouse.Core.Models.SpecialistCompanies", b =>
                 {
                     b.HasOne("DoctorHouse.Core.Models.Company", "Company")
@@ -406,6 +440,8 @@ namespace DoctorHouse.Migrations
             modelBuilder.Entity("DoctorHouse.Core.Models.User", b =>
                 {
                     b.Navigation("Details");
+
+                    b.Navigation("Photos");
                 });
 
             modelBuilder.Entity("DoctorHouse.Core.Models.Customer", b =>

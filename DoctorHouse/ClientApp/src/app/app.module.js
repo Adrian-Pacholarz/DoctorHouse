@@ -62,6 +62,9 @@ var datepicker_1 = require("ngx-bootstrap/datepicker");
 var chronos_1 = require("ngx-bootstrap/chronos");
 var locale_1 = require("ngx-bootstrap/locale");
 chronos_1.defineLocale('engb', locale_1.enGbLocale);
+var my_photos_component_1 = require("./my-photos/my-photos.component");
+var photos_service_1 = require("./services/photos.service");
+var companies_component_1 = require("./companies/companies.component");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -100,8 +103,10 @@ var AppModule = /** @class */ (function () {
                 specialists_list_component_1.SpecialistsListComponent,
                 safe_pipe_1.SafePipe,
                 not_found_component_1.NotFoundComponent,
+                my_photos_component_1.MyPhotosComponent,
                 my_appointments_component_1.MyAppointmentsComponent,
                 appointment_read_component_1.AppointmentReadComponent,
+                companies_component_1.CompaniesComponent,
                 edit_appointment_component_1.EditAppointmentComponent
             ],
             imports: [
@@ -119,10 +124,12 @@ var AppModule = /** @class */ (function () {
                     { path: 'users/specialists/:id', component: user_specialist_profile_component_1.UserSpecialistProfileComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'specialists-list', component: specialists_list_component_1.SpecialistsListComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'fetch-data', component: fetch_data_component_1.FetchDataComponent },
+                    { path: 'companies', component: companies_component_1.CompaniesComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'companies/:id', component: company_profile_component_1.CompanyProfileComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'my-appointments', component: my_appointments_component_1.MyAppointmentsComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'appointments/:id', component: edit_appointment_component_1.EditAppointmentComponent, canActivate: [auth_guard_service_1.AuthGuard] },
-                    { path: 'not-found', component: not_found_component_1.NotFoundComponent },
+                    { path: 'my-photos', component: my_photos_component_1.MyPhotosComponent, canActivate: [auth_guard_service_1.AuthGuard] },
+                    { path: 'not-found', component: not_found_component_1.NotFoundComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: '**', redirectTo: 'not-found' }
                 ], { relativeLinkResolution: 'legacy' }),
                 ng_bootstrap_1.NgbModule,
@@ -137,6 +144,7 @@ var AppModule = /** @class */ (function () {
                 create_customer_service_1.CreateCustomerService,
                 create_specialist_service_1.CreateSpecialistService,
                 companies_service_1.CompaniesService,
+                photos_service_1.PhotosService,
                 safe_pipe_1.SafePipe,
                 jqxgrid_1.jqxGridModule,
                 common_1.CommonModule, jqxdatetimeinput_1.jqxDateTimeInputModule,

@@ -10,10 +10,11 @@ exports.LeftColumnSpecialistComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var LeftColumnSpecialistComponent = /** @class */ (function () {
-    function LeftColumnSpecialistComponent(specialistService, route, router, authService) {
+    function LeftColumnSpecialistComponent(specialistService, route, router, photoService, authService) {
         this.specialistService = specialistService;
         this.route = route;
         this.router = router;
+        this.photoService = photoService;
         this.authService = authService;
         this.currentUser = this.authService.currentUser;
         this.getUserForm = new forms_1.FormGroup({
@@ -47,6 +48,10 @@ var LeftColumnSpecialistComponent = /** @class */ (function () {
         var _this = this;
         this.route.params.subscribe(function (p) {
             _this.specialistId = +p['id'];
+        });
+        this.photoService.getMainPhoto(this.specialistId)
+            .subscribe(function (photo) {
+            _this.userPhoto = photo;
         });
         this.specialistService.getSpecialistById(this.specialistId).subscribe(function (specialist) {
             _this.specialist = specialist;

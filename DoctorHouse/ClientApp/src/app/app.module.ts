@@ -57,6 +57,9 @@ import { defineLocale } from 'ngx-bootstrap/chronos';
 import { enGbLocale } from 'ngx-bootstrap/locale';
 import { Dictionary } from '../app/interfaces/Dictionary';
 defineLocale('engb', enGbLocale);
+import { MyPhotosComponent } from './my-photos/my-photos.component';
+import { PhotosService } from './services/photos.service';
+import { CompaniesComponent } from './companies/companies.component';
 
 @NgModule({
   declarations: [
@@ -92,8 +95,10 @@ defineLocale('engb', enGbLocale);
     SpecialistsListComponent,
     SafePipe,
     NotFoundComponent,
+    MyPhotosComponent,
     MyAppointmentsComponent,
     AppointmentReadComponent,
+    CompaniesComponent,
     EditAppointmentComponent
   ],
   imports: [
@@ -111,10 +116,12 @@ defineLocale('engb', enGbLocale);
       { path: 'users/specialists/:id', component: UserSpecialistProfileComponent, canActivate: [AuthGuard] },
       { path: 'specialists-list', component: SpecialistsListComponent, canActivate: [AuthGuard]},
       { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'companies', component: CompaniesComponent, canActivate: [AuthGuard] },
       { path: 'companies/:id', component: CompanyProfileComponent, canActivate: [AuthGuard] },
       { path: 'my-appointments', component: MyAppointmentsComponent, canActivate: [AuthGuard] },
       { path: 'appointments/:id', component: EditAppointmentComponent, canActivate: [AuthGuard]},
-      { path: 'not-found', component: NotFoundComponent },
+      { path: 'my-photos', component: MyPhotosComponent, canActivate: [AuthGuard]},
+      { path: 'not-found', component: NotFoundComponent, canActivate: [AuthGuard] },
       { path: '**', redirectTo: 'not-found' }
 ], { relativeLinkResolution: 'legacy' }),
     NgbModule,
@@ -129,6 +136,7 @@ defineLocale('engb', enGbLocale);
     CreateCustomerService,
     CreateSpecialistService,
     CompaniesService,
+    PhotosService,
     SafePipe,
     jqxGridModule,
     CommonModule, jqxDateTimeInputModule,

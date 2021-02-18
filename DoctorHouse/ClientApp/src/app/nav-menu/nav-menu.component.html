@@ -20,7 +20,7 @@
     <ul class="navbar-nav mx-auto">
 
       <li class="nav-item dropdown megamenu">
-        <a id="megamneu" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle font-weight-bold text-uppercase">Mega Menu</a>
+        <a id="megamneu" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle font-weight-bold text-uppercase">Menu</a>
         <div aria-labelledby="megamneu" class="dropdown-menu border-0 p-0 m-0">
           <div class="container">
             <div class="row bg-white rounded-0 m-0 shadow-sm">
@@ -28,52 +28,45 @@
                 <div class="p-4">
                   <div class="row">
                     <div class="col-lg-6 mb-4">
-                      <h6 class="font-weight-bold text-uppercase">Heading one</h6>
+                      <h6 class="font-weight-bold text-uppercase">Menu</h6>
                       <ul class="list-unstyled">
                         <li class="nav-item"><a href="" class="nav-link text-small pb-0">Home</a></li>
-                        <li class="nav-item"><a href="" class="nav-link text-small pb-0 ">About</a></li>
-                        <li class="nav-item"><a href="" class="nav-link text-small pb-0 ">Help</a></li>
-                        <li class="nav-item"><a href="" class="nav-link text-small pb-0 ">Account</a></li>
+                        <li *ngIf="isLoggedIn() && currentUser.role == 'specialist'" class="nav-item"><a href="users/specialists/{{currentUser.id}}" class="nav-link text-small pb-0 ">Account</a></li>
+                        <li *ngIf="isLoggedIn() && currentUser.role == 'customer'" class="nav-item"><a href="users/customers/{{currentUser.id}}" class="nav-link text-small pb-0 ">Account</a></li>
                       </ul>
                     </div>
+
                     <div class="col-lg-6 mb-4">
-                      <h6 class="font-weight-bold text-uppercase">Heading two</h6>
+                      <h6 class="font-weight-bold text-uppercase">Our assets</h6>
                       <ul class="list-unstyled">
-                        <li class="nav-item"><a href="" class="nav-link text-small pb-0 ">Home</a></li>
-                        <li class="nav-item"><a href="" class="nav-link text-small pb-0 ">About</a></li>
-                        <li class="nav-item"><a href="" class="nav-link text-small pb-0 ">Help</a></li>
-                        <li class="nav-item"><a href="" class="nav-link text-small pb-0 ">Account</a></li>
+                        <li><a href="companies" class="nav-link text-small pb-0">All Companies</a></li>
+                        <li><a href="specialists-list" class="nav-link text-small pb-0">All Specialists</a></li>
                       </ul>
                     </div>
+
                     <div class="col-lg-6 mb-4">
-                      <h6 class="font-weight-bold text-uppercase">Heading three</h6>
+                      <h6 class="font-weight-bold text-uppercase">Change photo</h6>
                       <ul class="list-unstyled">
-                        <li class="nav-item"><a href="" class="nav-link text-small pb-0 ">Home</a></li>
-                        <li class="nav-item"><a href="" class="nav-link text-small pb-0 ">About</a></li>
-                        <li class="nav-item"><a href="" class="nav-link text-small pb-0 ">Help</a></li>
-                        <li class="nav-item"><a href="" class="nav-link text-small pb-0 ">Account</a></li>
+                        <li *ngIf="isLoggedIn()" class="nav-item"><a href="my-photos" class="nav-link text-small pb-0 ">Photos</a></li>
                       </ul>
                     </div>
+
                     <div class="col-lg-6 mb-4">
-                      <h6 class="font-weight-bold text-uppercase">Heading four</h6>
+                      <h6 class="font-weight-bold text-uppercase">Appointments history</h6>
                       <ul class="list-unstyled">
-                        <li class="nav-item"><a href="" class="nav-link text-small pb-0 ">Home</a></li>
-                        <li class="nav-item"><a href="" class="nav-link text-small pb-0 ">About</a></li>
-                        <li class="nav-item"><a href="" class="nav-link text-small pb-0 ">Help</a></li>
-                        <li class="nav-item"><a href="" class="nav-link text-small pb-0 ">Account</a></li>
+                        <li *ngIf="isLoggedIn()" class="nav-item"><a href="my-appointments" class="nav-link text-small pb-0 ">Appointments</a></li>
                       </ul>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-5 col-xl-4 px-0 d-none d-lg-block" style="background: center center url(../../assets/images/menu5.jfif)no-repeat; background-size: cover;"></div>
+              <div id="nav-background" class="col-lg-5 col-xl-4 px-0 d-none d-lg-block"></div>
             </div>
           </div>
         </div>
       </li>
-      <li class="nav-item"><a href="" class="nav-link font-weight-bold text-uppercase">About</a></li>
-      <li class="nav-item"><a href="" class="nav-link font-weight-bold text-uppercase">Services</a></li>
-      <li class="nav-item"><a href="" class="nav-link font-weight-bold text-uppercase">Contact</a></li>
+      <li class="nav-item"><a href="about" class="nav-link font-weight-bold text-uppercase">About</a></li>
+      <li class="nav-item"><a href="contact" class="nav-link font-weight-bold text-uppercase">Contact</a></li>
     </ul>
     <app-user-login-button></app-user-login-button>
   </div>

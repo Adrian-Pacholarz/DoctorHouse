@@ -1,0 +1,18 @@
+<div *ngFor="let c of allCompanies" class="col-md-4" id="specialist-card">
+  <a href="companies/{{c.id}}">
+    <div class="card mb-4 box-shadow">
+      <br />
+      <div class="card-body">
+        <div class="left-card">
+          <img img src="../../assets/images/companies.png">
+        </div>
+        <div class="right-card">
+          <p class="card-text"><b>{{c.companyName}}</b></p>
+          <p>{{c.address}}</p>
+          <p>{{c.description}}</p>
+          <p>Rating: {{c.rating}}</p>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>

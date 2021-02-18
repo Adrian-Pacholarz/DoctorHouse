@@ -14,20 +14,14 @@
       <div class="col-md-3 mx-auto">
 
         <!-- Links -->
-        <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Menu 1</h5>
+        <h5 class="font-weight-bold text-uppercase mt-3 mb-4">ASSETS</h5>
 
         <ul class="list-unstyled">
           <li>
-            <a href="#!">Very long link 1</a>
+            <a href="companies">All Companies</a>
           </li>
           <li>
-            <a href="#!">Very long link 2</a>
-          </li>
-          <li>
-            <a href="#!">Very long link 3</a>
-          </li>
-          <li>
-            <a href="#!">Very long link 4</a>
+            <a href="specialists-list">All Specialists</a>
           </li>
         </ul>
 
@@ -40,21 +34,13 @@
       <div class="col-md-3 mx-auto">
 
         <!-- Links -->
-        <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Menu 2</h5>
+        <h5 class="font-weight-bold text-uppercase mt-3 mb-4">YOUR ACCOUNT</h5>
 
         <ul class="list-unstyled">
-          <li>
-            <a href="#!">Link 1</a>
-          </li>
-          <li>
-            <a href="#!">Link 2</a>
-          </li>
-          <li>
-            <a href="#!">Link 3</a>
-          </li>
-          <li>
-            <a href="#!">Link 4</a>
-          </li>
+          <li *ngIf="isLoggedIn()" class="nav-item"><a href="my-appointments" class="nav-link text-small pb-0 ">Appointments</a></li>
+          <li *ngIf="isLoggedIn()" class="nav-item"><a href="my-photos" class="nav-link text-small pb-0 ">Photos</a></li>
+          <li *ngIf="isLoggedIn() && currentUser.role == 'specialist'" class="nav-item"><a href="users/specialists/{{currentUser.id}}" class="nav-link text-small pb-0 ">Account</a></li>
+          <li *ngIf="isLoggedIn() && currentUser.role == 'customer'" class="nav-item"><a href="users/customers/{{currentUser.id}}" class="nav-link text-small pb-0 ">Account</a></li>
         </ul>
 
       </div>
@@ -66,20 +52,14 @@
       <div class="col-md-3 mx-auto">
 
         <!-- Links -->
-        <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Menu 3</h5>
+        <h5 class="font-weight-bold text-uppercase mt-3 mb-4">DOCTOR HOUSE</h5>
 
         <ul class="list-unstyled">
           <li>
-            <a href="#!">Link 1</a>
+            <a href="about">About</a>
           </li>
           <li>
-            <a href="#!">Link 2</a>
-          </li>
-          <li>
-            <a href="#!">Link 3</a>
-          </li>
-          <li>
-            <a href="#!">Link 4</a>
+            <a href="contact">Contact</a>
           </li>
         </ul>
 

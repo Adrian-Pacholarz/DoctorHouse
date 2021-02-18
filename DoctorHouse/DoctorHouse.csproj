@@ -43,8 +43,16 @@
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="wwwroot\uploads\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="wwwroot\uploads\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\uploads\**" />
+    <EmbeddedResource Remove="wwwroot\uploads\**" />
+    <TypeScriptCompile Remove="wwwroot\uploads\**" />
   </ItemGroup>
 
   <ItemGroup>
