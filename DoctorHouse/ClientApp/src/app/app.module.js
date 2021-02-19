@@ -65,6 +65,8 @@ chronos_1.defineLocale('engb', locale_1.enGbLocale);
 var my_photos_component_1 = require("./my-photos/my-photos.component");
 var photos_service_1 = require("./services/photos.service");
 var companies_component_1 = require("./companies/companies.component");
+var about_component_1 = require("./about/about.component");
+var contact_component_1 = require("./contact/contact.component");
 var create_appointment_component_1 = require("./create-appointment/create-appointment.component");
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -108,6 +110,8 @@ var AppModule = /** @class */ (function () {
                 my_appointments_component_1.MyAppointmentsComponent,
                 appointment_read_component_1.AppointmentReadComponent,
                 companies_component_1.CompaniesComponent,
+                about_component_1.AboutComponent,
+                contact_component_1.ContactComponent,
                 edit_appointment_component_1.EditAppointmentComponent,
                 create_appointment_component_1.CreateAppointmentComponent
             ],
@@ -129,6 +133,9 @@ var AppModule = /** @class */ (function () {
                     { path: 'companies', component: companies_component_1.CompaniesComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'companies/:id', component: company_profile_component_1.CompanyProfileComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'my-appointments', component: my_appointments_component_1.MyAppointmentsComponent, canActivate: [auth_guard_service_1.AuthGuard] },
+                    { path: 'my-photos', component: my_photos_component_1.MyPhotosComponent, canActivate: [auth_guard_service_1.AuthGuard] },
+                    { path: 'about', component: about_component_1.AboutComponent, canActivate: [auth_guard_service_1.AuthGuard] },
+                    { path: 'contact', component: contact_component_1.ContactComponent },
                     { path: 'appointments/:id', component: edit_appointment_component_1.EditAppointmentComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'my-photos', component: my_photos_component_1.MyPhotosComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'not-found', component: not_found_component_1.NotFoundComponent, canActivate: [auth_guard_service_1.AuthGuard] },

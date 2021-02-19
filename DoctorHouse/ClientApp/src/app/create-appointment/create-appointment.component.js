@@ -240,9 +240,7 @@ var CreateAppointmentComponent = /** @class */ (function () {
             _this.specialistPhoneNumber.setValue(_this.specialist.details.phoneNumber);
             _this.allCompanies = _this.specialist.companies;
             _this.companies.setValue((_this.getAppointmentForm.get('companies')).value);
-            _this.companyPhone.setValue(_this.checkPhoneNum());
-            console.log(_this.companyPhone);
-            _this.appointmentHour.setValue((_this.appointmentDate.value).getHour() + ":00");
+            _this.appointmentHour.setValue((_this.appointmentDate.value).getHours() + ":00");
             _this.specialistAppointments = _this.specialist.appointments;
             var hoursOfAppointments = new Dictionary_1.Dictionary();
             for (var _i = 0, _a = _this.specialistAppointments; _i < _a.length; _i++) {

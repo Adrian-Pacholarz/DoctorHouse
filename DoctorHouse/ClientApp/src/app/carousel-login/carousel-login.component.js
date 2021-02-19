@@ -18,10 +18,6 @@ var CarouselLoginComponent = /** @class */ (function () {
             username: new forms_1.FormControl('', forms_1.Validators.required),
             password: new forms_1.FormControl('', forms_1.Validators.required)
         });
-        this.specialistForm = new forms_1.FormGroup({
-            specialistUsername: new forms_1.FormControl('', forms_1.Validators.required),
-            specialistPassword: new forms_1.FormControl('', forms_1.Validators.required)
-        });
     }
     Object.defineProperty(CarouselLoginComponent.prototype, "username", {
         get: function () {
@@ -33,20 +29,6 @@ var CarouselLoginComponent = /** @class */ (function () {
     Object.defineProperty(CarouselLoginComponent.prototype, "password", {
         get: function () {
             return this.form.get('password');
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(CarouselLoginComponent.prototype, "specialistUsername", {
-        get: function () {
-            return this.specialistForm.get('specialistUsername');
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(CarouselLoginComponent.prototype, "specialistPassword", {
-        get: function () {
-            return this.specialistForm.get('specialistPassword');
         },
         enumerable: false,
         configurable: true

@@ -60,6 +60,8 @@ defineLocale('engb', enGbLocale);
 import { MyPhotosComponent } from './my-photos/my-photos.component';
 import { PhotosService } from './services/photos.service';
 import { CompaniesComponent } from './companies/companies.component';
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
 import { CreateAppointmentComponent } from './create-appointment/create-appointment.component';
 
 @NgModule({
@@ -100,6 +102,8 @@ import { CreateAppointmentComponent } from './create-appointment/create-appointm
     MyAppointmentsComponent,
     AppointmentReadComponent,
     CompaniesComponent,
+    AboutComponent,
+    ContactComponent,
     EditAppointmentComponent,
     CreateAppointmentComponent
   ],
@@ -121,6 +125,9 @@ import { CreateAppointmentComponent } from './create-appointment/create-appointm
       { path: 'companies', component: CompaniesComponent, canActivate: [AuthGuard] },
       { path: 'companies/:id', component: CompanyProfileComponent, canActivate: [AuthGuard] },
       { path: 'my-appointments', component: MyAppointmentsComponent, canActivate: [AuthGuard] },
+      { path: 'my-photos', component: MyPhotosComponent, canActivate: [AuthGuard] },
+      { path: 'about', component: AboutComponent, canActivate: [AuthGuard] },
+      { path: 'contact', component: ContactComponent},
       { path: 'appointments/:id', component: EditAppointmentComponent, canActivate: [AuthGuard]},
       { path: 'my-photos', component: MyPhotosComponent, canActivate: [AuthGuard]},
       { path: 'not-found', component: NotFoundComponent, canActivate: [AuthGuard] },

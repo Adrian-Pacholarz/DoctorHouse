@@ -228,9 +228,7 @@
                 </div><br /><br />
                 <br />
                 <br />
-                <ng-container *ngIf="status.value !== 'resolved'">
                   <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" id="save" type="submit" [disabled]="getAppointmentForm.invalid" (click)="update()">Save</button>
-                </ng-container>
                   <input type="button" class="btn-check" id="btn-check" autocomplete="off" hidden value=false><br />
                   <a href="/my-appointments" class="btn btn-primary" for="btn-check">Cancel</a>
 

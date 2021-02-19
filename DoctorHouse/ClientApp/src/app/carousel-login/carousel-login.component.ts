@@ -17,12 +17,6 @@ export class CarouselLoginComponent implements OnInit {
     password: new FormControl('', Validators.required)
   });
 
-  specialistForm = new FormGroup({
-    specialistUsername: new FormControl('', Validators.required),
-    specialistPassword: new FormControl('', Validators.required)
-  });
-
-
   constructor(
     private router: Router,
     private authenticateService: AuthenticateService,
@@ -34,14 +28,6 @@ export class CarouselLoginComponent implements OnInit {
 
   get password() {
     return this.form.get('password');
-  }
-
-  get specialistUsername() {
-    return this.specialistForm.get('specialistUsername');
-  }
-
-  get specialistPassword() {
-    return this.specialistForm.get('specialistPassword');
   }
 
   logIn() {

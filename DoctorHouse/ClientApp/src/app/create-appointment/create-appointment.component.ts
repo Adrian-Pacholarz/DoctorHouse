@@ -252,9 +252,7 @@ export class CreateAppointmentComponent implements OnInit {
       this.specialistPhoneNumber.setValue(this.specialist.details.phoneNumber);
       this.allCompanies = this.specialist.companies;
       this.companies.setValue((this.getAppointmentForm.get('companies')).value);
-      this.companyPhone.setValue(this.checkPhoneNum());
-      console.log(this.companyPhone);
-      this.appointmentHour.setValue((this.appointmentDate.value).getHour() + ":00");
+      this.appointmentHour.setValue((this.appointmentDate.value).getHours() + ":00");
       this.specialistAppointments = this.specialist.appointments;
 
       let hoursOfAppointments = new Dictionary<any>();
