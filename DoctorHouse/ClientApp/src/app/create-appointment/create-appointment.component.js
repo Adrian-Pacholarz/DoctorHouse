@@ -32,7 +32,7 @@ var CreateAppointmentComponent = /** @class */ (function () {
             specialistFullName: new forms_1.FormControl(),
             specialistPhoneNumber: new forms_1.FormControl(),
             specialistId: new forms_1.FormControl(),
-            companies: new forms_1.FormControl(),
+            companies: new forms_1.FormControl('', forms_1.Validators.required),
             companyFullName: new forms_1.FormControl(),
             companyPhoneNumber: new forms_1.FormControl(),
             companyId: new forms_1.FormControl(),

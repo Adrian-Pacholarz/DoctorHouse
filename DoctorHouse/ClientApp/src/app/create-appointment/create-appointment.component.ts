@@ -45,7 +45,7 @@ export class CreateAppointmentComponent implements OnInit {
     specialistPhoneNumber: new FormControl(),
     specialistId: new FormControl(),
 
-    companies: new FormControl(),
+    companies: new FormControl('', Validators.required),
     companyFullName: new FormControl(),
     companyPhoneNumber: new FormControl(),
     companyId: new FormControl(),
