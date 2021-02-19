@@ -3,9 +3,9 @@
     <div class="carousel-inner">
       <div class="carousel-item active">
         <form [formGroup]="form" class="login-form">
-          <div class="left-form"><img id="logo-main" src="assets/images/logo1.png" alt="Doctor House for Customer" /></div>
+          <div class="left-form"><img id="logo-main" src="assets/images/logo1.png" alt="Doctor House" /></div>
           <div class="right-form">
-            <p id="main-text">Login as customer</p>
+            <p id="main-text">Login page</p>
             <div class="form-group">
               <input formControlName="username" type="text" class="form-control" id="floatingLogin" placeholder="Username">
               <label for="floatingLogin">Username</label>
@@ -28,21 +28,16 @@
         </form>
       </div>
       <div class="carousel-item">
-        <form [formGroup]="specialistForm" class="login-form">
-          <div class="left-form"><img id="logo-main" src="assets/images/logo1.png" alt="Doctor House for Specialist" /></div>
+        <form class="login-form">
+          <div class="left-form"><img id="logo-main" src="assets/images/logo1.png" alt="Doctor House" /></div>
           <div class="right-form">
-            <p id="main-text">Login as specialist</p>
-            <div class="form-group">
-              <input formControlName="specialistUsername" type="text" class="form-control" id="floatingLogin2" placeholder="Username">
-              <label for="floatingLogin2">Username</label>
-              <div *ngIf="specialistUsername.touched && specialistUsername.invalid" class="form-error">Username is required</div>
+            <p id="main-text">Contact us!</p>
+            <div>
+              <p>Forgot your password?</p>
+              <p>Want to create a new company profile?</p>
+              <p>Drop us an email via the contact page!</p>
             </div>
-            <div class="form-group">
-              <input formControlName="specialistPassword" type="password" class="form-control" id="floatingPassword2" placeholder="Password">
-              <label for="floatingPassword2">Password</label>
-              <div *ngIf="specialistPassword.touched && specialistPassword.invalid" class="form-error">Password is required</div>
-            </div>
-            <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit" [disabled]="specialistForm.invalid" onclick="location.href = '/home'">Log in!</button>
+            <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit" onclick="location.href = '/contact'">Contact page</button>
             <div class="login-images">
               <img class="image-below" src="assets/images/drillingmachine.png" />
               <img class="image-below" src="assets/images/paintroller.png" />
