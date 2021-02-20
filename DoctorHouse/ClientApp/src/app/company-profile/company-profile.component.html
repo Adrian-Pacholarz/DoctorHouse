@@ -60,12 +60,13 @@
           </div>
         </div>
         <div>
-          <input type="button" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" value="Make an appointment" />
+          <input type="button" (click)="onClick('our_specialists')" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" value="Make an appointment" />
         </div>
-
 
       </div>
     </div>
   </div>
-  <app-users-mini-cards></app-users-mini-cards>
+  <section id="our_specialists">
+    <app-users-mini-cards></app-users-mini-cards>
+  </section>
 </form>

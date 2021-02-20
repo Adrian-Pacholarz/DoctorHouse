@@ -10,12 +10,13 @@ exports.CompanyProfileComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var CompanyProfileComponent = /** @class */ (function () {
-    function CompanyProfileComponent(companiesService, sanitizer, route, router, starRating) {
+    function CompanyProfileComponent(companiesService, sanitizer, route, router, starRating, viewportScroller) {
         this.companiesService = companiesService;
         this.sanitizer = sanitizer;
         this.route = route;
         this.router = router;
         this.starRating = starRating;
+        this.viewportScroller = viewportScroller;
         this.getCompanyForm = new forms_1.FormGroup({
             companyName: new forms_1.FormControl(),
             address: new forms_1.FormControl(),
@@ -72,6 +73,9 @@ var CompanyProfileComponent = /** @class */ (function () {
         addressDb = addressDb.replace(/\s/g, '+');
         var map = 'https://www.google.com/maps/embed/v1/place?key=AIzaSyBlYuKgi1m3lnyfIHv2qkWf_MzpBBc2mr8&q=' + addressDb;
         return this.sanitizer.bypassSecurityTrustResourceUrl(map);
+    };
+    CompanyProfileComponent.prototype.onClick = function (elementId) {
+        this.viewportScroller.scrollToAnchor(elementId);
     };
     CompanyProfileComponent.prototype.ngOnInit = function () {
         var _this = this;

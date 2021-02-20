@@ -6,6 +6,7 @@ import { SafePipe } from '../safe.pipe';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbRatingConfig, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-company-profile',
@@ -67,9 +68,14 @@ export class CompanyProfileComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
     private router: Router,
-    private starRating: NgbRatingConfig) {
+    private starRating: NgbRatingConfig,
+    private viewportScroller: ViewportScroller) {
 
     starRating.max = 5;
+  }
+
+  public onClick(elementId: string): void {
+    this.viewportScroller.scrollToAnchor(elementId);
   }
 
   ngOnInit(): void {
