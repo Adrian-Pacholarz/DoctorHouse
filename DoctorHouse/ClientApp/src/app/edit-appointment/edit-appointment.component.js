@@ -201,7 +201,7 @@ var EditAppointmentComponent = /** @class */ (function () {
         this.appointmentService.updateAppointment(this.appointmentId, updatedAppointment).subscribe(function (specialist) {
             _this.toastyService.success({
                 title: 'Success',
-                msg: 'An account has been updated',
+                msg: 'Appointment has been updated',
                 theme: 'bootstrap',
                 showClose: true,
                 timeout: 5000
@@ -219,7 +219,7 @@ var EditAppointmentComponent = /** @class */ (function () {
             else {
                 _this.toastyService.error({
                     title: 'Error',
-                    msg: 'An error occured and account was not updated',
+                    msg: 'An error occured and appointment was not updated',
                     theme: 'bootstrap',
                     showClose: true,
                     timeout: 5000
@@ -266,6 +266,9 @@ var EditAppointmentComponent = /** @class */ (function () {
                     }
                 }
             });
+        }, function (err) {
+            if (err.status == 404)
+                _this.router.navigate(['/not-found']);
         });
         this.customerService.getCustomers().subscribe(function (allCustomers) {
             _this.allCustomers = allCustomers;

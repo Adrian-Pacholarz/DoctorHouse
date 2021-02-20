@@ -180,7 +180,7 @@ export class EditAppointmentComponent implements OnInit {
     this.appointmentService.updateAppointment(this.appointmentId, updatedAppointment).subscribe(specialist => {
       this.toastyService.success({
         title: 'Success',
-        msg: 'An account has been updated',
+        msg: 'Appointment has been updated',
         theme: 'bootstrap',
         showClose: true,
         timeout: 5000
@@ -202,7 +202,7 @@ export class EditAppointmentComponent implements OnInit {
         else {
           this.toastyService.error({
             title: 'Error',
-            msg: 'An error occured and account was not updated',
+            msg: 'An error occured and appointment was not updated',
             theme: 'bootstrap',
             showClose: true,
             timeout: 5000
@@ -271,6 +271,9 @@ export class EditAppointmentComponent implements OnInit {
           }
         });
 
+    }, err => {
+      if (err.status == 404)
+        this.router.navigate(['/not-found'])
     });
 
 
