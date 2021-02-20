@@ -141,7 +141,7 @@ var AppModule = /** @class */ (function () {
                     { path: 'not-found', component: not_found_component_1.NotFoundComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: 'new-appointment', component: create_appointment_component_1.CreateAppointmentComponent, canActivate: [auth_guard_service_1.AuthGuard] },
                     { path: '**', redirectTo: 'not-found' }
-                ], { relativeLinkResolution: 'legacy' }),
+                ], { relativeLinkResolution: 'legacy', anchorScrolling: 'enabled' }),
                 ng_bootstrap_1.NgbModule,
                 animations_1.BrowserAnimationsModule,
                 jqxgrid_1.jqxGridModule,

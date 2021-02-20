@@ -133,8 +133,7 @@ import { CreateAppointmentComponent } from './create-appointment/create-appointm
       { path: 'not-found', component: NotFoundComponent, canActivate: [AuthGuard] },
       { path: 'new-appointment', component: CreateAppointmentComponent, canActivate: [AuthGuard] },
       { path: '**', redirectTo: 'not-found' }
-
-], { relativeLinkResolution: 'legacy' }),
+    ], { relativeLinkResolution: 'legacy', anchorScrolling: 'enabled' }),
     NgbModule,
     BrowserAnimationsModule,
     jqxGridModule,
