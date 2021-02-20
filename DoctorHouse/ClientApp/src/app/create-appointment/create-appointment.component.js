@@ -192,7 +192,7 @@ var CreateAppointmentComponent = /** @class */ (function () {
                 showClose: true,
                 timeout: 5000
             });
-            location.reload();
+            location.replace("");
         }, function (error) {
             if (error.status === 500)
                 _this.toastyService.error({

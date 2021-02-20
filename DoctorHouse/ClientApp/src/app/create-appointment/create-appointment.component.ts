@@ -181,7 +181,7 @@ export class CreateAppointmentComponent implements OnInit {
         timeout: 5000
       })
 
-      location.reload();
+      location.replace("/my-appointments");
 
     },
       (error: Response) => {
@@ -251,6 +251,7 @@ export class CreateAppointmentComponent implements OnInit {
       this.specialistFullName.setValue(this.specialist.details.firstName + " " + this.specialist.details.lastName);
       this.specialistPhoneNumber.setValue(this.specialist.details.phoneNumber);
       this.allCompanies = this.specialist.companies;
+      this.appointmentDate.setValue(new Date(this.appointment.appointmentDate));
       this.companies.setValue((this.getAppointmentForm.get('companies')).value);
       this.appointmentHour.setValue((this.appointmentDate.value).getHours() + ":00");
       this.specialistAppointments = this.specialist.appointments;
