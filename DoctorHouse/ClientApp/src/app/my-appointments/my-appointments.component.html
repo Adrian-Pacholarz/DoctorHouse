@@ -169,10 +169,10 @@
                             </div><br /><br />
                             <br />
                             <br />
-
-                            <input type="button" class="btn-check" id="btn-check" autocomplete="off" hidden value=false><br />
-                            <a href="appointments/{{a.id}}" class="btn btn-primary" for="btn-check">Edit</a>
-
+                            <ng-container *ngIf="a.status !== 'resolved'">
+                              <input type="button" class="btn-check" id="btn-check" autocomplete="off" hidden value=false><br />
+                              <a href="appointments/{{a.id}}" class="btn btn-primary" for="btn-check">Edit</a>
+                          </ng-container>
 
                           </ng-container>
                           </ng-container>

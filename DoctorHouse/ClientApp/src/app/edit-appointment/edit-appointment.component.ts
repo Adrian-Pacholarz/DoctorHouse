@@ -33,6 +33,7 @@ export class EditAppointmentComponent implements OnInit {
   specialist;
   specialistAppointments;
   isDisabled = true;
+  minDate;
 
 
   getAppointmentForm = new FormGroup({
@@ -44,7 +45,7 @@ export class EditAppointmentComponent implements OnInit {
     companyPhoneNumber: new FormControl(),
     appointmentDate: new FormControl(),
     status: new FormControl(),
-    description: new FormControl('', [Validators.required, Validators.minLength(10)]),
+    description: new FormControl(),
     customerAddress: new FormControl(),
     customers: new FormControl(),
     customerId: new FormControl(),
@@ -222,6 +223,17 @@ export class EditAppointmentComponent implements OnInit {
     private specialistService: SpecialistService,
     private localeService: BsLocaleService,
     private formBuilder: FormBuilder) {
+
+
+    let today = new Date(Date.now());
+    let year = today.getFullYear();
+    let month = today.getMonth();
+    let day = today.getDate();
+    const hour = 12;
+    const minute = 0;
+    const second = 0;
+
+    this.minDate = new Date(year, month, day, hour, minute, second);
   }
 
 

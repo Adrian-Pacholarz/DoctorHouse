@@ -40,6 +40,14 @@ var CreateAppointmentComponent = /** @class */ (function () {
             appointmentHour: new forms_1.FormControl('', forms_1.Validators.required),
             description: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(10)])
         });
+        var today = new Date(Date.now());
+        var year = today.getFullYear();
+        var month = today.getMonth();
+        var day = today.getDate();
+        var hour = 12;
+        var minute = 0;
+        var second = 0;
+        this.minDate = new Date(year, month, day, hour, minute, second);
     }
     Object.defineProperty(CreateAppointmentComponent.prototype, "customerFullName", {
         get: function () {
@@ -192,7 +200,7 @@ var CreateAppointmentComponent = /** @class */ (function () {
                 showClose: true,
                 timeout: 5000
             });
-            location.replace("");
+            location.replace("/my-appointments");
         }, function (error) {
             if (error.status === 500)
                 _this.toastyService.error({
@@ -239,6 +247,7 @@ var CreateAppointmentComponent = /** @class */ (function () {
             _this.specialistFullName.setValue(_this.specialist.details.firstName + " " + _this.specialist.details.lastName);
             _this.specialistPhoneNumber.setValue(_this.specialist.details.phoneNumber);
             _this.allCompanies = _this.specialist.companies;
+            _this.appointmentDate.setValue(new Date((_this.getAppointmentForm.get('customerAddress')).value));
             _this.companies.setValue((_this.getAppointmentForm.get('companies')).value);
             _this.appointmentHour.setValue((_this.appointmentDate.value).getHours() + ":00");
             _this.specialistAppointments = _this.specialist.appointments;
@@ -258,6 +267,7 @@ var CreateAppointmentComponent = /** @class */ (function () {
             }
         });
         this.localeService.use(this.locale);
+        console.log(this.minDate);
     };
     CreateAppointmentComponent.prototype.onFilterChange = function () {
         var _this = this;

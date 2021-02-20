@@ -35,6 +35,7 @@ export class CreateAppointmentComponent implements OnInit {
   locale = 'engb';
   disabledDates = [];
   companyPhone;
+  minDate;
 
   getAppointmentForm = new FormGroup({
     customerFullName: new FormControl(),
@@ -216,6 +217,16 @@ export class CreateAppointmentComponent implements OnInit {
     private toastyService: ToastyService,
     private specialistService: SpecialistService,
     private localeService: BsLocaleService) {
+
+    let today = new Date(Date.now());
+    let year = today.getFullYear();
+    let month = today.getMonth();
+    let day = today.getDate();
+    const hour = 12;
+    const minute = 0;
+    const second = 0;
+
+    this.minDate = new Date(year, month, day, hour, minute, second);
   }
 
 
@@ -251,7 +262,7 @@ export class CreateAppointmentComponent implements OnInit {
       this.specialistFullName.setValue(this.specialist.details.firstName + " " + this.specialist.details.lastName);
       this.specialistPhoneNumber.setValue(this.specialist.details.phoneNumber);
       this.allCompanies = this.specialist.companies;
-      this.appointmentDate.setValue(new Date(this.appointment.appointmentDate));
+      this.appointmentDate.setValue(new Date ((this.getAppointmentForm.get('customerAddress')).value));
       this.companies.setValue((this.getAppointmentForm.get('companies')).value);
       this.appointmentHour.setValue((this.appointmentDate.value).getHours() + ":00");
       this.specialistAppointments = this.specialist.appointments;
@@ -276,6 +287,7 @@ export class CreateAppointmentComponent implements OnInit {
     )
 
     this.localeService.use(this.locale);
+    console.log(this.minDate);
 
   }
 

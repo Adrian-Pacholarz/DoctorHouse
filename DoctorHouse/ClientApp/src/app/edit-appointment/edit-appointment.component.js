@@ -35,7 +35,7 @@ var EditAppointmentComponent = /** @class */ (function () {
             companyPhoneNumber: new forms_1.FormControl(),
             appointmentDate: new forms_1.FormControl(),
             status: new forms_1.FormControl(),
-            description: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(10)]),
+            description: new forms_1.FormControl(),
             customerAddress: new forms_1.FormControl(),
             customers: new forms_1.FormControl(),
             customerId: new forms_1.FormControl(),
@@ -43,6 +43,14 @@ var EditAppointmentComponent = /** @class */ (function () {
             companyId: new forms_1.FormControl(),
             appointmentHour: new forms_1.FormControl()
         });
+        var today = new Date(Date.now());
+        var year = today.getFullYear();
+        var month = today.getMonth();
+        var day = today.getDate();
+        var hour = 12;
+        var minute = 0;
+        var second = 0;
+        this.minDate = new Date(year, month, day, hour, minute, second);
     }
     Object.defineProperty(EditAppointmentComponent.prototype, "customerFullName", {
         get: function () {
