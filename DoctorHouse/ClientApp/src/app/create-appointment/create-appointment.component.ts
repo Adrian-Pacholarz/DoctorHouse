@@ -14,6 +14,7 @@ import { ViewChild, AfterViewInit } from "@angular/core";
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { listLocales } from 'ngx-bootstrap/chronos';
 import { Dictionary } from '../interfaces/Dictionary';
+import { AbstractControl, ValidatorFn, ValidationErrors } from "@angular/forms";
 
 @Component({
   selector: 'app-create-appointment',
@@ -36,6 +37,7 @@ export class CreateAppointmentComponent implements OnInit {
   disabledDates = [];
   companyPhone;
   minDate;
+  dates = [];
 
   getAppointmentForm = new FormGroup({
     customerFullName: new FormControl(),
@@ -110,6 +112,7 @@ export class CreateAppointmentComponent implements OnInit {
   }
 
 
+
   checkIf8() {
     if ((this.getAppointmentForm.get('appointmentHour').value) === "8:00") {
       return true;
@@ -121,16 +124,6 @@ export class CreateAppointmentComponent implements OnInit {
       return true;
     }
   }
-
-  checkPhoneNum() {
-    let id = (this.getAppointmentForm.get('companies')).value
-    for (let company of this.allCompanies.values) {
-        if (+company.id === +id) {
-        return company.phoneNumber.value;
-      }
-    }
-  }
-
 
 
   formatAddress(): SafeResourceUrl {
@@ -148,63 +141,105 @@ export class CreateAppointmentComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl(map);
   }
 
+  checkAvailableHour() {
+
+    let hourToCheck;
+    if (this.appointmentHour.value === '8:00') {
+      hourToCheck = "T08:00:00";
+    }
+    else if (this.appointmentHour.value === '12:00') {
+      hourToCheck = "T12:00:00";
+    }
+    console.log(hourToCheck);
+
+    let dateToCheck = new Date(this.appointmentDate.value);
+    let slicedDateToCheck = (dateToCheck.toISOString()).slice(0, 10);
+    let stringDateToCheck = slicedDateToCheck + hourToCheck;
+    console.log(stringDateToCheck);
+
+
+
+    if (this.dates.includes(stringDateToCheck)) {
+      console.log("hour taken");
+      return true;
+    }
+    else if (!this.dates.includes(stringDateToCheck)) {
+      console.log("hour not taken");
+      return false;
+
+    }
+
+  }
+
+
   create() {
     let hour;
 
     if (this.appointmentHour.value === '8:00') {
       hour = " 09:00:00.0000000";
+
     }
     else if (this.appointmentHour.value === '12:00') {
       hour = " 13:00:00.0000000";
     }
 
+
     let date = new Date(this.appointmentDate.value);
     let slicedDate = date.toISOString().slice(0, 10);
     let stringDate = slicedDate + hour;
-    let localDate = new Date(stringDate)
-
-    let newAppointment = {
-      appointmentDate: localDate,
-      status: 'assigned',
-      description: this.description.value,
-      customerId: +this.customerId,
-      specialistId: +this.specialistId.value,
-      companyId: +this.companies.value,
-    };
+    let localDate = new Date(stringDate);
 
 
-    this.appointmentService.createAppointment(newAppointment).subscribe(appointment => {
-      this.toastyService.success({
-        title: 'Success',
-        msg: 'Appointment has been created',
-        theme: 'bootstrap',
-        showClose: true,
-        timeout: 5000
-      })
 
-      location.replace("/my-appointments");
 
-    },
-      (error: Response) => {
-        if (error.status === 500)
-          this.toastyService.error({
-            title: 'Error',
-            msg: 'Wrong data provided',
-            theme: 'bootstrap',
-            showClose: true,
-            timeout: 5000
-          })
+      let newAppointment = {
+        appointmentDate: localDate,
+        status: 'assigned',
+        description: this.description.value,
+        customerId: +this.customerId,
+        specialistId: +this.specialistId.value,
+        companyId: +this.companies.value,
+      };
 
-        else {
-          this.toastyService.error({
-            title: 'Error',
-            msg: 'An error occured and appointment was not created',
-            theme: 'bootstrap',
-            showClose: true,
-            timeout: 5000
-          })
-        }
-      });
+
+
+    this.appointmentService.createAppointment(newAppointment).subscribe(appointment =>
+
+
+    {
+      console.log(newAppointment)
+        this.toastyService.success({
+          title: 'Success',
+          msg: 'Appointment has been created',
+          theme: 'bootstrap',
+          showClose: true,
+          timeout: 5000
+        })
+
+        //location.replace("/my-appointments");
+
+      },
+        (error: Response) => {
+          if (error.status === 500)
+            this.toastyService.error({
+              title: 'Error',
+              msg: 'Wrong data provided',
+              theme: 'bootstrap',
+              showClose: true,
+              timeout: 5000
+            });
+
+
+          else {
+            this.toastyService.error({
+              title: 'Error',
+              msg: 'An error occured and appointment was not created',
+              theme: 'bootstrap',
+              showClose: true,
+              timeout: 5000
+            });
+          }
+        });
   }
 
   constructor(
@@ -227,7 +262,13 @@ export class CreateAppointmentComponent implements OnInit {
     const second = 0;
 
     this.minDate = new Date(year, month, day, hour, minute, second);
-  }
+
+    console.log(this.dates);
+
+
+
+    }
+
 
 
   ngOnInit(): void {
@@ -262,10 +303,13 @@ export class CreateAppointmentComponent implements OnInit {
       this.specialistFullName.setValue(this.specialist.details.firstName + " " + this.specialist.details.lastName);
       this.specialistPhoneNumber.setValue(this.specialist.details.phoneNumber);
       this.allCompanies = this.specialist.companies;
-      this.appointmentDate.setValue(new Date ((this.getAppointmentForm.get('customerAddress')).value));
       this.companies.setValue((this.getAppointmentForm.get('companies')).value);
-      this.appointmentHour.setValue((this.appointmentDate.value).getHours() + ":00");
       this.specialistAppointments = this.specialist.appointments;
+
+      for (let app of this.specialist.appointments) {
+        this.dates.push(app.appointmentDate);
+      }
+
 
       let hoursOfAppointments = new Dictionary<any>();
 
@@ -287,7 +331,6 @@ export class CreateAppointmentComponent implements OnInit {
     )
 
     this.localeService.use(this.locale);
-    console.log(this.minDate);
 
   }
 

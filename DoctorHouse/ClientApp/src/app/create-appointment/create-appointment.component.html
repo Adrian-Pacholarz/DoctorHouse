@@ -42,12 +42,15 @@
               <br />  <br />
               <p class="labels">Pick appointment hour:</p>
               <div class="form-group">
-                <select formControlName="appointmentHour" class="form-control" id="appointmentHour">
+                <select formControlName="appointmentHour" class="form-control" id="appointmentHour" (change)="checkAvailableHour()">
                   <option value="8:00" [selected]="checkIf8()">8:00</option>
                   <option value="12:00" [selected]="checkIf12()">12:00</option>
                 </select>
                 <div *ngIf="appointmentHour.touched && appointmentHour.invalid" class="form-error">
                   <div *ngIf="appointmentHour.errors.required">Appointment hour is required</div>
+                </div>
+                <div *ngIf="checkAvailableHour()" class="form-error">
+                  <div>Appointment hour is already taken</div>
                 </div>
               </div>
 
@@ -132,7 +135,7 @@
             </div><br /><br />
             <br />
             <br />
-            <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" id="save" type="submit" [disabled]="getAppointmentForm.invalid" (click)="create()">Save</button>
+            <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" id="save" type="submit" [disabled]="getAppointmentForm.invalid || checkAvailableHour()" (click)="create()">Save</button>
             <input type="button" class="btn-check" id="btn-check" autocomplete="off" hidden value=false><br />
             <a href="/my-appointments" class="btn btn-primary" for="btn-check">Cancel</a>
 
