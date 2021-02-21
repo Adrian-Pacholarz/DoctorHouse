@@ -3,6 +3,7 @@ import { CompaniesService } from '../services/companies.service';
 import { SpecialistService } from '../services/specialist.service';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PhotosService } from '../services/photos.service';
 
 @Component({
   selector: 'app-users-mini-cards',
@@ -11,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class UsersMiniCardsComponent implements OnInit {
   allSpecialists;
+  allPhotos;
   companyId;
   company;
 
@@ -45,13 +47,38 @@ export class UsersMiniCardsComponent implements OnInit {
     if (companySpecialists.includes(+specialist.id)) {
       return true;
       }
-    }
+  }
 
+  getAllPhotos() {
+    let photos = [];
+    for (let specialist of this.allSpecialists) {
+      this.photoService.getMainPhoto(specialist.id).subscribe(photo => {
+        if (photo) {
+          let specialistMainPhoto = {
+            specialistId: +specialist.id,
+            photoObject: photo,           
+          }
+          photos.push(specialistMainPhoto);
+        }
+      })
+    }
+    this.allPhotos = photos;
+  }
+
+  getUserPhoto(userId) {
+    for (let photo of this.allPhotos) {
+      if (photo.specialistId == userId) {
+        return photo.photoObject.fileName;
+      }
+    }
+  }
 
   constructor(private specialistService: SpecialistService,
+    private photoService: PhotosService,
     private companiesService: CompaniesService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router) {
+  }
 
   ngOnInit(): void {
 
@@ -68,6 +95,7 @@ export class UsersMiniCardsComponent implements OnInit {
 
     this.specialistService.getSpecialists().subscribe(allSpecialists => {
       this.allSpecialists = allSpecialists;
+      this.getAllPhotos();
     })
   }
 

@@ -10,8 +10,9 @@ exports.UsersMiniCardsComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var UsersMiniCardsComponent = /** @class */ (function () {
-    function UsersMiniCardsComponent(specialistService, companiesService, route, router) {
+    function UsersMiniCardsComponent(specialistService, photoService, companiesService, route, router) {
         this.specialistService = specialistService;
+        this.photoService = photoService;
         this.companiesService = companiesService;
         this.route = route;
         this.router = router;
@@ -44,12 +45,40 @@ var UsersMiniCardsComponent = /** @class */ (function () {
     });
     UsersMiniCardsComponent.prototype.selectSpecialists = function (specialist) {
         var companySpecialists = [];
-        for (var _i = 0, _a = (this.getCompanyForm.get('specialists').value); _i < _a.length; _i++) {
+        for (var _i = 0, _a = this.specialists.value; _i < _a.length; _i++) {
             var specialist_1 = _a[_i];
             companySpecialists.push(+specialist_1.id);
         }
         if (companySpecialists.includes(+specialist.id)) {
             return true;
+        }
+    };
+    UsersMiniCardsComponent.prototype.getAllPhotos = function () {
+        var photos = [];
+        var _loop_1 = function (specialist) {
+            this_1.photoService.getMainPhoto(specialist.id).subscribe(function (photo) {
+                if (photo) {
+                    var specialistMainPhoto = {
+                        specialistId: +specialist.id,
+                        photoObject: photo,
+                    };
+                    photos.push(specialistMainPhoto);
+                }
+            });
+        };
+        var this_1 = this;
+        for (var _i = 0, _a = this.allSpecialists; _i < _a.length; _i++) {
+            var specialist = _a[_i];
+            _loop_1(specialist);
+        }
+        this.allPhotos = photos;
+    };
+    UsersMiniCardsComponent.prototype.getUserPhoto = function (userId) {
+        for (var _i = 0, _a = this.allPhotos; _i < _a.length; _i++) {
+            var photo = _a[_i];
+            if (photo.specialistId == userId) {
+                return photo.photoObject.fileName;
+            }
         }
     };
     UsersMiniCardsComponent.prototype.ngOnInit = function () {
@@ -65,6 +94,7 @@ var UsersMiniCardsComponent = /** @class */ (function () {
         });
         this.specialistService.getSpecialists().subscribe(function (allSpecialists) {
             _this.allSpecialists = allSpecialists;
+            _this.getAllPhotos();
         });
     };
     UsersMiniCardsComponent = __decorate([

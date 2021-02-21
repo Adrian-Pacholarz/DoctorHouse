@@ -10,7 +10,8 @@
                   <img src="../../assets/images/profilebg2.png" class="background" />
                 </div>
                 <div class="profile-thumb-block">
-                  <img src="../../assets/images/user2.png" class="profile" />
+                  <img *ngIf="getUserPhoto(specialist.id)" src="/uploads/{{getUserPhoto(specialist.id)}}" class="profile" />
+                  <img *ngIf="!getUserPhoto(specialist.id)" src="../../assets/images/user2.png" class="profile" />
                 </div>
                 <div class="card-content">
 
