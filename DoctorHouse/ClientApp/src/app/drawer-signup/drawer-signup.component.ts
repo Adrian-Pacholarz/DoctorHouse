@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
-import { PasswordValidators } from '../common/validators/password.validators';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-drawer-signup',
@@ -8,31 +7,23 @@ import { PasswordValidators } from '../common/validators/password.validators';
   styleUrls: ['./drawer-signup.component.css']
 })
 export class DrawerSignupComponent implements OnInit {
-  signupForm = new FormGroup({
-    newUsername: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      passwords: new FormGroup({
-      newPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      repeatPassword: new FormControl('', Validators.required)
-    }, PasswordValidators.passwordsMustMatch)
+
+  chooseUserType = new FormGroup({
+    userType: new FormControl(),
   });
 
-  get newUsername() {
-    return this.signupForm.get('newUsername');
+  get userType() {
+    return this.chooseUserType.get('userType');
   }
 
-  get newPassword() {
-    return this.signupForm.get('passwords.newPassword');
+  setDefaultValue() {
+    this.chooseUserType.setValue({ userType: 'customer' })
+
   }
 
-  get repeatPassword() {
-    return this.signupForm.get('passwords.repeatPassword');
+  constructor() {
+    this.setDefaultValue();
   }
-
-  get passwords() {
-    return this.signupForm.get('passwords');
-  }
-
-  constructor() {  }
 
   ngOnInit(): void {
   }

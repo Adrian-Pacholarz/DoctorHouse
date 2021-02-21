@@ -1,0 +1,36 @@
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+<form [formGroup]="getUserForm">
+  <div class="card-body">
+    <div class="account-settings">
+      <div class="user-profile">
+        <div class="user-avatar">
+          <img src="../../assets/images/user2.png" *ngIf="!userPhoto">
+          <img src="/uploads/{{userPhoto.fileName}}" class="rounded-circle" *ngIf="userPhoto" />
+        </div>
+
+        <div class="form-group">
+          <input formControlName="firstName" type="text" class="form-control" id="h5" readonly="readonly">
+          <input formControlName="lastName" type="text" class="form-control" id="h5" readonly="readonly">
+          <input formControlName="email" type="text" class="form-control" id="h6" readonly="readonly">
+        </div>
+      </div>
+      <div *ngIf="currentUser.id == specialistId" class="about">
+        <h5 class="mb-2 text-primary">My appointments</h5>
+        <p>
+          <a href="my-appointments">
+            <i class="fas fa-calendar-check"></i><br />See my appointments
+          </a>
+        </p>
+      </div>
+      <div *ngIf="currentUser.role == 'customer'" class="about">
+        <h5 class="mb-2 text-primary">Appointment</h5>
+        <p>
+          <a [routerLink]="['/new-appointment']" [queryParams]="{filter: specialistId }">
+            <i class="fas fa-calendar-check"></i><br />Make an appointment
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</form>

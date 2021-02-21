@@ -2,6 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
 @import "~bootstrap/dist/css/bootstrap.css";
 
+
+
 * {
   font-family: 'Lato', sans-serif;
 }
@@ -37,6 +39,33 @@ code {
   color: #e01a76;
 }
 
+textarea {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  height: 100px;
+  display: block;
+  width: 100%;
+  margin-bottom: 0;
+  line-height: 1.5;
+  color: #70FFFC;
+  opacity: 0.5;
+  cursor: text;
+  background-color: transparent;
+  border-bottom: 2px solid #70FFFC;
+  border-radius: 2px;
+  outline: none !important;
+}
+
+  textarea:focus, textarea:active {
+    color: #70FFFC;
+    outline: none !important;
+    box-shadow: 0 0 7px #70FFFC;
+    background-color: transparent;
+    border-bottom: 2px solid #70FFFC;
+    border-radius: 2px;
+  }
+
 .form-control {
   color: #70FFFC;
   background-color: transparent;
@@ -44,6 +73,15 @@ code {
   border-bottom: 2px solid #70FFFC;
   border-radius: 2px;
 }
+
+select {
+  overflow-y: auto;
+}
+  select option {
+      margin-top: 5px;
+    background-color: #11234A;
+  }
+
 
   .form-control:focus {
     color: #70FFFC;
@@ -82,9 +120,11 @@ code {
     user-select: none;
   }
 
-  .form-group input::-webkit-input-placeholder {
-    color: transparent;
-  }
+
+
+.form-group input::-webkit-input-placeholder {
+  color: transparent;
+}
 
   .form-group input:-ms-input-placeholder {
     color: transparent;
@@ -108,6 +148,14 @@ code {
   }
 
     .form-group input:not(:placeholder-shown) ~ label {
+      top: -3px;
+      padding-top: calc(var(--input-padding-y) / 3);
+      padding-bottom: calc(var(--input-padding-y) / 3);
+      font-size: 10px;
+      color: #70FFFC;
+    }
+
+    .form-group select ~ label {
       top: -3px;
       padding-top: calc(var(--input-padding-y) / 3);
       padding-bottom: calc(var(--input-padding-y) / 3);
@@ -146,3 +194,13 @@ form .btn {
   -webkit-background-clip: text;
   caret-color: #70FFFC;
 }
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  color: #fff;
+  border-color: #5bd3d7;
+  background-color: #5bd3d7;
+  box-shadow: 0 0 0 #5bd3d7;
+}
+
+html { height: 100%; }
+

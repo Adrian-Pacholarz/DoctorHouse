@@ -3,10 +3,15 @@
     margin-bottom: 0;
 }
 
-#drawer-signup{
-    display: flex;
-    justify-content: center;
-    width: 300px;
+#drawer-signup {
+  display: flex;
+  justify-content: center;
+}
+
+.user-type {
+  display: flex;
+  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .navbar-toggle {
@@ -27,4 +32,16 @@
     color: #70FFFC;
 
   }
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  color: #fff;
+  border-color: #5bd3d7;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  color: #fff;
+  border-color: #5bd3d7;
+  background-color: #5bd3d7;
+  box-shadow: 0 0 0 #5bd3d7;
+}
 

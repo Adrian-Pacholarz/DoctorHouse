@@ -53,6 +53,11 @@ namespace DoctorHouse.Persistance
             return await context.Customers.Select(c => c.Id).ToListAsync();
         }
 
+        public async Task<List<DateTime>> GetListOfAppointmentDates()
+        {
+            return await context.Appointments.Select(a => a.AppointmentDate).ToListAsync();
+        }
+
         public async Task<List<int>> GetListOfSpecialistsIds()
         {
             return await context.Specialists.Select(s => s.Id).ToListAsync();
@@ -67,5 +72,6 @@ namespace DoctorHouse.Persistance
         {
             context.Remove(appointment);
         }
+
     }
 }

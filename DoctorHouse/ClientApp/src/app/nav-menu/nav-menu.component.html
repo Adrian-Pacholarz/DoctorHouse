@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark justify-content-between" style="background-color: #11234A;">
+<!--<nav class="navbar navbar-expand-lg navbar-dark justify-content-between" style="background-color: #11234A;">
   <app-nav-logo></app-nav-logo>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -11,4 +11,64 @@
     </ul>
     <app-user-login-button></app-user-login-button>
   </div>
+</nav>-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-white py-3 shadow-sm">
+
+  <button type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"> <span class="navbar-toggler-icon"></span> </button>
+  <app-nav-logo></app-nav-logo>
+  <div id="navbarContent" class="collapse navbar-collapse">
+    <ul class="navbar-nav mx-auto">
+
+      <li class="nav-item dropdown megamenu">
+        <a id="megamneu" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle font-weight-bold text-uppercase">Menu</a>
+        <div aria-labelledby="megamneu" class="dropdown-menu border-0 p-0 m-0">
+          <div class="container">
+            <div class="row bg-white rounded-0 m-0 shadow-sm">
+              <div class="col-lg-7 col-xl-8">
+                <div class="p-4">
+                  <div class="row">
+                    <div class="col-lg-6 mb-4">
+                      <h6 class="font-weight-bold text-uppercase">Menu</h6>
+                      <ul class="list-unstyled">
+                        <li class="nav-item"><a href="" class="nav-link text-small pb-0">Home</a></li>
+                        <li *ngIf="isLoggedIn() && currentUser.role == 'specialist'" class="nav-item"><a href="users/specialists/{{currentUser.id}}" class="nav-link text-small pb-0 ">Account</a></li>
+                        <li *ngIf="isLoggedIn() && currentUser.role == 'customer'" class="nav-item"><a href="users/customers/{{currentUser.id}}" class="nav-link text-small pb-0 ">Account</a></li>
+                      </ul>
+                    </div>
+
+                    <div class="col-lg-6 mb-4">
+                      <h6 class="font-weight-bold text-uppercase">Our assets</h6>
+                      <ul class="list-unstyled">
+                        <li><a href="companies" class="nav-link text-small pb-0">All Companies</a></li>
+                        <li><a href="specialists-list" class="nav-link text-small pb-0">All Specialists</a></li>
+                      </ul>
+                    </div>
+
+                    <div class="col-lg-6 mb-4">
+                      <h6 class="font-weight-bold text-uppercase">Change photo</h6>
+                      <ul class="list-unstyled">
+                        <li *ngIf="isLoggedIn()" class="nav-item"><a href="my-photos" class="nav-link text-small pb-0 ">Photos</a></li>
+                      </ul>
+                    </div>
+
+                    <div class="col-lg-6 mb-4">
+                      <h6 class="font-weight-bold text-uppercase">Appointments history</h6>
+                      <ul class="list-unstyled">
+                        <li *ngIf="isLoggedIn()" class="nav-item"><a href="my-appointments" class="nav-link text-small pb-0 ">Appointments</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="nav-background" class="col-lg-5 col-xl-4 px-0 d-none d-lg-block"></div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item"><a href="about" class="nav-link font-weight-bold text-uppercase">About</a></li>
+      <li class="nav-item"><a href="contact" class="nav-link font-weight-bold text-uppercase">Contact</a></li>
+    </ul>
+    <app-user-login-button *ngIf="isLoggedIn()"></app-user-login-button>
+  </div>
 </nav>
+

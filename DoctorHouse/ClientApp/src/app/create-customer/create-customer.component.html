@@ -1,0 +1,79 @@
+<form [formGroup]="signupForm" class="nav navbar-nav">
+  <div class="flex-form">
+    <div class="left-form">
+      <div class="form-group">
+        <input formControlName="newName" type="text" class="form-control" id="newName" placeholder="Name">
+        <label for="newName">Name</label>
+        <div *ngIf="newName.touched && newName.invalid" class="form-error">
+          <div *ngIf="newName.errors.required">Name is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <input formControlName="newAddress" type="text" class="form-control" id="newAddress" placeholder="Address">
+        <label for="newAddress">Address</label>
+        <div *ngIf="newAddress.touched && newAddress.invalid" class="form-error">
+          <div *ngIf="newAddress.errors.required">Address is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <input formControlName="newEmail" type="text" class="form-control" id="newEmail" placeholder="Email">
+        <label for="newEmail">Email</label>
+        <div *ngIf="newEmail.touched && newEmail.invalid" class="form-error">
+          <div *ngIf="newEmail.errors.required">Email is required</div>
+          <div *ngIf="newEmail.errors.email">Invalid email</div>
+        </div>
+      </div>
+    </div>
+    <div class="right-form">
+      <div class="form-group">
+        <input formControlName="newSurname" type="text" class="form-control" id="newSurname" placeholder="Surname">
+        <label for="newSurname">Surname</label>
+        <div *ngIf="newSurname.touched && newSurname.invalid" class="form-error">
+          <div *ngIf="newSurname.errors.required">Surname is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <input formControlName="newPhone" type="text" class="form-control" id="newPhone" placeholder="Phone Number">
+        <label for="newPhone">Phone Number</label>
+        <div *ngIf="newPhone.touched && newPhone.invalid" class="form-error">
+          <div *ngIf="newPhone.errors.required">Phone number is required</div>
+          <div *ngIf="newPhone.errors.phoneIsNaN">Phone number can have only digits</div>
+          <div *ngIf="newPhone.errors.phoneLength">Phone number must have exactly 9 characters</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="below-form">
+    <div class="form-group">
+      <input formControlName="newUsername" type="text" class="form-control" id="newLogin" placeholder="Username">
+      <label for="newLogin">Username</label>
+      <div *ngIf="newUsername.touched && newUsername.invalid" class="form-error">
+        <div *ngIf="newUsername.errors.required">Username is required</div>
+        <div *ngIf="newUsername.errors.minlength">Username should be minimum {{newUsername.errors.minlength.requiredLength}} characters</div>
+      </div>
+    </div>
+    <div formGroupName="passwords">
+      <div class="form-group">
+        <input formControlName="newPassword" type="password" class="form-control" id="newPassword" placeholder="Password">
+        <label for="newPassword">Password</label>
+        <div *ngIf="newPassword.touched && newPassword.invalid" class="form-error">
+          <div *ngIf="newPassword.errors.required">Password is required</div>
+          <div *ngIf="newPassword.errors.minlength">Password should be minimum {{newPassword.errors.minlength.requiredLength}} characters</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <input formControlName="repeatPassword" type="password" class="form-control" id="repeatPassword" placeholder="Repeat password">
+        <label for="repeatPassword">Repeat password</label>
+        <div *ngIf="repeatPassword.touched && repeatPassword.invalid" class="form-error">
+          <div *ngIf="repeatPassword.errors.required">Repeat the password</div>
+        </div>
+      </div>
+      <div *ngIf="newPassword.valid && repeatPassword.touched && passwords.invalid" class="form-error">
+        <div *ngIf="passwords.errors.passwordsMustMatch">Passwords must match</div>
+      </div>
+
+    </div>
+
+    <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit" [disabled]="signupForm.invalid" (click)="submit()">Sign up!</button>
+  </div>
+</form>

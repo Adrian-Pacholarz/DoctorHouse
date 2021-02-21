@@ -1,4 +1,4 @@
-<ul class="navbar-nav my-2 my-lg-0 dropleft">
+<!--<ul class="navbar-nav my-2 my-lg-0 dropleft">
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <img src="../../assets/images/user1.png" style="width: 40px; height: 40px;" />
@@ -6,7 +6,41 @@
     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: #040914;">
       <a class="dropdown-item" href="#">Your account</a>
       <a class="dropdown-item" href="#">Security</a>
-      <a class="dropdown-item" href = "/login" id="log-out">Log out</a>
+      <a class="dropdown-item" href="/login" id="log-out">Log out</a>
+    </div>
+  </li>
+</ul>-->
+
+
+<ul class="navbar-nav mx-auto dropleft">
+
+  <li class="nav-item dropdown megamenu">
+    <a id="megamneu" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle font-weight-bold text-uppercase">
+      <img src="../../assets/images/user1.png" style="width: 40px; height: 40px;" *ngIf="!userPhoto" />
+      <img src="/uploads/{{userPhoto.fileName}}" style="width: 40px; height: 40px;" class="rounded-circle" *ngIf="userPhoto" />
+    </a>
+    <div aria-labelledby="megamneu" class="dropdown-menu border-0 p-0 m-0">
+      <div class="container">
+        <div class="row bg-white rounded-0 m-0 shadow-sm">
+          <div class="col-lg-7 col-xl-8">
+            <div class="p-4">
+              <div class="row">
+                <div class="col-lg-6 mb-4">
+                  <div id="loggedUser" *ngIf="isLoggedIn()">User: {{currentUser.name}} {{currentUser.surname}}</div>
+                  <ul class="list-unstyled">
+                    <li *ngIf="isLoggedIn()" class="nav-item"><a href="my-appointments" class="nav-link text-small pb-0 ">Appointments</a></li>
+                    <li *ngIf="isLoggedIn()" class="nav-item"><a href="my-photos" class="nav-link text-small pb-0 ">Photos</a></li>
+                    <li *ngIf="isLoggedIn() && currentUser.role == 'specialist'" class="nav-item"><a href="users/specialists/{{currentUser.id}}" class="nav-link text-small pb-0 ">Account</a></li>
+                    <li *ngIf="isLoggedIn() && currentUser.role == 'customer'" class="nav-item"><a href="users/customers/{{currentUser.id}}" class="nav-link text-small pb-0 ">Account</a></li>
+                    <li id="logout" class="nav-item" *ngIf="isLoggedIn()"><a (click)="logout()" class="nav-link text-small pb-0 ">Logout</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--<div class="col-lg-5 col-xl-4 px-0 d-none d-lg-block" style="background: center center url(../../assets/images/menu5.jfif)no-repeat; background-size: cover;"></div>-->
+        </div>
+      </div>
     </div>
   </li>
 </ul>

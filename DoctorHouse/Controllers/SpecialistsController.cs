@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace DoctorHouse.Controllers.Resources
 {
@@ -79,7 +81,7 @@ namespace DoctorHouse.Controllers.Resources
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateSpecialist(int id, [FromBody] SaveSpecialistResource specialistResource)
+        public async Task<IActionResult> UpdateSpecialist(int id, [FromBody] UpdateSpecialistResource specialistResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -101,7 +103,7 @@ namespace DoctorHouse.Controllers.Resources
                 }
             }
 
-            mapper.Map<SaveSpecialistResource, Specialist>(specialistResource, specialist);
+            mapper.Map<UpdateSpecialistResource, Specialist>(specialistResource, specialist);
             await unitOfWork.CompleteAsync();
 
             specialist = await repository.GetSpecialist(specialist.Id);

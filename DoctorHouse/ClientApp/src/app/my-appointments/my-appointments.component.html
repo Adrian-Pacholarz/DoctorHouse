@@ -1,0 +1,189 @@
+
+    <div *ngFor="let a of appointments, let i = index;" id="appointmentCard" class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+      <div class="card h-100">
+
+        <form [formGroup]="getAppointmentForm">
+          <div class="card-body">
+
+            <div class="row gutters">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <h6 class="mb-3 text-primary">Appointment Details</h6>
+              </div>
+
+
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <label class="labels">Status</label>
+                <div *ngIf="a.status === 'assigned'">
+                  <div class="progress" style="height: 35px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="25" aria-valuemin="25" aria-valuemax="100" style="width: 25%">
+                      <p id="status">{{a.status}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="a.status === 'work in progress'">
+                  <div class="progress" style="height: 35px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="25" aria-valuemax="100" style="width: 50%">
+                      <p id="status">{{a.status}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="a.status === 'pending'">
+                  <div class="progress" style="height: 35px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="25" aria-valuemax="100" style="width: 75%">
+                      <p id="status">{{a.status}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="a.status === 'resolved'">
+                  <div class="progress" style="height: 35px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="25" aria-valuemax="100" style="width: 100%">
+                      <p id="status">{{a.status}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <br />  <br />
+                <label class="labels">Appointment ID</label>
+                <div class="form-group">
+                  <input type="text" class="form-control" readonly="readonly" value="{{a.id}}">
+                </div><br />
+              </div>
+
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <br />  <br />
+                <label class="labels">Appointment date</label>
+                <div class="form-group">
+                  <input type="text" class="form-control" readonly="readonly" value="{{a.appointmentDate | date: 'EEEE, dd/MM/yyyy HH:mm'}}">
+                </div><br />
+              </div>
+              <ng-container *ngIf="currentUser.role == 'customer'">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <label class="labels">Specialist name</label>
+                  <div class="form-group">
+                    <input type="text" class="form-control" readonly="readonly" value="{{a.specialist.fullName}}">
+                  </div><br />
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <label class="labels">Specialist phone no.</label>
+                  <div class="form-group">
+                    <input type="text" class="form-control" readonly="readonly" value="{{a.specialist.phoneNumber}}">
+                  </div><br />
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="currentUser.role == 'specialist'">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <label class="labels">Customer name</label>
+                  <div class="form-group">
+                    <input type="text" class="form-control" readonly="readonly" value="{{a.customer.fullName}}">
+                  </div><br />
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <label class="labels">Customer phone no.</label>
+                  <div class="form-group">
+                    <input type="text" class="form-control" readonly="readonly" value="{{a.customer.phoneNumber}}">
+                  </div><br />
+                </div>
+              </ng-container>
+            </div>
+
+          </div>
+          <div class="panel-group" [attr.id]="'accordion_' + i">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <a data-toggle="collapse" [attr.data-parent]="'#accordion_' + i" [attr.href]="'#collapseOne_' + i">
+                  <p id="signup-text">More details</p><br />
+                </a>
+              </div>
+
+              <div [attr.id]="'collapseOne_' + i" class="panel-collapse collapse in">
+                <div class="row gutters">
+                  <ng-container *ngIf="currentUser.role == 'customer'">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                      <label class="labels">Customer name</label>
+                      <div class="form-group">
+                        <input type="text" class="form-control" readonly="readonly" value="{{a.customer.fullName}}">
+                      </div><br />
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                      <label class="labels">Customer phone no.</label>
+                      <div class="form-group">
+                        <input type="text" class="form-control" readonly="readonly" value="{{a.customer.phoneNumber}}">
+                      </div><br />
+                    </div>
+                  </ng-container>
+
+                  <ng-container *ngIf="currentUser.role == 'specialist'">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                      <label class="labels">Specialist name</label>
+                      <div class="form-group">
+                        <input type="text" class="form-control" readonly="readonly" value="{{a.specialist.fullName}}">
+                      </div><br />
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                      <label class="labels">Specialist phone no.</label>
+                      <div class="form-group">
+                        <input type="text" class="form-control" readonly="readonly" value="{{a.specialist.phoneNumber}}">
+                      </div><br />
+                    </div>
+                  </ng-container>
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                      <label class="labels">Company name</label>
+                      <div class="form-group">
+                        <input type="text" class="form-control" readonly="readonly" value="{{a.company.fullName}}">
+                      </div><br />
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                      <label class="labels">Company phone no.</label>
+                      <div class="form-group">
+                        <input type="text" class="form-control" readonly="readonly" value="{{a.company.phoneNumber}}">
+                      </div><br />
+                    </div>
+                </div><br />
+
+
+                <div class="row gutters">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <h6 class="mb-3 text-primary">Description</h6>
+                    <div class="form-group">
+                      <textarea class="form-control" readonly="readonly">{{a.description}}</textarea>
+                    </div>
+                  </div>
+                </div><br />
+                <br />
+                <br /><br />
+                      <div class="row gutters">
+                        <ng-container *ngFor="let customerDb of allCustomers">
+                          <ng-container *ngIf="selectCustomer(a.customer.id, customerDb.id)">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                              <h6 class="mb-3 text-primary">Customer address</h6>
+
+                              <input type="text" class="form-control" readonly="readonly" value={{customerDb.address}}><br />
+                              <div class="map-box">
+                                <iframe [src]="formatAddress(customerDb.address)" width="100%" height="250" frameborder="0" style="border:0" allowfullscreen=""></iframe>
+                              </div><br />
+
+
+                            </div><br /><br />
+                            <br />
+                            <br />
+                            <ng-container *ngIf="a.status !== 'resolved'">
+                              <input type="button" class="btn-check" id="btn-check" autocomplete="off" hidden value=false><br />
+                              <a href="appointments/{{a.id}}" class="btn btn-primary" for="btn-check">Edit</a>
+                          </ng-container>
+
+                          </ng-container>
+                          </ng-container>
+                          </div>
+
+</div>
+              <br />
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+

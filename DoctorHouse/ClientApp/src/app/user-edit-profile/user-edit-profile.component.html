@@ -1,0 +1,120 @@
+<div *ngIf="!goback.value">
+  <div class="container">
+    <div class="row gutters">
+
+      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+        <div class="card h-100">
+          <app-left-column-details></app-left-column-details>
+        </div>
+      </div>
+
+      <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+        <div class="card h-100">
+
+          <form [formGroup]="updateUser">
+            <div class="card-body">
+              <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <h6 class="mb-3 text-primary">Personal Details</h6>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <p id="labels">First name</p>
+                  <div class="form-group">
+                    <label for="firstName"></label>
+                    <input formControlName="firstName" type="text" class="form-control" id="firstName">
+                    <div *ngIf="firstName.touched && firstName.invalid" class="form-error">
+                      <div *ngIf="firstName.errors.required">First name is required</div>
+                      <div *ngIf="firstName.errors.minlength">First name should be minimum {{firstName.errors.minlength.requiredLength}} characters</div>
+                    </div>
+                  </div>
+                  <br />
+                </div>
+
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <p id="labels">Last name</p>
+                  <div class="form-group">
+                    <label for="lastName"></label>
+                    <input formControlName="lastName" type="text" class="form-control" id="lastName">
+                    <div *ngIf="lastName.touched && lastName.invalid" class="form-error">
+                      <div *ngIf="lastName.errors.required">Last name is required</div>
+                      <div *ngIf="lastName.errors.minlength">Last name should be minimum {{lastName.errors.minlength.requiredLength}} characters</div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <p id="labels">Mobile no.</p>
+                  <div class="form-group">
+                    <label for="phone"></label>
+                    <input formControlName="phone" type="text" class="form-control" id="phone">
+                    <div *ngIf="phone.touched && phone.invalid" class="form-error">
+                      <div *ngIf="phone.errors.required">Phone number is required</div>
+                      <div *ngIf="phone.errors.phoneIsNaN">Phone number can have only digits</div>
+                      <div *ngIf="phone.errors.phoneLength">Phone number must have exactly 9 characters</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <p id="labels">E-mail</p>
+                  <div class="form-group">
+                    <label for="email"></label>
+                    <input formControlName="email" type="text" class="form-control" id="email">
+                    <div *ngIf="email.touched && email.invalid" class="form-error">
+                      <div *ngIf="email.errors.required">Email is required</div>
+                      <div *ngIf="email.errors.email">Invalid email</div>
+                    </div>
+                  </div><br />
+                </div>
+              </div>
+              <br /><br />
+
+
+              <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <h6 class="mb-3 text-primary">Address</h6>
+
+                  <div class="form-group">
+                    <label for="address"></label>
+                    <input formControlName="address" type="text" class="form-control" id="address">
+                    <div *ngIf="address.touched && address.invalid" class="form-error">
+                      <div *ngIf="address.errors.required">Address is required</div>
+                      <div *ngIf="address.errors.minlength">Address too short!</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+            <div class="row gutters">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" id="save" type="submit" [disabled]="updateUser.invalid" (click)="update()">Save</button>
+              </div>
+            </div>
+          </form>
+
+          <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <form [formGroup]="backToProfile" class="goback">
+                <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off" hidden formControlName="goback" (click)="goBackToProfile($event)" value=false>
+                <label class="btn btn-primary" for="btn-check">Cancel</label>
+              </form>
+              <br />
+              <br />
+              </div>
+            </div>
+          </div>
+      </div>
+          </div>
+          <br />
+        </div>
+      </div>
+
+
+  <div *ngIf="goback.value">
+    <app-user-profile-card></app-user-profile-card>
+  </div>

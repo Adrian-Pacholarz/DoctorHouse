@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using DoctorHouse.ApiHelpers;
 
 namespace DoctorHouse
 {
@@ -30,11 +31,14 @@ namespace DoctorHouse
             services.AddDbContext<DoctorHouseDbContext>
                 (options => options.UseSqlServer($"Server={Environment.MachineName}\\SQLEXPRESS; Database=DrHouseDb; Integrated Security = true;"));
 
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<ISpecialistRepository, SpecialistRepository>();
+            services.AddScoped<IPhotoRepository, PhotoRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddControllersWithViews();
@@ -67,6 +71,8 @@ namespace DoctorHouse
             }
 
             app.UseRouting();
+
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

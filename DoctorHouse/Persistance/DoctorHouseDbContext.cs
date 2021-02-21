@@ -15,6 +15,7 @@ namespace DoctorHouse.Persistance
 
         public DbSet<SpecialistCompanies> SpecialistCompanies { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<Photo> Photos { get; set; }
 
         public DoctorHouseDbContext(DbContextOptions<DoctorHouseDbContext> options)
         : base(options)
@@ -42,6 +43,13 @@ namespace DoctorHouse.Persistance
             .HasOne(u => u.Details)
             .WithOne(ud => ud.User)
             .HasForeignKey<UserDetails>(ud => ud.UserId);
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Username)
+                .IsUnique();
+
+            modelBuilder.Entity<User>()
+                .HasDiscriminator(u => u.Discriminator);
 
 
             //many-to-many
@@ -95,8 +103,8 @@ namespace DoctorHouse.Persistance
                 );
 
             modelBuilder.Entity<SpecialistCompanies>().HasData(
-                new SpecialistCompanies { CompanyId = 1, SpecialistId = 1},
-                new SpecialistCompanies { CompanyId = 2, SpecialistId = 2 },
+                new SpecialistCompanies { CompanyId = 1, SpecialistId = 4},
+                new SpecialistCompanies { CompanyId = 2, SpecialistId = 5 },
                 new SpecialistCompanies { CompanyId = 1, SpecialistId = 3 },
                 new SpecialistCompanies { CompanyId = 2, SpecialistId = 3 }
                 );

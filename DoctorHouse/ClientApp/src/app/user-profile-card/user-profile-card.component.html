@@ -1,154 +1,79 @@
-<div class="container">
 
-  <div class="row gutters">
-    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-      <div class="card h-100">
-        <div class="card-body">
-          <div class="account-settings">
-            <div class="user-profile">
-              <div class="user-avatar">
-                <img src="../../assets/images/user2.png" alt="Maxwell Admin">
-              </div>
-              <h5 class="user-name">Dr House</h5>
-              <h6 class="user-email">drHouse@gmail.com</h6>
-            </div>
-            <div class="about">
-              <h5 class="mb-2 text-primary">About</h5>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit nisi sed sollicitudin pellentesque. </p>
-            </div>
-          </div>
+<div *ngIf="edit.value == false">
+  <div class="container">
+    <div class="row gutters">
+
+      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+        <div class="card h-100">
+          <app-left-column-details></app-left-column-details>
         </div>
       </div>
-    </div>
-    <br /><br />
 
+      <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+        <div class="card h-100">
 
+            <form [formGroup]="getUserForm">
+              <div class="card-body">
 
+                <div class="row gutters">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <h6 class="mb-3 text-primary">Personal Details</h6>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <label class="labels">First name</label>
+                    <div class="form-group">
+                      <input formControlName="firstName" type="text" class="form-control" readonly="readonly">
+                    </div><br />
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <label class="labels">Last name</label>
+                    <div class="form-group">
+                      <input formControlName="lastName" type="text" class="form-control" readonly="readonly">
+                    </div><br />
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <label class="labels">Mobile no.</label>
+                    <div class="form-group">
+                      <input formControlName="phone" type="text" class="form-control" readonly="readonly">
+                    </div><br />
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <label class="labels">Email</label>
+                    <div class="form-group">
+                      <input formControlName="email" type="text" class="form-control" readonly="readonly">
+                    </div><br />
+                  </div>
+                </div>
+                <br /><br />
 
-    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-      <div class="card h-100">
-        <div class="card-body">
-          <div class="row gutters">
-
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <h6 class="mb-3 text-primary" style="padding: 1rem;"><b>Personal Details</b></h6>
-            </div>
-
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <p id="label"><b>Name</b></p>
+                <div class="row gutters">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <h6 class="mb-3 text-primary">Address</h6>
+                    <div class="form-group">
+                      <input formControlName="address" type="text" class="form-control" readonly="readonly">
+                    </div><br />
+                    <div class="map-box">
+                      <iframe [src]="formatAddress()" width="100%" height="250" frameborder="0" style="border:0" allowfullscreen=""></iframe>
+                    </div>
+                  </div><br /><br />
+                </div>
               </div>
-            </div>
 
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <p id="label"><b>Phone no.</b></p>
-              </div>
-            </div>
+            </form>
+            <form [formGroup]="editProfile" *ngIf="currentUser.id == customerId" class="edit-profile">
+              <input type="button" class="btn-check" id="btn-check" autocomplete="off" hidden formControlName="edit" (click)="clickEditProfile()" value=false>
+              <label class="btn btn-primary" for="btn-check">Edit</label>
+            </form>
 
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <p id="data">Doctor</p>
-              </div>
-            </div>
+            <br /><br />
 
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <p id="data">12 676 12 98</p>
-              </div>
-            </div>
-            <br /><br><br />
-
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <p id="label"><b>Surname</b></p>
-              </div>
-            </div>
-
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <p id="label"><b>Mobile No.</b></p>
-              </div>
-            </div>
-
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <p id="data">House</p>
-              </div>
-            </div>
-
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <p id="data">666 712 234</p>
-              </div>
-            </div>
-
-          </div>
-          <br />
-
-
-          <div class="row gutters">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <h6 class="mb-3 text-primary" style="padding: 1rem;"><b>Address</b></h6>
-            </div>
-
-           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <p id="label"><b>Street</b></p>
-              </div>
-            </div>
-
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <p id="label"><b>House No.</b></p>
-              </div>
-            </div>
-
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <p id="data">ul. Usterki</p>
-              </div>
-            </div>
-
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <p id="data">3/44</p>
-              </div>
-            </div>
-            <br /><br><br />
-
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <p id="label"><b>Zip code</b></p>
-              </div>
-            </div>
-
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <p id="label"><b>City</b></p>
-              </div>
-            </div>
-
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <p id="data">31-000</p>
-              </div>
-            </div>
-
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <p id="data">Cracow</p>
-              </div>
-            </div>
-          </div>
-          <div class="row gutters">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-            </div>
-          </div>
         </div>
+
       </div>
     </div>
   </div>
-</div>
-<br /><br />
+ </div>
+
+  <div *ngIf="edit.value == true">
+    <app-user-edit-profile></app-user-edit-profile>
+  </div>

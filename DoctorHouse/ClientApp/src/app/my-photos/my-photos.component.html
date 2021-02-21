@@ -1,0 +1,25 @@
+
+<div id="photosCard" class="nav navbar-nav">
+  <div class="card h-100">
+
+    <div class="card-body">
+      <form [formGroup]="chooseUserPhoto">
+        <label *ngFor="let photo of photos">
+          <input formControlName="chosenPhoto" type="radio" value="{{photo.fileName}}"/>
+          <img src="/uploads/{{photo.fileName}}" class="img-thumbnail" />
+        </label>
+      </form>
+      <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit" [disabled]="chooseUserPhoto.pristine" (click)="submit()">Save changes</button>
+      <input type="file" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" (change)="uploadPhoto()" #fileInput>
+      <div class="progress" *ngIf="progress">
+        <div class="progress-bar" [style.width]="progress + '%'">
+          <span class="sr-only">{{progress}} % Complete</span>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+

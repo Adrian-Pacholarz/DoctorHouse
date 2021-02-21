@@ -1,0 +1,126 @@
+body {
+  margin-top: 20px;
+  color: #bcd0f7;
+  background: #1A233A;
+}
+
+#labels {
+  color: #97d3e1 !important;
+  font-size: 1rem;
+}
+
+.form-error {
+  font-size: small;
+  text-align: center;
+  opacity: 0.8;
+  color: #70FFFC;
+}
+
+label.btn.btn-primary {
+  color: #70FFFC;
+  border-color: #70FFFC;
+  background-color: transparent;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  width: 95%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+}
+
+  label.btn.btn-primary:hover {
+    color: #11234A;
+    font-weight: bold;
+    background-color: #70FFFC;
+  }
+
+.btn-outline-info {
+  color: #70FFFC;
+  border-color: #70FFFC;
+}
+
+#save {
+  width: 95%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+}
+
+  #save:hover {
+    color: #11234A;
+    font-weight: bold;
+    background-color: #70FFFC;
+  }
+
+#h5 {
+  color: #97d3e1 !important;
+  font-size: 1.4rem;
+  border: none;
+  text-align: center;
+}
+
+#h6 {
+  color: #6b97a4 !important;
+  font-size: 1rem;
+  border: none;
+  text-align: center;
+}
+
+
+.text-primary, h5.user-name {
+  color: #97d3e1 !important;
+  font-size: 1.4rem;
+}
+
+p {
+  color: #6b97a4 !important;
+  font-size: 1rem;
+}
+
+.account-settings .user-profile {
+  margin: 0 0 1rem 0;
+  padding-bottom: 1rem;
+  text-align: center;
+}
+
+  .account-settings .user-profile .user-avatar {
+    margin: 0 0 1rem 0;
+  }
+
+    .account-settings .user-profile .user-avatar img {
+      width: 90px;
+      height: 90px;
+      -webkit-border-radius: 100px;
+      -moz-border-radius: 100px;
+      border-radius: 100px;
+    }
+
+  .account-settings .user-profile h5.user-name {
+    margin: 0 0 0.5rem 0;
+  }
+
+.account-settings .user-profile {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.account-settings .about {
+  margin: 1rem 0 0 0;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.card {
+  background: #11234a;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  border: 0;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+user-avatar:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  opacity: 0.65;
+}

@@ -1,0 +1,16 @@
+#main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#center img{
+  max-width:100%;
+}
+
+#left-side img {
+  max-width: 100%;
+}
+
+#right-side img {
+  max-width: 100%;
+}
