@@ -14,6 +14,9 @@ C#, ASP.NET Core, Entity Framework Core, Angular 2, Typescript, SQL Server Expre
 ![main](https://user-images.githubusercontent.com/60843449/115459544-77119f80-a227-11eb-935b-c78d866273c2.PNG)
 ![specs](https://user-images.githubusercontent.com/60843449/115459845-cfe13800-a227-11eb-861c-7b2622f9366b.PNG)
 
+# Bottom
+![pagebottom](https://user-images.githubusercontent.com/60843449/115460088-1d5da500-a228-11eb-9330-b6b50df8290a.PNG)
+
 # Company's profile
 ![image](https://user-images.githubusercontent.com/60843449/107297724-39003e80-6a74-11eb-8c81-ab86a319d28a.png)
 ![image](https://user-images.githubusercontent.com/60843449/107297759-49b0b480-6a74-11eb-8627-e718cf716f6b.png)
